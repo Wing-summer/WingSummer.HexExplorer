@@ -1,0 +1,30 @@
+C:\Users\wingsummer\Desktop\Be.HexEditor-master\Be.Windows.Forms.HexBox\bin\Debug\Be.Windows.Forms.HexBox.xml
+C:\Users\wingsummer\Desktop\Be.HexEditor-master\Be.Windows.Forms.HexBox\bin\Debug\Be.Windows.Forms.HexBox.dll
+C:\Users\wingsummer\Desktop\Be.HexEditor-master\Be.Windows.Forms.HexBox\bin\Debug\Be.Windows.Forms.HexBox.pdb
+C:\Users\wingsummer\Desktop\Be.HexEditor-master\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.resources
+C:\Users\wingsummer\Desktop\Be.HexEditor-master\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.Properties.Resources.resources
+C:\Users\wingsummer\Desktop\Be.HexEditor-master\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.csproj.GenerateResource.cache
+C:\Users\wingsummer\Desktop\Be.HexEditor-master\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.csproj.CoreCompileInputs.cache
+C:\Users\wingsummer\Desktop\Be.HexEditor-master\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.dll
+C:\Users\wingsummer\Desktop\Be.HexEditor-master\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.pdb
+C:\Users\wingsummer\Desktop\Be.HexEditor-master\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.csproj.AssemblyReference.cache
+E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\bin\Debug\Be.Windows.Forms.HexBox.xml
+E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\bin\Debug\Be.Windows.Forms.HexBox.dll
+E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\bin\Debug\Be.Windows.Forms.HexBox.pdb
+E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.csproj.AssemblyReference.cache
+E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.resources
+E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.Properties.Resources.resources
+E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.csproj.GenerateResource.cache
+E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.csproj.CoreCompileInputs.cache
+E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.dll
+E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.pdb
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\bin\Debug\Be.Windows.Forms.HexBox.xml
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\bin\Debug\Be.Windows.Forms.HexBox.dll
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\bin\Debug\Be.Windows.Forms.HexBox.pdb
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.resources
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.Properties.Resources.resources
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.csproj.GenerateResource.cache
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.csproj.CoreCompileInputs.cache
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.dll
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.pdb
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Debug\Be.Windows.Forms.HexBox.csproj.AssemblyReference.cache

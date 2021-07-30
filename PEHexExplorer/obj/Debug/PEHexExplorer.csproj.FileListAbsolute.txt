@@ -1,0 +1,35 @@
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\bin\Debug\PEHexExplorer.exe.config
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\bin\Debug\PEHexExplorer.exe
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\bin\Debug\PEHexExplorer.pdb
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.csproj.AssemblyReference.cache
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.Properties.Resources.resources
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.csproj.GenerateResource.cache
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.csproj.CoreCompileInputs.cache
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.exe
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.pdb
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\bin\Debug\Be.Windows.Forms.HexBox.dll
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\bin\Debug\Be.Windows.Forms.HexBox.pdb
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\bin\Debug\Be.Windows.Forms.HexBox.xml
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.csproj.CopyComplete
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmMain.resources
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\bin\Debug\PEProcesser.dll
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\bin\Debug\PEProcesser.pdb
+E:\VsProject\C#\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmAbout.resources
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\PEHexExplorer.exe.config
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\PEHexExplorer.exe
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\PEHexExplorer.pdb
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\Be.Windows.Forms.HexBox.dll
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\PEProcesser.dll
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\Be.Windows.Forms.HexBox.pdb
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\Be.Windows.Forms.HexBox.xml
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\PEProcesser.pdb
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.csproj.AssemblyReference.cache
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmAbout.resources
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmMain.resources
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.Properties.Resources.resources
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.csproj.GenerateResource.cache
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.csproj.CoreCompileInputs.cache
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.csproj.CopyComplete
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.exe
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.pdb
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmGoto.resources

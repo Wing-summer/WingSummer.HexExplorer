@@ -1,0 +1,12 @@
+E:\VsProject\C#\PEHexExplorer\PEProcesser\obj\Debug\PEProcesser.csproj.AssemblyReference.cache
+E:\VsProject\C#\PEHexExplorer\PEProcesser\obj\Debug\PEProcesser.csproj.CoreCompileInputs.cache
+E:\VsProject\C#\PEHexExplorer\PEProcesser\bin\Debug\PEProcesser.dll
+E:\VsProject\C#\PEHexExplorer\PEProcesser\bin\Debug\PEProcesser.pdb
+E:\VsProject\C#\PEHexExplorer\PEProcesser\obj\Debug\PEProcesser.dll
+E:\VsProject\C#\PEHexExplorer\PEProcesser\obj\Debug\PEProcesser.pdb
+E:\VsProject\Open Source\PEHexExplorer\PEProcesser\bin\Debug\PEProcesser.dll
+E:\VsProject\Open Source\PEHexExplorer\PEProcesser\bin\Debug\PEProcesser.pdb
+E:\VsProject\Open Source\PEHexExplorer\PEProcesser\obj\Debug\PEProcesser.csproj.CoreCompileInputs.cache
+E:\VsProject\Open Source\PEHexExplorer\PEProcesser\obj\Debug\PEProcesser.dll
+E:\VsProject\Open Source\PEHexExplorer\PEProcesser\obj\Debug\PEProcesser.pdb
+E:\VsProject\Open Source\PEHexExplorer\PEProcesser\obj\Debug\PEProcesser.csproj.AssemblyReference.cache
