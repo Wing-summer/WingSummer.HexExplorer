@@ -569,7 +569,7 @@
         </member>
         <member name="M:Be.Windows.Forms.HexBox.CloseFile(System.Boolean)">
             <summary>
-            关闭文件
+            关闭并默认保存文件
             </summary>
             <param name="IsSave">如果该参数为False，则丢弃更改</param>
             <returns></returns>
@@ -1499,7 +1499,7 @@
         <member name="P:Be.Windows.Forms.HexBox.ColumnInfoBackColor">
             <summary>
             获取或设置列标号的背景色
-            </summary>  
+            </summary>
         </member>
         <member name="P:Be.Windows.Forms.HexBox.ShowColumnInfoBackColor">
             <summary>
@@ -1509,7 +1509,7 @@
         <member name="P:Be.Windows.Forms.HexBox.LineInfoBackColor">
             <summary>
             获取或设置列标号的背景色
-            </summary>  
+            </summary>
         </member>
         <member name="P:Be.Windows.Forms.HexBox.ShowLineInfoBackColor">
             <summary>

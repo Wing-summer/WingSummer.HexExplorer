@@ -1152,7 +1152,7 @@
             // 
             splitContainer2.Panel2.Controls.Add(this.propertyGridB);
             splitContainer2.Size = new System.Drawing.Size(450, 658);
-            splitContainer2.SplitterDistance = 249;
+            splitContainer2.SplitterDistance = 248;
             splitContainer2.TabIndex = 3;
             // 
             // checkedListBox1
@@ -1161,7 +1161,7 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(0, 0);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(450, 249);
+            this.checkedListBox1.Size = new System.Drawing.Size(450, 248);
             this.checkedListBox1.TabIndex = 3;
             // 
             // propertyGridB
@@ -1169,7 +1169,7 @@
             this.propertyGridB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGridB.Location = new System.Drawing.Point(0, 0);
             this.propertyGridB.Name = "propertyGridB";
-            this.propertyGridB.Size = new System.Drawing.Size(450, 405);
+            this.propertyGridB.Size = new System.Drawing.Size(450, 406);
             this.propertyGridB.TabIndex = 0;
             // 
             // ts11

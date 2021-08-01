@@ -42,9 +42,9 @@ namespace PEHexExplorer
             this.btnJmp = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.gbOffset = new System.Windows.Forms.GroupBox();
+            this.cbHex = new System.Windows.Forms.CheckBox();
             this.ntOffset = new PEHexExplorer.NumericTextbox(this.components);
             this.ntRow = new PEHexExplorer.NumericTextbox(this.components);
-            this.cbHex = new System.Windows.Forms.CheckBox();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             groupBox1 = new System.Windows.Forms.GroupBox();
@@ -100,10 +100,10 @@ namespace PEHexExplorer
             this.rbRow.Checked = true;
             this.rbRow.Location = new System.Drawing.Point(30, 17);
             this.rbRow.Name = "rbRow";
-            this.rbRow.Size = new System.Drawing.Size(88, 19);
+            this.rbRow.Size = new System.Drawing.Size(112, 19);
             this.rbRow.TabIndex = 4;
             this.rbRow.TabStop = true;
-            this.rbRow.Text = "行号跳转";
+            this.rbRow.Text = "行号跳转(&N)";
             this.rbRow.UseVisualStyleBackColor = true;
             this.rbRow.CheckedChanged += new System.EventHandler(this.rbGotoGroup_CheckedChanged);
             // 
@@ -112,9 +112,9 @@ namespace PEHexExplorer
             this.rbOffset.AutoSize = true;
             this.rbOffset.Location = new System.Drawing.Point(30, 54);
             this.rbOffset.Name = "rbOffset";
-            this.rbOffset.Size = new System.Drawing.Size(88, 19);
+            this.rbOffset.Size = new System.Drawing.Size(112, 19);
             this.rbOffset.TabIndex = 4;
-            this.rbOffset.Text = "偏移跳转";
+            this.rbOffset.Text = "偏移跳转(&O)";
             this.rbOffset.UseVisualStyleBackColor = true;
             this.rbOffset.CheckedChanged += new System.EventHandler(this.rbGotoGroup_CheckedChanged);
             // 
@@ -134,10 +134,10 @@ namespace PEHexExplorer
             this.rbBase.Checked = true;
             this.rbBase.Location = new System.Drawing.Point(22, 17);
             this.rbBase.Name = "rbBase";
-            this.rbBase.Size = new System.Drawing.Size(133, 19);
+            this.rbBase.Size = new System.Drawing.Size(157, 19);
             this.rbBase.TabIndex = 4;
             this.rbBase.TabStop = true;
-            this.rbBase.Text = "从文件基址开始";
+            this.rbBase.Text = "从文件基址开始(&B)";
             this.rbBase.UseVisualStyleBackColor = true;
             // 
             // rbCur
@@ -145,16 +145,16 @@ namespace PEHexExplorer
             this.rbCur.AutoSize = true;
             this.rbCur.Location = new System.Drawing.Point(22, 54);
             this.rbCur.Name = "rbCur";
-            this.rbCur.Size = new System.Drawing.Size(133, 19);
+            this.rbCur.Size = new System.Drawing.Size(157, 19);
             this.rbCur.TabIndex = 4;
-            this.rbCur.Text = "从当前当前开始";
+            this.rbCur.Text = "从当前当前开始(&C)";
             this.rbCur.UseVisualStyleBackColor = true;
             // 
             // btnJmp
             // 
             this.btnJmp.Location = new System.Drawing.Point(26, 208);
             this.btnJmp.Name = "btnJmp";
-            this.btnJmp.Size = new System.Drawing.Size(172, 43);
+            this.btnJmp.Size = new System.Drawing.Size(161, 43);
             this.btnJmp.TabIndex = 0;
             this.btnJmp.Text = "跳转";
             this.btnJmp.UseVisualStyleBackColor = true;
@@ -165,7 +165,7 @@ namespace PEHexExplorer
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(204, 208);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(172, 43);
+            this.btnCancel.Size = new System.Drawing.Size(161, 43);
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -181,6 +181,18 @@ namespace PEHexExplorer
             this.gbOffset.TabStop = false;
             this.gbOffset.Text = "偏移方式";
             // 
+            // cbHex
+            // 
+            this.cbHex.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbHex.Location = new System.Drawing.Point(371, 208);
+            this.cbHex.Name = "cbHex";
+            this.cbHex.Size = new System.Drawing.Size(75, 43);
+            this.cbHex.TabIndex = 6;
+            this.cbHex.Text = "Hex(&H)";
+            this.cbHex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbHex.UseVisualStyleBackColor = true;
+            this.cbHex.CheckedChanged += new System.EventHandler(this.cbHex_CheckedChanged);
+            // 
             // ntOffset
             // 
             this.ntOffset.Enabled = false;
@@ -195,18 +207,6 @@ namespace PEHexExplorer
             this.ntRow.Name = "ntRow";
             this.ntRow.Size = new System.Drawing.Size(149, 25);
             this.ntRow.TabIndex = 2;
-            // 
-            // cbHex
-            // 
-            this.cbHex.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cbHex.Location = new System.Drawing.Point(382, 208);
-            this.cbHex.Name = "cbHex";
-            this.cbHex.Size = new System.Drawing.Size(64, 43);
-            this.cbHex.TabIndex = 6;
-            this.cbHex.Text = "Hex";
-            this.cbHex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cbHex.UseVisualStyleBackColor = true;
-            this.cbHex.CheckedChanged += new System.EventHandler(this.cbHex_CheckedChanged);
             // 
             // FrmGoto
             // 

@@ -451,13 +451,18 @@ namespace Be.Windows.Forms
             _recContent.Width -= _recBorderRight + _recBorderLeft;
             _recContent.Height -= _recBorderBottom + _recBorderTop;
 
+            /*垂直滚动条显示时*/
             if (_vScrollBarVisible)
             {
-                _recContent.Width -= _vScrollBar.Width;
+                if (_iHexMaxBytes<=_byteProvider?.Length)
+                {
+                    _recContent.Width -= _vScrollBar.Width;
+                    requiredWidth += _vScrollBar.Width;
+                }
+
                 _vScrollBar.Left = _recContent.X + _recContent.Width;
                 _vScrollBar.Top = _recContent.Y;
                 _vScrollBar.Height = _recContent.Height;
-                requiredWidth += _vScrollBar.Width;
             }
 
             // calc line info bounds
@@ -494,7 +499,7 @@ namespace Be.Windows.Forms
                 _recContent.Width - _recLineInfo.Width,
                 _recContent.Height - _recColumnInfo.Height);
 
-            if (UseFixedBytesPerLine)
+            if (_useFixedBytesPerLine)
             {
                 SetHorizontalByteCount(_bytesPerLine);
                 _recHex.Width = (int)Math.Floor(((double)_iHexMaxHBytes) * _charSize.Width * 3 + (2 * _charSize.Width));
@@ -540,9 +545,12 @@ namespace Be.Windows.Forms
             RequiredWidth = requiredWidth;
 
             /*水平滚动条添加*/
-            if (_hScrollBarVisible && requiredWidth > ClientRectangle.Width)
+            if (_hScrollBarVisible)
             {
+                if (requiredWidth > ClientRectangle.Width)
+                {
                 _recContent.Height -= _hScrollBar.Height;
+                }
                 _hScrollBar.Left = _recContent.X;
                 _hScrollBar.Top = _recContent.Y + _recContent.Height;
                 _hScrollBar.Width = _recContent.Width;

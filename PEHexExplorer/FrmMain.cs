@@ -171,6 +171,11 @@ namespace PEHexExplorer
 
         private void MIFill_Click(object sender, EventArgs e)
         {
+            FrmFill frmFill = FrmFill.Instance;
+            if (frmFill.ShowDialog()== DialogResult.OK)
+            {
+
+            }
         }
 
         private void MIFillZero_Click(object sender, EventArgs e)
@@ -189,6 +194,8 @@ namespace PEHexExplorer
 
         private void MIGeneral_Click(object sender, EventArgs e)
         {
+            FrmSetting setting = FrmSetting.Instance;
+            setting.ShowDialog();
         }
 
         private void MIPlugin_Click(object sender, EventArgs e)

@@ -102,7 +102,7 @@ namespace Be.Windows.Forms
         }
 
         /// <summary>
-        /// 关闭文件
+        /// 关闭并默认保存文件
         /// </summary>
         /// <param name="IsSave">如果该参数为False，则丢弃更改</param>
         /// <returns></returns>

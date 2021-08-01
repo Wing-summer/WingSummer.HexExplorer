@@ -4,6 +4,7 @@
 本软件由纯C#编写，基于我改良的Be.Windows.Forms.HexBox组件( https://gitee.com/wingsummer/be.-windows.-forms.-hex-box )【MIT协议】。目的是方便专业人士修改分析PE文件，并可作为学习PE结构的重要辅助工具。
 
 #### 软件架构
+软件架构说明
 
 1. Be.Windows.Forms.HexBox ：本组件由我改良的十六进制编辑组件Be.Windows.Forms.HexBox进一步增进使用，增加支持水平滚动条和一些其他接口（例如填充支持撤销恢复更改的数据接口）和代码整理，详情请看代码，现组件遵循本仓库的协议。
 2. PEProcesser ：解析PE结构的重要组件，由本人编写，由于本人知识限制，dot平台的PE结构可能支持不完善，普通PE文件有些查询接口未编写封装，欢迎 issue 或者 pull request，本组件遵循本仓库协议。

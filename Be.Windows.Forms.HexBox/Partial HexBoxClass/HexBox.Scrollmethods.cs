@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Be.Windows.Forms
@@ -160,7 +161,7 @@ namespace Be.Windows.Forms
         {
             Debug.WriteLine("UpdateHScrollSize()", "HexBox");
             // calc scroll bar info
-            if (HScrollBarVisible && _byteProvider != null && _byteProvider.Length > 0 && _iHexMaxVBytes != 0)
+            if (_hScrollBarVisible)
             {
                 long scrollmax = Math.Abs(_requiredWidth - ClientRectangle.Width);
 
@@ -182,7 +183,7 @@ namespace Be.Windows.Forms
                 _scrollHpos = Math.Min(scrollpos, scrollmax);
                 UpdateHScroll();
             }
-            else if (HScrollBarVisible)
+            else if (_hScrollBarVisible)
             {
                 // disable scroll bar
                 _scrollHmin = 0;
@@ -197,7 +198,7 @@ namespace Be.Windows.Forms
             Debug.WriteLine("UpdateVScrollSize()", "HexBox");
 
             // calc scroll bar info
-            if (VScrollBarVisible && _byteProvider != null && _byteProvider.Length > 0 && _iHexMaxHBytes != 0)
+            if (_vScrollBarVisible && _byteProvider != null && _byteProvider.Length > 0 && _iHexMaxHBytes != 0)
             {
                 long scrollmax = (long)Math.Ceiling((_byteProvider.Length + 1) / (double)_iHexMaxHBytes - _iHexMaxVBytes);
                 scrollmax = Math.Max(0, scrollmax);
@@ -220,7 +221,7 @@ namespace Be.Windows.Forms
                 _scrollVpos = Math.Min(scrollpos, scrollmax);
                 UpdateVScroll();
             }
-            else if (VScrollBarVisible)
+            else if (_vScrollBarVisible)
             {
                 // disable scroll bar
                 _scrollVmin = 0;
@@ -447,6 +448,7 @@ namespace Be.Windows.Forms
 
         private void PerformHScrollThumpPosition(long pos)
         {
+
             // Bug fix: Scroll to end, do not scroll to end
             int difference = (_scrollHmax > 65535) ? 10 : 9;
 
@@ -480,16 +482,22 @@ namespace Be.Windows.Forms
 
             if (index < _startByte)
             {
-                long line = (long)Math.Floor((double)index / _iHexMaxHBytes);
-                PerformVScrollThumpPosition(line);
-                PerformHScrollThumpPosition(index - line * _iHexMaxHBytes);
+                Point point = GetGridBytePoint(index);
+                PerformVScrollThumpPosition(point.Y);
+
+                //if (_hScrollBar.Visible && !_recContent.Contains(point))
+                //{
+                //    PerformHScrollThumpPosition(point.X);
+                //}
             }
             else if (index > _endByte)
             {
-                long line = (long)Math.Floor((double)index / _iHexMaxHBytes);
-                line -= _iHexMaxVBytes - 1;
-                PerformVScrollThumpPosition(line);
-                PerformHScrollThumpPosition(index - line * _iHexMaxHBytes);
+                Point point = GetGridBytePoint(index);
+                PerformVScrollThumpPosition(point.Y- _iHexMaxVBytes - 1);
+                //if (_hScrollBar.Visible && !_recContent.Contains(point))
+                //{
+                //    PerformHScrollThumpPosition(point.X-_iHexMaxHBytes-1);
+                //}
             }
         }
 

@@ -161,7 +161,7 @@ namespace Be.Windows.Forms
 
                 Keys vc = (Keys)m.WParam.ToInt32();
 
-                Keys keyData = vc | Control.ModifierKeys;
+                Keys keyData = vc | ModifierKeys;
 
                 // detect whether key down event should be raised
                 var hasMessageHandler = MessageHandlers.ContainsKey(keyData);
@@ -177,7 +177,7 @@ namespace Be.Windows.Forms
 
             protected bool PreProcessWmKeyDown_Default(ref Message m)
             {
-                _hexBox.ScrollByteIntoView();
+                 _hexBox.ScrollByteIntoView();
                 return _hexBox.BasePreProcessMessage(ref m);
             }
 
