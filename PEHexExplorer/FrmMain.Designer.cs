@@ -57,6 +57,7 @@
             System.Windows.Forms.SplitContainer splitContainer2;
             System.Windows.Forms.ToolStripSeparator ts11;
             System.Windows.Forms.ToolStripSeparator ts12;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.LblScale = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.Slbl3 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -129,6 +130,7 @@
             this.LblSaved = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblWritable = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblLocked = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblInsert = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblFilename = new System.Windows.Forms.ToolStripStatusLabel();
             this.TMISelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.oD = new System.Windows.Forms.OpenFileDialog();
@@ -139,7 +141,6 @@
             this.TMIFind = new System.Windows.Forms.ToolStripMenuItem();
             this.TMIJmp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.lblInsert = new System.Windows.Forms.ToolStripStatusLabel();
             statusStrip2 = new System.Windows.Forms.StatusStrip();
             Slbl1 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -713,10 +714,12 @@
             this.hexBox.TabIndex = 0;
             this.hexBox.UseFixedBytesPerLine = true;
             this.hexBox.VScrollBarVisible = true;
-            this.hexBox.SelectionLengthChanged += new System.EventHandler(this.hexBox_SelectionLengthChanged);
-            this.hexBox.CurrentLineChanged += new System.EventHandler(this.hexBox_CurrentLineChanged);
-            this.hexBox.CurrentPositionInLineChanged += new System.EventHandler(this.hexBox_CurrentPositionInLineChanged);
-            this.hexBox.ScalingChanged += new System.EventHandler(this.hexBox_ScalingChanged);
+            this.hexBox.InsertActiveChanged += new System.EventHandler(this.HexBox_InsertActiveChanged);
+            this.hexBox.SelectionLengthChanged += new System.EventHandler(this.HexBox_SelectionLengthChanged);
+            this.hexBox.CurrentLineChanged += new System.EventHandler(this.HexBox_CurrentLineChanged);
+            this.hexBox.CurrentPositionInLineChanged += new System.EventHandler(this.HexBox_CurrentPositionInLineChanged);
+            this.hexBox.ScalingChanged += new System.EventHandler(this.HexBox_ScalingChanged);
+            this.hexBox.ContentChanged += new System.EventHandler(this.HexBox_ContentChanged);
             // 
             // toolStrip
             // 
@@ -1249,9 +1252,22 @@
             this.lblLocked.Tag = "1";
             this.lblLocked.Text = "🔒";
             this.lblLocked.ToolTipText = "越界锁";
-            this.lblLocked.Click += new System.EventHandler(this.lblLocked_Click);
+            this.lblLocked.Click += new System.EventHandler(this.LblLocked_Click);
             this.lblLocked.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.lblLocked.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
+            // 
+            // lblInsert
+            // 
+            this.lblInsert.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.lblInsert.ForeColor = System.Drawing.Color.Red;
+            this.lblInsert.Name = "lblInsert";
+            this.lblInsert.Size = new System.Drawing.Size(34, 24);
+            this.lblInsert.Tag = "1";
+            this.lblInsert.Text = "✍";
+            this.lblInsert.ToolTipText = "插入模式";
+            this.lblInsert.Click += new System.EventHandler(this.LblInsert_Click);
+            this.lblInsert.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
+            this.lblInsert.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
             // 
             // LblFilename
             // 
@@ -1312,19 +1328,6 @@
             // 
             this.toolTip.ShowAlways = true;
             // 
-            // lblInsert
-            // 
-            this.lblInsert.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.lblInsert.ForeColor = System.Drawing.Color.Red;
-            this.lblInsert.Name = "lblInsert";
-            this.lblInsert.Size = new System.Drawing.Size(34, 24);
-            this.lblInsert.Tag = "1";
-            this.lblInsert.Text = "✍";
-            this.lblInsert.ToolTipText = "插入模式";
-            this.lblInsert.Click += new System.EventHandler(this.lblInsert_Click);
-            this.lblInsert.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
-            this.lblInsert.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1335,6 +1338,7 @@
             this.Controls.Add(MainMenu);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = MainMenu;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmMain";

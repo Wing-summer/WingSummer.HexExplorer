@@ -480,28 +480,15 @@ namespace Be.Windows.Forms
             if (_byteProvider == null || _keyInterpreter == null)
                 return;
 
-            if (index < _startByte)
+            Point point = GetGridBytePoint(index);
+            PointF pointF = GetBytePointF(point);
+            /*增添水平滚动条的更新位置并修复Bug*/
+            if (_hScrollBar.Visible && (ClientRectangle.X > pointF.X || ClientRectangle.X + ClientRectangle.Width / 2 < pointF.X))
             {
-                Point point = GetGridBytePoint(index);
                 PerformVScrollThumpPosition(point.Y);
-                PointF pointF = GetBytePointF(point);
-                /*水平滚动条重定位*/
-                if (_hScrollBar.Visible && (ClientRectangle.X > pointF.X || ClientRectangle.X+ClientRectangle.Width/2 < pointF.X))
-                {
-                    PerformHScrollThumpPosition((long)_charSize.Width * point.X);
-                }
+                PerformHScrollThumpPosition((long)_charSize.Width * point.X);
             }
-            else if (index > _endByte)
-            {
-                Point point = GetGridBytePoint(index);
-                PerformVScrollThumpPosition(point.Y - _iHexMaxVBytes - 1);
-                PointF pointF = GetBytePointF(point);
-                /*水平滚动条重定位*/
-                if (_hScrollBar.Visible && (ClientRectangle.X > pointF.X || ClientRectangle.X + ClientRectangle.Width / 2 < pointF.X))
-                {
-                    PerformHScrollThumpPosition((long) _charSize.Width * point.X );
-                }
-            }
+
         }
 
         /// <summary>

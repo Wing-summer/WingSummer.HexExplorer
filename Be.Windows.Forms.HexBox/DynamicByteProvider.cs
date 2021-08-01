@@ -17,7 +17,7 @@ namespace Be.Windows.Forms
         /// <summary>
         /// Contains a byte collection.
         /// </summary>
-        private List<byte> _bytes;
+        private readonly List<byte> _bytes;
 
         /// <summary>
         /// Initializes a new instance of the DynamicByteProvider class.
@@ -43,8 +43,7 @@ namespace Be.Windows.Forms
         {
             _hasChanges = true;
 
-            if (Changed != null)
-                Changed(this, e);
+            Changed?.Invoke(this, e);
         }
 
         /// <summary>
@@ -52,14 +51,13 @@ namespace Be.Windows.Forms
         /// </summary>
         private void OnLengthChanged(EventArgs e)
         {
-            if (LengthChanged != null)
-                LengthChanged(this, e);
+            LengthChanged?.Invoke(this, e);
         }
 
         /// <summary>
         /// Gets the byte collection.
         /// </summary>
-        public List<Byte> Bytes
+        public List<byte> Bytes
         {
             get { return _bytes; }
         }

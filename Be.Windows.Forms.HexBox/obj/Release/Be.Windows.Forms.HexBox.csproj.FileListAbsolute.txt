@@ -14,3 +14,11 @@ E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\obj\Release\Be.Windows.Forms.P
 E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\obj\Release\Be.Windows.Forms.HexBox.csproj.GenerateResource.cache
 E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\obj\Release\Be.Windows.Forms.HexBox.csproj.CoreCompileInputs.cache
 E:\VsProject\Be.HexEditor\Be.Windows.Forms.HexBox\obj\Release\Be.Windows.Forms.HexBox.dll
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\bin\Release\Be.Windows.Forms.HexBox.xml
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\bin\Release\Be.Windows.Forms.HexBox.dll
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Release\Be.Windows.Forms.HexBox.csproj.AssemblyReference.cache
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Release\Be.Windows.Forms.HexBox.resources
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Release\Be.Windows.Forms.Properties.Resources.resources
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Release\Be.Windows.Forms.HexBox.csproj.GenerateResource.cache
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Release\Be.Windows.Forms.HexBox.csproj.CoreCompileInputs.cache
+E:\VsProject\Open Source\PEHexExplorer\Be.Windows.Forms.HexBox\obj\Release\Be.Windows.Forms.HexBox.dll

@@ -15,6 +15,10 @@ namespace PEHexExplorer
 
         private PointF pos = new PointF(0, 0);
 
+        private readonly Color EnabledColor = Color.Green;
+        private readonly Color DisabledColor = Color.Red;
+
+
         public FrmMain()
         {
             InitializeComponent();
@@ -34,18 +38,18 @@ namespace PEHexExplorer
             }
         }
 
-        private void hexBox_ScalingChanged(object sender, EventArgs e)
+        private void HexBox_ScalingChanged(object sender, EventArgs e)
         {
             LblScale.Text = string.Format("{0}%", hexBox.Scaling * 100);
         }
 
-        private void hexBox_CurrentLineChanged(object sender, EventArgs e)
+        private void HexBox_CurrentLineChanged(object sender, EventArgs e)
         {
             pos.X = hexBox.CurrentLine;
             LblLocation.Text = string.Format("({0},{1})", pos.X - 1, pos.Y - 1);
         }
 
-        private void hexBox_CurrentPositionInLineChanged(object sender, EventArgs e)
+        private void HexBox_CurrentPositionInLineChanged(object sender, EventArgs e)
         {
             pos.Y = hexBox.CurrentPositionInLine;
             LblLocation.Text = string.Format("({0},{1})", pos.X - 1, pos.Y - 1);
@@ -122,7 +126,7 @@ namespace PEHexExplorer
 
         private void MIExport_Click(object sender, EventArgs e)
         {
-            sD.Filter = string.Format("{0}文件|*.{0}");
+            sD.Filter = string.Format($"{{0}}文件|*.{{0}}", EditFileExt);
             if (sD.ShowDialog() == DialogResult.OK)
             {
                 hexBox.SaveFile(sD.FileName);
@@ -132,7 +136,10 @@ namespace PEHexExplorer
 
         private void MIAboutThis_Click(object sender, EventArgs e)
         {
-            FrmAbout.Instance.ShowDialog();
+            using (FrmAbout frmAbout= FrmAbout.Instance)
+            {
+                frmAbout.ShowDialog();
+            }
         }
 
         private void MIDel_Click(object sender, EventArgs e)
@@ -154,12 +161,10 @@ namespace PEHexExplorer
 
         private void MINewInsert_Click(object sender, EventArgs e)
         {
-
             using (FrmInsert frmInsert = FrmInsert.Instance)
             {
                 if (frmInsert.ShowDialog() == DialogResult.OK)
                 {
-
                     hexBox.ByteProvider.InsertBytes(hexBox.SelectionStart, frmInsert.Result.buffer);
                     hexBox.Invalidate();
                 }
@@ -168,21 +173,26 @@ namespace PEHexExplorer
 
         private void MIFind_Click(object sender, EventArgs e)
         {
+            FrmFind frmFind = FrmFind.Instance;
+            frmFind.HexBox = hexBox;
+            frmFind.Show(this);
         }
 
         private void MIJmp_Click(object sender, EventArgs e)
         {
-            FrmGoto frmGoto = FrmGoto.Instance;
-            if (frmGoto.ShowDialog() == DialogResult.OK)
+            using (FrmGoto frmGoto = FrmGoto.Instance)
             {
-                FrmGoto.GotoResult result = frmGoto.Result;
-                if (result.IsRow)
+                if (frmGoto.ShowDialog() == DialogResult.OK)
                 {
-                    hexBox.ScrollLineIntoView((long)result.Number);
-                }
-                else
-                {
-                    hexBox.GotoByOffset((long)result.Number, result.IsFromBase);
+                    FrmGoto.GotoResult result = frmGoto.Result;
+                    if (result.IsRow)
+                    {
+                        hexBox.ScrollLineIntoView((long)result.Number);
+                    }
+                    else
+                    {
+                        hexBox.GotoByOffset((long)result.Number, result.IsFromBase);
+                    }
                 }
             }
         }
@@ -216,8 +226,10 @@ namespace PEHexExplorer
 
         private void MIGeneral_Click(object sender, EventArgs e)
         {
-            FrmSetting setting = FrmSetting.Instance;
-            setting.ShowDialog();
+            using (FrmSetting setting = FrmSetting.Instance)
+            {
+                setting.ShowDialog();
+            }
         }
 
         private void MIPlugin_Click(object sender, EventArgs e)
@@ -290,7 +302,7 @@ namespace PEHexExplorer
             tbClose.Enabled = true;
         }
 
-        private void hexBox_SelectionLengthChanged(object sender, EventArgs e)
+        private void HexBox_SelectionLengthChanged(object sender, EventArgs e)
         {
             LblLen.Text = string.Format("{0:D} - 0x{0:X}", hexBox.SelectionLength);
         }
@@ -329,14 +341,39 @@ namespace PEHexExplorer
 
         #endregion
 
-        private void lblInsert_Click(object sender, EventArgs e)
+        private void LblInsert_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void lblLocked_Click(object sender, EventArgs e)
+        private void LblLocked_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void HexBox_InsertActiveChanged(object sender, EventArgs e)
+        {
+            if (hexBox.InsertActive)
+            {
+                lblInsert.ForeColor = EnabledColor;
+            }
+            else
+            {
+                lblInsert.ForeColor = DisabledColor;
+            }
+                        
+        }
+
+        private void HexBox_ContentChanged(object sender, EventArgs e)
+        {
+            if (hexBox.ByteProvider.HasChanges())
+            {
+                LblSaved.ForeColor = DisabledColor;
+            }
+            else
+            {
+                LblSaved.ForeColor = EnabledColor;
+            }
         }
     }
 }

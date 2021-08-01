@@ -34,12 +34,12 @@ namespace PEHexExplorer
             System.Windows.Forms.GroupBox groupBox1;
             System.Windows.Forms.Panel panel1;
             System.Windows.Forms.Panel panel2;
+            System.Windows.Forms.Button btnJmp;
+            System.Windows.Forms.Button btnCancel;
             this.rbRow = new System.Windows.Forms.RadioButton();
             this.rbOffset = new System.Windows.Forms.RadioButton();
             this.rbBase = new System.Windows.Forms.RadioButton();
             this.rbCur = new System.Windows.Forms.RadioButton();
-            this.btnJmp = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.gbOffset = new System.Windows.Forms.GroupBox();
             this.cbHex = new System.Windows.Forms.CheckBox();
             this.ntOffset = new System.Windows.Forms.NumericUpDown();
@@ -49,6 +49,8 @@ namespace PEHexExplorer
             groupBox1 = new System.Windows.Forms.GroupBox();
             panel1 = new System.Windows.Forms.Panel();
             panel2 = new System.Windows.Forms.Panel();
+            btnJmp = new System.Windows.Forms.Button();
+            btnCancel = new System.Windows.Forms.Button();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -153,23 +155,23 @@ namespace PEHexExplorer
             // 
             // btnJmp
             // 
-            this.btnJmp.Location = new System.Drawing.Point(26, 208);
-            this.btnJmp.Name = "btnJmp";
-            this.btnJmp.Size = new System.Drawing.Size(161, 43);
-            this.btnJmp.TabIndex = 0;
-            this.btnJmp.Text = "跳转";
-            this.btnJmp.UseVisualStyleBackColor = true;
-            this.btnJmp.Click += new System.EventHandler(this.btnJmp_Click);
+            btnJmp.Location = new System.Drawing.Point(26, 208);
+            btnJmp.Name = "btnJmp";
+            btnJmp.Size = new System.Drawing.Size(161, 43);
+            btnJmp.TabIndex = 0;
+            btnJmp.Text = "跳转";
+            btnJmp.UseVisualStyleBackColor = true;
+            btnJmp.Click += new System.EventHandler(this.btnJmp_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(204, 208);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(161, 43);
-            this.btnCancel.TabIndex = 0;
-            this.btnCancel.Text = "取消";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            btnCancel.Location = new System.Drawing.Point(204, 208);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new System.Drawing.Size(161, 43);
+            btnCancel.TabIndex = 0;
+            btnCancel.Text = "取消";
+            btnCancel.UseVisualStyleBackColor = true;
             // 
             // gbOffset
             // 
@@ -210,10 +212,10 @@ namespace PEHexExplorer
             // 
             // FrmGoto
             // 
-            this.AcceptButton = this.btnJmp;
+            this.AcceptButton = btnJmp;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnCancel;
+            this.CancelButton = btnCancel;
             this.ClientSize = new System.Drawing.Size(474, 268);
             this.Controls.Add(this.ntOffset);
             this.Controls.Add(this.ntRow);
@@ -222,8 +224,8 @@ namespace PEHexExplorer
             this.Controls.Add(groupBox1);
             this.Controls.Add(label2);
             this.Controls.Add(label1);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnJmp);
+            this.Controls.Add(btnCancel);
+            this.Controls.Add(btnJmp);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmGoto";
@@ -245,9 +247,6 @@ namespace PEHexExplorer
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnJmp;
-        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.RadioButton rbRow;
         private System.Windows.Forms.RadioButton rbOffset;
         private System.Windows.Forms.RadioButton rbBase;

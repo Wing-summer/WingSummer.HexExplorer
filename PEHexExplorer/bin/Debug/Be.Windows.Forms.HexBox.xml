@@ -915,6 +915,11 @@
             Occurs, when the value of VScrollBarVisible property has changed.
             </summary>
         </member>
+        <member name="E:Be.Windows.Forms.HexBox.HScrollBarVisibleChanged">
+            <summary>
+            当 HScrollBarVisible 属性改变完成后会触发该事件
+            </summary>
+        </member>
         <member name="E:Be.Windows.Forms.HexBox.HexCasingChanged">
             <summary>
             Occurs, when the value of HexCasing property has changed.
@@ -963,6 +968,11 @@
         <member name="E:Be.Windows.Forms.HexBox.ScalingChanged">
             <summary>
             当Scaling(缩放)属性更改时会触发该事件
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.HexBox.ContentChanged">
+            <summary>
+            当有更改完成后会触发该事件
             </summary>
         </member>
         <member name="F:Be.Windows.Forms.HexBox._recContent">

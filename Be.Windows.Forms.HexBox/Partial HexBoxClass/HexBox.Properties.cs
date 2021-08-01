@@ -197,7 +197,7 @@ namespace Be.Windows.Forms
                 UpdateRectanglePositioning();
                 UpdateHScrollSize();
 
-                VScrollBarVisibleChanged?.Invoke(this, null);
+                HScrollBarVisibleChanged?.Invoke(this, null);
             }
         }
 
@@ -221,13 +221,19 @@ namespace Be.Windows.Forms
                     ActivateKeyInterpreter();
 
                 if (_byteProvider != null)
+                { 
                     _byteProvider.LengthChanged -= new EventHandler(ByteProvider_LengthChanged);
-
+                    _byteProvider.Changed -= ByteProvider_Changed;
+                }
                 _byteProvider = value;
                 if (_byteProvider != null)
+                {
                     _byteProvider.LengthChanged += new EventHandler(ByteProvider_LengthChanged);
+                    _byteProvider.Changed += ByteProvider_Changed;
+                }
 
-                ByteProviderChanged?.Invoke(this, null);
+
+                ByteProviderChanged?.Invoke(this, EventArgs.Empty);
 
                 if (value == null) // do not raise events if value is null
                 {
@@ -258,6 +264,11 @@ namespace Be.Windows.Forms
 
                 Invalidate();
             }
+        }
+
+        private void ByteProvider_Changed(object sender, EventArgs e)
+        {
+            ContentChanged?.Invoke(sender,e);
         }
 
         private IByteProvider _byteProvider;

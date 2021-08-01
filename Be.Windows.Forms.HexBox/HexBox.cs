@@ -451,7 +451,7 @@ namespace Be.Windows.Forms
             _recContent.Width -= _recBorderRight + _recBorderLeft;
             _recContent.Height -= _recBorderBottom + _recBorderTop;
 
-            /*垂直滚动条显示时*/
+            /*垂直滚动条要求显示时*/
             if (_vScrollBarVisible)
             {
                 if (_iHexMaxBytes<=_byteProvider?.Length)
@@ -549,7 +549,15 @@ namespace Be.Windows.Forms
             {
                 if (requiredWidth > ClientRectangle.Width)
                 {
-                _recContent.Height -= _hScrollBar.Height;
+                    /*修复Bug*/
+                    int offset = _hScrollBar.Height;
+                    _recContent.Height -= offset;
+                    _recHex.Height -= offset;
+                    if (_lineInfoVisible)
+                        _recLineInfo.Height -= offset;
+                    if (_stringViewVisible)
+                        _recStringView.Height -= offset;
+                    /*=====================*/
                 }
                 _hScrollBar.Left = _recContent.X;
                 _hScrollBar.Top = _recContent.Y + _recContent.Height;
@@ -768,8 +776,8 @@ namespace Be.Windows.Forms
             }
         }
 
-        private Stack<ModifiedData> UndoStack = new Stack<ModifiedData>();
-        private Stack<ModifiedData> RedoStack = new Stack<ModifiedData>();
+        private readonly Stack<ModifiedData> UndoStack = new Stack<ModifiedData>();
+        private readonly Stack<ModifiedData> RedoStack = new Stack<ModifiedData>();
 
         /// <summary>
         /// 生成操作历史快照

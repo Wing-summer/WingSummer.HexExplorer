@@ -680,8 +680,16 @@ namespace Be.Windows.Forms
                         _hexBox._byteProvider.WriteByte(pos, newcb);
 
                     PerformPosMoveRight();
+                    if (!_hexBox._vScrollBar.Visible||!_hexBox._hScrollBar.Visible)
+                    {
+                        _hexBox.Refresh();
+                    }
+                    else
+                    {
+                        _hexBox.UpdateRectanglePositioning();
+                        _hexBox.Invalidate();
+                    }
 
-                    _hexBox.Invalidate();
                     return true;
                 }
                 else

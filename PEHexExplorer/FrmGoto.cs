@@ -26,7 +26,7 @@ namespace PEHexExplorer
             }
         }
 
-        public GotoResult Result { get; set; }
+        public GotoResult Result { get; private set; }
 
         public FrmGoto()
         {

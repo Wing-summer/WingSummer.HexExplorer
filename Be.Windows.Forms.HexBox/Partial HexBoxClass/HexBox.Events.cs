@@ -90,6 +90,12 @@ namespace Be.Windows.Forms
         public event EventHandler VScrollBarVisibleChanged;
 
         /// <summary>
+        /// 当 HScrollBarVisible 属性改变完成后会触发该事件
+        /// </summary>
+        [Description("当 HScrollBarVisible 属性改变完成后会触发该事件")]
+        public event EventHandler HScrollBarVisibleChanged;
+
+        /// <summary>
         /// Occurs, when the value of HexCasing property has changed.
         /// </summary>
         [Description("Occurs, when the value of HexCasing property has changed.")]
@@ -148,5 +154,11 @@ namespace Be.Windows.Forms
         /// </summary>
         [Description("当Scaling(缩放)属性更改时会触发该事件")]
         public event EventHandler ScalingChanged;
+
+        /// <summary>
+        /// 当有更改完成后会触发该事件
+        /// </summary>
+        [Description("当有更改完成后会触发该事件")]
+        public event EventHandler ContentChanged;
     }
 }
