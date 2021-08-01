@@ -10,7 +10,7 @@ namespace PEHexExplorer
         public struct GotoResult
         {
             public bool IsRow;
-            public int Number;
+            public decimal Number;
             public bool IsFromBase;
         }
 
@@ -46,7 +46,7 @@ namespace PEHexExplorer
             Result = new GotoResult()
             {
                 IsRow = rbRow.Checked,
-                Number = rbRow.Checked ? ntRow.Number : ntOffset.Number,
+                Number = rbRow.Checked ? ntRow.Value : ntOffset.Value,
                 IsFromBase = rbOffset.Checked
             };
             DialogResult = DialogResult.OK;
@@ -56,14 +56,14 @@ namespace PEHexExplorer
         private void cbHex_CheckedChanged(object sender, EventArgs e)
         {
             bool ishex = cbHex.Checked;
-            ntRow.IsHex = ishex;
-            ntOffset.IsHex = ishex;
+            ntRow.Hexadecimal = ishex;
+            ntOffset.Hexadecimal = ishex;
         }
 
         private void FrmGoto_VisibleChanged(object sender, EventArgs e)
         {
-            ntOffset.Clear();
-            ntRow.Clear();
+            ntOffset.Value = 0;
+            ntRow.Value = 0;
         }
     }
 }

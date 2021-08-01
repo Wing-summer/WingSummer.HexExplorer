@@ -35,3 +35,5 @@ E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.pdb
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmGoto.resources
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmSetting.resources
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmFill.resources
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmInsert.resources
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmNewInsert.resources

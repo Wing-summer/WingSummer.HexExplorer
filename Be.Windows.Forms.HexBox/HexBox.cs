@@ -297,7 +297,7 @@ namespace Be.Windows.Forms
             byte[] buffer;
             if (da.GetDataPresent("BinaryData"))
             {
-                System.IO.MemoryStream ms = (System.IO.MemoryStream)da.GetData("BinaryData");
+                MemoryStream ms = (MemoryStream)da.GetData("BinaryData");
                 buffer = new byte[ms.Length];
                 ms.Read(buffer, 0, buffer.Length);
             }
@@ -311,7 +311,7 @@ namespace Be.Windows.Forms
                 return;
             }
 
-            UndoStack.Push(SnapShotOperation(EditOperation.Insert, buffer));
+            UndoStack.Push(SnapShotOperation(EditOperation.Insert, 0,buffer));
 
             /*=========================*/
 
@@ -787,6 +787,25 @@ namespace Be.Windows.Forms
                 byteindex = _bytePos,
             };
         }
+
+        /// <summary>
+        /// 生成操作历史快照
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="caretPos"></param>
+        /// <param name="buffer"></param>
+        /// <returns></returns>
+        public ModifiedData SnapShotOperation(EditOperation operation, int caretPos, byte[] buffer)
+        {
+            return new ModifiedData
+            {
+                caretPos = caretPos,
+                operation = operation,
+                bytes = buffer,
+                byteindex = _bytePos,
+            };
+        }
+
 
         /// <summary>
         /// 生成操作历史快照

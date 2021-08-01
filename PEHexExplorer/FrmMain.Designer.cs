@@ -139,6 +139,7 @@
             this.TMIFind = new System.Windows.Forms.ToolStripMenuItem();
             this.TMIJmp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.lblInsert = new System.Windows.Forms.ToolStripStatusLabel();
             statusStrip2 = new System.Windows.Forms.StatusStrip();
             Slbl1 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -240,8 +241,8 @@
             // LblLen
             // 
             this.LblLen.Name = "LblLen";
-            this.LblLen.Size = new System.Drawing.Size(35, 24);
-            this.LblLen.Text = "null";
+            this.LblLen.Size = new System.Drawing.Size(16, 24);
+            this.LblLen.Text = "*";
             // 
             // Slbl4
             // 
@@ -1192,6 +1193,7 @@
             this.LblSaved,
             this.LblWritable,
             this.lblLocked,
+            this.lblInsert,
             Slbl6,
             this.LblFilename});
             this.statusStrip.Location = new System.Drawing.Point(0, 723);
@@ -1241,13 +1243,13 @@
             // lblLocked
             // 
             this.lblLocked.AutoToolTip = true;
-            this.lblLocked.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.lblLocked.ForeColor = System.Drawing.Color.Red;
             this.lblLocked.Name = "lblLocked";
-            this.lblLocked.Size = new System.Drawing.Size(30, 24);
+            this.lblLocked.Size = new System.Drawing.Size(26, 24);
             this.lblLocked.Tag = "1";
             this.lblLocked.Text = "🔒";
             this.lblLocked.ToolTipText = "越界锁";
+            this.lblLocked.Click += new System.EventHandler(this.lblLocked_Click);
             this.lblLocked.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.lblLocked.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
             // 
@@ -1309,6 +1311,19 @@
             // toolTip
             // 
             this.toolTip.ShowAlways = true;
+            // 
+            // lblInsert
+            // 
+            this.lblInsert.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.lblInsert.ForeColor = System.Drawing.Color.Red;
+            this.lblInsert.Name = "lblInsert";
+            this.lblInsert.Size = new System.Drawing.Size(34, 24);
+            this.lblInsert.Tag = "1";
+            this.lblInsert.Text = "✍";
+            this.lblInsert.ToolTipText = "插入模式";
+            this.lblInsert.Click += new System.EventHandler(this.lblInsert_Click);
+            this.lblInsert.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
+            this.lblInsert.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
             // 
             // FrmMain
             // 
@@ -1437,6 +1452,7 @@
         private System.Windows.Forms.ToolStripMenuItem MIPasteHex;
         private System.Windows.Forms.ToolStripMenuItem SMICopy;
         private System.Windows.Forms.ToolStripMenuItem SMIPaste;
+        private System.Windows.Forms.ToolStripStatusLabel lblInsert;
     }
 }
 

@@ -1,37 +1,43 @@
-﻿using System.Windows.Forms;
+﻿using Be.Windows.Forms;
 using System;
-using Be.Windows.Forms;
-
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PEHexExplorer
 {
-    public partial class FrmFill : Form
+    public partial class FrmInsert : Form
     {
-        private static FrmFill frmFill=null;
-
-        public static FrmFill Instance
+        private static FrmInsert frmInsert;
+        public static FrmInsert Instance
         {
             get
             {
-                if (frmFill == null)
+                if (frmInsert == null)
                 {
-                    frmFill = new FrmFill();
+                    frmInsert = new FrmInsert();
                 }
-                return frmFill;
+                return frmInsert;
             }
         }
 
-        public FillResult Result
+        public InsertResult Result
         {
-            get;private set;
+            get; private set;
         }
 
-        public struct FillResult
+        public struct InsertResult
         {
             public byte[] buffer;
-        }   
+        }
 
-        public FrmFill()
+
+        public FrmInsert()
         {
             InitializeComponent();
         }
@@ -44,7 +50,7 @@ namespace PEHexExplorer
             {
                 buffer[i] = byteProvider.ReadByte(i);
             }
-            Result = new FillResult() { buffer = buffer };
+            Result = new InsertResult() { buffer = buffer };
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -60,5 +66,6 @@ namespace PEHexExplorer
                 hexBoxFill.CloseFile(false);
             }
         }
+
     }
 }

@@ -1,7 +1,9 @@
 ﻿
+using System;
+
 namespace PEHexExplorer
 {
-    partial class FrmFill
+    partial class FrmInsert
     {
         /// <summary>
         /// Required designer variable.
@@ -16,7 +18,7 @@ namespace PEHexExplorer
         {
             if (disposing && (components != null))
             {
-                frmFill = null;
+                frmInsert = null;
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -81,7 +83,7 @@ namespace PEHexExplorer
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(129, 20);
             this.label1.TabIndex = 1;
-            this.label1.Text = "请输入复写字节：";
+            this.label1.Text = "请输入插入字节：";
             // 
             // btnOk
             // 
@@ -117,13 +119,14 @@ namespace PEHexExplorer
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "FrmFill";
-            this.Text = "填充数据";
+            this.Name = "FrmInsert";
+            this.Text = "插入数据";
             this.VisibleChanged += new System.EventHandler(this.FrmFill_VisibleChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
+
 
         #endregion
 
@@ -131,5 +134,6 @@ namespace PEHexExplorer
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
+
     }
 }

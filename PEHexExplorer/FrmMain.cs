@@ -142,10 +142,28 @@ namespace PEHexExplorer
 
         private void MIInsert_Click(object sender, EventArgs e)
         {
+            using (FrmInsert frmInsert=FrmInsert.Instance)
+            {
+                if (frmInsert.ShowDialog()== DialogResult.OK)
+                {
+                    hexBox.ByteProvider.InsertBytes(hexBox.SelectionStart, frmInsert.Result.buffer);
+                    hexBox.Invalidate();
+                }
+            }
         }
 
         private void MINewInsert_Click(object sender, EventArgs e)
         {
+
+            using (FrmInsert frmInsert = FrmInsert.Instance)
+            {
+                if (frmInsert.ShowDialog() == DialogResult.OK)
+                {
+
+                    hexBox.ByteProvider.InsertBytes(hexBox.SelectionStart, frmInsert.Result.buffer);
+                    hexBox.Invalidate();
+                }
+            }
         }
 
         private void MIFind_Click(object sender, EventArgs e)
@@ -160,21 +178,25 @@ namespace PEHexExplorer
                 FrmGoto.GotoResult result = frmGoto.Result;
                 if (result.IsRow)
                 {
-                    hexBox.ScrollLineIntoView(result.Number);
+                    hexBox.ScrollLineIntoView((long)result.Number);
                 }
                 else
                 {
-                    hexBox.GotoByOffset(result.Number, result.IsFromBase);
+                    hexBox.GotoByOffset((long)result.Number, result.IsFromBase);
                 }
             }
         }
 
         private void MIFill_Click(object sender, EventArgs e)
         {
-            FrmFill frmFill = FrmFill.Instance;
-            if (frmFill.ShowDialog()== DialogResult.OK)
+            using (FrmFill frmFill = FrmFill.Instance)
             {
-
+                if (frmFill.ShowDialog() == DialogResult.OK)
+                {
+                    hexBox.Delete();
+                    hexBox.ByteProvider.InsertBytes(hexBox.SelectionStart, frmFill.Result.buffer);
+                    hexBox.Invalidate();
+                }
             }
         }
 
@@ -307,5 +329,14 @@ namespace PEHexExplorer
 
         #endregion
 
+        private void lblInsert_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblLocked_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

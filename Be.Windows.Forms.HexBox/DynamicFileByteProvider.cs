@@ -89,22 +89,15 @@ namespace Be.Windows.Forms
         /// </summary>
         public byte ReadByte(long index)
         {
-            try
+            DataBlock block = GetDataBlock(index, out long blockOffset);
+            if (block is FileDataBlock fileBlock)
             {
-                DataBlock block = GetDataBlock(index, out long blockOffset);
-                if (block is FileDataBlock fileBlock)
-                {
-                    return ReadByteFromFile(fileBlock.FileOffset + index - blockOffset);
-                }
-                else
-                {
-                    MemoryDataBlock memoryBlock = (MemoryDataBlock)block;
-                    return memoryBlock.Data[index - blockOffset];
-                }
+                return ReadByteFromFile(fileBlock.FileOffset + index - blockOffset);
             }
-            catch (Exception)
+            else
             {
-                return 0;
+                MemoryDataBlock memoryBlock = block as MemoryDataBlock;
+                return memoryBlock.Data[index - blockOffset];
             }
         }
 

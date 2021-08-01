@@ -484,20 +484,23 @@ namespace Be.Windows.Forms
             {
                 Point point = GetGridBytePoint(index);
                 PerformVScrollThumpPosition(point.Y);
-
-                //if (_hScrollBar.Visible && !_recContent.Contains(point))
-                //{
-                //    PerformHScrollThumpPosition(point.X);
-                //}
+                PointF pointF = GetBytePointF(point);
+                /*水平滚动条重定位*/
+                if (_hScrollBar.Visible && (ClientRectangle.X > pointF.X || ClientRectangle.X+ClientRectangle.Width/2 < pointF.X))
+                {
+                    PerformHScrollThumpPosition((long)_charSize.Width * point.X);
+                }
             }
             else if (index > _endByte)
             {
                 Point point = GetGridBytePoint(index);
-                PerformVScrollThumpPosition(point.Y- _iHexMaxVBytes - 1);
-                //if (_hScrollBar.Visible && !_recContent.Contains(point))
-                //{
-                //    PerformHScrollThumpPosition(point.X-_iHexMaxHBytes-1);
-                //}
+                PerformVScrollThumpPosition(point.Y - _iHexMaxVBytes - 1);
+                PointF pointF = GetBytePointF(point);
+                /*水平滚动条重定位*/
+                if (_hScrollBar.Visible && (ClientRectangle.X > pointF.X || ClientRectangle.X + ClientRectangle.Width / 2 < pointF.X))
+                {
+                    PerformHScrollThumpPosition((long) _charSize.Width * point.X );
+                }
             }
         }
 

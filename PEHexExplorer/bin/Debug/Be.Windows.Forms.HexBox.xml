@@ -755,6 +755,15 @@
             <param name="buffer"></param>
             <returns></returns>
         </member>
+        <member name="M:Be.Windows.Forms.HexBox.SnapShotOperation(Be.Windows.Forms.HexBox.EditOperation,System.Int32,System.Byte[])">
+            <summary>
+            生成操作历史快照
+            </summary>
+            <param name="operation"></param>
+            <param name="caretPos"></param>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
         <member name="M:Be.Windows.Forms.HexBox.SnapShotOperation(Be.Windows.Forms.HexBox.EditOperation,System.Int64,System.Byte[])">
             <summary>
             生成操作历史快照
@@ -1468,7 +1477,7 @@
         </member>
         <member name="P:Be.Windows.Forms.HexBox.SelectionStart">
             <summary>
-            Gets and sets the starting point of the bytes selected in the hex box.
+            Gets and sets the starting point of the bytes selected in the hex box.（同时也是光标位置）
             </summary>
         </member>
         <member name="P:Be.Windows.Forms.HexBox.SelectionLength">

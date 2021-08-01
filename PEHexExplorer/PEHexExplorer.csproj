@@ -86,23 +86,29 @@
     <Compile Include="FrmGoto.Designer.cs">
       <DependentUpon>FrmGoto.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmInsert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmInsert.Designer.cs">
+      <DependentUpon>FrmInsert.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmNewInsert.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmNewInsert.Designer.cs">
+      <DependentUpon>FrmNewInsert.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmSetting.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmSetting.Designer.cs">
       <DependentUpon>FrmSetting.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NumericTextbox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="NumericTextbox.Designer.cs">
-      <DependentUpon>NumericTextbox.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,8 +122,14 @@
     <EmbeddedResource Include="FrmGoto.resx">
       <DependentUpon>FrmGoto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmInsert.resx">
+      <DependentUpon>FrmInsert.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmNewInsert.resx">
+      <DependentUpon>FrmNewInsert.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSetting.resx">
       <DependentUpon>FrmSetting.cs</DependentUpon>

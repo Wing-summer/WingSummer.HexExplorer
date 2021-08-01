@@ -611,7 +611,7 @@ namespace Be.Windows.Forms
 
             public virtual bool PreProcessWmChar(ref Message m)
             {
-                if (Control.ModifierKeys == Keys.Control)
+                if (ModifierKeys == Keys.Control)
                 {
                     return _hexBox.BasePreProcessMessage(ref m);
                 }
@@ -641,7 +641,7 @@ namespace Be.Windows.Forms
                     if (_hexBox.ReadOnly)
                         return true;
 
-                    bool isInsertMode = (pos == _hexBox._byteProvider.Length);
+                    bool isInsertMode = pos == _hexBox._byteProvider.Length;
 
                     // do insert when insertActive = true
                     if (!isInsertMode && si && _hexBox.InsertActive && cp == 0)
@@ -695,8 +695,15 @@ namespace Be.Windows.Forms
                 KeyPressEventArgs e = new KeyPressEventArgs(keyChar);
 
                 byte[] buffer = new byte[1];
-                buffer[0] = _hexBox._byteProvider.ReadByte(_hexBox._bytePos);
-                _hexBox.UndoStack.Push(_hexBox.SnapShotOperation(EditOperation.OverWrite, buffer));
+                if (_hexBox._bytePos>_hexBox._byteProvider.Length)
+                {
+                    buffer[0] = _hexBox._byteProvider.ReadByte(_hexBox._bytePos);
+                    _hexBox.UndoStack.Push(_hexBox.SnapShotOperation(EditOperation.OverWrite, buffer));
+                }
+                else
+                {
+                    _hexBox.UndoStack.Push(_hexBox.SnapShotOperation(EditOperation.Insert,0, buffer));
+                }
 
                 _hexBox.RedoStack.Clear();
 

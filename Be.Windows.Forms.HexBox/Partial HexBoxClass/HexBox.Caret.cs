@@ -16,7 +16,7 @@ namespace Be.Windows.Forms
             Debug.WriteLine("CreateCaret()", "HexBox");
 
             // define the caret width depending on InsertActive mode
-            int caretWidth = (InsertActive) ? 1 : (int)_charSize.Width;
+            int caretWidth = InsertActive ? 1 : (int)_charSize.Width;
             int caretHeight = (int)_charSize.Height;
             Caret.Create(Handle, IntPtr.Zero, caretWidth, caretHeight);
 
@@ -35,6 +35,14 @@ namespace Be.Windows.Forms
             Debug.WriteLine("UpdateCaret()", "HexBox");
 
             long byteIndex = _bytePos - _startByte;
+
+            /*========修复删除光标在区域外的Bug======*/
+            if (_bytePos > _byteProvider.Length)
+            {
+                byteIndex = _bytePos = _byteProvider.Length;
+            }
+            /*================================*/
+
             PointF p = _keyInterpreter.GetCaretPointF(byteIndex);
             p.X += _byteCharacterPos * _charSize.Width;
             Caret.SetPos((int)p.X, (int)p.Y);
@@ -128,8 +136,8 @@ namespace Be.Windows.Forms
             long bytePos;
             int byteCharacterPos;
 
-            float x = ((float)(p.X - _recStringView.X) / _charSize.Width);
-            float y = ((float)(p.Y - _recStringView.Y) / _charSize.Height);
+            float x = ((p.X - _recStringView.X) / _charSize.Width);
+            float y = ((p.Y - _recStringView.Y) / _charSize.Height);
             int iX = (int)x;
             int iY = (int)y;
 

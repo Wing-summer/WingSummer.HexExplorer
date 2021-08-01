@@ -436,7 +436,7 @@ namespace Be.Windows.Forms
         }
 
         /// <summary>
-        /// Gets and sets the starting point of the bytes selected in the hex box.
+        /// Gets and sets the starting point of the bytes selected in the hex box.（同时也是光标位置）
         /// </summary>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public long SelectionStart

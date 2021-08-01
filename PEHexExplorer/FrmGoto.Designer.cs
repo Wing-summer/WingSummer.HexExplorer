@@ -29,7 +29,6 @@ namespace PEHexExplorer
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.Windows.Forms.GroupBox groupBox1;
@@ -43,8 +42,8 @@ namespace PEHexExplorer
             this.btnCancel = new System.Windows.Forms.Button();
             this.gbOffset = new System.Windows.Forms.GroupBox();
             this.cbHex = new System.Windows.Forms.CheckBox();
-            this.ntOffset = new PEHexExplorer.NumericTextbox(this.components);
-            this.ntRow = new PEHexExplorer.NumericTextbox(this.components);
+            this.ntOffset = new System.Windows.Forms.NumericUpDown();
+            this.ntRow = new System.Windows.Forms.NumericUpDown();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             groupBox1 = new System.Windows.Forms.GroupBox();
@@ -54,6 +53,8 @@ namespace PEHexExplorer
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             this.gbOffset.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ntOffset)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ntRow)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -195,18 +196,17 @@ namespace PEHexExplorer
             // 
             // ntOffset
             // 
-            this.ntOffset.Enabled = false;
             this.ntOffset.Location = new System.Drawing.Point(297, 18);
             this.ntOffset.Name = "ntOffset";
             this.ntOffset.Size = new System.Drawing.Size(149, 25);
-            this.ntOffset.TabIndex = 2;
+            this.ntOffset.TabIndex = 7;
             // 
             // ntRow
             // 
             this.ntRow.Location = new System.Drawing.Point(81, 18);
             this.ntRow.Name = "ntRow";
             this.ntRow.Size = new System.Drawing.Size(149, 25);
-            this.ntRow.TabIndex = 2;
+            this.ntRow.TabIndex = 7;
             // 
             // FrmGoto
             // 
@@ -215,11 +215,11 @@ namespace PEHexExplorer
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(474, 268);
+            this.Controls.Add(this.ntOffset);
+            this.Controls.Add(this.ntRow);
             this.Controls.Add(this.cbHex);
             this.Controls.Add(this.gbOffset);
             this.Controls.Add(groupBox1);
-            this.Controls.Add(this.ntOffset);
-            this.Controls.Add(this.ntRow);
             this.Controls.Add(label2);
             this.Controls.Add(label1);
             this.Controls.Add(this.btnCancel);
@@ -237,6 +237,8 @@ namespace PEHexExplorer
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             this.gbOffset.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ntOffset)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ntRow)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -246,13 +248,13 @@ namespace PEHexExplorer
 
         private System.Windows.Forms.Button btnJmp;
         private System.Windows.Forms.Button btnCancel;
-        private NumericTextbox ntRow;
-        private NumericTextbox ntOffset;
         private System.Windows.Forms.RadioButton rbRow;
         private System.Windows.Forms.RadioButton rbOffset;
         private System.Windows.Forms.RadioButton rbBase;
         private System.Windows.Forms.RadioButton rbCur;
         private System.Windows.Forms.GroupBox gbOffset;
         private System.Windows.Forms.CheckBox cbHex;
+        private System.Windows.Forms.NumericUpDown ntOffset;
+        private System.Windows.Forms.NumericUpDown ntRow;
     }
 }
