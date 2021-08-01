@@ -1,27 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
-using System.Windows.Forms;
+﻿using PEProcesser;
+using System;
 using System.Diagnostics;
-using Be.Windows.Forms;
-using PEProcesser;
+using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace PEHexExplorer
 {
     public partial class FrmMain : Form
     {
         private PEPParser pe;
+
         private string EditFileExt = string.Empty;
 
-        private PointF pos = new PointF(0,0);
+        private PointF pos = new PointF(0, 0);
 
         public FrmMain()
         {
@@ -50,13 +42,13 @@ namespace PEHexExplorer
         private void hexBox_CurrentLineChanged(object sender, EventArgs e)
         {
             pos.X = hexBox.CurrentLine;
-            LblLocation.Text = string.Format("({0},{1})", pos.X-1, pos.Y-1);
+            LblLocation.Text = string.Format("({0},{1})", pos.X - 1, pos.Y - 1);
         }
 
         private void hexBox_CurrentPositionInLineChanged(object sender, EventArgs e)
         {
             pos.Y = hexBox.CurrentPositionInLine;
-            LblLocation.Text = string.Format("({0},{1})", pos.X-1, pos.Y-1);
+            LblLocation.Text = string.Format("({0},{1})", pos.X - 1, pos.Y - 1);
         }
 
         private void LblScale_DoubleClick(object sender, EventArgs e)
@@ -118,7 +110,7 @@ namespace PEHexExplorer
 
         private void MISave_Click(object sender, EventArgs e)
         {
-            if (hexBox.Filename.Length!=0)
+            if (hexBox.Filename.Length != 0)
             {
                 hexBox.SaveFile();
             }
@@ -172,7 +164,7 @@ namespace PEHexExplorer
                 }
                 else
                 {
-                     hexBox.GotoByOffset(result.Number, result.IsFromBase);
+                    hexBox.GotoByOffset(result.Number, result.IsFromBase);
                 }
             }
         }
@@ -271,14 +263,14 @@ namespace PEHexExplorer
 
         private void hexBox_SelectionLengthChanged(object sender, EventArgs e)
         {
-            LblLen.Text =  string.Format("{0:D} - 0x{0:X}", hexBox.SelectionLength);
+            LblLen.Text = string.Format("{0:D} - 0x{0:X}", hexBox.SelectionLength);
         }
 
         #region 主状态栏ToolTip防闪烁解决方案
 
         private void ShowToolTipGroup_MouseMove(object sender, MouseEventArgs e)
         {
-            ToolStripItem  stripItem = sender as ToolStripItem;
+            ToolStripItem stripItem = sender as ToolStripItem;
             switch (stripItem.Tag)
             {
                 case "1":
@@ -286,7 +278,7 @@ namespace PEHexExplorer
                     break;
 
                 case "2":
-                    toolTip.Show(stripItem.ToolTipText, toolStrip, stripItem.Bounds.X+stripItem.Bounds.Width , toolStrip.Height);
+                    toolTip.Show(stripItem.ToolTipText, toolStrip, stripItem.Bounds.X + stripItem.Bounds.Width, toolStrip.Height);
                     break;
             }
         }
@@ -307,5 +299,6 @@ namespace PEHexExplorer
         }
 
         #endregion
+
     }
 }
