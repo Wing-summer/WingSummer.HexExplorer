@@ -18,7 +18,6 @@ namespace PEHexExplorer
         {
             if (disposing && (components != null))
             {
-                frmInsert = null;
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -101,11 +100,11 @@ namespace PEHexExplorer
             this.btnCancel.Location = new System.Drawing.Point(325, 291);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(268, 41);
-            this.btnCancel.TabIndex = 2;
+            this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // FrmFill
+            // FrmInsert
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);

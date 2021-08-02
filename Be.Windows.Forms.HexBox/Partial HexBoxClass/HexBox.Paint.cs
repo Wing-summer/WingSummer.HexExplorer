@@ -27,7 +27,7 @@ namespace Be.Windows.Forms
 
                             if (Enabled)
                             {
-                                if (ReadOnly)
+                                if (_readOnly)
                                     state = VisualStyleElement.TextBox.TextEdit.ReadOnly;
                                 else if (Focused)
                                     state = VisualStyleElement.TextBox.TextEdit.Focused;

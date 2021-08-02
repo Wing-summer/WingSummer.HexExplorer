@@ -18,7 +18,7 @@ namespace PEHexExplorer
         {
             get
             {
-                if (frmGoto == null)
+                if (frmGoto == null || frmGoto.IsDisposed)
                 {
                     frmGoto = new FrmGoto();
                 }

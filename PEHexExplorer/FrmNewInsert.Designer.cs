@@ -16,7 +16,6 @@ namespace PEHexExplorer
         {
             if (disposing && (components != null))
             {
-                newInsert = null;
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -51,7 +50,7 @@ namespace PEHexExplorer
             label1.Location = new System.Drawing.Point(36, 29);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(82, 15);
-            label1.TabIndex = 0;
+            label1.TabIndex = 5;
             label1.Text = "文件偏移：";
             // 
             // btnCancel
@@ -60,7 +59,7 @@ namespace PEHexExplorer
             btnCancel.Location = new System.Drawing.Point(228, 127);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new System.Drawing.Size(187, 43);
-            btnCancel.TabIndex = 7;
+            btnCancel.TabIndex = 4;
             btnCancel.Text = "取消";
             btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -69,7 +68,7 @@ namespace PEHexExplorer
             btnNew.Location = new System.Drawing.Point(26, 127);
             btnNew.Name = "btnNew";
             btnNew.Size = new System.Drawing.Size(187, 43);
-            btnNew.TabIndex = 8;
+            btnNew.TabIndex = 3;
             btnNew.Text = "新建";
             btnNew.UseVisualStyleBackColor = true;
             btnNew.Click += new System.EventHandler(this.btnNew_Click);
@@ -80,7 +79,7 @@ namespace PEHexExplorer
             label2.Location = new System.Drawing.Point(51, 81);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(67, 15);
-            label2.TabIndex = 0;
+            label2.TabIndex = 6;
             label2.Text = "初始值：";
             // 
             // ntOffset
@@ -88,7 +87,7 @@ namespace PEHexExplorer
             this.ntOffset.Location = new System.Drawing.Point(124, 23);
             this.ntOffset.Name = "ntOffset";
             this.ntOffset.Size = new System.Drawing.Size(181, 25);
-            this.ntOffset.TabIndex = 1;
+            this.ntOffset.TabIndex = 0;
             // 
             // cbHex
             // 
@@ -96,7 +95,7 @@ namespace PEHexExplorer
             this.cbHex.Location = new System.Drawing.Point(329, 39);
             this.cbHex.Name = "cbHex";
             this.cbHex.Size = new System.Drawing.Size(75, 43);
-            this.cbHex.TabIndex = 9;
+            this.cbHex.TabIndex = 2;
             this.cbHex.Text = "Hex(&H)";
             this.cbHex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cbHex.UseVisualStyleBackColor = true;
@@ -123,6 +122,7 @@ namespace PEHexExplorer
             this.Controls.Add(label2);
             this.Controls.Add(this.ntOffset);
             this.Controls.Add(label1);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmNewInsert";
             this.ShowInTaskbar = false;

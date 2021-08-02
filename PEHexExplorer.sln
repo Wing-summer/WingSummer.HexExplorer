@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEProcesser", "PEProcesser\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2C7ABCE0-42C4-4355-A98F-F55CFEDB02F2}"
 	ProjectSection(SolutionItems) = preProject
+		pics\0.png = pics\0.png
+		pics\1.png = pics\1.png
+		pics\2.png = pics\2.png
+		pics\3.png = pics\3.png
 		author.jpg = author.jpg
 		pics\icon.ico = pics\icon.ico
 		pics\icon.png = pics\icon.png
@@ -19,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		pics\微信捐助.png = pics\微信捐助.png
 		pics\支付宝捐助.jpg = pics\支付宝捐助.jpg
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSPEHexPluginHost", "WSPEHexPluginHost\WSPEHexPluginHost.csproj", "{104FBDC7-581F-443F-873C-DD4EA5372C38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +58,14 @@ Global
 		{1791E52E-0301-404F-9284-21B78E3F1015}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1791E52E-0301-404F-9284-21B78E3F1015}.Release|x64.ActiveCfg = Release|Any CPU
 		{1791E52E-0301-404F-9284-21B78E3F1015}.Release|x64.Build.0 = Release|Any CPU
+		{104FBDC7-581F-443F-873C-DD4EA5372C38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{104FBDC7-581F-443F-873C-DD4EA5372C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{104FBDC7-581F-443F-873C-DD4EA5372C38}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{104FBDC7-581F-443F-873C-DD4EA5372C38}.Debug|x64.Build.0 = Debug|Any CPU
+		{104FBDC7-581F-443F-873C-DD4EA5372C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{104FBDC7-581F-443F-873C-DD4EA5372C38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{104FBDC7-581F-443F-873C-DD4EA5372C38}.Release|x64.ActiveCfg = Release|Any CPU
+		{104FBDC7-581F-443F-873C-DD4EA5372C38}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

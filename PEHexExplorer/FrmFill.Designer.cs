@@ -16,8 +16,7 @@ namespace PEHexExplorer
         {
             if (disposing && (components != null))
             {
-                frmFill = null;
-                components.Dispose();
+                 components.Dispose();
             }
             base.Dispose(disposing);
         }

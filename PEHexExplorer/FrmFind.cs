@@ -9,6 +9,7 @@ namespace PEHexExplorer
         public FrmFind()
         {
             InitializeComponent();
+            hexFind.CreateBuffer();
         }
 
         private FindOptions _findOptions;
@@ -24,7 +25,7 @@ namespace PEHexExplorer
         {
             get
             {
-                if (frmFind==null)
+                if (frmFind == null || frmFind.IsDisposed)
                 {
                     frmFind = new FrmFind();
                 }
@@ -47,6 +48,10 @@ namespace PEHexExplorer
 
         private void Reinitialize()
         {
+            if (_findOptions==null)
+            {
+                _findOptions = new FindOptions();
+            }
             rbString.Checked = _findOptions.Type == FindType.Text;
             txtFind.Text = _findOptions.Text;
             chkMatchCase.Checked = _findOptions.MatchCase;
@@ -59,6 +64,7 @@ namespace PEHexExplorer
             var hex = _findOptions.Hex ?? (new byte[0]);
             hexFind.ByteProvider = new DynamicByteProvider(hex);
             hexFind.ByteProvider.Changed += new EventHandler(ByteProvider_Changed);
+            hexFind.Enabled = false;
         }
 
         private void ByteProvider_Changed(object sender, EventArgs e)
@@ -138,7 +144,6 @@ namespace PEHexExplorer
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
-            _findOptions.MatchCase = chkMatchCase.Checked;
 
             var provider = hexFind.ByteProvider as DynamicByteProvider;
             _findOptions.Hex = provider.Bytes.ToArray();
@@ -198,5 +203,9 @@ namespace PEHexExplorer
             Dispose();
         }
 
+        private void HexFind_EnabledChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

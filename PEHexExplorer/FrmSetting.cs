@@ -12,7 +12,7 @@ namespace PEHexExplorer
         {
             get
             {
-                if (frmSetting==null)
+                if (frmSetting == null || frmSetting.IsDisposed)
                 {
                     frmSetting = new FrmSetting();
                 }
@@ -25,18 +25,6 @@ namespace PEHexExplorer
             InitializeComponent();
         }
 
-        private void lbSetting_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            e.DrawBackground();
-            e.DrawFocusRectangle();
-            StringFormat stringFormat = new StringFormat(StringFormatFlags.NoClip);
-            stringFormat.Alignment = StringAlignment.Center;
-            e.Graphics.DrawString( lbSetting.Items[e.Index].ToString(), e.Font,  new SolidBrush(e.ForeColor), e.Bounds, stringFormat);
-        }
-
-        private void lbSetting_MeasureItem(object sender, MeasureItemEventArgs e)
-        {
-            e.ItemHeight = (int)(e.Graphics.MeasureString(lbSetting.Items[e.Index].ToString(),Font).Height + 2);
-        }
+       
     }
 }

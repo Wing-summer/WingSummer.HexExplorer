@@ -27,7 +27,6 @@ namespace PEHexExplorer
         {
             if (disposing && (components != null))
             {
-                frmFind = null;
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -61,7 +60,7 @@ namespace PEHexExplorer
             this.txtFind.Location = new System.Drawing.Point(22, 56);
             this.txtFind.Name = "txtFind";
             this.txtFind.Size = new System.Drawing.Size(567, 27);
-            this.txtFind.TabIndex = 5;
+            this.txtFind.TabIndex = 2;
             this.txtFind.TextChanged += new System.EventHandler(this.TxtString_TextChanged);
             // 
             // rbString
@@ -70,7 +69,7 @@ namespace PEHexExplorer
             this.rbString.Location = new System.Drawing.Point(22, 23);
             this.rbString.Name = "rbString";
             this.rbString.Size = new System.Drawing.Size(104, 24);
-            this.rbString.TabIndex = 4;
+            this.rbString.TabIndex = 0;
             this.rbString.TabStop = true;
             this.rbString.Text = "字符串";
             this.rbString.CheckedChanged += new System.EventHandler(this.Rb_CheckedChanged);
@@ -80,7 +79,7 @@ namespace PEHexExplorer
             this.rbHex.Location = new System.Drawing.Point(22, 111);
             this.rbHex.Name = "rbHex";
             this.rbHex.Size = new System.Drawing.Size(104, 24);
-            this.rbHex.TabIndex = 3;
+            this.rbHex.TabIndex = 1;
             this.rbHex.Text = "十六进制";
             this.rbHex.CheckedChanged += new System.EventHandler(this.Rb_CheckedChanged);
             // 
@@ -89,7 +88,7 @@ namespace PEHexExplorer
             this.btnOK.Location = new System.Drawing.Point(257, 371);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(163, 53);
-            this.btnOK.TabIndex = 1;
+            this.btnOK.TabIndex = 5;
             this.btnOK.Text = "确定";
             this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
@@ -99,7 +98,7 @@ namespace PEHexExplorer
             this.btnCancel.Location = new System.Drawing.Point(426, 371);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(163, 53);
-            this.btnCancel.TabIndex = 0;
+            this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "取消";
             this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
@@ -109,7 +108,7 @@ namespace PEHexExplorer
             this.chkMatchCase.Location = new System.Drawing.Point(483, 23);
             this.chkMatchCase.Name = "chkMatchCase";
             this.chkMatchCase.Size = new System.Drawing.Size(106, 24);
-            this.chkMatchCase.TabIndex = 2;
+            this.chkMatchCase.TabIndex = 4;
             this.chkMatchCase.Text = "匹配大小写";
             this.chkMatchCase.UseVisualStyleBackColor = true;
             // 
@@ -126,6 +125,7 @@ namespace PEHexExplorer
             // 
             this.hexFind.ColumnInfoBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.hexFind.ColumnInfoVisible = true;
+            this.hexFind.Enabled = false;
             this.hexFind.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.hexFind.GroupLinePen.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
             this.hexFind.GroupLinePen.Color = System.Drawing.Color.Gray;
@@ -155,9 +155,10 @@ namespace PEHexExplorer
             this.hexFind.ShowColumnInfoBackColor = true;
             this.hexFind.ShowLineInfoBackColor = true;
             this.hexFind.Size = new System.Drawing.Size(567, 212);
-            this.hexFind.TabIndex = 8;
+            this.hexFind.TabIndex = 3;
             this.hexFind.UseFixedBytesPerLine = true;
             this.hexFind.VScrollBarVisible = true;
+            this.hexFind.EnabledChanged += new System.EventHandler(this.HexFind_EnabledChanged);
             // 
             // lblPercent
             // 
@@ -166,7 +167,7 @@ namespace PEHexExplorer
             this.lblPercent.Location = new System.Drawing.Point(22, 371);
             this.lblPercent.Name = "lblPercent";
             this.lblPercent.Size = new System.Drawing.Size(119, 53);
-            this.lblPercent.TabIndex = 15;
+            this.lblPercent.TabIndex = 7;
             this.lblPercent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblFinding
@@ -177,7 +178,7 @@ namespace PEHexExplorer
             this.lblFinding.Location = new System.Drawing.Point(147, 371);
             this.lblFinding.Name = "lblFinding";
             this.lblFinding.Size = new System.Drawing.Size(99, 53);
-            this.lblFinding.TabIndex = 16;
+            this.lblFinding.TabIndex = 8;
             // 
             // FrmFind
             // 

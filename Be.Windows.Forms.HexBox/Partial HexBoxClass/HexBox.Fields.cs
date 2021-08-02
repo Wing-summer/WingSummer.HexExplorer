@@ -232,6 +232,15 @@ namespace Be.Windows.Forms
         }
 
         /// <summary>
+        /// 清空高亮区段
+        /// </summary>
+        public void ClearHighlightedRegion()
+        {
+            HighligedRegions.Clear();
+            Invalidate();
+        }
+
+        /// <summary>
         /// 删除高亮区域，全部已知
         /// </summary>
         /// <param name="region"></param>
@@ -249,6 +258,21 @@ namespace Be.Windows.Forms
         {
             HighligedRegions.RemoveAll(k => k.Start == regionStart);
             Invalidate();
+        }
+
+        /// <summary>
+        /// 删除高亮区域，已知在高亮区块列表中的索引
+        /// </summary>
+        /// <param name="index"></param>
+        public bool RemoveHighlightedRegionAt(int index)
+        {
+            if (index>= HighligedRegions.Count)
+            {
+                return false;
+            }
+            HighligedRegions.RemoveAt(index);
+            Invalidate();
+            return true;
         }
 
         /// <summary>

@@ -15,6 +15,9 @@ namespace PEProcesser
         [DefaultValue(false)]
         public bool IsdotNetFile { get; private set; }
 
+        [DefaultValue(false)]
+        public bool Processed { get; private set; }
+
         public IMAGE_DOS_HEADER _IMAGE_DOS_HEADER { get; private set; }
         public MemoryMappedViewAccessor ViewAccessor { get { return _viewAccessor; } }
         private MemoryMappedViewAccessor _viewAccessor = null;

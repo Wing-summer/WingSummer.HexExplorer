@@ -14,13 +14,15 @@ namespace PEProcesser
 
         public PEPParser(string filename)
         {
+            Processed = false;
             ProcessPE(filename);
+            Processed = true;
         }
 
         public void Dispose()
         {
-            _viewAccessor.Dispose();
-            mappedFile.Dispose();
+            _viewAccessor?.Dispose();
+            mappedFile?.Dispose();
         }
 
         public ulong? RVA2FOA(ulong rva)
@@ -239,11 +241,11 @@ namespace PEProcesser
                 peData.VirtualAlign = _NT_HEADERS32.OptionalHeader.SectionAlignment;
                 peData.SizeOfHeaders = _NT_HEADERS32.OptionalHeader.SizeOfHeaders;
                 peData.ImageSize = _NT_HEADERS32.OptionalHeader.SizeOfImage;
-                peData.ImageBase = (ulong)_NT_HEADERS32.OptionalHeader.ImageBase;
+                peData.ImageBase = _NT_HEADERS32.OptionalHeader.ImageBase;
 
                 _DATA_DIRECTORYS = IMAGE_DATA_DIRECTORIES = _NT_HEADERS32.OptionalHeader.DataDirectory;
 
-                peData.OPTIONAL_HEADER_FOA = peData.NT_HEADER_FOA + (uint)Marshal.SizeOf(typeof(IMAGE_FILE_HEADER)) + sizeof(uint);
+                peData.OPTIONAL_HEADER_FOA = peData.NT_HEADER_FOA + (uint)sizeof(IMAGE_FILE_HEADER) + sizeof(uint);
                 peData.SECTION_HEADERS_FOA = peData.OPTIONAL_HEADER_FOA + _NT_HEADERS32.FileHeader.SizeOfOptionalHeader;
 
                 goto CommonProcess;
@@ -274,6 +276,9 @@ namespace PEProcesser
 
             CommonProcess:
                 _SECTION_HEADERS = new IMAGE_SECTION_HEADER[peData.NumberOfSections];
+
+                peData.DATA_DIRECTORIES_FOA = peData.SECTION_HEADERS_FOA -
+                  (ulong)sizeof(IMAGE_DATA_DIRECTORY) * peData.NumberOfSections;
 
                 _viewAccessor.ReadArray((long)peData.SECTION_HEADERS_FOA, _SECTION_HEADERS, 0, (int)peData.NumberOfSections);
 

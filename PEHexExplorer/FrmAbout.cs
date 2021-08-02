@@ -15,7 +15,7 @@ namespace PEHexExplorer
         {
             get
             {
-                if (frmAbout == null)
+                if (frmAbout == null || frmAbout.IsDisposed)
                 {
                     frmAbout = new FrmAbout();
                 }

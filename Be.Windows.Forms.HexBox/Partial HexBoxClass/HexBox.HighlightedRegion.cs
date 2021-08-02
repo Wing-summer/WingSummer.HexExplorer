@@ -12,17 +12,17 @@ namespace Be.Windows.Forms
             /// <summary>
             /// 高亮区块选择开始字节数偏移
             /// </summary>
-            public int Start;
+            public long Start;
 
             /// <summary>
             /// 高亮区块选择字节长度
             /// </summary>
-            public int Length;
+            public long Length;
 
             /// <summary>
             /// 高亮区块最后一个字节数偏移
             /// </summary>
-            public int End { get { return Start + Length - 1; } }
+            public long End { get { return Start + Length - 1; } }
 
             /// <summary>
             /// 背景色

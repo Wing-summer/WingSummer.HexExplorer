@@ -221,7 +221,7 @@ namespace Be.Windows.Forms
                     ActivateKeyInterpreter();
 
                 if (_byteProvider != null)
-                { 
+                {
                     _byteProvider.LengthChanged -= new EventHandler(ByteProvider_LengthChanged);
                     _byteProvider.Changed -= ByteProvider_Changed;
                 }
@@ -230,10 +230,11 @@ namespace Be.Windows.Forms
                 {
                     _byteProvider.LengthChanged += new EventHandler(ByteProvider_LengthChanged);
                     _byteProvider.Changed += ByteProvider_Changed;
+                    SavedStatusChanged?.Invoke(this, EventArgs.Empty);
                 }
 
-
                 ByteProviderChanged?.Invoke(this, EventArgs.Empty);
+
 
                 if (value == null) // do not raise events if value is null
                 {
@@ -268,7 +269,7 @@ namespace Be.Windows.Forms
 
         private void ByteProvider_Changed(object sender, EventArgs e)
         {
-            ContentChanged?.Invoke(sender,e);
+            SavedStatusChanged?.Invoke(sender,e);
         }
 
         private IByteProvider _byteProvider;
@@ -770,6 +771,13 @@ namespace Be.Windows.Forms
         { get; private set; }
 
         /// <summary>
+        /// 判断是否已打开缓冲区
+        /// </summary>
+        [DefaultValue(false), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool IsOpenedBuffer
+        { get; private set; }
+
+        /// <summary>
         /// Gets the a value if insertion mode is active or not.
         /// </summary>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -834,6 +842,23 @@ namespace Be.Windows.Forms
         }
 
         private bool _isCharToUnicode = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DefaultValue(false), Category("Hex"), Description("越界锁，如果开启，光标最后一个空白字节，插入将失效")]
+        public bool IsLockedBuffer
+        {
+            get
+            {
+                return _isLockedBuffer;
+            }
+            set
+            {
+                _isLockedBuffer = value;
+                LockedBufferChanged?.Invoke(this,EventArgs.Empty);
+            }
+        }private bool _isLockedBuffer;
 
         /// <summary>
         /// 每个字符占用宽度参考字符串，不得为空

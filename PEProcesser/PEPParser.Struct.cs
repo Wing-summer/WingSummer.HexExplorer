@@ -19,6 +19,7 @@ namespace PEProcesser
             public uint NumberOfSections;
             public ulong NT_HEADER_FOA;
             public ulong OPTIONAL_HEADER_FOA;
+            public ulong DATA_DIRECTORIES_FOA;
             public ulong DEBUG_DIR_FOA;
             public uint SizeofDEBUG_DIR;
             public ulong RESOURCE_DIR_FOA;

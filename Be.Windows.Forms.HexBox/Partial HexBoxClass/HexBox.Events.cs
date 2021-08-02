@@ -158,7 +158,13 @@ namespace Be.Windows.Forms
         /// <summary>
         /// 当有更改完成后会触发该事件
         /// </summary>
-        [Description("当有更改完成后会触发该事件")]
-        public event EventHandler ContentChanged;
+        [Description("当有保存状态改变后会触发该事件")]
+        public event EventHandler SavedStatusChanged;
+
+        /// <summary>
+        /// 当越界锁状态改变后会触发该事件
+        /// </summary>
+        [Description("当越界锁状态改变后会触发该事件")]
+        public event EventHandler LockedBufferChanged;
     }
 }

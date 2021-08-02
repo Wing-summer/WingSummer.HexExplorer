@@ -471,7 +471,7 @@ namespace Be.Windows.Forms
                 if (!_hexBox._byteProvider.SupportsDeleteBytes())
                     return true;
 
-                if (_hexBox.ReadOnly)
+                if (_hexBox._readOnly)
                     return true;
 
                 PerformPosMoveLeftByte();
@@ -490,7 +490,7 @@ namespace Be.Windows.Forms
                 if (!_hexBox._byteProvider.SupportsDeleteBytes())
                     return true;
 
-                if (_hexBox.ReadOnly)
+                if (_hexBox._readOnly)
                     return true;
 
                 long pos = _hexBox._bytePos;
@@ -638,10 +638,13 @@ namespace Be.Windows.Forms
                     if (RaiseKeyPress(c))
                         return true;
 
-                    if (_hexBox.ReadOnly)
+                    if (_hexBox._readOnly)
                         return true;
 
                     bool isInsertMode = pos == _hexBox._byteProvider.Length;
+
+                    if (isInsertMode && _hexBox._isLockedBuffer)
+                        return true;
 
                     // do insert when insertActive = true
                     if (!isInsertMode && si && _hexBox.InsertActive && cp == 0)

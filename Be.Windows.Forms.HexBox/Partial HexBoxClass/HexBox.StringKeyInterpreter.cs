@@ -67,7 +67,7 @@ namespace Be.Windows.Forms
 
             public override bool PreProcessWmChar(ref Message m)
             {
-                if (Control.ModifierKeys == Keys.Control)
+                if (ModifierKeys == Keys.Control)
                 {
                     return _hexBox.BasePreProcessMessage(ref m);
                 }
@@ -92,10 +92,14 @@ namespace Be.Windows.Forms
                 if (RaiseKeyPress(c))
                     return true;
 
-                if (_hexBox.ReadOnly)
+                if (_hexBox._readOnly)
                     return true;
 
-                bool isInsertMode = (pos == _hexBox._byteProvider.Length);
+                bool isInsertMode = pos == _hexBox._byteProvider.Length;
+                if (_hexBox._isLockedBuffer&&isInsertMode)
+                {
+                    return true;
+                }
 
                 // do insert when insertActive = true
                 if (!isInsertMode && si && _hexBox.InsertActive)

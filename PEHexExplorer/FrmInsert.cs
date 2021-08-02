@@ -18,7 +18,7 @@ namespace PEHexExplorer
         {
             get
             {
-                if (frmInsert == null)
+                if (frmInsert == null || frmInsert.IsDisposed)
                 {
                     frmInsert = new FrmInsert();
                 }
@@ -59,11 +59,11 @@ namespace PEHexExplorer
         {
             if (Visible)
             {
-                hexBoxFill.OpenFile();
+                hexBoxFill.CreateBuffer(true);
             }
             else
             {
-                hexBoxFill.CloseFile(false);
+                hexBoxFill.CloseBuffer();
             }
         }
 

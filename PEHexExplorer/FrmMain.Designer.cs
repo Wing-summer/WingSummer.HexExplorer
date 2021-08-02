@@ -47,17 +47,44 @@
             System.Windows.Forms.ToolStripMenuItem MenuItemSetting;
             System.Windows.Forms.ToolStripMenuItem MenuItemAbout;
             System.Windows.Forms.SplitContainer splitContainer1;
-            Be.Windows.Forms.PenF penF1 = new Be.Windows.Forms.PenF();
             System.Windows.Forms.ToolStripSeparator ts9;
             System.Windows.Forms.ToolStripSeparator ts1;
             System.Windows.Forms.ToolStripSeparator ts2;
             System.Windows.Forms.ToolStripSeparator ts3;
             System.Windows.Forms.ToolStripSeparator ts4;
             System.Windows.Forms.ToolStripSeparator ts5;
+            System.Windows.Forms.TabPage tabPage1;
+            System.Windows.Forms.TabPage tabPage2;
+            System.Windows.Forms.SplitContainer splitContainer3;
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("IMAGE_DOS_HEADER", 1, 1);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("IMAGE_NT_HEADERS", 1, 1);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("IMAGE_FILE_HEADER", 1, 1);
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("IMAGE_OPTIONAL_HEADER", 1, 1);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("IMAGE_DATA_DIRECTORY", 1, 1);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("IMAGE_EXPORT_DIRECTORY", 1, 1);
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("IMAGE_IMPORT_DESCRIPTOR", 1, 1);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("IMAGE_BASE_RELOCATION", 1, 1);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("IMAGE_SECTION_HEADER", 1, 1);
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("IMAGE_COR20_HEADER\n", 1, 1);
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode(".NET", 3, 3, new System.Windows.Forms.TreeNode[] {
+            treeNode10});
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("PE 文件", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode11});
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
+            System.Windows.Forms.TabPage tabPage3;
             System.Windows.Forms.SplitContainer splitContainer2;
             System.Windows.Forms.ToolStripSeparator ts11;
             System.Windows.Forms.ToolStripSeparator ts12;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
+            Be.Windows.Forms.PenF penF1 = new Be.Windows.Forms.PenF();
             this.LblScale = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.Slbl3 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -91,7 +118,6 @@
             this.MICalculator = new System.Windows.Forms.ToolStripMenuItem();
             this.MIS = new System.Windows.Forms.ToolStripSeparator();
             this.MenuPlugin = new System.Windows.Forms.ToolStripMenuItem();
-            this.hexBox = new Be.Windows.Forms.HexBox();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.tbNew = new System.Windows.Forms.ToolStripButton();
             this.tbOpen = new System.Windows.Forms.ToolStripButton();
@@ -117,11 +143,10 @@
             this.ts10 = new System.Windows.Forms.ToolStripSeparator();
             this.tbAboutthis = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tvPEStruct = new System.Windows.Forms.TreeView();
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.propertyGridB = new System.Windows.Forms.PropertyGrid();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -141,6 +166,7 @@
             this.TMIFind = new System.Windows.Forms.ToolStripMenuItem();
             this.TMIJmp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.hexBox = new Be.Windows.Forms.HexBox();
             statusStrip2 = new System.Windows.Forms.StatusStrip();
             Slbl1 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -165,6 +191,10 @@
             ts3 = new System.Windows.Forms.ToolStripSeparator();
             ts4 = new System.Windows.Forms.ToolStripSeparator();
             ts5 = new System.Windows.Forms.ToolStripSeparator();
+            tabPage1 = new System.Windows.Forms.TabPage();
+            tabPage2 = new System.Windows.Forms.TabPage();
+            splitContainer3 = new System.Windows.Forms.SplitContainer();
+            tabPage3 = new System.Windows.Forms.TabPage();
             splitContainer2 = new System.Windows.Forms.SplitContainer();
             ts11 = new System.Windows.Forms.ToolStripSeparator();
             ts12 = new System.Windows.Forms.ToolStripSeparator();
@@ -177,9 +207,13 @@
             splitContainer1.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(splitContainer3)).BeginInit();
+            splitContainer3.Panel1.SuspendLayout();
+            splitContainer3.Panel2.SuspendLayout();
+            splitContainer3.SuspendLayout();
+            tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(splitContainer2)).BeginInit();
             splitContainer2.Panel1.SuspendLayout();
             splitContainer2.Panel2.SuspendLayout();
@@ -674,53 +708,6 @@
             splitContainer1.SplitterDistance = 714;
             splitContainer1.TabIndex = 5;
             // 
-            // hexBox
-            // 
-            this.hexBox.ColumnInfoBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.hexBox.ColumnInfoVisible = true;
-            this.hexBox.ContextMenuStrip = this.hexMenuStrip;
-            this.hexBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hexBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
-            this.hexBox.GroupLinePen.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-            this.hexBox.GroupLinePen.Color = System.Drawing.Color.Lime;
-            this.hexBox.GroupLinePen.DashCap = System.Drawing.Drawing2D.DashCap.Flat;
-            this.hexBox.GroupLinePen.DashOffset = 0F;
-            this.hexBox.GroupLinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            this.hexBox.GroupLinePen.EndCap = System.Drawing.Drawing2D.LineCap.Flat;
-            this.hexBox.GroupLinePen.StartCap = System.Drawing.Drawing2D.LineCap.Flat;
-            this.hexBox.GroupLinePen.Width = 1F;
-            this.hexBox.GroupSeparatorVisible = true;
-            penF1.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-            penF1.Color = System.Drawing.Color.Fuchsia;
-            penF1.DashCap = System.Drawing.Drawing2D.DashCap.Flat;
-            penF1.DashOffset = 0F;
-            penF1.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            penF1.EndCap = System.Drawing.Drawing2D.LineCap.Flat;
-            penF1.StartCap = System.Drawing.Drawing2D.LineCap.Flat;
-            penF1.Width = 1F;
-            this.hexBox.HexStringLinePen = penF1;
-            this.hexBox.HScrollBarVisible = true;
-            this.hexBox.LineInfoBackColor = System.Drawing.Color.Aqua;
-            this.hexBox.LineInfoVisible = true;
-            this.hexBox.Location = new System.Drawing.Point(0, 27);
-            this.hexBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.hexBox.Name = "hexBox";
-            this.hexBox.Scaling = 1F;
-            this.hexBox.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hexBox.ShowColumnInfoBackColor = true;
-            this.hexBox.ShowLineInfoBackColor = true;
-            this.hexBox.Size = new System.Drawing.Size(714, 636);
-            this.hexBox.StringViewVisible = true;
-            this.hexBox.TabIndex = 0;
-            this.hexBox.UseFixedBytesPerLine = true;
-            this.hexBox.VScrollBarVisible = true;
-            this.hexBox.InsertActiveChanged += new System.EventHandler(this.HexBox_InsertActiveChanged);
-            this.hexBox.SelectionLengthChanged += new System.EventHandler(this.HexBox_SelectionLengthChanged);
-            this.hexBox.CurrentLineChanged += new System.EventHandler(this.HexBox_CurrentLineChanged);
-            this.hexBox.CurrentPositionInLineChanged += new System.EventHandler(this.HexBox_CurrentPositionInLineChanged);
-            this.hexBox.ScalingChanged += new System.EventHandler(this.HexBox_ScalingChanged);
-            this.hexBox.ContentChanged += new System.EventHandler(this.HexBox_ContentChanged);
-            // 
             // toolStrip
             // 
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -753,7 +740,7 @@
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.ShowItemToolTips = false;
-            this.toolStrip.Size = new System.Drawing.Size(714, 27);
+            this.toolStrip.Size = new System.Drawing.Size(714, 31);
             this.toolStrip.TabIndex = 2;
             // 
             // tbNew
@@ -762,7 +749,7 @@
             this.tbNew.Image = global::PEHexExplorer.Properties.Resources._new;
             this.tbNew.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbNew.Name = "tbNew";
-            this.tbNew.Size = new System.Drawing.Size(29, 24);
+            this.tbNew.Size = new System.Drawing.Size(29, 28);
             this.tbNew.Tag = "2";
             this.tbNew.Text = "新建";
             this.tbNew.ToolTipText = "新建";
@@ -776,7 +763,7 @@
             this.tbOpen.Image = global::PEHexExplorer.Properties.Resources.open;
             this.tbOpen.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbOpen.Name = "tbOpen";
-            this.tbOpen.Size = new System.Drawing.Size(29, 24);
+            this.tbOpen.Size = new System.Drawing.Size(29, 28);
             this.tbOpen.Tag = "2";
             this.tbOpen.Text = "打开";
             this.tbOpen.Click += new System.EventHandler(this.MIOpen_Click);
@@ -786,7 +773,7 @@
             // ts9
             // 
             ts9.Name = "ts9";
-            ts9.Size = new System.Drawing.Size(6, 27);
+            ts9.Size = new System.Drawing.Size(6, 31);
             // 
             // tbExport
             // 
@@ -795,7 +782,7 @@
             this.tbExport.Image = global::PEHexExplorer.Properties.Resources.export;
             this.tbExport.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbExport.Name = "tbExport";
-            this.tbExport.Size = new System.Drawing.Size(29, 24);
+            this.tbExport.Size = new System.Drawing.Size(29, 28);
             this.tbExport.Tag = "2";
             this.tbExport.Text = "导出";
             this.tbExport.Click += new System.EventHandler(this.MIExport_Click);
@@ -809,7 +796,7 @@
             this.tbSave.Image = global::PEHexExplorer.Properties.Resources.save;
             this.tbSave.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbSave.Name = "tbSave";
-            this.tbSave.Size = new System.Drawing.Size(29, 24);
+            this.tbSave.Size = new System.Drawing.Size(29, 28);
             this.tbSave.Tag = "2";
             this.tbSave.Text = "保存";
             this.tbSave.Click += new System.EventHandler(this.MISave_Click);
@@ -823,7 +810,7 @@
             this.tbSaveAs.Image = global::PEHexExplorer.Properties.Resources.saveas;
             this.tbSaveAs.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbSaveAs.Name = "tbSaveAs";
-            this.tbSaveAs.Size = new System.Drawing.Size(29, 24);
+            this.tbSaveAs.Size = new System.Drawing.Size(29, 28);
             this.tbSaveAs.Tag = "2";
             this.tbSaveAs.Text = "另存为";
             this.tbSaveAs.Click += new System.EventHandler(this.MISaveAs_Click);
@@ -833,7 +820,7 @@
             // ts1
             // 
             ts1.Name = "ts1";
-            ts1.Size = new System.Drawing.Size(6, 27);
+            ts1.Size = new System.Drawing.Size(6, 31);
             // 
             // tbCut
             // 
@@ -842,7 +829,7 @@
             this.tbCut.Image = global::PEHexExplorer.Properties.Resources.cut;
             this.tbCut.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbCut.Name = "tbCut";
-            this.tbCut.Size = new System.Drawing.Size(29, 24);
+            this.tbCut.Size = new System.Drawing.Size(29, 28);
             this.tbCut.Tag = "2";
             this.tbCut.Text = "剪切";
             this.tbCut.Click += new System.EventHandler(this.MICut_Click);
@@ -859,7 +846,7 @@
             this.tbCopy.Image = global::PEHexExplorer.Properties.Resources.copy;
             this.tbCopy.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbCopy.Name = "tbCopy";
-            this.tbCopy.Size = new System.Drawing.Size(39, 24);
+            this.tbCopy.Size = new System.Drawing.Size(39, 28);
             this.tbCopy.Tag = "2";
             this.tbCopy.Text = "复制";
             this.tbCopy.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
@@ -891,7 +878,7 @@
             this.tbPaste.Image = global::PEHexExplorer.Properties.Resources.paste;
             this.tbPaste.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbPaste.Name = "tbPaste";
-            this.tbPaste.Size = new System.Drawing.Size(39, 24);
+            this.tbPaste.Size = new System.Drawing.Size(39, 28);
             this.tbPaste.Tag = "2";
             this.tbPaste.Text = "粘贴";
             this.tbPaste.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
@@ -920,7 +907,7 @@
             this.tbDel.Image = global::PEHexExplorer.Properties.Resources.del;
             this.tbDel.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbDel.Name = "tbDel";
-            this.tbDel.Size = new System.Drawing.Size(29, 24);
+            this.tbDel.Size = new System.Drawing.Size(29, 28);
             this.tbDel.Tag = "2";
             this.tbDel.Text = "删除";
             this.tbDel.Click += new System.EventHandler(this.MIDel_Click);
@@ -930,7 +917,7 @@
             // ts2
             // 
             ts2.Name = "ts2";
-            ts2.Size = new System.Drawing.Size(6, 27);
+            ts2.Size = new System.Drawing.Size(6, 31);
             // 
             // tbFill
             // 
@@ -939,7 +926,7 @@
             this.tbFill.Image = global::PEHexExplorer.Properties.Resources.fill;
             this.tbFill.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbFill.Name = "tbFill";
-            this.tbFill.Size = new System.Drawing.Size(29, 24);
+            this.tbFill.Size = new System.Drawing.Size(29, 28);
             this.tbFill.Tag = "2";
             this.tbFill.Text = "填充数据";
             this.tbFill.Click += new System.EventHandler(this.MIFill_Click);
@@ -953,7 +940,7 @@
             this.tbFillZero.Image = global::PEHexExplorer.Properties.Resources.fillZero;
             this.tbFillZero.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbFillZero.Name = "tbFillZero";
-            this.tbFillZero.Size = new System.Drawing.Size(29, 24);
+            this.tbFillZero.Size = new System.Drawing.Size(29, 28);
             this.tbFillZero.Tag = "2";
             this.tbFillZero.Text = "二进制置零";
             this.tbFillZero.Click += new System.EventHandler(this.MIFillZero_Click);
@@ -967,7 +954,7 @@
             this.tbFillNop.Image = global::PEHexExplorer.Properties.Resources.fillNop;
             this.tbFillNop.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbFillNop.Name = "tbFillNop";
-            this.tbFillNop.Size = new System.Drawing.Size(29, 24);
+            this.tbFillNop.Size = new System.Drawing.Size(29, 28);
             this.tbFillNop.Tag = "2";
             this.tbFillNop.Text = "汇编置零";
             this.tbFillNop.Click += new System.EventHandler(this.MIFillNop_Click);
@@ -977,7 +964,7 @@
             // ts3
             // 
             ts3.Name = "ts3";
-            ts3.Size = new System.Drawing.Size(6, 27);
+            ts3.Size = new System.Drawing.Size(6, 31);
             // 
             // tbBookMark
             // 
@@ -986,7 +973,7 @@
             this.tbBookMark.Image = global::PEHexExplorer.Properties.Resources.bookmark;
             this.tbBookMark.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbBookMark.Name = "tbBookMark";
-            this.tbBookMark.Size = new System.Drawing.Size(29, 24);
+            this.tbBookMark.Size = new System.Drawing.Size(29, 28);
             this.tbBookMark.Tag = "2";
             this.tbBookMark.Text = "书签";
             this.tbBookMark.Click += new System.EventHandler(this.MIBookMark_Click);
@@ -999,7 +986,7 @@
             this.tbSetting.Image = global::PEHexExplorer.Properties.Resources.setting;
             this.tbSetting.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbSetting.Name = "tbSetting";
-            this.tbSetting.Size = new System.Drawing.Size(29, 24);
+            this.tbSetting.Size = new System.Drawing.Size(29, 28);
             this.tbSetting.Tag = "2";
             this.tbSetting.Text = "总体设置";
             this.tbSetting.ToolTipText = "常规设置";
@@ -1013,7 +1000,7 @@
             this.tbSettingPlugin.Image = global::PEHexExplorer.Properties.Resources.settingplugin;
             this.tbSettingPlugin.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbSettingPlugin.Name = "tbSettingPlugin";
-            this.tbSettingPlugin.Size = new System.Drawing.Size(29, 24);
+            this.tbSettingPlugin.Size = new System.Drawing.Size(29, 28);
             this.tbSettingPlugin.Tag = "2";
             this.tbSettingPlugin.Text = "插件设置";
             this.tbSettingPlugin.Click += new System.EventHandler(this.MIPlugin_Click);
@@ -1023,7 +1010,7 @@
             // ts4
             // 
             ts4.Name = "ts4";
-            ts4.Size = new System.Drawing.Size(6, 27);
+            ts4.Size = new System.Drawing.Size(6, 31);
             // 
             // tbCalc
             // 
@@ -1031,7 +1018,7 @@
             this.tbCalc.Image = global::PEHexExplorer.Properties.Resources.calc;
             this.tbCalc.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbCalc.Name = "tbCalc";
-            this.tbCalc.Size = new System.Drawing.Size(29, 24);
+            this.tbCalc.Size = new System.Drawing.Size(29, 28);
             this.tbCalc.Tag = "2";
             this.tbCalc.Text = "计算器";
             this.tbCalc.Click += new System.EventHandler(this.MICalculator_Click);
@@ -1041,7 +1028,7 @@
             // ts5
             // 
             ts5.Name = "ts5";
-            ts5.Size = new System.Drawing.Size(6, 27);
+            ts5.Size = new System.Drawing.Size(6, 31);
             // 
             // tbClose
             // 
@@ -1050,7 +1037,7 @@
             this.tbClose.Image = global::PEHexExplorer.Properties.Resources.closefile;
             this.tbClose.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbClose.Name = "tbClose";
-            this.tbClose.Size = new System.Drawing.Size(29, 24);
+            this.tbClose.Size = new System.Drawing.Size(29, 28);
             this.tbClose.Tag = "2";
             this.tbClose.Text = "关闭此文件";
             this.tbClose.Click += new System.EventHandler(this.MIClose_Click);
@@ -1060,7 +1047,7 @@
             // ts10
             // 
             this.ts10.Name = "ts10";
-            this.ts10.Size = new System.Drawing.Size(6, 27);
+            this.ts10.Size = new System.Drawing.Size(6, 31);
             // 
             // tbAboutthis
             // 
@@ -1068,7 +1055,7 @@
             this.tbAboutthis.Image = global::PEHexExplorer.Properties.Resources.aboutthis;
             this.tbAboutthis.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbAboutthis.Name = "tbAboutthis";
-            this.tbAboutthis.Size = new System.Drawing.Size(29, 24);
+            this.tbAboutthis.Size = new System.Drawing.Size(29, 28);
             this.tbAboutthis.Tag = "2";
             this.tbAboutthis.Text = "关于此软件";
             this.tbAboutthis.Click += new System.EventHandler(this.MIAboutThis_Click);
@@ -1077,9 +1064,9 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(tabPage1);
+            this.tabControl1.Controls.Add(tabPage2);
+            this.tabControl1.Controls.Add(tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -1090,15 +1077,15 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.propertyGrid);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage1.Size = new System.Drawing.Size(456, 660);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "属性";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Controls.Add(this.propertyGrid);
+            tabPage1.Location = new System.Drawing.Point(4, 29);
+            tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tabPage1.Size = new System.Drawing.Size(456, 660);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "常量";
+            tabPage1.UseVisualStyleBackColor = true;
             // 
             // propertyGrid
             // 
@@ -1111,35 +1098,121 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.treeView1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage2.Size = new System.Drawing.Size(456, 664);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "结构";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.Controls.Add(splitContainer3);
+            tabPage2.Location = new System.Drawing.Point(4, 29);
+            tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tabPage2.Size = new System.Drawing.Size(456, 660);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "结构";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
-            // treeView1
+            // splitContainer3
             // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Location = new System.Drawing.Point(3, 4);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(450, 656);
-            this.treeView1.TabIndex = 0;
+            splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer3.Location = new System.Drawing.Point(3, 4);
+            splitContainer3.Name = "splitContainer3";
+            splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            splitContainer3.Panel1.Controls.Add(this.tvPEStruct);
+            // 
+            // splitContainer3.Panel2
+            // 
+            splitContainer3.Panel2.Controls.Add(this.propertyGrid1);
+            splitContainer3.Size = new System.Drawing.Size(450, 656);
+            splitContainer3.SplitterDistance = 352;
+            splitContainer3.TabIndex = 0;
+            // 
+            // tvPEStruct
+            // 
+            this.tvPEStruct.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvPEStruct.ImageIndex = 0;
+            this.tvPEStruct.ImageList = this.imageList;
+            this.tvPEStruct.Location = new System.Drawing.Point(0, 0);
+            this.tvPEStruct.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tvPEStruct.Name = "tvPEStruct";
+            treeNode1.ImageIndex = 1;
+            treeNode1.Name = "tDOS_HEADER";
+            treeNode1.SelectedImageIndex = 1;
+            treeNode1.Text = "IMAGE_DOS_HEADER";
+            treeNode2.ImageIndex = 1;
+            treeNode2.Name = "tNT_HEADERS";
+            treeNode2.SelectedImageIndex = 1;
+            treeNode2.Text = "IMAGE_NT_HEADERS";
+            treeNode3.ImageIndex = 1;
+            treeNode3.Name = "tFILE_HEADER";
+            treeNode3.SelectedImageIndex = 1;
+            treeNode3.Text = "IMAGE_FILE_HEADER";
+            treeNode4.ImageIndex = 1;
+            treeNode4.Name = "tOPTIONAL_HEADER";
+            treeNode4.SelectedImageIndex = 1;
+            treeNode4.Text = "IMAGE_OPTIONAL_HEADER";
+            treeNode5.ImageIndex = 1;
+            treeNode5.Name = "tDATA_DIRECTORY";
+            treeNode5.SelectedImageIndex = 1;
+            treeNode5.Text = "IMAGE_DATA_DIRECTORY";
+            treeNode6.ImageIndex = 1;
+            treeNode6.Name = "tEXPORT_DIRECTORY";
+            treeNode6.SelectedImageIndex = 1;
+            treeNode6.Text = "IMAGE_EXPORT_DIRECTORY";
+            treeNode7.ImageIndex = 1;
+            treeNode7.Name = "tIMPORT_DESCRIPTOR";
+            treeNode7.SelectedImageIndex = 1;
+            treeNode7.Text = "IMAGE_IMPORT_DESCRIPTOR";
+            treeNode8.ImageIndex = 1;
+            treeNode8.Name = "tBASE_RELOCATION";
+            treeNode8.SelectedImageIndex = 1;
+            treeNode8.Text = "IMAGE_BASE_RELOCATION";
+            treeNode9.ImageIndex = 1;
+            treeNode9.Name = "tSECTION_HEADER";
+            treeNode9.SelectedImageIndex = 1;
+            treeNode9.Text = "IMAGE_SECTION_HEADER";
+            treeNode10.ImageIndex = 1;
+            treeNode10.Name = "tCOR20_HEADER\n";
+            treeNode10.SelectedImageIndex = 1;
+            treeNode10.Text = "IMAGE_COR20_HEADER\n";
+            treeNode11.ImageIndex = 3;
+            treeNode11.Name = "tNET";
+            treeNode11.SelectedImageIndex = 3;
+            treeNode11.Text = ".NET";
+            treeNode12.Name = "nodeRoot";
+            treeNode12.Text = "PE 文件";
+            this.tvPEStruct.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode12});
+            this.tvPEStruct.SelectedImageIndex = 0;
+            this.tvPEStruct.Size = new System.Drawing.Size(450, 352);
+            this.tvPEStruct.TabIndex = 0;
+            // 
+            // imageList
+            // 
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "0.png");
+            this.imageList.Images.SetKeyName(1, "1.png");
+            this.imageList.Images.SetKeyName(2, "2.png");
+            this.imageList.Images.SetKeyName(3, "3.png");
+            // 
+            // propertyGrid1
+            // 
+            this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
+            this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.Size = new System.Drawing.Size(450, 300);
+            this.propertyGrid1.TabIndex = 1;
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(splitContainer2);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(456, 664);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "书签";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            tabPage3.Controls.Add(splitContainer2);
+            tabPage3.Location = new System.Drawing.Point(4, 29);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            tabPage3.Size = new System.Drawing.Size(456, 660);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "书签";
+            tabPage3.UseVisualStyleBackColor = true;
             // 
             // splitContainer2
             // 
@@ -1155,8 +1228,8 @@
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(this.propertyGridB);
-            splitContainer2.Size = new System.Drawing.Size(450, 658);
-            splitContainer2.SplitterDistance = 248;
+            splitContainer2.Size = new System.Drawing.Size(450, 654);
+            splitContainer2.SplitterDistance = 245;
             splitContainer2.TabIndex = 3;
             // 
             // checkedListBox1
@@ -1165,7 +1238,7 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(0, 0);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(450, 248);
+            this.checkedListBox1.Size = new System.Drawing.Size(450, 245);
             this.checkedListBox1.TabIndex = 3;
             // 
             // propertyGridB
@@ -1173,7 +1246,7 @@
             this.propertyGridB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGridB.Location = new System.Drawing.Point(0, 0);
             this.propertyGridB.Name = "propertyGridB";
-            this.propertyGridB.Size = new System.Drawing.Size(450, 406);
+            this.propertyGridB.Size = new System.Drawing.Size(450, 405);
             this.propertyGridB.TabIndex = 0;
             // 
             // ts11
@@ -1221,6 +1294,7 @@
             // LblSaved
             // 
             this.LblSaved.AutoToolTip = true;
+            this.LblSaved.Enabled = false;
             this.LblSaved.ForeColor = System.Drawing.Color.Green;
             this.LblSaved.Name = "LblSaved";
             this.LblSaved.Size = new System.Drawing.Size(29, 24);
@@ -1234,6 +1308,7 @@
             // 
             this.LblWritable.AutoToolTip = true;
             this.LblWritable.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.LblWritable.Enabled = false;
             this.LblWritable.ForeColor = System.Drawing.Color.Green;
             this.LblWritable.Name = "LblWritable";
             this.LblWritable.Size = new System.Drawing.Size(34, 24);
@@ -1246,6 +1321,7 @@
             // lblLocked
             // 
             this.lblLocked.AutoToolTip = true;
+            this.lblLocked.Enabled = false;
             this.lblLocked.ForeColor = System.Drawing.Color.Red;
             this.lblLocked.Name = "lblLocked";
             this.lblLocked.Size = new System.Drawing.Size(26, 24);
@@ -1259,6 +1335,7 @@
             // lblInsert
             // 
             this.lblInsert.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.lblInsert.Enabled = false;
             this.lblInsert.ForeColor = System.Drawing.Color.Red;
             this.lblInsert.Name = "lblInsert";
             this.lblInsert.Size = new System.Drawing.Size(34, 24);
@@ -1281,6 +1358,7 @@
             this.LblFilename.VisitedLinkColor = System.Drawing.Color.Blue;
             this.LblFilename.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.LblFilename.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
+            this.LblFilename.TextChanged += new System.EventHandler(this.LblFilename_TextChanged);
             // 
             // TMISelectAll
             // 
@@ -1328,6 +1406,55 @@
             // 
             this.toolTip.ShowAlways = true;
             // 
+            // hexBox
+            // 
+            this.hexBox.ColumnInfoBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.hexBox.ColumnInfoVisible = true;
+            this.hexBox.ContextMenuStrip = this.hexMenuStrip;
+            this.hexBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hexBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.hexBox.GroupLinePen.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+            this.hexBox.GroupLinePen.Color = System.Drawing.Color.Lime;
+            this.hexBox.GroupLinePen.DashCap = System.Drawing.Drawing2D.DashCap.Flat;
+            this.hexBox.GroupLinePen.DashOffset = 0F;
+            this.hexBox.GroupLinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            this.hexBox.GroupLinePen.EndCap = System.Drawing.Drawing2D.LineCap.Flat;
+            this.hexBox.GroupLinePen.StartCap = System.Drawing.Drawing2D.LineCap.Flat;
+            this.hexBox.GroupLinePen.Width = 1F;
+            this.hexBox.GroupSeparatorVisible = true;
+            penF1.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+            penF1.Color = System.Drawing.Color.Fuchsia;
+            penF1.DashCap = System.Drawing.Drawing2D.DashCap.Flat;
+            penF1.DashOffset = 0F;
+            penF1.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            penF1.EndCap = System.Drawing.Drawing2D.LineCap.Flat;
+            penF1.StartCap = System.Drawing.Drawing2D.LineCap.Flat;
+            penF1.Width = 1F;
+            this.hexBox.HexStringLinePen = penF1;
+            this.hexBox.HScrollBarVisible = true;
+            this.hexBox.LineInfoBackColor = System.Drawing.Color.Aqua;
+            this.hexBox.LineInfoVisible = true;
+            this.hexBox.Location = new System.Drawing.Point(0, 31);
+            this.hexBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.hexBox.Name = "hexBox";
+            this.hexBox.Scaling = 1F;
+            this.hexBox.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
+            this.hexBox.ShowColumnInfoBackColor = true;
+            this.hexBox.ShowLineInfoBackColor = true;
+            this.hexBox.Size = new System.Drawing.Size(714, 632);
+            this.hexBox.StringViewVisible = true;
+            this.hexBox.TabIndex = 0;
+            this.hexBox.UseFixedBytesPerLine = true;
+            this.hexBox.VScrollBarVisible = true;
+            this.hexBox.InsertActiveChanged += new System.EventHandler(this.HexBox_InsertActiveChanged);
+            this.hexBox.ByteProviderChanged += new System.EventHandler(this.hexBox_ByteProviderChanged);
+            this.hexBox.SelectionLengthChanged += new System.EventHandler(this.HexBox_SelectionLengthChanged);
+            this.hexBox.CurrentLineChanged += new System.EventHandler(this.HexBox_CurrentLineChanged);
+            this.hexBox.CurrentPositionInLineChanged += new System.EventHandler(this.HexBox_CurrentPositionInLineChanged);
+            this.hexBox.ScalingChanged += new System.EventHandler(this.HexBox_ScalingChanged);
+            this.hexBox.SavedStatusChanged += new System.EventHandler(this.HexBox_ContentChanged);
+            this.hexBox.LockedBufferChanged += new System.EventHandler(this.HexBox_LockedBufferChanged);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1343,7 +1470,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "羽云PE浏览器";
+            this.Text = "羽云PE浏览器 —— By. 寂静的羽夏(wingsummer)";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             statusStrip2.ResumeLayout(false);
@@ -1359,9 +1486,13 @@
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage2.ResumeLayout(false);
+            splitContainer3.Panel1.ResumeLayout(false);
+            splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(splitContainer3)).EndInit();
+            splitContainer3.ResumeLayout(false);
+            tabPage3.ResumeLayout(false);
             splitContainer2.Panel1.ResumeLayout(false);
             splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(splitContainer2)).EndInit();
@@ -1386,10 +1517,7 @@
         private System.Windows.Forms.ToolStripMenuItem MenuPlugin;
         private Be.Windows.Forms.HexBox hexBox;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.PropertyGrid propertyGrid;
-        private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.OpenFileDialog oD;
         private System.Windows.Forms.SaveFileDialog sD;
         private System.Windows.Forms.ToolStripMenuItem MIGeneral;
@@ -1437,7 +1565,6 @@
         private System.Windows.Forms.ToolStripButton tbAboutthis;
         private System.Windows.Forms.ToolStripButton tbExport;
         private System.Windows.Forms.ToolStripButton tbSave;
-        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.PropertyGrid propertyGridB;
         private System.Windows.Forms.ToolStripButton tbDel;
@@ -1457,6 +1584,9 @@
         private System.Windows.Forms.ToolStripMenuItem SMICopy;
         private System.Windows.Forms.ToolStripMenuItem SMIPaste;
         private System.Windows.Forms.ToolStripStatusLabel lblInsert;
+        private System.Windows.Forms.ImageList imageList;
+        private System.Windows.Forms.TreeView tvPEStruct;
+        private System.Windows.Forms.PropertyGrid propertyGrid1;
     }
 }
 
