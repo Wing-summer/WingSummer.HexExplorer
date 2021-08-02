@@ -19,8 +19,8 @@ namespace PEProcesser
 
         public void Dispose()
         {
-            _viewAccessor.Dispose();
-            mappedFile.Dispose();
+            _viewAccessor?.Dispose();
+            mappedFile?.Dispose();
         }
 
         public ulong? RVA2FOA(ulong rva)

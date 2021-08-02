@@ -11,7 +11,7 @@ namespace PEHexExplorer
         {
             get
             {
-                if (newInsert==null)
+                if (newInsert == null || newInsert.IsDisposed )
                 {
                     newInsert = new FrmNewInsert();
                 }

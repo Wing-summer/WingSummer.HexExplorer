@@ -272,7 +272,7 @@ namespace Be.Windows.Forms
         /// </summary>
         public bool CanCut()
         {
-            if (ReadOnly || !Enabled)
+            if (_readOnly || !Enabled)
                 return false;
             if (_byteProvider == null)
                 return false;
@@ -330,7 +330,7 @@ namespace Be.Windows.Forms
         /// </summary>
         public bool CanPaste()
         {
-            if (ReadOnly || !Enabled) return false;
+            if (_readOnly || !Enabled) return false;
 
             if (_byteProvider == null || !_byteProvider.SupportsInsertBytes())
                 return false;
@@ -1024,17 +1024,23 @@ namespace Be.Windows.Forms
         /// </summary>
         /// <param name="offset"></param>
         /// <param name="isfromBase"></param>
-        public void GotoByOffset(long offset, bool isfromBase)
+        public bool GotoByOffset(long offset, bool isfromBase)
         {
             long _base = 0;
             if (!isfromBase)
             {
                 _base = _bytePos;
             }
+            long destin = _base + offset;
+            if (destin>_byteProvider.Length)
+            {
+                return false;
+            }
             ScrollByteIntoView(offset + _base);
             _bytePos = offset + _base;
             UpdateCaret();
             Invalidate();
+            return true;
         }
 
         #endregion

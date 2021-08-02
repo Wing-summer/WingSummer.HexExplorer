@@ -13,7 +13,7 @@ namespace PEHexExplorer
         {
             get
             {
-                if (frmFill == null)
+                if (frmFill == null || frmFill.IsDisposed)
                 {
                     frmFill = new FrmFill();
                 }
@@ -53,7 +53,7 @@ namespace PEHexExplorer
         {
             if (Visible)
             {
-                hexBoxFill.OpenFile();
+                hexBoxFill.CreateBuffer(true);
             }
             else
             {

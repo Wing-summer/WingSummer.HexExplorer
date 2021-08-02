@@ -719,7 +719,8 @@
             this.hexBox.CurrentLineChanged += new System.EventHandler(this.HexBox_CurrentLineChanged);
             this.hexBox.CurrentPositionInLineChanged += new System.EventHandler(this.HexBox_CurrentPositionInLineChanged);
             this.hexBox.ScalingChanged += new System.EventHandler(this.HexBox_ScalingChanged);
-            this.hexBox.ContentChanged += new System.EventHandler(this.HexBox_ContentChanged);
+            this.hexBox.SavedStatusChanged += new System.EventHandler(this.HexBox_ContentChanged);
+            this.hexBox.LockedBufferChanged += new System.EventHandler(this.HexBox_LockedBufferChanged);
             // 
             // toolStrip
             // 
@@ -1221,6 +1222,7 @@
             // LblSaved
             // 
             this.LblSaved.AutoToolTip = true;
+            this.LblSaved.Enabled = false;
             this.LblSaved.ForeColor = System.Drawing.Color.Green;
             this.LblSaved.Name = "LblSaved";
             this.LblSaved.Size = new System.Drawing.Size(29, 24);
@@ -1234,6 +1236,7 @@
             // 
             this.LblWritable.AutoToolTip = true;
             this.LblWritable.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.LblWritable.Enabled = false;
             this.LblWritable.ForeColor = System.Drawing.Color.Green;
             this.LblWritable.Name = "LblWritable";
             this.LblWritable.Size = new System.Drawing.Size(34, 24);
@@ -1246,6 +1249,7 @@
             // lblLocked
             // 
             this.lblLocked.AutoToolTip = true;
+            this.lblLocked.Enabled = false;
             this.lblLocked.ForeColor = System.Drawing.Color.Red;
             this.lblLocked.Name = "lblLocked";
             this.lblLocked.Size = new System.Drawing.Size(26, 24);
@@ -1259,6 +1263,7 @@
             // lblInsert
             // 
             this.lblInsert.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.lblInsert.Enabled = false;
             this.lblInsert.ForeColor = System.Drawing.Color.Red;
             this.lblInsert.Name = "lblInsert";
             this.lblInsert.Size = new System.Drawing.Size(34, 24);
@@ -1281,6 +1286,7 @@
             this.LblFilename.VisitedLinkColor = System.Drawing.Color.Blue;
             this.LblFilename.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.LblFilename.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
+            this.LblFilename.TextChanged += new System.EventHandler(this.LblFilename_TextChanged);
             // 
             // TMISelectAll
             // 
@@ -1343,7 +1349,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "羽云PE浏览器";
+            this.Text = "羽云PE浏览器 —— By. 寂静的羽夏(wingsummer)";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             statusStrip2.ResumeLayout(false);

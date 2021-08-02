@@ -552,17 +552,55 @@
             Represents a hex box control.
             </summary>
         </member>
-        <member name="M:Be.Windows.Forms.HexBox.OpenFile(System.String,System.Boolean)">
+        <member name="T:Be.Windows.Forms.HexBox.IOError">
+            <summary>
+            打开或关闭文件或缓冲区引发的错误枚举
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.HexBox.IOError.Success">
+            <summary>
+            成功完成操作
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.HexBox.IOError.HasOpenedBuffer">
+            <summary>
+            已打开缓冲区异常，发生在OpenFile和CloseFile函数中
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.HexBox.IOError.HasOpenedFile">
+            <summary>
+            已打开缓冲区异常，发生在CreateBuffer和CloseBuffer函数中
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.HexBox.IOError.FileNotExist">
+            <summary>
+             文件不存在异常，发生在OpenFile函数中
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.HexBox.IOError.Exception">
+            <summary>
+            .Net的Exception类型异常
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.HexBox.IOError.NullObject">
+            <summary>
+            对象或其内容为空异常
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.OpenFile(Be.Windows.Forms.HexBox.IOError@,System.String,System.Boolean,System.Boolean)">
             <summary>
             Opens a file.
             </summary>
             <param name="fileName">the file name of the file to open，为null为新建一个流</param>
             <param name="writeable">是否可写权限</param>
+            <param name="force">是否强制打开文件（如果打开缓冲区则强制关闭）</param>
+            <param name="error">输出错误记录</param>
         </member>
-        <member name="M:Be.Windows.Forms.HexBox.SaveFile(System.String,System.Boolean)">
+        <member name="M:Be.Windows.Forms.HexBox.SaveFile(Be.Windows.Forms.HexBox.IOError@,System.String,System.Boolean)">
             <summary>
             保存文件
             </summary>
+            <param name="error">输出错误记录</param>
             <param name="filename">如果此参数为空，则为保存，否则为导出或另存为</param>
             <param name="isExport">如果为导出，则值为True</param>
             <returns>成功为True，反之为False</returns>
@@ -572,6 +610,18 @@
             关闭并默认保存文件
             </summary>
             <param name="IsSave">如果该参数为False，则丢弃更改</param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.CreateBuffer(System.Boolean)">
+            <summary>
+            创建一个可供编写的缓冲区，建议不要用于编写文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.CloseBuffer">
+            <summary>
+            关闭缓冲区
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Be.Windows.Forms.HexBox.#ctor">
@@ -970,9 +1020,14 @@
             当Scaling(缩放)属性更改时会触发该事件
             </summary>
         </member>
-        <member name="E:Be.Windows.Forms.HexBox.ContentChanged">
+        <member name="E:Be.Windows.Forms.HexBox.SavedStatusChanged">
             <summary>
             当有更改完成后会触发该事件
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.HexBox.LockedBufferChanged">
+            <summary>
+            当越界锁状态改变后会触发该事件
             </summary>
         </member>
         <member name="F:Be.Windows.Forms.HexBox._recContent">
@@ -1599,6 +1654,11 @@
             判断是否已打开文件
             </summary>
         </member>
+        <member name="P:Be.Windows.Forms.HexBox.IsOpenedBuffer">
+            <summary>
+            判断是否已打开缓冲区
+            </summary>
+        </member>
         <member name="P:Be.Windows.Forms.HexBox.InsertActive">
             <summary>
             Gets the a value if insertion mode is active or not.
@@ -1612,6 +1672,11 @@
         <member name="P:Be.Windows.Forms.HexBox.IsCharToUnicode">
             <summary>
             是否不用ASCII编码而用Unicode显示字符串解析结果
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.HexBox.IsLockedBuffer">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:Be.Windows.Forms.HexBox.CharSizeRefer">

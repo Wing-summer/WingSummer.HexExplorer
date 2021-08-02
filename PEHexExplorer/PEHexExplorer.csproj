@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookMarkPE.cs" />
     <Compile Include="FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -176,6 +177,10 @@
     <ProjectReference Include="..\PEProcesser\PEProcesser.csproj">
       <Project>{1791e52e-0301-404f-9284-21b78e3f1015}</Project>
       <Name>PEProcesser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WSPEHexPluginHost\WSPEHexPluginHost.csproj">
+      <Project>{104fbdc7-581f-443f-873c-dd4ea5372c38}</Project>
+      <Name>WSPEHexPluginHost</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

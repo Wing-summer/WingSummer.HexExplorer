@@ -6,12 +6,58 @@ namespace Be.Windows.Forms
     public partial class HexBox
     {
         /// <summary>
+        /// 打开或关闭文件或缓冲区引发的错误枚举
+        /// </summary>
+        public enum IOError
+        {
+            /// <summary>
+            /// 成功完成操作
+            /// </summary>
+            Success,
+            /// <summary>
+            /// 已打开缓冲区异常，发生在OpenFile和CloseFile函数中
+            /// </summary>
+            HasOpenedBuffer,
+            /// <summary>
+            /// 已打开缓冲区异常，发生在CreateBuffer和CloseBuffer函数中
+            /// </summary>
+            HasOpenedFile,
+            /// <summary>
+            ///  文件不存在异常，发生在OpenFile函数中
+            /// </summary>
+            FileNotExist,
+            /// <summary>
+            /// .Net的Exception类型异常
+            /// </summary>
+            Exception,
+            /// <summary>
+            /// 对象或其内容为空异常
+            /// </summary>
+            NullObject
+        }
+
+        /// <summary>
         /// Opens a file.
         /// </summary>
         /// <param name="fileName">the file name of the file to open，为null为新建一个流</param>
         /// <param name="writeable">是否可写权限</param>
-        public bool OpenFile(string fileName = null, bool writeable = true)
+        /// <param name="force">是否强制打开文件（如果打开缓冲区则强制关闭）</param>
+        /// <param name="error">输出错误记录</param>
+        public bool OpenFile(out IOError error, string fileName = null, bool writeable = true, bool force = false)
         {
+            if (IsOpenedBuffer)
+            {
+                if (force)
+                {
+                    CloseBuffer();
+                }
+                else
+                {
+                    error = IOError.HasOpenedBuffer;
+                    return false;
+                }
+            }
+
             DynamicFileByteProvider dynamicFileByteProvider;
             if (fileName == null)
             {
@@ -21,15 +67,22 @@ namespace Be.Windows.Forms
                     ByteProvider = dynamicFileByteProvider;
                     Filename = string.Empty;
                     IsOpenedFile = true;
+                    error = IOError.Success;
+                    InsertActive = true;
+                    IsLockedBuffer = false;
                     return true;
                 }
                 catch (Exception)
                 {
+                    error = IOError.Exception;
                     return false;
                 }
             }
             if (!File.Exists(fileName))
+            {
+                error = IOError.FileNotExist;
                 return false;
+            }
             CloseFile(false);
             try
             {
@@ -39,6 +92,7 @@ namespace Be.Windows.Forms
                 }
                 catch (IOException)
                 {
+                    error = IOError.Exception;
                     return false;
                 }
                 ByteProvider = dynamicFileByteProvider;
@@ -46,31 +100,46 @@ namespace Be.Windows.Forms
             }
             catch (Exception)
             {
+                error = IOError.Exception;
                 return false;
             }
             IsOpenedFile = true;
+            error = IOError.Success;
+            IsLockedBuffer = true;
+            InsertActive = false;
             return true;
         }
 
         /// <summary>
         /// 保存文件
         /// </summary>
+        /// <param name="error">输出错误记录</param>
         /// <param name="filename">如果此参数为空，则为保存，否则为导出或另存为</param>
         /// <param name="isExport">如果为导出，则值为True</param>
         /// <returns>成功为True，反之为False</returns>
-        public bool SaveFile(string filename = null, bool isExport = true)
+        public bool SaveFile(out IOError error , string filename = null, bool isExport = true)
         {
-            if (_byteProvider == null)
+            if (IsOpenedBuffer)
+            {
+                error = IOError.HasOpenedBuffer;
                 return false;
+            }
+            if (_byteProvider == null)
+            {
+                error = IOError.NullObject;
+                return false;
+            }
             try
             {
                 if (filename == null)
                 {
                     if (Filename == string.Empty)
                     {
+                        error = IOError.NullObject;
                         return false;
                     }
                     _byteProvider.ApplyChanges(null);
+                    SavedStatusChanged?.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
@@ -96,8 +165,10 @@ namespace Be.Windows.Forms
             }
             catch (Exception)
             {
+                error = IOError.Exception;
                 return false;
             }
+            error = IOError.Success;
             return true;
         }
 
@@ -108,6 +179,8 @@ namespace Be.Windows.Forms
         /// <returns></returns>
         public bool CloseFile(bool IsSave = true)
         {
+            if (IsOpenedBuffer)
+                return false;
             if (_byteProvider == null)
                 return false;
 
@@ -116,7 +189,7 @@ namespace Be.Windows.Forms
             {
                 if (IsSave && _byteProvider != null && _byteProvider.HasChanges())
                 {
-                    SaveFile();
+                    SaveFile(out _);
                 }
                 CleanUp();
             }
@@ -128,16 +201,60 @@ namespace Be.Windows.Forms
             return true;
         }
 
+        /// <summary>
+        /// 创建一个可供编写的缓冲区，建议不要用于编写文件
+        /// </summary>
+        /// <returns></returns>
+        public bool CreateBuffer(bool force = false)
+        {
+            if (!force && IsOpenedFile)
+            {
+                return false;
+            }
+            DynamicByteProvider dynamicByteProvider;
+            try
+            {
+                CloseBuffer();
+                dynamicByteProvider = new DynamicByteProvider(new byte[0]);
+                ByteProvider = dynamicByteProvider;
+                Filename = string.Empty;
+                IsOpenedFile = false;
+                IsOpenedBuffer = true;
+                InsertActive = true;
+                IsLockedBuffer = false;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 关闭缓冲区
+        /// </summary>
+        /// <returns></returns>
+        public bool CloseBuffer()
+        {
+            if (IsOpenedFile)
+                return false;
+            if (_byteProvider == null)
+                return false;
+            CleanUp();
+            _byteProvider.HasChanges();
+            return true;
+        }
+
         private void CleanUp()
         {
             if (_byteProvider != null)
             {
-                IDisposable byteProvider = _byteProvider as IDisposable;
-                if (byteProvider != null)
+                if (_byteProvider is IDisposable byteProvider)
                     byteProvider.Dispose();
                 ByteProvider = null;
             }
             Filename = null;
         }
+
     }
 }

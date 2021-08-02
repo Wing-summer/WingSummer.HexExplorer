@@ -340,10 +340,10 @@ namespace Be.Windows.Forms
                 return (int)value;
         }
 
-        private void PerformScrollToLine(long pos)
+        private bool PerformScrollToLine(long pos)
         {
             if (pos < _scrollVmin || pos > _scrollVmax || pos == _scrollVpos)
-                return;
+                return false;
 
             _scrollVpos = pos;
 
@@ -351,6 +351,7 @@ namespace Be.Windows.Forms
             UpdateVisibilityBytes();
             UpdateCaret();
             Invalidate();
+            return true;
         }
 
         private void PerformScrollToCol(long pos)
@@ -434,7 +435,7 @@ namespace Be.Windows.Forms
             PerformScrollLines(-_iHexMaxVBytes);
         }
 
-        private void PerformVScrollThumpPosition(long pos)
+        private bool PerformVScrollThumpPosition(long pos)
         {
             // Bug fix: Scroll to end, do not scroll to end
             int difference = (_scrollVmax > 65535) ? 10 : 9;
@@ -443,7 +444,7 @@ namespace Be.Windows.Forms
                 pos = _scrollVmax;
             // End Bug fix
 
-            PerformScrollToLine(pos);
+           return PerformScrollToLine(pos);
         }
 
         private void PerformHScrollThumpPosition(long pos)
@@ -495,6 +496,6 @@ namespace Be.Windows.Forms
         /// 跳转至指定行
         /// </summary>
         /// <param name="line">第几行</param>
-        public void ScrollLineIntoView(long line) => PerformVScrollThumpPosition(line - 1);
+        public bool ScrollLineIntoView(long line) => PerformVScrollThumpPosition(line - 1);
     }
 }

@@ -12,7 +12,7 @@ namespace PEHexExplorer
         {
             get
             {
-                if (frmSetting==null)
+                if (frmSetting == null || frmSetting.IsDisposed)
                 {
                     frmSetting = new FrmSetting();
                 }

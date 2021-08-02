@@ -50,14 +50,14 @@ namespace PEHexExplorer
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 210F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(452, 553);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(473, 553);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(126, 5);
+            this.pictureBox1.Location = new System.Drawing.Point(136, 5);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(200, 200);
@@ -76,7 +76,7 @@ namespace PEHexExplorer
             this.textBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.textBox.ShortcutsEnabled = false;
             this.textBox.ShowSelectionMargin = true;
-            this.textBox.Size = new System.Drawing.Size(446, 335);
+            this.textBox.Size = new System.Drawing.Size(467, 335);
             this.textBox.TabIndex = 0;
             this.textBox.TabStop = false;
             this.textBox.Text = resources.GetString("textBox.Text");
@@ -85,7 +85,7 @@ namespace PEHexExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(452, 553);
+            this.ClientSize = new System.Drawing.Size(473, 553);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
