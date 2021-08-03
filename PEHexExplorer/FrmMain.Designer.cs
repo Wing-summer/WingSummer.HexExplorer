@@ -47,6 +47,7 @@
             System.Windows.Forms.ToolStripMenuItem MenuItemSetting;
             System.Windows.Forms.ToolStripMenuItem MenuItemAbout;
             System.Windows.Forms.SplitContainer splitContainer1;
+            Be.Windows.Forms.PenF penF1 = new Be.Windows.Forms.PenF();
             System.Windows.Forms.ToolStripSeparator ts9;
             System.Windows.Forms.ToolStripSeparator ts1;
             System.Windows.Forms.ToolStripSeparator ts2;
@@ -84,7 +85,6 @@
             System.Windows.Forms.SplitContainer splitContainer2;
             System.Windows.Forms.ToolStripSeparator ts11;
             System.Windows.Forms.ToolStripSeparator ts12;
-            Be.Windows.Forms.PenF penF1 = new Be.Windows.Forms.PenF();
             this.LblScale = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.Slbl3 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -118,6 +118,7 @@
             this.MICalculator = new System.Windows.Forms.ToolStripMenuItem();
             this.MIS = new System.Windows.Forms.ToolStripSeparator();
             this.MenuPlugin = new System.Windows.Forms.ToolStripMenuItem();
+            this.hexBox = new Be.Windows.Forms.HexBox();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.tbNew = new System.Windows.Forms.ToolStripButton();
             this.tbOpen = new System.Windows.Forms.ToolStripButton();
@@ -166,7 +167,6 @@
             this.TMIFind = new System.Windows.Forms.ToolStripMenuItem();
             this.TMIJmp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.hexBox = new Be.Windows.Forms.HexBox();
             statusStrip2 = new System.Windows.Forms.StatusStrip();
             Slbl1 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -736,26 +736,29 @@
             this.hexBox.HScrollBarVisible = true;
             this.hexBox.LineInfoBackColor = System.Drawing.Color.Aqua;
             this.hexBox.LineInfoVisible = true;
-            this.hexBox.Location = new System.Drawing.Point(0, 27);
+            this.hexBox.Location = new System.Drawing.Point(0, 31);
             this.hexBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.hexBox.Name = "hexBox";
             this.hexBox.Scaling = 1F;
             this.hexBox.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
             this.hexBox.ShowColumnInfoBackColor = true;
             this.hexBox.ShowLineInfoBackColor = true;
-            this.hexBox.Size = new System.Drawing.Size(714, 636);
+            this.hexBox.Size = new System.Drawing.Size(714, 632);
             this.hexBox.StringViewVisible = true;
             this.hexBox.TabIndex = 0;
             this.hexBox.UseFixedBytesPerLine = true;
             this.hexBox.VScrollBarVisible = true;
             this.hexBox.InsertActiveChanged += new System.EventHandler(this.HexBox_InsertActiveChanged);
+            this.hexBox.ByteProviderChanged += new System.EventHandler(this.hexBox_ByteProviderChanged);
             this.hexBox.SelectionLengthChanged += new System.EventHandler(this.HexBox_SelectionLengthChanged);
             this.hexBox.CurrentLineChanged += new System.EventHandler(this.HexBox_CurrentLineChanged);
             this.hexBox.CurrentPositionInLineChanged += new System.EventHandler(this.HexBox_CurrentPositionInLineChanged);
             this.hexBox.ScalingChanged += new System.EventHandler(this.HexBox_ScalingChanged);
             this.hexBox.SavedStatusChanged += new System.EventHandler(this.HexBox_ContentChanged);
             this.hexBox.LockedBufferChanged += new System.EventHandler(this.HexBox_LockedBufferChanged);
-
+            // 
+            // toolStrip
+            // 
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbNew,
@@ -1145,11 +1148,11 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(splitContainer3);
-            tabPage2.Location = new System.Drawing.Point(4, 29);
+            tabPage2.Location = new System.Drawing.Point(4, 25);
             tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            tabPage2.Size = new System.Drawing.Size(456, 660);
+            tabPage2.Size = new System.Drawing.Size(457, 644);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "结构";
             tabPage2.UseVisualStyleBackColor = true;
@@ -1168,8 +1171,8 @@
             // splitContainer3.Panel2
             // 
             splitContainer3.Panel2.Controls.Add(this.propertyGrid1);
-            splitContainer3.Size = new System.Drawing.Size(450, 656);
-            splitContainer3.SplitterDistance = 352;
+            splitContainer3.Size = new System.Drawing.Size(451, 636);
+            splitContainer3.SplitterDistance = 341;
             splitContainer3.TabIndex = 0;
             // 
             // tvPEStruct
@@ -1229,7 +1232,7 @@
             this.tvPEStruct.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode12});
             this.tvPEStruct.SelectedImageIndex = 0;
-            this.tvPEStruct.Size = new System.Drawing.Size(450, 352);
+            this.tvPEStruct.Size = new System.Drawing.Size(451, 341);
             this.tvPEStruct.TabIndex = 0;
             // 
             // imageList
@@ -1246,16 +1249,16 @@
             this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(450, 300);
+            this.propertyGrid1.Size = new System.Drawing.Size(451, 291);
             this.propertyGrid1.TabIndex = 1;
             // 
             // tabPage3
             // 
             tabPage3.Controls.Add(splitContainer2);
-            tabPage3.Location = new System.Drawing.Point(4, 29);
+            tabPage3.Location = new System.Drawing.Point(4, 25);
             tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            tabPage3.Size = new System.Drawing.Size(456, 660);
+            tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            tabPage3.Size = new System.Drawing.Size(457, 644);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "书签";
             tabPage3.UseVisualStyleBackColor = true;
@@ -1274,8 +1277,8 @@
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(this.propertyGridB);
-            splitContainer2.Size = new System.Drawing.Size(450, 654);
-            splitContainer2.SplitterDistance = 245;
+            splitContainer2.Size = new System.Drawing.Size(451, 638);
+            splitContainer2.SplitterDistance = 238;
             splitContainer2.TabIndex = 3;
             // 
             // checkedListBox1
@@ -1284,7 +1287,7 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(0, 0);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(450, 245);
+            this.checkedListBox1.Size = new System.Drawing.Size(451, 238);
             this.checkedListBox1.TabIndex = 3;
             // 
             // propertyGridB
@@ -1292,7 +1295,7 @@
             this.propertyGridB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGridB.Location = new System.Drawing.Point(0, 0);
             this.propertyGridB.Name = "propertyGridB";
-            this.propertyGridB.Size = new System.Drawing.Size(450, 405);
+            this.propertyGridB.Size = new System.Drawing.Size(451, 396);
             this.propertyGridB.TabIndex = 0;
             // 
             // ts11
@@ -1451,55 +1454,6 @@
             // toolTip
             // 
             this.toolTip.ShowAlways = true;
-            // 
-            // hexBox
-            // 
-            this.hexBox.ColumnInfoBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.hexBox.ColumnInfoVisible = true;
-            this.hexBox.ContextMenuStrip = this.hexMenuStrip;
-            this.hexBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hexBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
-            this.hexBox.GroupLinePen.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-            this.hexBox.GroupLinePen.Color = System.Drawing.Color.Lime;
-            this.hexBox.GroupLinePen.DashCap = System.Drawing.Drawing2D.DashCap.Flat;
-            this.hexBox.GroupLinePen.DashOffset = 0F;
-            this.hexBox.GroupLinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            this.hexBox.GroupLinePen.EndCap = System.Drawing.Drawing2D.LineCap.Flat;
-            this.hexBox.GroupLinePen.StartCap = System.Drawing.Drawing2D.LineCap.Flat;
-            this.hexBox.GroupLinePen.Width = 1F;
-            this.hexBox.GroupSeparatorVisible = true;
-            penF1.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-            penF1.Color = System.Drawing.Color.Fuchsia;
-            penF1.DashCap = System.Drawing.Drawing2D.DashCap.Flat;
-            penF1.DashOffset = 0F;
-            penF1.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            penF1.EndCap = System.Drawing.Drawing2D.LineCap.Flat;
-            penF1.StartCap = System.Drawing.Drawing2D.LineCap.Flat;
-            penF1.Width = 1F;
-            this.hexBox.HexStringLinePen = penF1;
-            this.hexBox.HScrollBarVisible = true;
-            this.hexBox.LineInfoBackColor = System.Drawing.Color.Aqua;
-            this.hexBox.LineInfoVisible = true;
-            this.hexBox.Location = new System.Drawing.Point(0, 31);
-            this.hexBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.hexBox.Name = "hexBox";
-            this.hexBox.Scaling = 1F;
-            this.hexBox.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hexBox.ShowColumnInfoBackColor = true;
-            this.hexBox.ShowLineInfoBackColor = true;
-            this.hexBox.Size = new System.Drawing.Size(714, 632);
-            this.hexBox.StringViewVisible = true;
-            this.hexBox.TabIndex = 0;
-            this.hexBox.UseFixedBytesPerLine = true;
-            this.hexBox.VScrollBarVisible = true;
-            this.hexBox.InsertActiveChanged += new System.EventHandler(this.HexBox_InsertActiveChanged);
-            this.hexBox.ByteProviderChanged += new System.EventHandler(this.hexBox_ByteProviderChanged);
-            this.hexBox.SelectionLengthChanged += new System.EventHandler(this.HexBox_SelectionLengthChanged);
-            this.hexBox.CurrentLineChanged += new System.EventHandler(this.HexBox_CurrentLineChanged);
-            this.hexBox.CurrentPositionInLineChanged += new System.EventHandler(this.HexBox_CurrentPositionInLineChanged);
-            this.hexBox.ScalingChanged += new System.EventHandler(this.HexBox_ScalingChanged);
-            this.hexBox.SavedStatusChanged += new System.EventHandler(this.HexBox_ContentChanged);
-            this.hexBox.LockedBufferChanged += new System.EventHandler(this.HexBox_LockedBufferChanged);
             // 
             // FrmMain
             // 

@@ -22,6 +22,11 @@ namespace PEHexExplorer
 
         public  class MUserProfile
         {
+            public MUserProfile()
+            {
+                ProgramFont = SystemFonts.DefaultFont;
+
+            }
 
             #region 常规
 

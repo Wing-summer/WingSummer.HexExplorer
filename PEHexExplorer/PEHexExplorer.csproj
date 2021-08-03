@@ -137,6 +137,9 @@
     <EmbeddedResource Include="FrmAddrConvert.resx">
       <DependentUpon>FrmAddrConvert.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmFill.resx">
+      <DependentUpon>FrmFill.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmFind.resx">
       <DependentUpon>FrmFind.cs</DependentUpon>
       <SubType>Designer</SubType>

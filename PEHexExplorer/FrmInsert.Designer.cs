@@ -63,14 +63,13 @@ namespace PEHexExplorer
             this.hexBoxFill.HexStringLinePen = penF1;
             this.hexBoxFill.HScrollBarVisible = true;
             this.hexBoxFill.LineInfoBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.hexBoxFill.Location = new System.Drawing.Point(26, 55);
-            this.hexBoxFill.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.hexBoxFill.Location = new System.Drawing.Point(23, 41);
             this.hexBoxFill.Name = "hexBoxFill";
             this.hexBoxFill.Scaling = 1F;
             this.hexBoxFill.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
             this.hexBoxFill.ShowColumnInfoBackColor = true;
             this.hexBoxFill.ShowLineInfoBackColor = true;
-            this.hexBoxFill.Size = new System.Drawing.Size(567, 212);
+            this.hexBoxFill.Size = new System.Drawing.Size(504, 159);
             this.hexBoxFill.TabIndex = 0;
             this.hexBoxFill.UseFixedBytesPerLine = true;
             this.hexBoxFill.VScrollBarVisible = true;
@@ -78,17 +77,18 @@ namespace PEHexExplorer
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 21);
+            this.label1.Location = new System.Drawing.Point(20, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(129, 20);
+            this.label1.Size = new System.Drawing.Size(127, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "请输入插入字节：";
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(26, 291);
+            this.btnOk.Location = new System.Drawing.Point(23, 218);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(268, 41);
+            this.btnOk.Size = new System.Drawing.Size(238, 31);
             this.btnOk.TabIndex = 2;
             this.btnOk.Text = "确定";
             this.btnOk.UseVisualStyleBackColor = true;
@@ -97,9 +97,10 @@ namespace PEHexExplorer
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(325, 291);
+            this.btnCancel.Location = new System.Drawing.Point(289, 218);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(268, 41);
+            this.btnCancel.Size = new System.Drawing.Size(238, 31);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -107,18 +108,18 @@ namespace PEHexExplorer
             // FrmInsert
             // 
             this.AcceptButton = this.btnOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(622, 357);
+            this.ClientSize = new System.Drawing.Size(553, 268);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.hexBoxFill);
-            this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmInsert";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "插入数据";
             this.VisibleChanged += new System.EventHandler(this.FrmFill_VisibleChanged);
             this.ResumeLayout(false);
