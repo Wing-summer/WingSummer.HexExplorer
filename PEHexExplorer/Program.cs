@@ -15,11 +15,17 @@ namespace PEHexExplorer
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        private static void Main()
+        private static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmMain());
-        }
+            userSetting.Load();
+
+            if (args.Length>0)
+                Application.Run(new FrmMain(args[0]));
+            else
+                Application.Run(new FrmMain());
+
+        }       
     }
 }

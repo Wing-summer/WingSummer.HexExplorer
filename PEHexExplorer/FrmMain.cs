@@ -28,10 +28,34 @@ namespace PEHexExplorer
 
         private List<HexBox.HighlightedRegion> BookMarkregions;
 
-        public FrmMain()
+        public FrmMain(string filename=null)
         {
             InitializeComponent();
             BookMarkregions = new List<HexBox.HighlightedRegion>();
+
+            //begin：载入用户设置
+            UserSetting.MUserProfile mUser = UserSetting.UserProfile;
+            Font = mUser.ProgramFont;
+            hexBox.LineInfoBackColor = mUser.LineInfoBackColor;
+            hexBox.ColumnInfoBackColor = mUser.ColInfoBackColor;
+            hexBox.LineInfoVisible = mUser.EnableLineInfo;
+            hexBox.ColumnInfoVisible = mUser.EnableColInfo;
+            hexBox.SelectionBackColor = mUser.SelBackColor;
+            hexBox.SelectionForeColor = mUser.SelTextColor;
+            hexBox.GroupLinePen = mUser.GroupLinePen;
+            hexBox.HexStringLinePen = mUser.HexStringLinePen;
+            //end：载入用户设置
+
+            if (filename!=null)
+            {
+                filename = filename.Trim();
+
+                if (filename.Length> 0 && File.Exists(filename))
+                {
+                    OpenFile(filename, true);
+                }
+            }
+
         }
 
         #region 窗体事件
@@ -52,6 +76,40 @@ namespace PEHexExplorer
 
         #region 文件IO相关
 
+        private void OpenFile(string filename, bool writeable)
+        {
+            pe?.Dispose();
+            pe = new PEPParser(filename);
+            bookMark = new BookMarkPE(pe);
+            bookMark.ApplyTreeView(in tvPEStruct);
+
+        reopen:
+
+            if (!hexBox.OpenFile(out HexBox.IOError error, filename, writeable))
+            {
+                if (error == HexBox.IOError.Exception && writeable)
+                {
+                    if (MessageBox.Show("文件无法以写入模式打开，可能被占用，您是否用只读模式打开？",
+                        Program.SoftwareName, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    {
+                        writeable = false;
+                        goto reopen;
+                    }
+                }
+            }
+
+            bookMark.ApplyHexbox(hexBox);
+
+            LblFilename.Text = hexBox.Filename;
+
+            LblWritable.ForeColor = writeable ? EnabledColor : DisabledColor;
+
+            hexBox.InsertActive = false;
+
+            EnableEdit();
+            EditFileExt = Path.GetExtension(filename).TrimStart('.');
+        }
+
         private void MINew_Click(object sender, EventArgs e)
         {
             if (!hexBox.OpenFile(error: out _, force: true))
@@ -71,36 +129,7 @@ namespace PEHexExplorer
                 string filename = oD.FileName;
                 bool writeable = !oD.ReadOnlyChecked;
                 oD.FileName = string.Empty;
-                pe?.Dispose();
-                pe = new PEPParser(filename);
-                bookMark = new BookMarkPE(pe);
-                bookMark.ApplyTreeView(in tvPEStruct);
-
-            reopen:
-
-                if (!hexBox.OpenFile(out HexBox.IOError error, filename, writeable))
-                {
-                    if (error == HexBox.IOError.Exception && writeable)
-                    {
-                        if (MessageBox.Show("文件无法以写入模式打开，可能被占用，您是否用只读模式打开？",
-                            Program.SoftwareName, MessageBoxButtons.YesNo, MessageBoxIcon.Information)== DialogResult.Yes)
-                        {
-                            writeable = false;
-                            goto reopen;
-                        }
-                    }
-                }
-
-                bookMark.ApplyHexbox(hexBox);
-
-                LblFilename.Text = hexBox.Filename;
-
-                LblWritable.ForeColor = writeable ? EnabledColor : DisabledColor;
-
-                hexBox.InsertActive = false;
-
-                EnableEdit();
-                EditFileExt = Path.GetExtension(filename).TrimStart('.');
+                OpenFile(filename, writeable);
             }
         }
 

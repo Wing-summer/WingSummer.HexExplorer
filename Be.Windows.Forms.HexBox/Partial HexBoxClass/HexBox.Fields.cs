@@ -266,7 +266,7 @@ namespace Be.Windows.Forms
         /// <param name="index"></param>
         public bool RemoveHighlightedRegionAt(int index)
         {
-            if (index>= HighligedRegions.Count)
+            if (index>= HighligedRegions.Count||index<0)
             {
                 return false;
             }
