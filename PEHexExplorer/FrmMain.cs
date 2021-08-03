@@ -26,7 +26,7 @@ namespace PEHexExplorer
 
         private BookMarkPE bookMark;
 
-        private List<HexBox.HighlightedRegion> BookMarkregions;
+        private readonly List<HexBox.HighlightedRegion> BookMarkregions;
 
         public FrmMain(string filename=null)
         {
@@ -137,8 +137,7 @@ namespace PEHexExplorer
         {
             if (hexBox.Filename.Length != 0)
             {
-                HexBox.IOError oError;
-                if (!hexBox.SaveFile(out oError))
+                if (!hexBox.SaveFile(out HexBox.IOError oError))
                 {
                     if (oError == HexBox.IOError.Exception)
                     {
@@ -157,8 +156,7 @@ namespace PEHexExplorer
             sD.Filter = string.Format($"{{0}}文件|*.{{0}}", EditFileExt);
             if (sD.ShowDialog() == DialogResult.OK)
             {
-                HexBox.IOError oError;
-                if (!hexBox.SaveFile(out oError, sD.FileName))
+                if (!hexBox.SaveFile(out HexBox.IOError oError, sD.FileName))
                 {
 
                 }
@@ -171,8 +169,7 @@ namespace PEHexExplorer
             sD.Filter = string.Format("{0}文件|*.{0}", EditFileExt);
             if (sD.ShowDialog() == DialogResult.OK)
             {
-                HexBox.IOError oError;
-                if (hexBox.SaveFile(out oError, sD.FileName, false))
+                if (hexBox.SaveFile(out HexBox.IOError oError, sD.FileName, false))
                 {
                     if (oError == HexBox.IOError.Exception)
                     {
@@ -314,7 +311,7 @@ namespace PEHexExplorer
         private void HexBox_SelectionLengthChanged(object sender, EventArgs e) => 
             LblLen.Text = string.Format("{0:D} - 0x{0:X}", hexBox.SelectionLength);
 
-        private void hexBox_ByteProviderChanged(object sender, EventArgs e) => hexBox.ClearHighlightedRegion();
+        private void HexBox_ByteProviderChanged(object sender, EventArgs e) => hexBox.ClearHighlightedRegion();
 
         #endregion
 
@@ -401,7 +398,7 @@ namespace PEHexExplorer
             }
         }
 
-        private void LblLocked_Click(object sender, EventArgs e) => hexBox.IsLockedBuffer = hexBox.IsLockedBuffer ? false : true;
+        private void LblLocked_Click(object sender, EventArgs e) => hexBox.IsLockedBuffer = !hexBox.IsLockedBuffer;
 
         private void LblFilename_TextChanged(object sender, EventArgs e) => LblFilename.ToolTipText = LblFilename.Text;
 

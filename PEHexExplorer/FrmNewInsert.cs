@@ -35,14 +35,14 @@ namespace PEHexExplorer
             InitializeComponent();
         }
 
-        private void cbHex_CheckedChanged(object sender, EventArgs e)
+        private void CbHex_CheckedChanged(object sender, EventArgs e)
         {
             bool ishex = cbHex.Checked;
             ntOffset.Hexadecimal = ishex;
             ntValue.Hexadecimal = ishex;
         }
 
-        private void btnNew_Click(object sender, EventArgs e)
+        private void BtnNew_Click(object sender, EventArgs e)
         {
             Result = new NewInsertResult
             {

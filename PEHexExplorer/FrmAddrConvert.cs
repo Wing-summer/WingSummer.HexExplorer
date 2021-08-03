@@ -30,7 +30,7 @@ namespace PEHexExplorer
             InitializeComponent();
         }
 
-        private void ntOffset_ValueChanged(object sender, EventArgs e)
+        private void NtOffset_ValueChanged(object sender, EventArgs e)
         {
             if (PEPParser!=null)
             {
@@ -38,7 +38,7 @@ namespace PEHexExplorer
             }
         }
 
-        private void ntValue_ValueChanged(object sender, EventArgs e)
+        private void NtValue_ValueChanged(object sender, EventArgs e)
         {
             if (PEPParser != null)
             {

@@ -214,7 +214,7 @@ namespace Be.Windows.Forms
         /// <summary>
         /// 高亮区段列表
         /// </summary>
-        private List<HighlightedRegion> HighligedRegions = new List<HighlightedRegion>();
+        private readonly List<HighlightedRegion> HighligedRegions = new List<HighlightedRegion>();
 
         /// <summary>
         /// 添加高亮区段

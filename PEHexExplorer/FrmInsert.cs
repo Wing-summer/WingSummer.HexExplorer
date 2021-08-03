@@ -42,7 +42,7 @@ namespace PEHexExplorer
             InitializeComponent();
         }
 
-        private void btnOk_Click(object sender, EventArgs e)
+        private void BtnOk_Click(object sender, EventArgs e)
         {
             IByteProvider byteProvider = hexBoxFill.ByteProvider;
             byte[] buffer = new byte[byteProvider.Length];

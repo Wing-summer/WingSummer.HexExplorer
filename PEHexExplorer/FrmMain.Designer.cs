@@ -749,7 +749,7 @@
             this.hexBox.UseFixedBytesPerLine = true;
             this.hexBox.VScrollBarVisible = true;
             this.hexBox.InsertActiveChanged += new System.EventHandler(this.HexBox_InsertActiveChanged);
-            this.hexBox.ByteProviderChanged += new System.EventHandler(this.hexBox_ByteProviderChanged);
+            this.hexBox.ByteProviderChanged += new System.EventHandler(this.HexBox_ByteProviderChanged);
             this.hexBox.SelectionLengthChanged += new System.EventHandler(this.HexBox_SelectionLengthChanged);
             this.hexBox.CurrentLineChanged += new System.EventHandler(this.HexBox_CurrentLineChanged);
             this.hexBox.CurrentPositionInLineChanged += new System.EventHandler(this.HexBox_CurrentPositionInLineChanged);

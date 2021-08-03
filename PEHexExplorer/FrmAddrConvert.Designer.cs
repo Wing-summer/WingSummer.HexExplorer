@@ -67,7 +67,7 @@ namespace PEHexExplorer
             this.ntValue.Size = new System.Drawing.Size(161, 25);
             this.ntValue.TabIndex = 8;
             this.ntValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ntValue.ValueChanged += new System.EventHandler(this.ntValue_ValueChanged);
+            this.ntValue.ValueChanged += new System.EventHandler(this.NtValue_ValueChanged);
             // 
             // ntOffset
             // 
@@ -79,7 +79,7 @@ namespace PEHexExplorer
             this.ntOffset.Size = new System.Drawing.Size(161, 25);
             this.ntOffset.TabIndex = 7;
             this.ntOffset.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ntOffset.ValueChanged += new System.EventHandler(this.ntOffset_ValueChanged);
+            this.ntOffset.ValueChanged += new System.EventHandler(this.NtOffset_ValueChanged);
             // 
             // FrmAddrConvert
             // 

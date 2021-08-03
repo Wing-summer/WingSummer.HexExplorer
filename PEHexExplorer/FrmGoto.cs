@@ -33,7 +33,7 @@ namespace PEHexExplorer
             InitializeComponent();
         }
 
-        private void rbGotoGroup_CheckedChanged(object sender, EventArgs e)
+        private void RbGotoGroup_CheckedChanged(object sender, EventArgs e)
         {
             bool canoffset = rbOffset.Checked;
             ntOffset.Enabled = canoffset;
@@ -41,7 +41,7 @@ namespace PEHexExplorer
             gbOffset.Enabled = canoffset;
         }
 
-        private void btnJmp_Click(object sender, EventArgs e)
+        private void BtnJmp_Click(object sender, EventArgs e)
         {
             Result = new GotoResult()
             {
@@ -53,7 +53,7 @@ namespace PEHexExplorer
             Close();
         }
 
-        private void cbHex_CheckedChanged(object sender, EventArgs e)
+        private void CbHex_CheckedChanged(object sender, EventArgs e)
         {
             bool ishex = cbHex.Checked;
             ntRow.Hexadecimal = ishex;

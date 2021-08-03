@@ -94,7 +94,7 @@ namespace PEHexExplorer
                 Image_OtherColor = DefaultImage_OtherColor;
 
                 EnableAdvBookMark = true;
-                markProperties = null;
+                MarkProperties = null;
 
                 EnablePlugin = true;
                 DisableGuid = null;
@@ -139,7 +139,7 @@ namespace PEHexExplorer
             #region 书签
 
             public  bool EnableAdvBookMark { get; set; }
-            public  List<BookMarkProperty> markProperties { get; set; }
+            public  List<BookMarkProperty> MarkProperties { get; set; }
 
             #endregion
 

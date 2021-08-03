@@ -13,12 +13,13 @@ namespace PEHexExplorer
     {
 
         public Dictionary<Type, List<HexBox.HighlightedRegion>> peRegions;
-        //public List<HexBox.HighlightedRegion> regions;
-        UserSetting.MUserProfile mUser= UserSetting.UserProfile;
 
-        private bool Is32bit;
-        private bool loaded;
-        private bool processed;
+        //public List<HexBox.HighlightedRegion> regions;
+        readonly UserSetting.MUserProfile mUser= UserSetting.UserProfile;
+
+        private readonly bool Is32bit;
+        private readonly bool loaded;
+        private readonly bool processed;
         private const string exe32bit = "PE 文件 (32位)";
         private const string exe64bit = "PE 文件 (64位)";
         private const string exedefault = "PE 文件";
