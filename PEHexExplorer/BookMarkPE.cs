@@ -171,11 +171,11 @@ namespace PEHexExplorer
                 else
                 {
                     if (Is32bit)
-                    {
+            {
                         collection[0].Text = exe32bit;
-                    }
-                    else
-                    {
+            }
+            else
+            {
                         collection[0].Text = exe64bit;
                     }
                 }

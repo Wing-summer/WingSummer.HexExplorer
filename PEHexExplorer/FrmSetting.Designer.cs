@@ -357,7 +357,7 @@ namespace PEHexExplorer
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(48, 33);
             this.button3.TabIndex = 0;
-            this.button3.Text = "☻";
+            this.button3.Text = "🖊";
             this.toolTip.SetToolTip(this.button3, "更改颜色");
             this.button3.UseVisualStyleBackColor = true;
             // 
@@ -379,7 +379,7 @@ namespace PEHexExplorer
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(48, 33);
             this.button4.TabIndex = 0;
-            this.button4.Text = "☻";
+            this.button4.Text = "🖊";
             this.toolTip.SetToolTip(this.button4, "更改颜色");
             this.button4.UseVisualStyleBackColor = true;
             // 

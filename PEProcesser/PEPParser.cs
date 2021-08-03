@@ -676,7 +676,7 @@ namespace PEProcesser
 
                 return ParserError.Success;
             }
-            catch (ArgumentException)
+            catch
             {
                 return ParserError.PEDamaged;
             }
