@@ -557,6 +557,7 @@ namespace PEHexExplorer
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "设置";
+            this.VisibleChanged += new System.EventHandler(this.FrmSetting_VisibleChanged);
             tabGeneral.ResumeLayout(false);
             tabPE.ResumeLayout(false);
             tabBookMark.ResumeLayout(false);

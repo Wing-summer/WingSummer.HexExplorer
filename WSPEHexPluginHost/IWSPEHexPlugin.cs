@@ -6,7 +6,6 @@ namespace WSPEHexPluginHost
 {
     public interface IWSPEHexPlugin
     {
-
         /*Version 0 beta*/
 
         ToolStripItem MenuPluginMenu { get; }

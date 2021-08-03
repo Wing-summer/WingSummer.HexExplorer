@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
+using System.ComponentModel;
 
 namespace PEHexExplorer
 {
@@ -20,11 +21,28 @@ namespace PEHexExplorer
             }
         }
 
+        [DefaultValue(false)]
+        public bool IsPluginShow { get; set; }
+
         public FrmSetting()
         {
             InitializeComponent();
         }
 
-       
+        private void FrmSetting_VisibleChanged(object sender, System.EventArgs e)
+        {
+            if (Visible)
+            {
+                if (IsPluginShow)
+                {
+                    tabSetting.SelectedIndex = 3;
+                    IsPluginShow = false;
+                }
+                else
+                {
+                    tabSetting.SelectedIndex = 0;
+                }
+            }
+        }
     }
 }

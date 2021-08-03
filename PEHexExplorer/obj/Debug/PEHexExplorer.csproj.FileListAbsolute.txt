@@ -39,3 +39,4 @@ E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.Frm
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmFind.resources
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\WSPEHexPluginHost.dll
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\WSPEHexPluginHost.pdb
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmAddrConvert.resources

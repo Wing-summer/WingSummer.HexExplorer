@@ -708,8 +708,54 @@
             splitContainer1.SplitterDistance = 714;
             splitContainer1.TabIndex = 5;
             // 
-            // toolStrip
+            // hexBox
             // 
+            this.hexBox.ColumnInfoBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.hexBox.ColumnInfoVisible = true;
+            this.hexBox.ContextMenuStrip = this.hexMenuStrip;
+            this.hexBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hexBox.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.hexBox.GroupLinePen.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+            this.hexBox.GroupLinePen.Color = System.Drawing.Color.Lime;
+            this.hexBox.GroupLinePen.DashCap = System.Drawing.Drawing2D.DashCap.Flat;
+            this.hexBox.GroupLinePen.DashOffset = 0F;
+            this.hexBox.GroupLinePen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            this.hexBox.GroupLinePen.EndCap = System.Drawing.Drawing2D.LineCap.Flat;
+            this.hexBox.GroupLinePen.StartCap = System.Drawing.Drawing2D.LineCap.Flat;
+            this.hexBox.GroupLinePen.Width = 1F;
+            this.hexBox.GroupSeparatorVisible = true;
+            penF1.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+            penF1.Color = System.Drawing.Color.Fuchsia;
+            penF1.DashCap = System.Drawing.Drawing2D.DashCap.Flat;
+            penF1.DashOffset = 0F;
+            penF1.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            penF1.EndCap = System.Drawing.Drawing2D.LineCap.Flat;
+            penF1.StartCap = System.Drawing.Drawing2D.LineCap.Flat;
+            penF1.Width = 1F;
+            this.hexBox.HexStringLinePen = penF1;
+            this.hexBox.HScrollBarVisible = true;
+            this.hexBox.LineInfoBackColor = System.Drawing.Color.Aqua;
+            this.hexBox.LineInfoVisible = true;
+            this.hexBox.Location = new System.Drawing.Point(0, 27);
+            this.hexBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.hexBox.Name = "hexBox";
+            this.hexBox.Scaling = 1F;
+            this.hexBox.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
+            this.hexBox.ShowColumnInfoBackColor = true;
+            this.hexBox.ShowLineInfoBackColor = true;
+            this.hexBox.Size = new System.Drawing.Size(714, 636);
+            this.hexBox.StringViewVisible = true;
+            this.hexBox.TabIndex = 0;
+            this.hexBox.UseFixedBytesPerLine = true;
+            this.hexBox.VScrollBarVisible = true;
+            this.hexBox.InsertActiveChanged += new System.EventHandler(this.HexBox_InsertActiveChanged);
+            this.hexBox.SelectionLengthChanged += new System.EventHandler(this.HexBox_SelectionLengthChanged);
+            this.hexBox.CurrentLineChanged += new System.EventHandler(this.HexBox_CurrentLineChanged);
+            this.hexBox.CurrentPositionInLineChanged += new System.EventHandler(this.HexBox_CurrentPositionInLineChanged);
+            this.hexBox.ScalingChanged += new System.EventHandler(this.HexBox_ScalingChanged);
+            this.hexBox.SavedStatusChanged += new System.EventHandler(this.HexBox_ContentChanged);
+            this.hexBox.LockedBufferChanged += new System.EventHandler(this.HexBox_LockedBufferChanged);
+
             this.toolStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbNew,
