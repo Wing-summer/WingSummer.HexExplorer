@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using WSPEHexPluginHost;
-using Newtonsoft.Json;
+using System.Xml;
+using System.Xml.Serialization;
 using Be.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -94,7 +95,7 @@ namespace PEHexExplorer
                 Image_OtherColor = DefaultImage_OtherColor;
 
                 EnableAdvBookMark = true;
-                markProperties = null;
+                MarkProperties = null;
 
                 EnablePlugin = true;
                 DisableGuid = null;
@@ -139,7 +140,7 @@ namespace PEHexExplorer
             #region 书签
 
             public  bool EnableAdvBookMark { get; set; }
-            public  List<BookMarkProperty> markProperties { get; set; }
+            public  List<BookMarkProperty> MarkProperties { get; set; }
 
             #endregion
 
@@ -163,8 +164,9 @@ namespace PEHexExplorer
             {
                 if (File.Exists(config??Program.AppConfigDir))
                 {
-                    string content = File.ReadAllText(Program.AppConfigDir, Encoding.ASCII);
-                    object res = JsonConvert.DeserializeObject(content);
+                    Stream content = File.OpenRead(Program.AppConfigDir);
+                    XmlSerializer serializer = new XmlSerializer(typeof(MUserProfile));
+                    object res = serializer.Deserialize(content);
                     if (res==null)
                     {
                         UserProfile = new MUserProfile();
@@ -191,7 +193,7 @@ namespace PEHexExplorer
         {
             using (StreamWriter streamWriter = new StreamWriter(outconfig??Program.AppConfigDir, false, Encoding.ASCII))
             {
-                streamWriter.Write(JsonConvert.SerializeObject(UserProfile));
+                //streamWriter.Write(JsonConvert.SerializeObject(UserProfile));
             }
             return true;
         }

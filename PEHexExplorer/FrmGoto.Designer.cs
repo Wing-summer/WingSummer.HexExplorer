@@ -108,7 +108,7 @@ namespace PEHexExplorer
             this.rbRow.TabStop = true;
             this.rbRow.Text = "行号跳转(&N)";
             this.rbRow.UseVisualStyleBackColor = true;
-            this.rbRow.CheckedChanged += new System.EventHandler(this.rbGotoGroup_CheckedChanged);
+            this.rbRow.CheckedChanged += new System.EventHandler(this.RbGotoGroup_CheckedChanged);
             // 
             // rbOffset
             // 
@@ -119,7 +119,7 @@ namespace PEHexExplorer
             this.rbOffset.TabIndex = 1;
             this.rbOffset.Text = "偏移跳转(&O)";
             this.rbOffset.UseVisualStyleBackColor = true;
-            this.rbOffset.CheckedChanged += new System.EventHandler(this.rbGotoGroup_CheckedChanged);
+            this.rbOffset.CheckedChanged += new System.EventHandler(this.RbGotoGroup_CheckedChanged);
             // 
             // panel2
             // 
@@ -161,7 +161,7 @@ namespace PEHexExplorer
             btnJmp.TabIndex = 5;
             btnJmp.Text = "跳转";
             btnJmp.UseVisualStyleBackColor = true;
-            btnJmp.Click += new System.EventHandler(this.btnJmp_Click);
+            btnJmp.Click += new System.EventHandler(this.BtnJmp_Click);
             // 
             // btnCancel
             // 
@@ -194,7 +194,7 @@ namespace PEHexExplorer
             this.cbHex.Text = "Hex(&H)";
             this.cbHex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cbHex.UseVisualStyleBackColor = true;
-            this.cbHex.CheckedChanged += new System.EventHandler(this.cbHex_CheckedChanged);
+            this.cbHex.CheckedChanged += new System.EventHandler(this.CbHex_CheckedChanged);
             // 
             // ntOffset
             // 

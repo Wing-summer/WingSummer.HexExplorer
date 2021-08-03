@@ -71,7 +71,7 @@ namespace PEHexExplorer
             btnNew.TabIndex = 3;
             btnNew.Text = "新建";
             btnNew.UseVisualStyleBackColor = true;
-            btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            btnNew.Click += new System.EventHandler(this.BtnNew_Click);
             // 
             // label2
             // 
@@ -99,7 +99,7 @@ namespace PEHexExplorer
             this.cbHex.Text = "Hex(&H)";
             this.cbHex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cbHex.UseVisualStyleBackColor = true;
-            this.cbHex.CheckedChanged += new System.EventHandler(this.cbHex_CheckedChanged);
+            this.cbHex.CheckedChanged += new System.EventHandler(this.CbHex_CheckedChanged);
             // 
             // ntValue
             // 
