@@ -18,20 +18,37 @@ namespace PEHexExplorer
 
         public  List<IWSPEHexPluginVer> pluginVers;
 
-        public MUserProfile UserProfile { get; private set; }
+        public static MUserProfile UserProfile = new MUserProfile();
 
         public  class MUserProfile
         {
 
             #region 常规
+
+            [DefaultValue(typeof(Font),"微软雅黑")]
             public  Font ProgramFont { get; set; }
+
+            [DefaultValue(0)]
             public  uint StringViewTable { get; set; }
+
+            [DefaultValue(100)]
             public  uint ScalingPercent { get; set; }
+
+            [DefaultValue(true)]
             public  bool EnableStringView { get; set; }
-            public  bool EnableLineInfo { get; set; }
-            public  bool EnableColInfo { get; set; }
-            public  bool EnableGroupLine { get; set; }
-            public  bool EnableHexStringLine { get; set; }
+
+            [DefaultValue(true)]
+            public bool EnableLineInfo { get; set; }
+
+            [DefaultValue(true)]
+            public bool EnableColInfo { get; set; }
+
+            [DefaultValue(true)]
+            public bool EnableGroupLine { get; set; }
+
+            [DefaultValue(true)]
+            public bool EnableHexStringLine { get; set; }
+
             public  Color SelBackColor { get; set; }
             public  Color SelTextColor { get; set; }
             public  Color LineInfoBackColor { get; set; }
@@ -42,34 +59,34 @@ namespace PEHexExplorer
 
             #region PE结构
 
-            [DefaultValue(typeof(Color), "")]
+            [DefaultValue(typeof(Color), "#f0e68c")]
             public  Color IMAGE_DOS_HEADER_Color { get; set; }
 
-            [DefaultValue(typeof(Color), "")]
+            [DefaultValue(typeof(Color), "#c8fac8")]
             public  Color IMAGE_NT_HEADERS_Color { get; set; }
 
-            [DefaultValue(typeof(Color), "")]
-            public  Color IMAGE_DATA_DIRECTORY_Color { get; set; }
-
-            [DefaultValue(typeof(Color), "")]
+            [DefaultValue(typeof(Color), "#c8c8fa")]
             public  Color IMAGE_OPTIONAL_HEADER_Color { get; set; }
 
-            [DefaultValue(typeof(Color), "")]
+            [DefaultValue(typeof(Color), "#ffc0c0")]
+            public Color IMAGE_SECTION_HEADER_Color { get; set; }
+
+            [DefaultValue(typeof(Color), "#adefed")]
+            public  Color IMAGE_DATA_DIRECTORY_Color { get; set; }
+
+            [DefaultValue(typeof(Color), "#d5fc78")]
             public  Color IMAGE_DATA_DIRECTORY_Item_Color { get; set; }
 
-            [DefaultValue(typeof(Color), "")]
+            [DefaultValue(typeof(Color), "#78ccfc")]
             public  Color IMAGE_IMPORT_DESCRIPTOR_Color { get; set; }
 
-            [DefaultValue(typeof(Color), "")]
+            [DefaultValue(typeof(Color), "#fc78d5")]
             public  Color IMAGE_BASE_RELOCATION_Color { get; set; }
 
-            [DefaultValue(typeof(Color), "")]
-            public  Color IMAGE_SECTION_HEADER_Color { get; set; }
-
-            [DefaultValue(typeof(Color), "")]
+            [DefaultValue(typeof(Color), "#fc9078")]
             public  Color IMAGE_EXPORT_DIRECTORY_Color { get; set; }
 
-            [DefaultValue(typeof(Color), "")]
+            [DefaultValue(typeof(Color), "#ffffe0")]
             public  Color Image_OtherColor { get; set; }
 
             #endregion

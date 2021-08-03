@@ -91,6 +91,8 @@ namespace PEHexExplorer
                     }
                 }
 
+                bookMark.ApplyHexbox(hexBox);
+
                 LblFilename.Text = hexBox.Filename;
 
                 LblWritable.ForeColor = writeable ? EnabledColor : DisabledColor;

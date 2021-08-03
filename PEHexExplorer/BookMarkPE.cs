@@ -13,23 +13,8 @@ namespace PEHexExplorer
     {
 
         public Dictionary<Type, List<HexBox.HighlightedRegion>> peRegions;
-        public List<HexBox.HighlightedRegion> regions;
-
-        [DefaultValue(typeof(Color), "BlueViolet")]
-        public Color IMAGE_DOS_HEADER_Color { get; set; }
-
-
-        [DefaultValue(typeof(Color), "BlueViolet")]
-        public Color IMAGE_DATA_DIRECTORY_Color { get; set; }
-
-        [DefaultValue(typeof(Color), "BlueViolet")]
-        public Color IMAGE_NT_HEADERS_Color { get; set; }
-
-        [DefaultValue(typeof(Color), "BlueViolet")]
-        public Color IMAGE_OPTIONAL_HEADER_Color { get; set; }
-
-        [DefaultValue(typeof(Color), "BlueViolet")]
-        public Color IMAGE_DATA_DIRECTORY_Item_Color { get; set; }
+        //public List<HexBox.HighlightedRegion> regions;
+        UserSetting.MUserProfile mUser= UserSetting.UserProfile;
 
         private bool Is32bit;
         private bool loaded;
@@ -62,7 +47,7 @@ namespace PEHexExplorer
             regions = new List<HexBox.HighlightedRegion>();
             region = new HexBox.HighlightedRegion
             {
-                Color = IMAGE_DOS_HEADER_Color,
+                Color = mUser.IMAGE_DOS_HEADER_Color,
                 Start = 0,
                 Length = Marshal.SizeOf(type)
             };
@@ -78,7 +63,7 @@ namespace PEHexExplorer
             {
             region = new HexBox.HighlightedRegion
             {
-                Color = IMAGE_DATA_DIRECTORY_Color,
+                Color = mUser.IMAGE_DATA_DIRECTORY_Color,
                     Start = (int)parser.PEData.DATA_DIRECTORIES_FOA + DATA_DIRECTORIES_Size * i,
                     Length = DATA_DIRECTORIES_Size
                 };
@@ -102,7 +87,7 @@ namespace PEHexExplorer
                 regions = new List<HexBox.HighlightedRegion>();
                 region = new HexBox.HighlightedRegion
                 {
-                    Color = IMAGE_NT_HEADERS_Color,
+                    Color = mUser.IMAGE_NT_HEADERS_Color,
                     Start = (int)parser.PEData.NT_HEADER_FOA,
                     Length = Marshal.SizeOf(type)
                 };
@@ -113,7 +98,7 @@ namespace PEHexExplorer
                 regions = new List<HexBox.HighlightedRegion>();
                 region = new HexBox.HighlightedRegion
                 {
-                    Color = IMAGE_OPTIONAL_HEADER_Color,
+                    Color = mUser.IMAGE_OPTIONAL_HEADER_Color,
                     Start = (int)parser.PEData.OPTIONAL_HEADER_FOA,
                     Length = Marshal.SizeOf(type) - DATA_DIRECTORIES_Size * PEPParser.IMAGE_NUMBEROF_DIRECTORY_ENTRIES
                 };
@@ -130,7 +115,7 @@ namespace PEHexExplorer
                 regions = new List<HexBox.HighlightedRegion>();
                 region = new HexBox.HighlightedRegion
                 {
-                    Color = IMAGE_NT_HEADERS_Color,
+                    Color = mUser.IMAGE_NT_HEADERS_Color,
                     Start = (int)parser.PEData.NT_HEADER_FOA,
                 Length = Marshal.SizeOf(type)
             };
@@ -141,7 +126,7 @@ namespace PEHexExplorer
                 regions = new List<HexBox.HighlightedRegion>();
                 region = new HexBox.HighlightedRegion
                 {
-                    Color = IMAGE_OPTIONAL_HEADER_Color,
+                    Color = mUser.IMAGE_OPTIONAL_HEADER_Color,
                     Start = (int)parser.PEData.OPTIONAL_HEADER_FOA,
                     Length = Marshal.SizeOf(type) - DATA_DIRECTORIES_Size * PEPParser.IMAGE_NUMBEROF_DIRECTORY_ENTRIES
                 };
@@ -149,6 +134,25 @@ namespace PEHexExplorer
             peRegions.Add(type, regions);
             }
 
+        }
+
+        public void ApplyHexbox(in HexBox hexBox)
+        {
+            if (hexBox==null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (peRegions==null)
+            {
+                return;
+            }
+            foreach (var item in peRegions)
+            {
+                foreach (var iitem in item.Value)
+                {
+                    hexBox.AddHighligedRegion(iitem);
+                }
+            }
         }
 
         public void ApplyTreeView(in TreeView treeView)
