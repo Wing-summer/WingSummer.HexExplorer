@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+<<<<<<< HEAD
+=======
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+>>>>>>> 5bde4206ac9535b3adc5c173f2e641921be48d64
 using System.Windows.Forms;
 
 namespace WSPEHexPluginHost
 {
     public interface IWSPEHexPlugin
     {
+<<<<<<< HEAD
 
         /*Version 0 beta*/
 
@@ -60,4 +67,19 @@ namespace WSPEHexPluginHost
 
     }
 
+=======
+        //GM意为give me，即为给宿主识别的信息
+
+        string GMPluginName();
+
+        ToolStripItem GMMenuPluginMenu();
+
+        ToolStripItem GMMenuToolMenu();
+
+        Dictionary<object,EventArgs> MenuEvent { get; set; }
+
+
+
+    }
+>>>>>>> 5bde4206ac9535b3adc5c173f2e641921be48d64
 }

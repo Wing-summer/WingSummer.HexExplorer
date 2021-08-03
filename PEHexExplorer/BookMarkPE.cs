@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.ComponentModel;
+using System.Threading.Tasks;
+
 using System.Drawing;
 using Be.Windows.Forms;
 using PEProcesser;
@@ -13,9 +17,11 @@ namespace PEHexExplorer
     {
 
         public Dictionary<Type, List<HexBox.HighlightedRegion>> peRegions;
+        public List<HexBox.HighlightedRegion> regions;
 
         [DefaultValue(typeof(Color), "BlueViolet")]
         public Color IMAGE_DOS_HEADER_Color { get; set; }
+
 
         [DefaultValue(typeof(Color), "BlueViolet")]
         public Color IMAGE_DATA_DIRECTORY_Color { get; set; }
@@ -74,9 +80,9 @@ namespace PEHexExplorer
             int DATA_DIRECTORIES_Size = Marshal.SizeOf(type);
             for (int i = 0; i < PEPParser.IMAGE_NUMBEROF_DIRECTORY_ENTRIES; i++)
             {
-                region = new HexBox.HighlightedRegion
-                {
-                    Color = IMAGE_DATA_DIRECTORY_Color,
+            region = new HexBox.HighlightedRegion
+            {
+                Color = IMAGE_DATA_DIRECTORY_Color,
                     Start = (int)parser.PEData.DATA_DIRECTORIES_FOA + DATA_DIRECTORIES_Size * i,
                     Length = DATA_DIRECTORIES_Size
                 };
@@ -130,8 +136,8 @@ namespace PEHexExplorer
                 {
                     Color = IMAGE_NT_HEADERS_Color,
                     Start = (int)parser.PEData.NT_HEADER_FOA,
-                    Length = Marshal.SizeOf(type)
-                };
+                Length = Marshal.SizeOf(type)
+            };
                 regions.Add(region);
                 peRegions.Add(type, regions);
 
@@ -143,15 +149,15 @@ namespace PEHexExplorer
                     Start = (int)parser.PEData.OPTIONAL_HEADER_FOA,
                     Length = Marshal.SizeOf(type) - DATA_DIRECTORIES_Size * PEPParser.IMAGE_NUMBEROF_DIRECTORY_ENTRIES
                 };
-                regions.Add(region);
-                peRegions.Add(type, regions);
+            regions.Add(region);
+            peRegions.Add(type, regions);
             }
 
         }
 
         public void ApplyTreeView(in TreeView treeView)
         {
-          
+
             TreeNodeCollection collection = treeView.Nodes;
             try
             {
@@ -169,11 +175,11 @@ namespace PEHexExplorer
                 else
                 {
                     if (Is32bit)
-                    {
+            {
                         collection[0].Text = exe32bit;
-                    }
-                    else
-                    {
+            }
+            else
+            {
                         collection[0].Text = exe64bit;
                     }
                 }
