@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="BookMarkPE.cs" />
     <Compile Include="BookMarkProperty.cs" />
+    <Compile Include="ColorRevert.cs" />
     <Compile Include="FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>

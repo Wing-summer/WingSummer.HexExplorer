@@ -461,7 +461,11 @@ namespace PEHexExplorer
 
         private void MIPlugin_Click(object sender, EventArgs e)
         {
-
+            using (FrmSetting setting = FrmSetting.Instance)
+            {
+                setting.IsPluginShow = true;
+                setting.ShowDialog();
+            }
         }
 
         private void MIBookMark_Click(object sender, EventArgs e)

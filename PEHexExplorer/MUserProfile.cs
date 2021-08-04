@@ -32,7 +32,7 @@ namespace PEHexExplorer
         public static Color DefaultIMAGE_RESOURCE_DIRECTORY_Color = Color.FromArgb(255, 215,185,78);
         public static Color DefaultIMAGE_Debug_DIRECTORY_Color = Color.FromArgb(255, 197,61,76);
         public static Color DefaultIMAGE_dotNetDIRECTORY_Color = Color.FromArgb(255, 66, 202, 166);
-        public static Color DefaultImage_OtherColor = Color.FromArgb(255, 255, 255, 224);
+        public static Color DefaultImage_OtherColor = Color.FromArgb(255, 247, 247, 140);
 
         public static PenF DefaultGroupLinePen = new PenF()
         {
@@ -64,7 +64,7 @@ namespace PEHexExplorer
         {
 
             ProgramFont = SystemFonts.DefaultFont;
-            StringViewTable = 0;
+            StringViewEncoding = 0;
             ScalingPercent = 100;
             EnableStringView = true;
             EnableLineInfo = true;
@@ -99,13 +99,15 @@ namespace PEHexExplorer
             EnablePlugin = true;
             DisableGuid = null;
 
+            EnablePE = true;
+
         }
 
         #region 常规
 
-
         public Font ProgramFont { get; set; }
-        public uint StringViewTable { get; set; }
+        public bool EnablePE { get; set; }
+        public uint StringViewEncoding { get; set; }
         public uint ScalingPercent { get; set; }
         public bool EnableStringView { get; set; }
         public bool EnableLineInfo { get; set; }
