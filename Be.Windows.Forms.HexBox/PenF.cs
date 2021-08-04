@@ -94,13 +94,15 @@ namespace Be.Windows.Forms
         /// <param name="penF">需要转化的PenF对象</param>
         public static implicit operator Pen(PenF penF)
         {
-            Pen pen = new Pen(penF.Color, penF.Width);
-            pen.DashStyle = penF.DashStyle;
-            pen.StartCap = penF.StartCap;
-            pen.EndCap = penF.EndCap;
-            pen.DashCap = penF.DashCap;
-            pen.Alignment = penF.Alignment;
-            pen.DashOffset = penF.DashOffset;
+            Pen pen = new Pen(penF.Color, penF.Width)
+            {
+                DashStyle = penF.DashStyle,
+                StartCap = penF.StartCap,
+                EndCap = penF.EndCap,
+                DashCap = penF.DashCap,
+                Alignment = penF.Alignment,
+                DashOffset = penF.DashOffset
+            };
             return pen;
         }
     }
