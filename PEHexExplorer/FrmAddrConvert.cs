@@ -8,13 +8,13 @@ namespace PEHexExplorer
     public partial class FrmAddrConvert : Form
     {
 
-        public static FrmAddrConvert frmAddrConvert;
+        public static FrmAddrConvert frmAddrConvert=null;
 
         public static FrmAddrConvert Instance
         {
             get
             {
-                if (frmAddrConvert != null && frmAddrConvert.IsDisposed)
+                if (frmAddrConvert == null || frmAddrConvert.IsDisposed)
                 {
                     frmAddrConvert = new FrmAddrConvert();
                 }
@@ -34,7 +34,7 @@ namespace PEHexExplorer
         {
             if (PEPParser!=null)
             {
-                ntValue.Value = (decimal)PEPParser.FOA2RVA((ulong)ntOffset.Value);
+                ntRVA.Value = (decimal)PEPParser.FOA2RVA((ulong)ntFOA.Value);
             }
         }
 
@@ -42,7 +42,7 @@ namespace PEHexExplorer
         {
             if (PEPParser != null)
             {
-                ntOffset.Value = (decimal)PEPParser.RVA2FOA((ulong)ntOffset.Value);
+                ntFOA.Value = (decimal)PEPParser.RVA2FOA((ulong)ntFOA.Value);
             }
         }
 
@@ -52,16 +52,20 @@ namespace PEHexExplorer
             {
                 if (PEPParser!=null)
                 {
-                    ntOffset.Enabled = true;
-                    ntValue.Enabled = true;
+                    ntFOA.Enabled = true;
+                    ntRVA.Enabled = true;
                 }
                 else
                 {
-                    ntOffset.Enabled = false;
-                    ntValue.Enabled = false;
+                    ntFOA.Enabled = false;
+                    ntRVA.Enabled = false;
                 }
             }
         }
 
+        private void FrmAddrConvert_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Dispose();
+        }
     }
 }

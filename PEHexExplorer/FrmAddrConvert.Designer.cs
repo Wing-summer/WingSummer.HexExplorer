@@ -31,64 +31,114 @@ namespace PEHexExplorer
         {
             System.Windows.Forms.Label label2;
             System.Windows.Forms.Label label1;
-            this.ntValue = new System.Windows.Forms.NumericUpDown();
-            this.ntOffset = new System.Windows.Forms.NumericUpDown();
+            System.Windows.Forms.Label label3;
+            System.Windows.Forms.Label label4;
+            this.ntRVA = new System.Windows.Forms.NumericUpDown();
+            this.ntFOA = new System.Windows.Forms.NumericUpDown();
+            this.ntVA = new System.Windows.Forms.NumericUpDown();
+            this.ntBase = new System.Windows.Forms.NumericUpDown();
             label2 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.ntValue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ntOffset)).BeginInit();
+            label3 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.ntRVA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ntFOA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ntVA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ntBase)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(22, 60);
+            label2.Location = new System.Drawing.Point(24, 100);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(82, 15);
+            label2.Size = new System.Drawing.Size(46, 15);
             label2.TabIndex = 13;
-            label2.Text = "虚拟偏移：";
+            label2.Text = "RVA：";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(22, 20);
+            label1.Location = new System.Drawing.Point(24, 61);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(82, 15);
+            label1.Size = new System.Drawing.Size(46, 15);
             label1.TabIndex = 12;
-            label1.Text = "文件偏移：";
+            label1.Text = "FOA：";
             // 
-            // ntValue
+            // ntRVA
             // 
-            this.ntValue.Enabled = false;
-            this.ntValue.Hexadecimal = true;
-            this.ntValue.Location = new System.Drawing.Point(100, 56);
-            this.ntValue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ntValue.Name = "ntValue";
-            this.ntValue.Size = new System.Drawing.Size(161, 25);
-            this.ntValue.TabIndex = 8;
-            this.ntValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ntValue.ValueChanged += new System.EventHandler(this.NtValue_ValueChanged);
+            this.ntRVA.Hexadecimal = true;
+            this.ntRVA.Location = new System.Drawing.Point(68, 95);
+            this.ntRVA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ntRVA.Name = "ntRVA";
+            this.ntRVA.Size = new System.Drawing.Size(161, 25);
+            this.ntRVA.TabIndex = 8;
+            this.ntRVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ntRVA.ValueChanged += new System.EventHandler(this.NtValue_ValueChanged);
             // 
-            // ntOffset
+            // ntFOA
             // 
-            this.ntOffset.Enabled = false;
-            this.ntOffset.Hexadecimal = true;
-            this.ntOffset.Location = new System.Drawing.Point(100, 17);
-            this.ntOffset.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ntOffset.Name = "ntOffset";
-            this.ntOffset.Size = new System.Drawing.Size(161, 25);
-            this.ntOffset.TabIndex = 7;
-            this.ntOffset.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ntOffset.ValueChanged += new System.EventHandler(this.NtOffset_ValueChanged);
+            this.ntFOA.Hexadecimal = true;
+            this.ntFOA.Location = new System.Drawing.Point(68, 56);
+            this.ntFOA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ntFOA.Name = "ntFOA";
+            this.ntFOA.Size = new System.Drawing.Size(161, 25);
+            this.ntFOA.TabIndex = 7;
+            this.ntFOA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ntFOA.ValueChanged += new System.EventHandler(this.NtOffset_ValueChanged);
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(24, 25);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(38, 15);
+            label3.TabIndex = 12;
+            label3.Text = "VA：";
+            // 
+            // ntVA
+            // 
+            this.ntVA.Hexadecimal = true;
+            this.ntVA.Location = new System.Drawing.Point(68, 20);
+            this.ntVA.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ntVA.Name = "ntVA";
+            this.ntVA.Size = new System.Drawing.Size(161, 25);
+            this.ntVA.TabIndex = 7;
+            this.ntVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ntVA.ValueChanged += new System.EventHandler(this.NtOffset_ValueChanged);
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(24, 140);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(54, 15);
+            label4.TabIndex = 13;
+            label4.Text = "Base：";
+            // 
+            // ntBase
+            // 
+            this.ntBase.Hexadecimal = true;
+            this.ntBase.Location = new System.Drawing.Point(84, 133);
+            this.ntBase.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ntBase.Name = "ntBase";
+            this.ntBase.Size = new System.Drawing.Size(145, 25);
+            this.ntBase.TabIndex = 8;
+            this.ntBase.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ntBase.ValueChanged += new System.EventHandler(this.NtValue_ValueChanged);
             // 
             // FrmAddrConvert
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 100);
-            this.Controls.Add(this.ntValue);
+            this.ClientSize = new System.Drawing.Size(256, 176);
+            this.Controls.Add(this.ntBase);
+            this.Controls.Add(this.ntRVA);
+            this.Controls.Add(label4);
             this.Controls.Add(label2);
-            this.Controls.Add(this.ntOffset);
+            this.Controls.Add(this.ntVA);
+            this.Controls.Add(label3);
+            this.Controls.Add(this.ntFOA);
             this.Controls.Add(label1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -97,16 +147,21 @@ namespace PEHexExplorer
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "文件地址和虚拟地址转换器";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmAddrConvert_FormClosed);
             this.VisibleChanged += new System.EventHandler(this.FrmAddrConvert_VisibleChanged);
-            ((System.ComponentModel.ISupportInitialize)(this.ntValue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ntOffset)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ntRVA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ntFOA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ntVA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ntBase)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.NumericUpDown ntValue;
-        private System.Windows.Forms.NumericUpDown ntOffset;
+        private System.Windows.Forms.NumericUpDown ntRVA;
+        private System.Windows.Forms.NumericUpDown ntFOA;
+        private System.Windows.Forms.NumericUpDown ntVA;
+        private System.Windows.Forms.NumericUpDown ntBase;
     }
 }

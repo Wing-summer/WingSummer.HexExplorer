@@ -22,13 +22,16 @@ namespace PEHexExplorer
         public static Color DefaultColInfoBackColor = Color.FromArgb(255, 255, 255, 128);
         public static Color DefaultIMAGE_DOS_HEADER_Color = Color.FromArgb(255, 240, 230, 140);
         public static Color DefaultIMAGE_NT_HEADERS_Color = Color.FromArgb(255, 200, 250, 200);
+        public static Color DefaultIMAGE_FILE_HEADER_Color = Color.FromArgb(255, 226, 93, 124);
         public static Color DefaultIMAGE_OPTIONAL_HEADER_Color = Color.FromArgb(255, 200, 200, 250);
         public static Color DefaultIMAGE_SECTION_HEADER_Color = Color.FromArgb(255, 255, 192, 192);
         public static Color DefaultIMAGE_DATA_DIRECTORY_Color = Color.FromArgb(255, 173, 239, 237);
-        public static Color DefaultIMAGE_DATA_DIRECTORY_Item_Color = Color.FromArgb(255, 213, 252, 120);
         public static Color DefaultIMAGE_IMPORT_DESCRIPTOR_Color = Color.FromArgb(255, 120, 204, 252);
         public static Color DefaultIMAGE_BASE_RELOCATION_Color = Color.FromArgb(255, 252, 120, 213);
         public static Color DefaultIMAGE_EXPORT_DIRECTORY_Color = Color.FromArgb(255, 252, 144, 120);
+        public static Color DefaultIMAGE_RESOURCE_DIRECTORY_Color = Color.FromArgb(255, 215,185,78);
+        public static Color DefaultIMAGE_Debug_DIRECTORY_Color = Color.FromArgb(255, 197,61,76);
+        public static Color DefaultIMAGE_dotNetDIRECTORY_Color = Color.FromArgb(255, 66, 202, 166);
         public static Color DefaultImage_OtherColor = Color.FromArgb(255, 255, 255, 224);
 
         public static PenF DefaultGroupLinePen = new PenF()
@@ -78,13 +81,16 @@ namespace PEHexExplorer
             ColInfoBackColor = DefaultColInfoBackColor;
             IMAGE_DOS_HEADER_Color = DefaultIMAGE_DOS_HEADER_Color;
             IMAGE_NT_HEADERS_Color = DefaultIMAGE_NT_HEADERS_Color;
+            IMAGE_FILE_HEADER_Color = DefaultIMAGE_FILE_HEADER_Color;
             IMAGE_OPTIONAL_HEADER_Color = DefaultIMAGE_OPTIONAL_HEADER_Color;
             IMAGE_SECTION_HEADER_Color = DefaultIMAGE_SECTION_HEADER_Color;
             IMAGE_DATA_DIRECTORY_Color = DefaultIMAGE_DATA_DIRECTORY_Color;
-            IMAGE_DATA_DIRECTORY_Item_Color = DefaultIMAGE_DATA_DIRECTORY_Item_Color;
             IMAGE_IMPORT_DESCRIPTOR_Color = DefaultIMAGE_IMPORT_DESCRIPTOR_Color;
             IMAGE_BASE_RELOCATION_Color = DefaultIMAGE_BASE_RELOCATION_Color;
             IMAGE_EXPORT_DIRECTORY_Color = DefaultIMAGE_EXPORT_DIRECTORY_Color;
+            IMAGE_RESOURCE_DIRECTORY_Color = DefaultIMAGE_RESOURCE_DIRECTORY_Color;
+            IMAGE_Debug_DIRECTORY_Color = DefaultIMAGE_Debug_DIRECTORY_Color;
+            IMAGE_dotNetDIRECTORY_Color = DefaultIMAGE_dotNetDIRECTORY_Color;
             Image_OtherColor = DefaultImage_OtherColor;
 
             EnableAdvBookMark = true;
@@ -120,13 +126,16 @@ namespace PEHexExplorer
 
         public Color IMAGE_DOS_HEADER_Color { get; set; }
         public Color IMAGE_NT_HEADERS_Color { get; set; }
+        public Color IMAGE_FILE_HEADER_Color { get; set; }
         public Color IMAGE_OPTIONAL_HEADER_Color { get; set; }
         public Color IMAGE_SECTION_HEADER_Color { get; set; }
         public Color IMAGE_DATA_DIRECTORY_Color { get; set; }
-        public Color IMAGE_DATA_DIRECTORY_Item_Color { get; set; }
         public Color IMAGE_IMPORT_DESCRIPTOR_Color { get; set; }
         public Color IMAGE_BASE_RELOCATION_Color { get; set; }
         public Color IMAGE_EXPORT_DIRECTORY_Color { get; set; }
+        public Color IMAGE_RESOURCE_DIRECTORY_Color { get; set; }
+        public Color IMAGE_Debug_DIRECTORY_Color { get; set; }
+        public Color IMAGE_dotNetDIRECTORY_Color { get; set; }
         public Color Image_OtherColor { get; set; }
 
         #endregion

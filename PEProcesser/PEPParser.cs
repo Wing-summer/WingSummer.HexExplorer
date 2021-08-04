@@ -186,8 +186,7 @@ namespace PEProcesser
                 peData = new PEStructData();
                 IMAGE_DATA_DIRECTORY[] _DATA_DIRECTORYS;
 
-                IMAGE_DOS_HEADER _DOS_HEADER;
-                _viewAccessor.Read(0, out _DOS_HEADER);
+                _viewAccessor.Read(0, out IMAGE_DOS_HEADER _DOS_HEADER);
 
                 if (_DOS_HEADER.e_magic != IMAGE_DOS_SIGNATURE)
                 {
@@ -245,8 +244,10 @@ namespace PEProcesser
 
                 _DATA_DIRECTORYS = IMAGE_DATA_DIRECTORIES = _NT_HEADERS32.OptionalHeader.DataDirectory;
 
-                peData.OPTIONAL_HEADER_FOA = peData.NT_HEADER_FOA + (uint)sizeof(IMAGE_FILE_HEADER) + sizeof(uint);
+                peData.FILE_HEADER_FOA = peData.NT_HEADER_FOA + sizeof(uint);
+                peData.OPTIONAL_HEADER_FOA = peData.FILE_HEADER_FOA + IMAGE_SIZEOF_FILE_HEADER;
                 peData.SECTION_HEADERS_FOA = peData.OPTIONAL_HEADER_FOA + _NT_HEADERS32.FileHeader.SizeOfOptionalHeader;
+                peData.SizeOPTIONAL_HEADER= _NT_HEADERS32.FileHeader.SizeOfOptionalHeader;
 
                 goto CommonProcess;
             Process64Bit:
@@ -271,14 +272,16 @@ namespace PEProcesser
 
                 _DATA_DIRECTORYS = IMAGE_DATA_DIRECTORIES = _NT_HEADERS64.OptionalHeader.DataDirectory;
 
-                peData.OPTIONAL_HEADER_FOA = peData.NT_HEADER_FOA + (uint)Marshal.SizeOf(typeof(IMAGE_FILE_HEADER)) + sizeof(uint);
+                peData.FILE_HEADER_FOA = peData.NT_HEADER_FOA + sizeof(uint);
+                peData.OPTIONAL_HEADER_FOA = peData.FILE_HEADER_FOA + IMAGE_SIZEOF_FILE_HEADER;
                 peData.SECTION_HEADERS_FOA = peData.OPTIONAL_HEADER_FOA + _NT_HEADERS64.FileHeader.SizeOfOptionalHeader;
+                peData.SizeOPTIONAL_HEADER = _NT_HEADERS64.FileHeader.SizeOfOptionalHeader;
 
             CommonProcess:
                 _SECTION_HEADERS = new IMAGE_SECTION_HEADER[peData.NumberOfSections];
 
                 peData.DATA_DIRECTORIES_FOA = peData.SECTION_HEADERS_FOA -
-                  (ulong)sizeof(IMAGE_DATA_DIRECTORY) * peData.NumberOfSections;
+                  (ulong)sizeof(IMAGE_DATA_DIRECTORY) * IMAGE_NUMBEROF_DIRECTORY_ENTRIES;
 
                 _viewAccessor.ReadArray((long)peData.SECTION_HEADERS_FOA, _SECTION_HEADERS, 0, (int)peData.NumberOfSections);
 
@@ -289,8 +292,7 @@ namespace PEProcesser
                 idd = _DATA_DIRECTORYS[(int)DirectoryEntries.IMAGE_DIRECTORY_ENTRY_EXPORT];
                 if (idd.VirtualAddress != 0 && idd.Size != 0)
                 {
-                    IMAGE_EXPORT_DIRECTORY _EXPORT_DIRECTORY;
-                    _viewAccessor.Read((long)RVA2FOA(idd.VirtualAddress).Value, out _EXPORT_DIRECTORY);
+                    _viewAccessor.Read((long)RVA2FOA(idd.VirtualAddress).Value, out IMAGE_EXPORT_DIRECTORY _EXPORT_DIRECTORY);
 
                     uint mcount = _EXPORT_DIRECTORY.NumberOfFunctions;
                     uint ncount = _EXPORT_DIRECTORY.NumberOfNames;
@@ -359,17 +361,17 @@ namespace PEProcesser
                     {
                         while (_IMPORT_DESCRIPTOR.GetHashCode() != null_IMPORT_DESCRIPTOR)
                         {
-                            importTable = new ImportTable();
-                            importTable.Exports = new List<ExportTable>();
-
-                            importTable.Name = GetStringAFromRVA(_IMPORT_DESCRIPTOR.Name);
+                            importTable = new ImportTable
+                            {
+                                Exports = new List<ExportTable>(),
+                                Name = GetStringAFromRVA(_IMPORT_DESCRIPTOR.Name)
+                            };
 
                             IMAGE_THUNK_DATA32 _THUNK_DATA32 = new IMAGE_THUNK_DATA32();
                             int null_THUNK_DATA32 = _THUNK_DATA32.GetHashCode();
                             ulong FirstThunkInter = RVA2FOA(_IMPORT_DESCRIPTOR.FirstThunk).Value;
                             _viewAccessor.Read((long)FirstThunkInter, out _THUNK_DATA32);
 
-                            IMAGE_IMPORT_BY_NAME iibn;
                             ExportTable ext;
 
                             while (_THUNK_DATA32.GetHashCode() != null_THUNK_DATA32)
@@ -383,7 +385,7 @@ namespace PEProcesser
                                 else
                                 {
                                     ulong oraddr = RVA2FOA(_THUNK_DATA32.AddressOfData).Value;
-                                    _viewAccessor.Read((long)oraddr, out iibn);
+                                    _viewAccessor.Read((long)oraddr, out IMAGE_IMPORT_BY_NAME iibn);
                                     ext.Ordinal = iibn.Hint;
                                     ext.Name = GetStringAFromAddr((long)(oraddr + sizeof(short)));
                                 }
@@ -404,16 +406,17 @@ namespace PEProcesser
                     {
                         while (_IMPORT_DESCRIPTOR.GetHashCode() != null_IMPORT_DESCRIPTOR)
                         {
-                            importTable = new ImportTable();
-                            importTable.Exports = new List<ExportTable>();
-                            importTable.Name = GetStringAFromRVA(_IMPORT_DESCRIPTOR.Name);
+                            importTable = new ImportTable
+                            {
+                                Exports = new List<ExportTable>(),
+                                Name = GetStringAFromRVA(_IMPORT_DESCRIPTOR.Name)
+                            };
 
                             IMAGE_THUNK_DATA64 _THUNK_DATA64 = new IMAGE_THUNK_DATA64();
                             int null_THUNK_DATA64 = _THUNK_DATA64.GetHashCode();
                             ulong FirstThunkInter = RVA2FOA(_IMPORT_DESCRIPTOR.FirstThunk).Value;
                             _viewAccessor.Read((long)FirstThunkInter, out _THUNK_DATA64);
 
-                            IMAGE_IMPORT_BY_NAME iibn;
                             ExportTable ext;
 
                             while (_THUNK_DATA64.GetHashCode() != null_THUNK_DATA64)
@@ -426,7 +429,7 @@ namespace PEProcesser
                                 }
                                 else
                                 {
-                                    _viewAccessor.Read((long)RVA2FOA(_THUNK_DATA64.AddressOfData).Value, out iibn);
+                                    _viewAccessor.Read((long)RVA2FOA(_THUNK_DATA64.AddressOfData).Value, out IMAGE_IMPORT_BY_NAME iibn);
                                     ext.Ordinal = iibn.Hint;
                                     ext.Name = GetStringAFromAddr(iibn.Name);
                                 }
@@ -452,9 +455,8 @@ namespace PEProcesser
                 idd = _DATA_DIRECTORYS[(int)DirectoryEntries.IMAGE_DIRECTORY_ENTRY_BASERELOC];
                 if (idd.VirtualAddress != 0 && idd.Size != 0)
                 {
-                    IMAGE_BASE_RELOCATION ir;
                     var rInter = RVA2FOA(idd.VirtualAddress).Value;
-                    _viewAccessor.Read((long)rInter, out ir);
+                    _viewAccessor.Read((long)rInter, out IMAGE_BASE_RELOCATION ir);
                     RelocateTable rt;
                     ulong rlimit = rInter + idd.Size;
                     uint rcount;
@@ -462,9 +464,10 @@ namespace PEProcesser
 
                     while (rInter < rlimit)
                     {
-                        rt = new RelocateTable();
-
-                        rt.VirtualBase = ir.VirtualAddress;
+                        rt = new RelocateTable
+                        {
+                            VirtualBase = ir.VirtualAddress
+                        };
                         rcount = ir.SizeOfBlock / 2 - sizeof(int);
 
                         RelocateItem[] ritem = new RelocateItem[rcount];
@@ -488,13 +491,13 @@ namespace PEProcesser
                 {
                     peData.RESOURCE_DIR_FOA = RVA2FOA(idd.VirtualAddress).Value;
 
-                    IMAGE_RESOURCE_DIRECTORY ird, ird2, ird3;
+                    IMAGE_RESOURCE_DIRECTORY ird3;
                     IMAGE_RESOURCE_DIRECTORY_ENTRY[] pirde, pirde2, pirde3;
                     IMAGE_RESOURCE_DATA_ENTRY irdata;
 
                     ulong irdebase = peData.RESOURCE_DIR_FOA + (uint)sizeof(IMAGE_RESOURCE_DIRECTORY);
 
-                    _viewAccessor.Read((long)peData.RESOURCE_DIR_FOA, out ird);
+                    _viewAccessor.Read((long)peData.RESOURCE_DIR_FOA, out IMAGE_RESOURCE_DIRECTORY ird);
 
                     int len = ird.NumberOfIdEntries + ird.NumberOfNamedEntries;
 
@@ -524,7 +527,7 @@ namespace PEProcesser
                         if (pirde[i].DataIsDirectory)
                         {
                             ulong irdebase2 = peData.RESOURCE_DIR_FOA + pirde[i].OffsetToDirectory;
-                            _viewAccessor.Read((long)irdebase2, out ird2);
+                            _viewAccessor.Read((long)irdebase2, out IMAGE_RESOURCE_DIRECTORY ird2);
                             irdebase2 += (uint)sizeof(IMAGE_RESOURCE_DIRECTORY);
                             int len1 = ird2.NumberOfIdEntries + ird2.NumberOfNamedEntries;
 
@@ -601,8 +604,7 @@ namespace PEProcesser
                 idd = _DATA_DIRECTORYS[(int)DirectoryEntries.IMAGE_DIRECTORY_ENTRY_DEBUG];
                 if (idd.VirtualAddress != 0 && idd.Size != 0)
                 {
-                    IMAGE_DEBUG_DIRECTORY _DEBUG_DIRECTORY;
-                    _viewAccessor.Read((long)RVA2FOA(idd.VirtualAddress), out _DEBUG_DIRECTORY);
+                    _viewAccessor.Read((long)RVA2FOA(idd.VirtualAddress), out IMAGE_DEBUG_DIRECTORY _DEBUG_DIRECTORY);
                     peData.SizeofDEBUG_DIR = _DEBUG_DIRECTORY.AddressOfRawData;
                     peData.DEBUG_DIR_FOA = _DEBUG_DIRECTORY.PointerToRawData;
                 }
@@ -615,8 +617,7 @@ namespace PEProcesser
                 if (idd.VirtualAddress != 0 && idd.Size != 0)
                 {
                     peData.COR20_HEADER_FOA = RVA2FOA(idd.VirtualAddress).Value;
-                    IMAGE_COR20_HEADER _COR20_HEADER;
-                    _viewAccessor.Read((long)peData.COR20_HEADER_FOA, out _COR20_HEADER);
+                    _viewAccessor.Read((long)peData.COR20_HEADER_FOA, out IMAGE_COR20_HEADER _COR20_HEADER);
 
                     netMeta = new DotNetMetaInfo();
 
@@ -634,11 +635,10 @@ namespace PEProcesser
                         pos += (uint)sizeof(STORAGEHEADER);
                         iStreams = new Dictionary<string, STORAGESTREAM>();
 
-                        STORAGESTREAM sTORAGESTREAM;
 
                         for (int i = 0; i < netMeta.STORAGEHEADER.iStreams; i++)
                         {
-                            _viewAccessor.Read((long)pos, out sTORAGESTREAM);
+                            _viewAccessor.Read((long)pos, out STORAGESTREAM sTORAGESTREAM);
                             pos += (uint)sizeof(STORAGESTREAM);
                             string tmp = GetStringAFromAddr((long)pos);
                             iStreams.Add(tmp, sTORAGESTREAM);
@@ -648,8 +648,7 @@ namespace PEProcesser
                         if (iStreams.ContainsKey("#~"))
                         {
                             pos = peData.MetaData_FOA + iStreams["#~"].iOffset;
-                            MDStreamHeader mDStreamHeader;
-                            _viewAccessor.Read((long)pos, out mDStreamHeader);
+                            _viewAccessor.Read((long)pos, out MDStreamHeader mDStreamHeader);
 
                             BitArray bitArray = new BitArray(BitConverter.GetBytes(mDStreamHeader.MaskValid));
                             int bcount = 0;

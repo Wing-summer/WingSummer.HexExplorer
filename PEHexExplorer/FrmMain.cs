@@ -454,6 +454,10 @@ namespace PEHexExplorer
                 setting.ShowDialog();
             }
         }
+        private void MIAddrConverter_Click(object sender, EventArgs e)
+        {
+            FrmAddrConvert.Instance.Show(this);
+        }
 
         private void MIPlugin_Click(object sender, EventArgs e)
         {
@@ -483,6 +487,12 @@ namespace PEHexExplorer
         }
 
         #endregion
+
+        private void TvPEStruct_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
 
     }
 }

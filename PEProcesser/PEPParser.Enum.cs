@@ -4,7 +4,7 @@ namespace PEProcesser
 {
     public partial class PEPParser
     {
-        public enum ParserError
+        public enum ParserError : int
         {
             Success,
             Unvalid,
@@ -14,6 +14,69 @@ namespace PEProcesser
             NullObject,
             UnableWrite
         };
+
+        public enum PEStructType : int
+        {
+            IMAGE_DOS_HEADER,
+            IMAGE_FILE_HEADER,
+            IMAGE_NT_HEADERS,
+            IMAGE_OPTIONAL_HEADER,
+            IMAGE_DATA_DIRECTORY,
+            IMAGE_DATA_DIRECTORY_Content,
+            IMAGE_SECTION_HEADER,
+            IMAGE_EXPORT_DIRECTORY,
+            IMAGE_THUNK_DATA,
+            IMAGE_IMPORT_DESCRIPTOR,
+            IMAGE_IMPORT_BY_NAME,
+            IMAGE_RESOURCE_DIRECTORY,
+            IMAGE_RESOURCE_DIRECTORY_ENTRY,
+            IMAGE_RESOURCE_DATA_ENTRY,
+            IMAGE_RESOURCE_DIR_STRING_U,
+            IMAGE_BASE_RELOCATION,
+            IMAGE_DEBUG_DIRECTORY,
+            IMAGE_COR20_HEADER,
+            STORAGESIGNATURE,
+            STORAGEHEADER,
+            STORAGESTREAM,
+            MDStreamHeader,
+            DotNetModule,
+            DotNetTypeRef,
+            DotNetTypeDef,
+            DotNetField,
+            DotNetMethodDef,
+            DotNetParam,
+            DotNetInterfaceImpl,
+            DotNetMemberRef,
+            DotNetConstant,
+            DotNetCustomAttribute,
+            DotNetFieldMarshal,
+            DotNetDeclSecurity,
+            DotNetClassLayout,
+            DotNetFieldLayout,
+            DotNetStandAloneSig,
+            DotNetEventMap,
+            DotNetEvent,
+            DotNetPropertyMap,
+            DotNetProperty,
+            DotNetMethodSemantics,
+            DotNetMethodImpl,
+            DotNetModuleRef,
+            DotNetTypeSpec,
+            DotNetImplMap,
+            DotNetFieldRVA,
+            DotNetAssembly,
+            DotNetAssemblyProcessor,
+            DotNetAssemblyOS,
+            DotNetAssemblyRef,
+            DotNetAssemblyRefProcessor,
+            DotNetAssemblyRefOS,
+            DotNetFile,
+            DotNetExportedType,
+            DotNetManifestResource,
+            DotNetNestedClass,
+            DotNetGenericParam,
+            DotNetGenericParamConstraint
+        }
 
         public enum DirectoryEntries : int
         {

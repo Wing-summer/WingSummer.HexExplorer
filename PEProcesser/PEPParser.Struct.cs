@@ -18,7 +18,9 @@ namespace PEProcesser
             public uint VirtualAlign;
             public uint NumberOfSections;
             public ulong NT_HEADER_FOA;
+            public ulong FILE_HEADER_FOA;
             public ulong OPTIONAL_HEADER_FOA;
+            public uint SizeOPTIONAL_HEADER;
             public ulong DATA_DIRECTORIES_FOA;
             public ulong DEBUG_DIR_FOA;
             public uint SizeofDEBUG_DIR;
@@ -44,7 +46,7 @@ namespace PEProcesser
         public struct RelocateItem
         {
 #pragma warning disable CS0649
-            private ushort Data;
+            private readonly ushort Data;
 #pragma warning restore CS0649
 
             public uint Offset { get { return (uint)(Data & 0xFFF); } }
@@ -334,10 +336,10 @@ namespace PEProcesser
 
             public uint NameOffset { get { return (uint)(Name & 0x7FFFFFFF); } }
             public ushort Id { get { return (ushort)Name; } }
-            public bool NameIsString { get { return (Name >> 31 == 1) ? true : false; } }
+            public bool NameIsString { get { return (Name >> 31 == 1); } }
 
             public uint OffsetToDirectory { get { return (uint)(OffsetToData & 0x7FFFFFFF); } }
-            public bool DataIsDirectory { get { return (OffsetToData >> 31 == 1) ? true : false; } }
+            public bool DataIsDirectory { get { return (OffsetToData >> 31 == 1); } }
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
