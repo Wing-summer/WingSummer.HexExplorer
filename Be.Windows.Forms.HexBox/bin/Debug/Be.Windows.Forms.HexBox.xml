@@ -587,6 +587,35 @@
             对象或其内容为空异常
             </summary>
         </member>
+        <member name="M:Be.Windows.Forms.HexBox.Readint(System.Int64)">
+            <summary>
+            读取int
+            </summary>
+            <param name="Pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.Readshort(System.Int64)">
+            <summary>
+            读取short
+            </summary>
+            <param name="Pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.Readlong(System.Int64)">
+            <summary>
+            读取long
+            </summary>
+            <param name="Pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.Read``1(System.Int64)">
+            <summary>
+            读取指定类型接口
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Pos"></param>
+            <returns></returns>
+        </member>
         <member name="M:Be.Windows.Forms.HexBox.OpenFile(Be.Windows.Forms.HexBox.IOError@,System.String,System.Boolean,System.Boolean)">
             <summary>
             Opens a file.
@@ -605,11 +634,10 @@
             <param name="isExport">如果为导出，则值为True</param>
             <returns>成功为True，反之为False</returns>
         </member>
-        <member name="M:Be.Windows.Forms.HexBox.CloseFile(System.Boolean)">
+        <member name="M:Be.Windows.Forms.HexBox.CloseFile">
             <summary>
             关闭并默认保存文件
             </summary>
-            <param name="IsSave">如果该参数为False，则丢弃更改</param>
             <returns></returns>
         </member>
         <member name="M:Be.Windows.Forms.HexBox.CreateBuffer(System.Boolean)">
@@ -993,6 +1021,11 @@
         <member name="E:Be.Windows.Forms.HexBox.CurrentPositionInLineChanged">
             <summary>
             Occurs, when the value of CurrentPositionInLine property has changed.
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.HexBox.CurrentPositionChanged">
+            <summary>
+            当光标位置发生改变时会触发该事件
             </summary>
         </member>
         <member name="E:Be.Windows.Forms.HexBox.Copied">

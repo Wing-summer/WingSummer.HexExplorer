@@ -46,17 +46,15 @@
             System.Windows.Forms.ToolStripSeparator MIS8;
             System.Windows.Forms.ToolStripMenuItem MenuItemSetting;
             System.Windows.Forms.ToolStripMenuItem MenuItemAbout;
-            System.Windows.Forms.SplitContainer splitContainer1;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             System.Windows.Forms.ToolStripSeparator ts9;
             System.Windows.Forms.ToolStripSeparator ts1;
             System.Windows.Forms.ToolStripSeparator ts2;
             System.Windows.Forms.ToolStripSeparator ts3;
             System.Windows.Forms.ToolStripSeparator ts4;
             System.Windows.Forms.ToolStripSeparator ts5;
-            System.Windows.Forms.TabPage tabPage1;
             System.Windows.Forms.TabPage tabPage2;
             System.Windows.Forms.SplitContainer splitContainer3;
+            System.Windows.Forms.SplitContainer splitContainer4;
             System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("IMAGE_DOS_HEADER", 1, 1);
             System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("IMAGE_NT_HEADERS", 1, 1);
             System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("IMAGE_FILE_HEADER", 1, 1);
@@ -80,6 +78,7 @@
             treeNode20,
             treeNode21,
             treeNode23});
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             System.Windows.Forms.TabPage tabPage3;
             System.Windows.Forms.SplitContainer splitContainer2;
             System.Windows.Forms.ToolStripSeparator ts11;
@@ -118,6 +117,13 @@
             this.MIAddrConverter = new System.Windows.Forms.ToolStripMenuItem();
             this.MIS = new System.Windows.Forms.ToolStripSeparator();
             this.MenuPlugin = new System.Windows.Forms.ToolStripMenuItem();
+            this.tvPEStruct = new System.Windows.Forms.TreeView();
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this.pgConst = new System.Windows.Forms.PropertyGrid();
+            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.propertyGridB = new System.Windows.Forms.PropertyGrid();
+            this.scEdit = new System.Windows.Forms.SplitContainer();
             this.hexBox = new Be.Windows.Forms.HexBox();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.tbNew = new System.Windows.Forms.ToolStripButton();
@@ -144,12 +150,6 @@
             this.ts10 = new System.Windows.Forms.ToolStripSeparator();
             this.tbAboutthis = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.propertyGrid = new System.Windows.Forms.PropertyGrid();
-            this.tvPEStruct = new System.Windows.Forms.TreeView();
-            this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
-            this.propertyGridB = new System.Windows.Forms.PropertyGrid();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.Slbl5 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -167,6 +167,8 @@
             this.TMIFind = new System.Windows.Forms.ToolStripMenuItem();
             this.TMIJmp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tbInfo = new System.Windows.Forms.ToolStripButton();
+            this.MIInfo = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip2 = new System.Windows.Forms.StatusStrip();
             Slbl1 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -184,16 +186,15 @@
             MIS8 = new System.Windows.Forms.ToolStripSeparator();
             MenuItemSetting = new System.Windows.Forms.ToolStripMenuItem();
             MenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
-            splitContainer1 = new System.Windows.Forms.SplitContainer();
             ts9 = new System.Windows.Forms.ToolStripSeparator();
             ts1 = new System.Windows.Forms.ToolStripSeparator();
             ts2 = new System.Windows.Forms.ToolStripSeparator();
             ts3 = new System.Windows.Forms.ToolStripSeparator();
             ts4 = new System.Windows.Forms.ToolStripSeparator();
             ts5 = new System.Windows.Forms.ToolStripSeparator();
-            tabPage1 = new System.Windows.Forms.TabPage();
             tabPage2 = new System.Windows.Forms.TabPage();
             splitContainer3 = new System.Windows.Forms.SplitContainer();
+            splitContainer4 = new System.Windows.Forms.SplitContainer();
             tabPage3 = new System.Windows.Forms.TabPage();
             splitContainer2 = new System.Windows.Forms.SplitContainer();
             ts11 = new System.Windows.Forms.ToolStripSeparator();
@@ -201,23 +202,26 @@
             statusStrip2.SuspendLayout();
             MainMenu.SuspendLayout();
             this.hexMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(splitContainer1)).BeginInit();
-            splitContainer1.Panel1.SuspendLayout();
-            splitContainer1.Panel2.SuspendLayout();
-            splitContainer1.SuspendLayout();
-            this.toolStrip.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(splitContainer3)).BeginInit();
             splitContainer3.Panel1.SuspendLayout();
             splitContainer3.Panel2.SuspendLayout();
             splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(splitContainer4)).BeginInit();
+            splitContainer4.Panel1.SuspendLayout();
+            splitContainer4.Panel2.SuspendLayout();
+            splitContainer4.SuspendLayout();
             tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(splitContainer2)).BeginInit();
             splitContainer2.Panel1.SuspendLayout();
             splitContainer2.Panel2.SuspendLayout();
             splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.scEdit)).BeginInit();
+            this.scEdit.Panel1.SuspendLayout();
+            this.scEdit.Panel2.SuspendLayout();
+            this.scEdit.SuspendLayout();
+            this.toolStrip.SuspendLayout();
+            this.tabControl1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -235,7 +239,7 @@
             statusStrip2.Name = "statusStrip2";
             statusStrip2.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
             statusStrip2.ShowItemToolTips = true;
-            statusStrip2.Size = new System.Drawing.Size(750, 30);
+            statusStrip2.Size = new System.Drawing.Size(1130, 30);
             statusStrip2.TabIndex = 1;
             // 
             // Slbl1
@@ -306,7 +310,7 @@
             MainMenu.Name = "MainMenu";
             MainMenu.Padding = new System.Windows.Forms.Padding(4, 3, 0, 3);
             MainMenu.ShowItemToolTips = true;
-            MainMenu.Size = new System.Drawing.Size(1182, 30);
+            MainMenu.Size = new System.Drawing.Size(1782, 30);
             MainMenu.TabIndex = 3;
             // 
             // MenuItemFile
@@ -623,7 +627,8 @@
             // 
             MenuItemSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MIGeneral,
-            this.MIPlugin});
+            this.MIPlugin,
+            this.MIInfo});
             MenuItemSetting.Image = global::PEHexExplorer.Properties.Resources.setting;
             MenuItemSetting.Name = "MenuItemSetting";
             MenuItemSetting.Size = new System.Drawing.Size(92, 24);
@@ -634,7 +639,7 @@
             this.MIGeneral.Image = global::PEHexExplorer.Properties.Resources.general;
             this.MIGeneral.Name = "MIGeneral";
             this.MIGeneral.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
-            this.MIGeneral.Size = new System.Drawing.Size(252, 26);
+            this.MIGeneral.Size = new System.Drawing.Size(268, 26);
             this.MIGeneral.Text = "常规";
             this.MIGeneral.Click += new System.EventHandler(this.MIGeneral_Click);
             // 
@@ -644,7 +649,7 @@
             this.MIPlugin.Name = "MIPlugin";
             this.MIPlugin.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.K)));
-            this.MIPlugin.Size = new System.Drawing.Size(252, 26);
+            this.MIPlugin.Size = new System.Drawing.Size(268, 26);
             this.MIPlugin.Text = "插件设置";
             this.MIPlugin.Click += new System.EventHandler(this.MIPlugin_Click);
             // 
@@ -698,25 +703,250 @@
             MenuItemAbout.Text = "关于";
             MenuItemAbout.Click += new System.EventHandler(this.MIAboutThis_Click);
             // 
-            // splitContainer1
+            // ts9
             // 
-            splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            splitContainer1.Location = new System.Drawing.Point(0, 30);
-            splitContainer1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            splitContainer1.Name = "splitContainer1";
+            ts9.Name = "ts9";
+            ts9.Size = new System.Drawing.Size(6, 27);
             // 
-            // splitContainer1.Panel1
+            // ts1
             // 
-            splitContainer1.Panel1.Controls.Add(this.hexBox);
-            splitContainer1.Panel1.Controls.Add(this.toolStrip);
-            splitContainer1.Panel1.Controls.Add(statusStrip2);
+            ts1.Name = "ts1";
+            ts1.Size = new System.Drawing.Size(6, 27);
             // 
-            // splitContainer1.Panel2
+            // ts2
             // 
-            splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            splitContainer1.Size = new System.Drawing.Size(1182, 693);
-            splitContainer1.SplitterDistance = 750;
-            splitContainer1.TabIndex = 5;
+            ts2.Name = "ts2";
+            ts2.Size = new System.Drawing.Size(6, 27);
+            // 
+            // ts3
+            // 
+            ts3.Name = "ts3";
+            ts3.Size = new System.Drawing.Size(6, 27);
+            // 
+            // ts4
+            // 
+            ts4.Name = "ts4";
+            ts4.Size = new System.Drawing.Size(6, 27);
+            // 
+            // ts5
+            // 
+            ts5.Name = "ts5";
+            ts5.Size = new System.Drawing.Size(6, 27);
+            // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(splitContainer3);
+            tabPage2.Location = new System.Drawing.Point(4, 29);
+            tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tabPage2.Size = new System.Drawing.Size(640, 660);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "结构";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer3
+            // 
+            splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer3.Location = new System.Drawing.Point(3, 4);
+            splitContainer3.Name = "splitContainer3";
+            splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            splitContainer3.Panel1.Controls.Add(splitContainer4);
+            // 
+            // splitContainer3.Panel2
+            // 
+            splitContainer3.Panel2.Controls.Add(this.propertyGrid1);
+            splitContainer3.Size = new System.Drawing.Size(634, 652);
+            splitContainer3.SplitterDistance = 347;
+            splitContainer3.TabIndex = 0;
+            // 
+            // splitContainer4
+            // 
+            splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer4.Location = new System.Drawing.Point(0, 0);
+            splitContainer4.Name = "splitContainer4";
+            // 
+            // splitContainer4.Panel1
+            // 
+            splitContainer4.Panel1.Controls.Add(this.tvPEStruct);
+            splitContainer4.Panel1MinSize = 300;
+            // 
+            // splitContainer4.Panel2
+            // 
+            splitContainer4.Panel2.Controls.Add(this.pgConst);
+            splitContainer4.Panel2MinSize = 250;
+            splitContainer4.Size = new System.Drawing.Size(634, 347);
+            splitContainer4.SplitterDistance = 300;
+            splitContainer4.TabIndex = 0;
+            // 
+            // tvPEStruct
+            // 
+            this.tvPEStruct.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvPEStruct.ImageIndex = 0;
+            this.tvPEStruct.ImageList = this.imageList;
+            this.tvPEStruct.Location = new System.Drawing.Point(0, 0);
+            this.tvPEStruct.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tvPEStruct.Name = "tvPEStruct";
+            treeNode13.ImageIndex = 1;
+            treeNode13.Name = "tDOS_HEADER";
+            treeNode13.SelectedImageIndex = 1;
+            treeNode13.Text = "IMAGE_DOS_HEADER";
+            treeNode14.ImageIndex = 1;
+            treeNode14.Name = "tNT_HEADERS";
+            treeNode14.SelectedImageIndex = 1;
+            treeNode14.Text = "IMAGE_NT_HEADERS";
+            treeNode15.ImageIndex = 1;
+            treeNode15.Name = "tFILE_HEADER";
+            treeNode15.SelectedImageIndex = 1;
+            treeNode15.Text = "IMAGE_FILE_HEADER";
+            treeNode16.ImageIndex = 1;
+            treeNode16.Name = "tOPTIONAL_HEADER";
+            treeNode16.SelectedImageIndex = 1;
+            treeNode16.Text = "IMAGE_OPTIONAL_HEADER";
+            treeNode17.ImageIndex = 1;
+            treeNode17.Name = "tDATA_DIRECTORY";
+            treeNode17.SelectedImageIndex = 1;
+            treeNode17.Text = "IMAGE_DATA_DIRECTORY";
+            treeNode18.ImageIndex = 1;
+            treeNode18.Name = "tEXPORT_DIRECTORY";
+            treeNode18.SelectedImageIndex = 1;
+            treeNode18.Text = "IMAGE_EXPORT_DIRECTORY";
+            treeNode19.ImageIndex = 1;
+            treeNode19.Name = "tIMPORT_DESCRIPTOR";
+            treeNode19.SelectedImageIndex = 1;
+            treeNode19.Text = "IMAGE_IMPORT_DESCRIPTOR";
+            treeNode20.ImageIndex = 1;
+            treeNode20.Name = "tBASE_RELOCATION";
+            treeNode20.SelectedImageIndex = 1;
+            treeNode20.Text = "IMAGE_BASE_RELOCATION";
+            treeNode21.ImageIndex = 1;
+            treeNode21.Name = "tSECTION_HEADER";
+            treeNode21.SelectedImageIndex = 1;
+            treeNode21.Text = "IMAGE_SECTION_HEADER";
+            treeNode22.ImageIndex = 1;
+            treeNode22.Name = "tCOR20_HEADER\n";
+            treeNode22.SelectedImageIndex = 1;
+            treeNode22.Text = "IMAGE_COR20_HEADER\n";
+            treeNode23.ImageIndex = 3;
+            treeNode23.Name = "tNET";
+            treeNode23.SelectedImageIndex = 3;
+            treeNode23.Text = ".NET";
+            treeNode24.Name = "nodeRoot";
+            treeNode24.Text = "PE 文件";
+            this.tvPEStruct.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode24});
+            this.tvPEStruct.SelectedImageIndex = 0;
+            this.tvPEStruct.Size = new System.Drawing.Size(300, 347);
+            this.tvPEStruct.TabIndex = 0;
+            this.tvPEStruct.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TvPEStruct_AfterSelect);
+            // 
+            // imageList
+            // 
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "0.png");
+            this.imageList.Images.SetKeyName(1, "1.png");
+            this.imageList.Images.SetKeyName(2, "2.png");
+            this.imageList.Images.SetKeyName(3, "3.png");
+            // 
+            // pgConst
+            // 
+            this.pgConst.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pgConst.HelpVisible = false;
+            this.pgConst.Location = new System.Drawing.Point(0, 0);
+            this.pgConst.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.pgConst.Name = "pgConst";
+            this.pgConst.PropertySort = System.Windows.Forms.PropertySort.NoSort;
+            this.pgConst.Size = new System.Drawing.Size(330, 347);
+            this.pgConst.TabIndex = 0;
+            this.pgConst.ToolbarVisible = false;
+            // 
+            // propertyGrid1
+            // 
+            this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
+            this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.Size = new System.Drawing.Size(634, 301);
+            this.propertyGrid1.TabIndex = 1;
+            // 
+            // tabPage3
+            // 
+            tabPage3.Controls.Add(splitContainer2);
+            tabPage3.Location = new System.Drawing.Point(4, 25);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            tabPage3.Size = new System.Drawing.Size(640, 664);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "书签";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer2
+            // 
+            splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer2.Location = new System.Drawing.Point(3, 3);
+            splitContainer2.Name = "splitContainer2";
+            splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            splitContainer2.Panel1.Controls.Add(this.checkedListBox1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            splitContainer2.Panel2.Controls.Add(this.propertyGridB);
+            splitContainer2.Size = new System.Drawing.Size(634, 658);
+            splitContainer2.SplitterDistance = 244;
+            splitContainer2.TabIndex = 3;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(0, 0);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(634, 244);
+            this.checkedListBox1.TabIndex = 3;
+            // 
+            // propertyGridB
+            // 
+            this.propertyGridB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGridB.Location = new System.Drawing.Point(0, 0);
+            this.propertyGridB.Name = "propertyGridB";
+            this.propertyGridB.Size = new System.Drawing.Size(634, 410);
+            this.propertyGridB.TabIndex = 0;
+            // 
+            // ts11
+            // 
+            ts11.Name = "ts11";
+            ts11.Size = new System.Drawing.Size(105, 6);
+            // 
+            // ts12
+            // 
+            ts12.Name = "ts12";
+            ts12.Size = new System.Drawing.Size(105, 6);
+            // 
+            // scEdit
+            // 
+            this.scEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scEdit.Location = new System.Drawing.Point(0, 30);
+            this.scEdit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.scEdit.Name = "scEdit";
+            // 
+            // scEdit.Panel1
+            // 
+            this.scEdit.Panel1.Controls.Add(this.hexBox);
+            this.scEdit.Panel1.Controls.Add(this.toolStrip);
+            this.scEdit.Panel1.Controls.Add(statusStrip2);
+            // 
+            // scEdit.Panel2
+            // 
+            this.scEdit.Panel2.Controls.Add(this.tabControl1);
+            this.scEdit.Size = new System.Drawing.Size(1782, 693);
+            this.scEdit.SplitterDistance = 1130;
+            this.scEdit.TabIndex = 5;
             // 
             // hexBox
             // 
@@ -745,7 +975,7 @@
             this.hexBox.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
             this.hexBox.ShowColumnInfoBackColor = true;
             this.hexBox.ShowLineInfoBackColor = true;
-            this.hexBox.Size = new System.Drawing.Size(750, 636);
+            this.hexBox.Size = new System.Drawing.Size(1130, 636);
             this.hexBox.StringViewVisible = true;
             this.hexBox.TabIndex = 0;
             this.hexBox.UseFixedBytesPerLine = true;
@@ -755,6 +985,7 @@
             this.hexBox.SelectionLengthChanged += new System.EventHandler(this.HexBox_SelectionLengthChanged);
             this.hexBox.CurrentLineChanged += new System.EventHandler(this.HexBox_CurrentLineChanged);
             this.hexBox.CurrentPositionInLineChanged += new System.EventHandler(this.HexBox_CurrentPositionInLineChanged);
+            this.hexBox.CurrentPositionChanged += new System.EventHandler(this.HexBox_CurrentPositionChanged);
             this.hexBox.ScalingChanged += new System.EventHandler(this.HexBox_ScalingChanged);
             this.hexBox.SavedStatusChanged += new System.EventHandler(this.HexBox_ContentChanged);
             this.hexBox.LockedBufferChanged += new System.EventHandler(this.HexBox_LockedBufferChanged);
@@ -780,6 +1011,7 @@
             this.tbFillNop,
             ts3,
             this.tbBookMark,
+            this.tbInfo,
             this.tbSetting,
             this.tbSettingPlugin,
             ts4,
@@ -791,7 +1023,7 @@
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.ShowItemToolTips = false;
-            this.toolStrip.Size = new System.Drawing.Size(750, 27);
+            this.toolStrip.Size = new System.Drawing.Size(1130, 27);
             this.toolStrip.TabIndex = 2;
             // 
             // tbNew
@@ -820,11 +1052,6 @@
             this.tbOpen.Click += new System.EventHandler(this.MIOpen_Click);
             this.tbOpen.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.tbOpen.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
-            // 
-            // ts9
-            // 
-            ts9.Name = "ts9";
-            ts9.Size = new System.Drawing.Size(6, 27);
             // 
             // tbExport
             // 
@@ -867,11 +1094,6 @@
             this.tbSaveAs.Click += new System.EventHandler(this.MISaveAs_Click);
             this.tbSaveAs.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.tbSaveAs.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
-            // 
-            // ts1
-            // 
-            ts1.Name = "ts1";
-            ts1.Size = new System.Drawing.Size(6, 27);
             // 
             // tbCut
             // 
@@ -965,11 +1187,6 @@
             this.tbDel.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.tbDel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
             // 
-            // ts2
-            // 
-            ts2.Name = "ts2";
-            ts2.Size = new System.Drawing.Size(6, 27);
-            // 
             // tbFill
             // 
             this.tbFill.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -1012,11 +1229,6 @@
             this.tbFillNop.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.tbFillNop.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
             // 
-            // ts3
-            // 
-            ts3.Name = "ts3";
-            ts3.Size = new System.Drawing.Size(6, 27);
-            // 
             // tbBookMark
             // 
             this.tbBookMark.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -1058,11 +1270,6 @@
             this.tbSettingPlugin.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.tbSettingPlugin.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
             // 
-            // ts4
-            // 
-            ts4.Name = "ts4";
-            ts4.Size = new System.Drawing.Size(6, 27);
-            // 
             // tbCalc
             // 
             this.tbCalc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -1075,11 +1282,6 @@
             this.tbCalc.Click += new System.EventHandler(this.MICalculator_Click);
             this.tbCalc.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.tbCalc.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
-            // 
-            // ts5
-            // 
-            ts5.Name = "ts5";
-            ts5.Size = new System.Drawing.Size(6, 27);
             // 
             // tbClose
             // 
@@ -1115,7 +1317,6 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(tabPage1);
             this.tabControl1.Controls.Add(tabPage2);
             this.tabControl1.Controls.Add(tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1123,193 +1324,8 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(428, 693);
+            this.tabControl1.Size = new System.Drawing.Size(648, 693);
             this.tabControl1.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
-            tabPage1.Controls.Add(this.propertyGrid);
-            tabPage1.Location = new System.Drawing.Point(4, 29);
-            tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            tabPage1.Size = new System.Drawing.Size(420, 660);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "常量";
-            tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // propertyGrid
-            // 
-            this.propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyGrid.Location = new System.Drawing.Point(3, 4);
-            this.propertyGrid.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.propertyGrid.Name = "propertyGrid";
-            this.propertyGrid.Size = new System.Drawing.Size(414, 652);
-            this.propertyGrid.TabIndex = 0;
-            // 
-            // tabPage2
-            // 
-            tabPage2.Controls.Add(splitContainer3);
-            tabPage2.Location = new System.Drawing.Point(4, 25);
-            tabPage2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            tabPage2.Size = new System.Drawing.Size(420, 664);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "结构";
-            tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // splitContainer3
-            // 
-            splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            splitContainer3.Location = new System.Drawing.Point(3, 4);
-            splitContainer3.Name = "splitContainer3";
-            splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer3.Panel1
-            // 
-            splitContainer3.Panel1.Controls.Add(this.tvPEStruct);
-            // 
-            // splitContainer3.Panel2
-            // 
-            splitContainer3.Panel2.Controls.Add(this.propertyGrid1);
-            splitContainer3.Size = new System.Drawing.Size(414, 656);
-            splitContainer3.SplitterDistance = 350;
-            splitContainer3.TabIndex = 0;
-            // 
-            // tvPEStruct
-            // 
-            this.tvPEStruct.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvPEStruct.ImageIndex = 0;
-            this.tvPEStruct.ImageList = this.imageList;
-            this.tvPEStruct.Location = new System.Drawing.Point(0, 0);
-            this.tvPEStruct.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tvPEStruct.Name = "tvPEStruct";
-            treeNode13.ImageIndex = 1;
-            treeNode13.Name = "tDOS_HEADER";
-            treeNode13.SelectedImageIndex = 1;
-            treeNode13.Text = "IMAGE_DOS_HEADER";
-            treeNode14.ImageIndex = 1;
-            treeNode14.Name = "tNT_HEADERS";
-            treeNode14.SelectedImageIndex = 1;
-            treeNode14.Text = "IMAGE_NT_HEADERS";
-            treeNode15.ImageIndex = 1;
-            treeNode15.Name = "tFILE_HEADER";
-            treeNode15.SelectedImageIndex = 1;
-            treeNode15.Text = "IMAGE_FILE_HEADER";
-            treeNode16.ImageIndex = 1;
-            treeNode16.Name = "tOPTIONAL_HEADER";
-            treeNode16.SelectedImageIndex = 1;
-            treeNode16.Text = "IMAGE_OPTIONAL_HEADER";
-            treeNode17.ImageIndex = 1;
-            treeNode17.Name = "tDATA_DIRECTORY";
-            treeNode17.SelectedImageIndex = 1;
-            treeNode17.Text = "IMAGE_DATA_DIRECTORY";
-            treeNode18.ImageIndex = 1;
-            treeNode18.Name = "tEXPORT_DIRECTORY";
-            treeNode18.SelectedImageIndex = 1;
-            treeNode18.Text = "IMAGE_EXPORT_DIRECTORY";
-            treeNode19.ImageIndex = 1;
-            treeNode19.Name = "tIMPORT_DESCRIPTOR";
-            treeNode19.SelectedImageIndex = 1;
-            treeNode19.Text = "IMAGE_IMPORT_DESCRIPTOR";
-            treeNode20.ImageIndex = 1;
-            treeNode20.Name = "tBASE_RELOCATION";
-            treeNode20.SelectedImageIndex = 1;
-            treeNode20.Text = "IMAGE_BASE_RELOCATION";
-            treeNode21.ImageIndex = 1;
-            treeNode21.Name = "tSECTION_HEADER";
-            treeNode21.SelectedImageIndex = 1;
-            treeNode21.Text = "IMAGE_SECTION_HEADER";
-            treeNode22.ImageIndex = 1;
-            treeNode22.Name = "tCOR20_HEADER\n";
-            treeNode22.SelectedImageIndex = 1;
-            treeNode22.Text = "IMAGE_COR20_HEADER\n";
-            treeNode23.ImageIndex = 3;
-            treeNode23.Name = "tNET";
-            treeNode23.SelectedImageIndex = 3;
-            treeNode23.Text = ".NET";
-            treeNode24.Name = "nodeRoot";
-            treeNode24.Text = "PE 文件";
-            this.tvPEStruct.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode24});
-            this.tvPEStruct.SelectedImageIndex = 0;
-            this.tvPEStruct.Size = new System.Drawing.Size(414, 350);
-            this.tvPEStruct.TabIndex = 0;
-            this.tvPEStruct.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TvPEStruct_AfterSelect);
-            // 
-            // imageList
-            // 
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "0.png");
-            this.imageList.Images.SetKeyName(1, "1.png");
-            this.imageList.Images.SetKeyName(2, "2.png");
-            this.imageList.Images.SetKeyName(3, "3.png");
-            // 
-            // propertyGrid1
-            // 
-            this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
-            this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(414, 302);
-            this.propertyGrid1.TabIndex = 1;
-            // 
-            // tabPage3
-            // 
-            tabPage3.Controls.Add(splitContainer2);
-            tabPage3.Location = new System.Drawing.Point(4, 25);
-            tabPage3.Name = "tabPage3";
-            tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            tabPage3.Size = new System.Drawing.Size(420, 664);
-            tabPage3.TabIndex = 2;
-            tabPage3.Text = "书签";
-            tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // splitContainer2
-            // 
-            splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            splitContainer2.Location = new System.Drawing.Point(3, 3);
-            splitContainer2.Name = "splitContainer2";
-            splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            splitContainer2.Panel1.Controls.Add(this.checkedListBox1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            splitContainer2.Panel2.Controls.Add(this.propertyGridB);
-            splitContainer2.Size = new System.Drawing.Size(414, 658);
-            splitContainer2.SplitterDistance = 245;
-            splitContainer2.TabIndex = 3;
-            // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Location = new System.Drawing.Point(0, 0);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(414, 245);
-            this.checkedListBox1.TabIndex = 3;
-            // 
-            // propertyGridB
-            // 
-            this.propertyGridB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyGridB.Location = new System.Drawing.Point(0, 0);
-            this.propertyGridB.Name = "propertyGridB";
-            this.propertyGridB.Size = new System.Drawing.Size(414, 409);
-            this.propertyGridB.TabIndex = 0;
-            // 
-            // ts11
-            // 
-            ts11.Name = "ts11";
-            ts11.Size = new System.Drawing.Size(105, 6);
-            // 
-            // ts12
-            // 
-            ts12.Name = "ts12";
-            ts12.Size = new System.Drawing.Size(105, 6);
             // 
             // statusStrip
             // 
@@ -1327,7 +1343,7 @@
             this.statusStrip.Location = new System.Drawing.Point(0, 723);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.statusStrip.Size = new System.Drawing.Size(1182, 30);
+            this.statusStrip.Size = new System.Drawing.Size(1782, 30);
             this.statusStrip.TabIndex = 4;
             // 
             // LblStatus
@@ -1408,6 +1424,7 @@
             this.LblFilename.Tag = "1";
             this.LblFilename.Text = "<未知>";
             this.LblFilename.VisitedLinkColor = System.Drawing.Color.Blue;
+            this.LblFilename.Click += new System.EventHandler(this.LblFilename_Click);
             this.LblFilename.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.LblFilename.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
             this.LblFilename.TextChanged += new System.EventHandler(this.LblFilename_TextChanged);
@@ -1458,12 +1475,34 @@
             // 
             this.toolTip.ShowAlways = true;
             // 
+            // tbInfo
+            // 
+            this.tbInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbInfo.Image = global::PEHexExplorer.Properties.Resources.info;
+            this.tbInfo.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.tbInfo.Name = "tbInfo";
+            this.tbInfo.Size = new System.Drawing.Size(29, 24);
+            this.tbInfo.Tag = "2";
+            this.tbInfo.Text = "文件信息";
+            this.tbInfo.Click += new System.EventHandler(this.MIInfo_Click);
+            this.tbInfo.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
+            this.tbInfo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
+            // 
+            // MIInfo
+            // 
+            this.MIInfo.Image = global::PEHexExplorer.Properties.Resources.info;
+            this.MIInfo.Name = "MIInfo";
+            this.MIInfo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.MIInfo.Size = new System.Drawing.Size(268, 26);
+            this.MIInfo.Text = "显示/隐藏侧栏信息";
+            this.MIInfo.Click += new System.EventHandler(this.MIInfo_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1182, 753);
-            this.Controls.Add(splitContainer1);
+            this.ClientSize = new System.Drawing.Size(1782, 753);
+            this.Controls.Add(this.scEdit);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(MainMenu);
             this.DoubleBuffered = true;
@@ -1481,25 +1520,28 @@
             MainMenu.ResumeLayout(false);
             MainMenu.PerformLayout();
             this.hexMenuStrip.ResumeLayout(false);
-            splitContainer1.Panel1.ResumeLayout(false);
-            splitContainer1.Panel1.PerformLayout();
-            splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(splitContainer1)).EndInit();
-            splitContainer1.ResumeLayout(false);
-            this.toolStrip.ResumeLayout(false);
-            this.toolStrip.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
             tabPage2.ResumeLayout(false);
             splitContainer3.Panel1.ResumeLayout(false);
             splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(splitContainer3)).EndInit();
             splitContainer3.ResumeLayout(false);
+            splitContainer4.Panel1.ResumeLayout(false);
+            splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(splitContainer4)).EndInit();
+            splitContainer4.ResumeLayout(false);
             tabPage3.ResumeLayout(false);
             splitContainer2.Panel1.ResumeLayout(false);
             splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(splitContainer2)).EndInit();
             splitContainer2.ResumeLayout(false);
+            this.scEdit.Panel1.ResumeLayout(false);
+            this.scEdit.Panel1.PerformLayout();
+            this.scEdit.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.scEdit)).EndInit();
+            this.scEdit.ResumeLayout(false);
+            this.toolStrip.ResumeLayout(false);
+            this.toolStrip.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -1520,7 +1562,7 @@
         private System.Windows.Forms.ToolStripMenuItem MenuPlugin;
         private Be.Windows.Forms.HexBox hexBox;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.PropertyGrid propertyGrid;
+        private System.Windows.Forms.PropertyGrid pgConst;
         private System.Windows.Forms.OpenFileDialog oD;
         private System.Windows.Forms.SaveFileDialog sD;
         private System.Windows.Forms.ToolStripMenuItem MIGeneral;
@@ -1591,6 +1633,9 @@
         private System.Windows.Forms.TreeView tvPEStruct;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.ToolStripMenuItem MIAddrConverter;
+        private System.Windows.Forms.SplitContainer scEdit;
+        private System.Windows.Forms.ToolStripButton tbInfo;
+        private System.Windows.Forms.ToolStripMenuItem MIInfo;
     }
 }
 

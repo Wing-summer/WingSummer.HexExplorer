@@ -131,6 +131,7 @@ namespace Be.Windows.Forms
             else if (currentLine != _currentLine)
                 _currentLine = currentLine;
             CurrentLineChanged?.Invoke(this, null);
+            CurrentPositionChanged?.Invoke(this, null);
         }
 
         private void CheckCurrentPositionInLineChanged()
@@ -144,6 +145,8 @@ namespace Be.Windows.Forms
                 _currentPositionInLine = currentPositionInLine;
 
             CurrentPositionInLineChanged?.Invoke(this, null);
+            CurrentPositionChanged?.Invoke(this, null);
+
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace Be.Windows.Forms
 {
@@ -34,6 +35,90 @@ namespace Be.Windows.Forms
             /// 对象或其内容为空异常
             /// </summary>
             NullObject
+        }
+
+        /// <summary>
+        /// 读取int
+        /// </summary>
+        /// <param name="Pos"></param>
+        /// <returns></returns>
+        public int? Readint(long Pos)
+        {
+            if (Pos < 0 || Pos + sizeof(int) > _byteProvider.Length)
+            {
+                return null;
+            }
+            byte[] buffer = new byte[sizeof(int)];
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = _byteProvider.ReadByte(Pos + i);
+            }
+
+            return BitConverter.ToInt32(buffer, 0);
+        }
+
+        /// <summary>
+        /// 读取short
+        /// </summary>
+        /// <param name="Pos"></param>
+        /// <returns></returns>
+        public short? Readshort(long Pos)
+        {
+            if (Pos < 0 || Pos + sizeof(short) > _byteProvider.Length)
+            {
+                return null;
+            }
+            byte[] buffer = new byte[sizeof(short)];
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = _byteProvider.ReadByte(Pos + i);
+            }
+
+            return BitConverter.ToInt16(buffer, 0);
+        }
+
+        /// <summary>
+        /// 读取long
+        /// </summary>
+        /// <param name="Pos"></param>
+        /// <returns></returns>
+        public long? Readlong(long Pos)
+        {
+            if (Pos < 0 || Pos + sizeof(long) > _byteProvider.Length)
+            {
+                return null;
+            }
+            byte[] buffer = new byte[sizeof(long)];
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = _byteProvider.ReadByte(Pos + i);
+            }
+
+            return BitConverter.ToInt64(buffer, 0);
+        }
+
+        /// <summary>
+        /// 读取指定类型接口
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="Pos"></param>
+        /// <returns></returns>
+        public T Read<T>(long Pos) where T : new()
+        {
+            if (Pos<0)
+            {
+                return default;
+            }
+            int len = Marshal.SizeOf(typeof(T));
+            IntPtr ptr = Marshal.AllocHGlobal(len);
+            for (int i = 0; i < len; i++)
+            {
+                Marshal.WriteByte(ptr + i, _byteProvider.ReadByte(Pos));
+            }
+            T content=new T();
+            Marshal.PtrToStructure(ptr, content);
+            Marshal.FreeHGlobal(ptr);
+            return content;
         }
 
         /// <summary>
@@ -83,7 +168,7 @@ namespace Be.Windows.Forms
                 error = IOError.FileNotExist;
                 return false;
             }
-            CloseFile(false);
+            CloseFile();
             try
             {
                 try
@@ -175,9 +260,8 @@ namespace Be.Windows.Forms
         /// <summary>
         /// 关闭并默认保存文件
         /// </summary>
-        /// <param name="IsSave">如果该参数为False，则丢弃更改</param>
         /// <returns></returns>
-        public bool CloseFile(bool IsSave = true)
+        public bool CloseFile()
         {
             if (IsOpenedBuffer)
                 return false;
@@ -187,10 +271,6 @@ namespace Be.Windows.Forms
             try
 
             {
-                if (IsSave && _byteProvider != null && _byteProvider.HasChanges())
-                {
-                    SaveFile(out _);
-                }
                 CleanUp();
             }
             catch

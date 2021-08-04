@@ -698,5 +698,6 @@ namespace PEProcesser
                 return Encoding.UTF8.GetString(memory.ToArray());
             }
         }
+
     }
 }

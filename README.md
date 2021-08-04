@@ -25,7 +25,7 @@
 #### 软件架构
 
 1. Be.Windows.Forms.HexBox ：本组件由我改良的十六进制编辑组件Be.Windows.Forms.HexBox进一步增进使用，增加支持水平滚动条和一些其他接口（例如填充支持撤销恢复更改的数据接口）和代码整理，详情请看代码，现组件遵循本仓库的协议。
-2. PEProcesser ：解析PE结构的重要组件，由本人编写，由于本人知识限制，dot平台的PE结构可能支持不完善，普通PE文件有些查询接口未编写封装，欢迎 issue 或者 pull request，本组件遵循本仓库协议。
+2. PEProcesser ：解析PE结构的重要组件，由本人编写，由于本人知识限制，dotNet 平台的PE结构可能支持不完善，普通PE文件有些查询接口未编写封装，欢迎 issue 或者 pull request，本组件遵循本仓库协议。
 3. PEHexExplorer ：本软件的主程序，提供GUI交互，遵循本仓库协议。
 
 #### 使用声明

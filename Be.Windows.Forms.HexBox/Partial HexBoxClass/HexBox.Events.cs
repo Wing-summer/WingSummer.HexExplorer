@@ -126,6 +126,12 @@ namespace Be.Windows.Forms
         public event EventHandler CurrentPositionInLineChanged;
 
         /// <summary>
+        /// 当光标位置发生改变时会触发该事件
+        /// </summary>
+        [Description("当光标位置发生改变时会触发该事件")]
+        public event EventHandler CurrentPositionChanged;
+
+        /// <summary>
         /// Occurs, when Copy method was invoked and ClipBoardData changed.
         /// </summary>
         [Description("Occurs, when Copy method was invoked and ClipBoardData changed.")]

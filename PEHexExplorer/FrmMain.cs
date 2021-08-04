@@ -20,9 +20,11 @@ namespace PEHexExplorer
         private readonly Color EnabledColor = Color.Green;
         private readonly Color DisabledColor = Color.Red;
         private const string DefaultPoint = "(0,0)";
+        private const string ODefaultSel = "0 - 0x0";
         private const string DefaultSel = "*";
         private const string DefaultFilename = "<未知>";
         private const string NewFilename = "<未命名文件>";
+        private readonly ConstInfo constInfo;
 
         private BookMarkPE bookMark;
 
@@ -56,6 +58,9 @@ namespace PEHexExplorer
                 }
             }
 
+            constInfo = new ConstInfo();
+            pgConst.SelectedObject = constInfo;
+
         }
 
         #region 窗体事件
@@ -78,6 +83,7 @@ namespace PEHexExplorer
 
         private void OpenFile(string filename, bool writeable)
         {
+            MIClose_Click(this, EventArgs.Empty);
             pe?.Dispose();
             pe = new PEPParser(filename);
             bookMark = new BookMarkPE(pe);
@@ -106,6 +112,7 @@ namespace PEHexExplorer
 
             hexBox.InsertActive = false;
 
+            LblLen.Text = ODefaultSel;
             EnableEdit();
             EditFileExt = Path.GetExtension(filename).TrimStart('.');
         }
@@ -153,7 +160,7 @@ namespace PEHexExplorer
 
         private void MIExport_Click(object sender, EventArgs e)
         {
-            sD.Filter = string.Format($"{{0}}文件|*.{{0}}", EditFileExt);
+            sD.Filter = $"{EditFileExt}文件|*.{EditFileExt}";
             if (sD.ShowDialog() == DialogResult.OK)
             {
                 if (!hexBox.SaveFile(out HexBox.IOError oError, sD.FileName))
@@ -185,7 +192,24 @@ namespace PEHexExplorer
 
         private void MIClose_Click(object sender, EventArgs e)
         {
-            hexBox.CloseFile(false);
+            bool? res = hexBox.ByteProvider?.HasChanges();
+            if (res.HasValue&&res.Value)
+            {
+                DialogResult result = MessageBox.Show("此文件已有修改，你确定要丢弃吗？",
+                    Program.SoftwareName, MessageBoxButtons.YesNoCancel);
+                switch (result)
+                {
+                    case DialogResult.Cancel:
+                        return;
+                    case DialogResult.Yes:
+                        MISave_Click(sender, e);
+                        hexBox.CloseFile();
+                        break;
+                    case DialogResult.No:
+                        hexBox.CloseFile();
+                        break;
+                }
+            }
             DisableEdit();
         }
 
@@ -285,10 +309,8 @@ namespace PEHexExplorer
 
         #region HexBox事件
 
-        private void HexBox_ScalingChanged(object sender, EventArgs e)
-        {
+        private void HexBox_ScalingChanged(object sender, EventArgs e) => 
             LblScale.Text = string.Format("{0}%", hexBox.Scaling * 100);
-        }
 
         private void HexBox_CurrentLineChanged(object sender, EventArgs e)
         {
@@ -315,6 +337,38 @@ namespace PEHexExplorer
             LblLen.Text = string.Format("{0:D} - 0x{0:X}", hexBox.SelectionLength);
 
         private void HexBox_ByteProviderChanged(object sender, EventArgs e) => hexBox.ClearHighlightedRegion();
+
+        private void HexBox_CurrentPositionChanged(object sender, EventArgs e)
+        {
+            long sels = hexBox.SelectionStart;
+            constInfo.Char = null;
+            constInfo.Int = null;
+            constInfo.Int16 = null;
+            constInfo.Long = null;
+            constInfo.UInt = null;
+            constInfo.UInt16 = null;
+            constInfo.ULong = null;
+
+            //吃掉不必处理的异常
+            try
+            {
+                if (hexBox.ByteProvider?.Length != 0)
+                {
+                    constInfo.Char = hexBox.ByteProvider?.ReadByte(sels);
+                }
+                constInfo.Int = hexBox.Readint(sels);
+                constInfo.Int16 = hexBox.Readshort(sels);
+                constInfo.Long = hexBox.Readlong(sels);
+                constInfo.UInt = (uint)constInfo?.Int;
+                constInfo.UInt16 = (ushort)constInfo?.Int16;
+                constInfo.ULong = (ulong)constInfo?.Long;
+            }
+            catch
+            {
+            }
+
+            pgConst.Refresh();
+        }
 
         #endregion
 
@@ -489,6 +543,17 @@ namespace PEHexExplorer
                 frmAbout.ShowDialog();
             }
         }
+
+        private void LblFilename_Click(object sender, EventArgs e)
+        {
+            string filename = hexBox.Filename;
+            if (filename?.Length > 0)
+            {
+                Process.Start("Explorer.exe", $"/e,/select,{filename}");
+            }
+        }
+
+        private void MIInfo_Click(object sender, EventArgs e) => scEdit.Panel2Collapsed = !scEdit.Panel2Collapsed;
 
         #endregion
 

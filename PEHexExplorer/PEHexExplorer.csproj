@@ -69,7 +69,7 @@
   <ItemGroup>
     <Compile Include="BookMarkPE.cs" />
     <Compile Include="BookMarkProperty.cs" />
-    <Compile Include="ColorRevert.cs" />
+    <Compile Include="ConstInfo.cs" />
     <Compile Include="FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -304,6 +304,7 @@
   <ItemGroup>
     <Content Include="icon.ico" />
     <Content Include="Resources\AddrConv.png" />
+    <Content Include="Resources\info.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
