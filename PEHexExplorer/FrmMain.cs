@@ -28,13 +28,13 @@ namespace PEHexExplorer
 
         private readonly List<HexBox.HighlightedRegion> BookMarkregions;
 
-        public FrmMain(string filename=null)
+        public FrmMain(string filename = null)
         {
             InitializeComponent();
             BookMarkregions = new List<HexBox.HighlightedRegion>();
 
             //begin：载入用户设置
-            UserSetting.MUserProfile mUser = UserSetting.UserProfile;
+            MUserProfile mUser = UserSetting.UserProfile;
             Font = mUser.ProgramFont;
             hexBox.LineInfoBackColor = mUser.LineInfoBackColor;
             hexBox.ColumnInfoBackColor = mUser.ColInfoBackColor;
@@ -46,11 +46,11 @@ namespace PEHexExplorer
             hexBox.HexStringLinePen = mUser.HexStringLinePen;
             //end：载入用户设置
 
-            if (filename!=null)
+            if (filename != null)
             {
                 filename = filename.Trim();
 
-                if (filename.Length> 0 && File.Exists(filename))
+                if (filename.Length > 0 && File.Exists(filename))
                 {
                     OpenFile(filename, true);
                 }
@@ -158,7 +158,10 @@ namespace PEHexExplorer
             {
                 if (!hexBox.SaveFile(out HexBox.IOError oError, sD.FileName))
                 {
-
+                    if (oError == HexBox.IOError.Exception)
+                    {
+                        MessageBox.Show("保存出错，可能由于权限导致！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 sD.FileName = string.Empty;
             }
@@ -248,7 +251,7 @@ namespace PEHexExplorer
                         if (!hexBox.ScrollLineIntoView((long)result.Number))
                         {
                             MessageBox.Show("跳转失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        } 
+                        }
                     }
                     else
                     {
@@ -308,7 +311,7 @@ namespace PEHexExplorer
         private void HexBox_LockedBufferChanged(object sender, EventArgs e) =>
             lblLocked.ForeColor = hexBox.IsLockedBuffer ? EnabledColor : DisabledColor;
 
-        private void HexBox_SelectionLengthChanged(object sender, EventArgs e) => 
+        private void HexBox_SelectionLengthChanged(object sender, EventArgs e) =>
             LblLen.Text = string.Format("{0:D} - 0x{0:X}", hexBox.SelectionLength);
 
         private void HexBox_ByteProviderChanged(object sender, EventArgs e) => hexBox.ClearHighlightedRegion();
@@ -454,7 +457,7 @@ namespace PEHexExplorer
 
         private void MIPlugin_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void MIBookMark_Click(object sender, EventArgs e)
@@ -480,6 +483,6 @@ namespace PEHexExplorer
         }
 
         #endregion
-      
+
     }
 }

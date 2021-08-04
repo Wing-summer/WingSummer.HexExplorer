@@ -15,7 +15,7 @@ namespace PEHexExplorer
         public Dictionary<Type, List<HexBox.HighlightedRegion>> peRegions;
 
         //public List<HexBox.HighlightedRegion> regions;
-        readonly UserSetting.MUserProfile mUser= UserSetting.UserProfile;
+        readonly MUserProfile mUser= UserSetting.UserProfile;
 
         private readonly bool Is32bit;
         private readonly bool loaded;

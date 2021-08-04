@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace PEHexExplorer
 {
-    class BookMarkProperty
+    public  class BookMarkProperty
     {
         public Keys KeyDown { get; set; }
 

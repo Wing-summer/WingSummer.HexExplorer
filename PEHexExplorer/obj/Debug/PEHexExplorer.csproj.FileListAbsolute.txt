@@ -40,6 +40,4 @@ E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.Frm
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\WSPEHexPluginHost.dll
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\WSPEHexPluginHost.pdb
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmAddrConvert.resources
-E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\Newtonsoft.Json.dll
-E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Debug\Newtonsoft.Json.xml
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Debug\PEHexExplorer.FrmFill.resources

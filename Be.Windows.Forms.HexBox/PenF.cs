@@ -9,6 +9,8 @@ namespace Be.Windows.Forms
     /// Pen类型的一个简单的设计接口
     /// </summary>
     [Browsable(true)]
+    [Serializable]
+
     public class PenF : IDisposable
     {
         /// <summary>
