@@ -2,13 +2,17 @@
 
 
 <p align="center">
-
 <img alt="PEHexExplorer" src="pics/icon.png">
-<p align="center">
-<font color=red >羽云PE浏览器</font>
-</p>
+<p align="center">羽云PE浏览器</p>
 </p>
 
+
+<p align="center">
+<img alt="PEHexExplorer" src="https://img.shields.io/badge/Author-Wingsummer-green">
+<img alt="PEHexExplorer" src="https://img.shields.io/badge/License-AGPL--3.0-red">
+</p>
+
+[![star](https://gitee.com/wingsummer/wing-summer.-pehex-explorer/badge/star.svg?theme=dark)](https://gitee.com/wingsummer/wing-summer.-pehex-explorer)
 
 #### 介绍
 &emsp;&emsp;本软件由纯C#编写，基于我改良的 Be.Windows.Forms.HexBox 组件( https://gitee.com/wingsummer/be.-windows.-forms.-hex-box )【MIT协议】。目的是方便专业人士修改分析PE文件，并可作为学习PE结构的重要辅助工具。
