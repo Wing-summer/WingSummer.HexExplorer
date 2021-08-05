@@ -564,12 +564,12 @@
         </member>
         <member name="F:Be.Windows.Forms.HexBox.IOError.HasOpenedBuffer">
             <summary>
-            已打开缓冲区异常，发生在OpenFile和CloseFile函数中
+            已打开缓冲区异常，发生在OpenFile函数中
             </summary>
         </member>
         <member name="F:Be.Windows.Forms.HexBox.IOError.HasOpenedFile">
             <summary>
-            已打开缓冲区异常，发生在CreateBuffer和CloseBuffer函数中
+            已打开缓冲区异常，发生在CreateBuffer函数中
             </summary>
         </member>
         <member name="F:Be.Windows.Forms.HexBox.IOError.FileNotExist">
@@ -634,9 +634,9 @@
             <param name="isExport">如果为导出，则值为True</param>
             <returns>成功为True，反之为False</returns>
         </member>
-        <member name="M:Be.Windows.Forms.HexBox.CloseFile">
+        <member name="M:Be.Windows.Forms.HexBox.Close">
             <summary>
-            关闭并默认保存文件
+            关闭文件
             </summary>
             <returns></returns>
         </member>
@@ -646,10 +646,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Be.Windows.Forms.HexBox.CloseBuffer">
+        <member name="M:Be.Windows.Forms.HexBox.OpenProcessMemory(System.Diagnostics.Process,System.Boolean)">
             <summary>
-            关闭缓冲区
+            
             </summary>
+            <param name="process"></param>
+            <param name="writeable"></param>
             <returns></returns>
         </member>
         <member name="M:Be.Windows.Forms.HexBox.#ctor">
@@ -1649,11 +1651,6 @@
             行标号边缘空白大小
             </summary>
         </member>
-        <member name="P:Be.Windows.Forms.HexBox.LineInfoWidth">
-            <summary>
-            获取或设置行标号的宽度（以CharWidth的宽度作为1个单位）
-            </summary>
-        </member>
         <member name="P:Be.Windows.Forms.HexBox.ShadowSelectionColor">
             <summary>
             Gets or sets the color of the shadow selection.
@@ -1721,6 +1718,16 @@
         <member name="P:Be.Windows.Forms.HexBox.IsLockedBuffer">
             <summary>
             
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.HexBox.BaseAddr">
+            <summary>
+            行信息的默认起始
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.HexBox.Force64Bit">
+            <summary>
+            是否强制64位地址显示
             </summary>
         </member>
         <member name="P:Be.Windows.Forms.HexBox.CharSizeRefer">
@@ -2053,6 +2060,16 @@
              将PenF转化为Pen对象
             </summary>
             <param name="penF">需要转化的PenF对象</param>
+        </member>
+        <member name="P:Be.Windows.Forms.ProcessByteProvider.ReadOnly">
+            <summary>
+            Gets a value, if the file is opened in read-only mode.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.ProcessByteProvider.Stream">
+            <summary>
+            目前文件流
+            </summary>
         </member>
         <member name="T:Be.Windows.Forms.Properties.Resources">
             <summary>

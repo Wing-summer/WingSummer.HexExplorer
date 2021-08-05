@@ -171,6 +171,11 @@ namespace Be.Windows.Forms
         /// </summary>
         private string _hexStringFormat = "X";
 
+        private bool curIsLongHex = false;
+
+        private const string longhex = "0000000000000000";
+        private const string shorthex = "00000000";
+
         /// <summary>
         /// Contains the current key interpreter
         /// </summary>

@@ -63,7 +63,7 @@ namespace PEHexExplorer
             }
             else
             {
-                hexBoxFill.CloseBuffer();
+                hexBoxFill.Close();
             }
         }
 

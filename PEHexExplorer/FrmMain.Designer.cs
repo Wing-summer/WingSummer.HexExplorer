@@ -89,6 +89,7 @@
             this.LblLen = new System.Windows.Forms.ToolStripStatusLabel();
             this.MINew = new System.Windows.Forms.ToolStripMenuItem();
             this.MIOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.MIOpenProcess = new System.Windows.Forms.ToolStripMenuItem();
             this.MISave = new System.Windows.Forms.ToolStripMenuItem();
             this.MISaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.MIExport = new System.Windows.Forms.ToolStripMenuItem();
@@ -112,6 +113,7 @@
             this.MIBookMark = new System.Windows.Forms.ToolStripMenuItem();
             this.MIGeneral = new System.Windows.Forms.ToolStripMenuItem();
             this.MIPlugin = new System.Windows.Forms.ToolStripMenuItem();
+            this.MIInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemTool = new System.Windows.Forms.ToolStripMenuItem();
             this.MICalculator = new System.Windows.Forms.ToolStripMenuItem();
             this.MIAddrConverter = new System.Windows.Forms.ToolStripMenuItem();
@@ -143,6 +145,7 @@
             this.tbFillZero = new System.Windows.Forms.ToolStripButton();
             this.tbFillNop = new System.Windows.Forms.ToolStripButton();
             this.tbBookMark = new System.Windows.Forms.ToolStripButton();
+            this.tbInfo = new System.Windows.Forms.ToolStripButton();
             this.tbSetting = new System.Windows.Forms.ToolStripButton();
             this.tbSettingPlugin = new System.Windows.Forms.ToolStripButton();
             this.tbCalc = new System.Windows.Forms.ToolStripButton();
@@ -167,8 +170,6 @@
             this.TMIFind = new System.Windows.Forms.ToolStripMenuItem();
             this.TMIJmp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.tbInfo = new System.Windows.Forms.ToolStripButton();
-            this.MIInfo = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip2 = new System.Windows.Forms.StatusStrip();
             Slbl1 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -318,6 +319,7 @@
             MenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MINew,
             this.MIOpen,
+            this.MIOpenProcess,
             MIS0,
             this.MISave,
             this.MISaveAs,
@@ -347,6 +349,13 @@
             this.MIOpen.Size = new System.Drawing.Size(254, 26);
             this.MIOpen.Text = "打开";
             this.MIOpen.Click += new System.EventHandler(this.MIOpen_Click);
+            // 
+            // MIOpenProcess
+            // 
+            this.MIOpenProcess.Name = "MIOpenProcess";
+            this.MIOpenProcess.Size = new System.Drawing.Size(254, 26);
+            this.MIOpenProcess.Text = "从进程读取";
+            this.MIOpenProcess.Click += new System.EventHandler(this.MIOpenProcess_Click);
             // 
             // MIS0
             // 
@@ -653,6 +662,15 @@
             this.MIPlugin.Text = "插件设置";
             this.MIPlugin.Click += new System.EventHandler(this.MIPlugin_Click);
             // 
+            // MIInfo
+            // 
+            this.MIInfo.Image = global::PEHexExplorer.Properties.Resources.info;
+            this.MIInfo.Name = "MIInfo";
+            this.MIInfo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.MIInfo.Size = new System.Drawing.Size(268, 26);
+            this.MIInfo.Text = "显示/隐藏侧栏信息";
+            this.MIInfo.Click += new System.EventHandler(this.MIInfo_Click);
+            // 
             // MenuItemTool
             // 
             this.MenuItemTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -898,7 +916,7 @@
             // 
             splitContainer2.Panel2.Controls.Add(this.propertyGridB);
             splitContainer2.Size = new System.Drawing.Size(634, 658);
-            splitContainer2.SplitterDistance = 244;
+            splitContainer2.SplitterDistance = 243;
             splitContainer2.TabIndex = 3;
             // 
             // checkedListBox1
@@ -907,7 +925,7 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(0, 0);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(634, 244);
+            this.checkedListBox1.Size = new System.Drawing.Size(634, 243);
             this.checkedListBox1.TabIndex = 3;
             // 
             // propertyGridB
@@ -915,7 +933,7 @@
             this.propertyGridB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGridB.Location = new System.Drawing.Point(0, 0);
             this.propertyGridB.Name = "propertyGridB";
-            this.propertyGridB.Size = new System.Drawing.Size(634, 410);
+            this.propertyGridB.Size = new System.Drawing.Size(634, 411);
             this.propertyGridB.TabIndex = 0;
             // 
             // ts11
@@ -950,6 +968,7 @@
             // 
             // hexBox
             // 
+            this.hexBox.BaseAddr = ((long)(0));
             this.hexBox.ColumnInfoBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.hexBox.ColumnInfoVisible = true;
             this.hexBox.ContextMenuStrip = this.hexMenuStrip;
@@ -1243,6 +1262,19 @@
             this.tbBookMark.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.tbBookMark.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
             // 
+            // tbInfo
+            // 
+            this.tbInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbInfo.Image = global::PEHexExplorer.Properties.Resources.info;
+            this.tbInfo.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.tbInfo.Name = "tbInfo";
+            this.tbInfo.Size = new System.Drawing.Size(29, 24);
+            this.tbInfo.Tag = "2";
+            this.tbInfo.Text = "文件信息";
+            this.tbInfo.Click += new System.EventHandler(this.MIInfo_Click);
+            this.tbInfo.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
+            this.tbInfo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
+            // 
             // tbSetting
             // 
             this.tbSetting.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -1475,28 +1507,6 @@
             // 
             this.toolTip.ShowAlways = true;
             // 
-            // tbInfo
-            // 
-            this.tbInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbInfo.Image = global::PEHexExplorer.Properties.Resources.info;
-            this.tbInfo.ImageTransparentColor = System.Drawing.Color.Transparent;
-            this.tbInfo.Name = "tbInfo";
-            this.tbInfo.Size = new System.Drawing.Size(29, 24);
-            this.tbInfo.Tag = "2";
-            this.tbInfo.Text = "文件信息";
-            this.tbInfo.Click += new System.EventHandler(this.MIInfo_Click);
-            this.tbInfo.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
-            this.tbInfo.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
-            // 
-            // MIInfo
-            // 
-            this.MIInfo.Image = global::PEHexExplorer.Properties.Resources.info;
-            this.MIInfo.Name = "MIInfo";
-            this.MIInfo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.MIInfo.Size = new System.Drawing.Size(268, 26);
-            this.MIInfo.Text = "显示/隐藏侧栏信息";
-            this.MIInfo.Click += new System.EventHandler(this.MIInfo_Click);
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1636,6 +1646,7 @@
         private System.Windows.Forms.SplitContainer scEdit;
         private System.Windows.Forms.ToolStripButton tbInfo;
         private System.Windows.Forms.ToolStripMenuItem MIInfo;
+        private System.Windows.Forms.ToolStripMenuItem MIOpenProcess;
     }
 }
 

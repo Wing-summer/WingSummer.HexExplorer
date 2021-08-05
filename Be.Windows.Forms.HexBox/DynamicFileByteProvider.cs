@@ -415,10 +415,7 @@ namespace Be.Windows.Forms
         /// <summary>
         /// See <see cref="Object.Finalize" /> for more information.
         /// </summary>
-        ~DynamicFileByteProvider()
-        {
-            Dispose();
-        }
+        ~DynamicFileByteProvider()=> Dispose();
 
         /// <summary>
         /// See <see cref="IDisposable.Dispose" /> for more information.

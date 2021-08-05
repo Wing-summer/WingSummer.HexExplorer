@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -16,11 +17,11 @@ namespace Be.Windows.Forms
             /// </summary>
             Success,
             /// <summary>
-            /// 已打开缓冲区异常，发生在OpenFile和CloseFile函数中
+            /// 已打开缓冲区异常，发生在OpenFile函数中
             /// </summary>
             HasOpenedBuffer,
             /// <summary>
-            /// 已打开缓冲区异常，发生在CreateBuffer和CloseBuffer函数中
+            /// 已打开缓冲区异常，发生在CreateBuffer函数中
             /// </summary>
             HasOpenedFile,
             /// <summary>
@@ -134,7 +135,7 @@ namespace Be.Windows.Forms
             {
                 if (force)
                 {
-                    CloseBuffer();
+                    Close();
                 }
                 else
                 {
@@ -168,7 +169,7 @@ namespace Be.Windows.Forms
                 error = IOError.FileNotExist;
                 return false;
             }
-            CloseFile();
+            Close();
             try
             {
                 try
@@ -258,18 +259,14 @@ namespace Be.Windows.Forms
         }
 
         /// <summary>
-        /// 关闭并默认保存文件
+        /// 关闭文件
         /// </summary>
         /// <returns></returns>
-        public bool CloseFile()
+        public bool Close()
         {
-            if (IsOpenedBuffer)
-                return false;
             if (_byteProvider == null)
                 return false;
-
             try
-
             {
                 CleanUp();
             }
@@ -278,6 +275,7 @@ namespace Be.Windows.Forms
                 return false;
             }
             IsOpenedFile = false;
+            IsOpenedBuffer = false;
             return true;
         }
 
@@ -294,7 +292,7 @@ namespace Be.Windows.Forms
             DynamicByteProvider dynamicByteProvider;
             try
             {
-                CloseBuffer();
+                Close();
                 dynamicByteProvider = new DynamicByteProvider(new byte[0]);
                 ByteProvider = dynamicByteProvider;
                 Filename = string.Empty;
@@ -304,24 +302,33 @@ namespace Be.Windows.Forms
                 IsLockedBuffer = false;
                 return true;
             }
-            catch (Exception)
+            catch 
             {
                 return false;
             }
         }
 
         /// <summary>
-        /// 关闭缓冲区
+        /// 
         /// </summary>
+        /// <param name="process"></param>
+        /// <param name="writeable"></param>
         /// <returns></returns>
-        public bool CloseBuffer()
+        public bool OpenProcessMemory(Process process,bool writeable=false)
         {
-            if (IsOpenedFile)
+            ProcessByteProvider processByteProvider;
+            try
+            {
+                processByteProvider = new ProcessByteProvider(process, writeable);
+                ByteProvider = processByteProvider;
+                Filename = process.MainModule.FileName;
+                IsLockedBuffer = true;
+                InsertActive = false;
+            }
+            catch 
+            {
                 return false;
-            if (_byteProvider == null)
-                return false;
-            CleanUp();
-            _byteProvider.HasChanges();
+            }
             return true;
         }
 

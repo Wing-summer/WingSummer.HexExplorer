@@ -311,7 +311,7 @@ namespace Be.Windows.Forms
                 return;
             }
 
-            UndoStack.Push(SnapShotOperation(EditOperation.Insert, 0,buffer));
+            UndoStack.Push(SnapShotOperation(EditOperation.Insert, 0, buffer));
 
             /*=========================*/
 
@@ -436,51 +436,49 @@ namespace Be.Windows.Forms
         {
             // calc char size
             SizeF charSize;
+            int requiredWidth = 0;
+
             using (var graphics = CreateGraphics())
             {
                 charSize = CreateGraphics().MeasureString(_charSizeRefer, font, 100, _stringFormat);
-            }
-            CharSize = new SizeF((float)Math.Ceiling(charSize.Width), (float)Math.Ceiling(charSize.Height));
+                CharSize = new SizeF((float)Math.Ceiling(charSize.Width), (float)Math.Ceiling(charSize.Height));
 
-            int requiredWidth = 0;
+                // calc content bounds
+                _recContent = ClientRectangle;
+                _recContent.X += _recBorderLeft;
+                _recContent.Y += _recBorderTop;
+                _recContent.Width -= _recBorderRight + _recBorderLeft;
+                _recContent.Height -= _recBorderBottom + _recBorderTop;
 
-            // calc content bounds
-            _recContent = ClientRectangle;
-            _recContent.X += _recBorderLeft;
-            _recContent.Y += _recBorderTop;
-            _recContent.Width -= _recBorderRight + _recBorderLeft;
-            _recContent.Height -= _recBorderBottom + _recBorderTop;
-
-            /*垂直滚动条要求显示时*/
-            if (_vScrollBarVisible)
-            {
-                if (_iHexMaxBytes<=_byteProvider?.Length)
+                /*垂直滚动条要求显示时*/
+                if (_vScrollBarVisible)
                 {
-                    _recContent.Width -= _vScrollBar.Width;
-                    requiredWidth += _vScrollBar.Width;
+                    if (_iHexMaxBytes <= _byteProvider?.Length)
+                    {
+                        _recContent.Width -= _vScrollBar.Width;
+                        requiredWidth += _vScrollBar.Width;
+                    }
+
+                    _vScrollBar.Left = _recContent.X + _recContent.Width;
+                    _vScrollBar.Top = _recContent.Y;
+                    _vScrollBar.Height = _recContent.Height;
                 }
-
-                _vScrollBar.Left = _recContent.X + _recContent.Width;
-                _vScrollBar.Top = _recContent.Y;
-                _vScrollBar.Height = _recContent.Height;
+                // calc line info bounds（智能调节宽度）
+                if (_lineInfoVisible)
+                {
+                    _recLineInfo = new Rectangle(_recContent.X + _marginLineInfo,
+                        _recContent.Y,
+                        (int)(graphics.MeasureString(curIsLongHex ? longhex : shorthex, font).Width + _charSize.Width * 2),
+                        _recContent.Height);
+                    requiredWidth += _recLineInfo.Width;
+                }
+                else
+                {
+                    _recLineInfo = Rectangle.Empty;
+                    _recLineInfo.X = _marginLineInfo;
+                    requiredWidth += _marginLineInfo;
+                }
             }
-
-            // calc line info bounds
-            if (_lineInfoVisible)
-            {
-                _recLineInfo = new Rectangle(_recContent.X + _marginLineInfo,
-                    _recContent.Y,
-                    (int)(_charSize.Width * _lineInfoWidth),
-                    _recContent.Height);
-                requiredWidth += _recLineInfo.Width;
-            }
-            else
-            {
-                _recLineInfo = Rectangle.Empty;
-                _recLineInfo.X = _marginLineInfo;
-                requiredWidth += _marginLineInfo;
-            }
-
             // calc line info bounds
             _recColumnInfo = new Rectangle(_recLineInfo.X + _recLineInfo.Width, _recContent.Y, _recContent.Width - _recLineInfo.Width, (int)charSize.Height + 4);
             if (_columnInfoVisible)
@@ -1032,7 +1030,7 @@ namespace Be.Windows.Forms
                 _base = _bytePos;
             }
             long destin = _base + offset;
-            if (destin>_byteProvider.Length)
+            if (destin > _byteProvider.Length)
             {
                 return false;
             }

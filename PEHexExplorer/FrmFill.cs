@@ -57,7 +57,7 @@ namespace PEHexExplorer
             }
             else
             {
-                hexBoxFill.CloseFile();
+                hexBoxFill.Close();
             }
         }
     }

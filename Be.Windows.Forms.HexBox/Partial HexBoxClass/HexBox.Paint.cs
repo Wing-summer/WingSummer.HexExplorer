@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
@@ -136,19 +137,19 @@ namespace Be.Windows.Forms
 
             for (int i = 0; i < maxLine; i++)
             {
-                long firstLineByte = (startByte + _iHexMaxHBytes * i);
+                long firstLineByte = startByte + _iHexMaxHBytes * i+_baseAddr;
 
                 PointF bytePointF = GetBytePointF(new Point(0, 0 + i));
-                string info = firstLineByte.ToString(_hexStringFormat, System.Threading.Thread.CurrentThread.CurrentCulture);
+                string info = firstLineByte.ToString(_hexStringFormat, Thread.CurrentThread.CurrentCulture);
                 int nulls = 8 - info.Length;
                 string formattedInfo;
                 if (nulls > -1)
                 {
-                    formattedInfo = new string('0', 8 - info.Length) + info;
+                    formattedInfo = info.PadLeft(curIsLongHex ? 16 : 8, '0');
                 }
                 else
                 {
-                    formattedInfo = new string('~', 8);
+                    formattedInfo = new string('~', curIsLongHex ? 16 : 8);
                 }
 
                 SizeF sizeF = g.MeasureString(formattedInfo, font);

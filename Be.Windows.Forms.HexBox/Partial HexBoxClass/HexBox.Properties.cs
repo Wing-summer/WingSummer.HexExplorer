@@ -231,10 +231,29 @@ namespace Be.Windows.Forms
                     _byteProvider.LengthChanged += new EventHandler(ByteProvider_LengthChanged);
                     _byteProvider.Changed += ByteProvider_Changed;
                     SavedStatusChanged?.Invoke(this, EventArgs.Empty);
+
+                    /*begin：判断文件长度是否必须用int64显示*/
+
+                    if (Force64Bit)
+                    {
+                        curIsLongHex = true;
+                    }
+                    else
+                    {
+                        if (value.Length > 4294967295L)   //int32能表示的最大数字
+                        {
+                            curIsLongHex = true;
+                        }
+                        else
+                        {
+                            curIsLongHex = false;
+                        }
+                    }
+
+                    /*end：判断文件长度是否必须用int64显示*/
                 }
 
                 ByteProviderChanged?.Invoke(this, EventArgs.Empty);
-
 
                 if (value == null) // do not raise events if value is null
                 {
@@ -259,6 +278,7 @@ namespace Be.Windows.Forms
                 CheckCurrentPositionInLineChanged();
 
                 _scrollVpos = 0;
+                _scrollHpos = 0;
 
                 UpdateVisibilityBytes();
                 UpdateRectanglePositioning();
@@ -650,28 +670,6 @@ namespace Be.Windows.Forms
         private int _marginLineInfo = 4;
 
         /// <summary>
-        /// 获取或设置行标号的宽度（以CharWidth的宽度作为1个单位）
-        /// </summary>
-        [DefaultValue(7.0F), Category("Hex"), Description("行标号边缘空白大小")]
-        public float LineInfoWidth
-        {
-            get
-            {
-                return _lineInfoWidth;
-            }
-            set
-            {
-                if (value > 0)
-                {
-                    _lineInfoWidth = value;
-                }
-                Invalidate();
-            }
-        }
-
-        private float _lineInfoWidth = 7.0F;
-
-        /// <summary>
         /// Gets or sets the color of the shadow selection.
         /// </summary>
         /// <remarks>
@@ -859,6 +857,34 @@ namespace Be.Windows.Forms
                 LockedBufferChanged?.Invoke(this,EventArgs.Empty);
             }
         }private bool _isLockedBuffer;
+
+        /// <summary>
+        /// 行信息的默认起始
+        /// </summary>
+        [DefaultValue(0), Category("Hex"), Description("行信息的默认起始")]
+        public long BaseAddr
+        {
+            get
+            {
+                return _baseAddr;
+            }
+            set
+            {
+                if (value >= 0)
+                    _baseAddr = value;
+            }
+        }
+        private long _baseAddr = 0;
+
+
+        /// <summary>
+        /// 是否强制64位地址显示
+        /// </summary>
+        [DefaultValue(false), Category("Hex"), Description("是否强制64位地址显示")]
+        public bool Force64Bit
+        {
+            get;set;
+        }
 
         /// <summary>
         /// 每个字符占用宽度参考字符串，不得为空

@@ -203,13 +203,12 @@ namespace PEHexExplorer
                         return;
                     case DialogResult.Yes:
                         MISave_Click(sender, e);
-                        hexBox.CloseFile();
                         break;
                     case DialogResult.No:
-                        hexBox.CloseFile();
                         break;
                 }
             }
+            hexBox.Close();
             DisableEdit();
         }
 
@@ -327,8 +326,13 @@ namespace PEHexExplorer
         private void HexBox_InsertActiveChanged(object sender, EventArgs e) =>
             lblInsert.ForeColor = hexBox.InsertActive ? EnabledColor : DisabledColor;
 
-        private void HexBox_ContentChanged(object sender, EventArgs e) =>
-            LblSaved.ForeColor = hexBox.ByteProvider.HasChanges() ? DisabledColor : EnabledColor;
+        private void HexBox_ContentChanged(object sender, EventArgs e)
+        {
+            if (hexBox.ByteProvider!=null)
+            {
+                LblSaved.ForeColor = hexBox.ByteProvider.HasChanges() ? DisabledColor : EnabledColor;
+            }
+        }
 
         private void HexBox_LockedBufferChanged(object sender, EventArgs e) =>
             lblLocked.ForeColor = hexBox.IsLockedBuffer ? EnabledColor : DisabledColor;
@@ -560,6 +564,18 @@ namespace PEHexExplorer
         private void TvPEStruct_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
+        }
+
+        private void MIOpenProcess_Click(object sender, EventArgs e)
+        {
+            using (FrmProcess frmProcess = FrmProcess.Instance)
+            {
+                if (frmProcess.ShowDialog() == DialogResult.OK)
+                {
+                    FrmProcess.ProcessResult result = frmProcess.Result;
+                    hexBox.OpenProcessMemory(result.Process, result.writeable);
+                }
+            }
         }
 
 

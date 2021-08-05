@@ -23,7 +23,7 @@ namespace Be.Windows.Forms
         /// Initializes a new instance of the DynamicByteProvider class.
         /// </summary>
         /// <param name="data"></param>
-        public DynamicByteProvider(byte[] data) : this(new List<Byte>(data))
+        public DynamicByteProvider(byte[] data) : this(new List<byte>(data))
         {
         }
 
@@ -31,7 +31,7 @@ namespace Be.Windows.Forms
         /// Initializes a new instance of the DynamicByteProvider class.
         /// </summary>
         /// <param name="bytes"></param>
-        public DynamicByteProvider(List<Byte> bytes)
+        public DynamicByteProvider(List<byte> bytes)
         {
             _bytes = bytes;
         }
