@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Be.Windows.Forms;
+using System.Security.Principal;
 using System.Collections.Generic;
 
 namespace PEHexExplorer
@@ -37,7 +38,20 @@ namespace PEHexExplorer
             /*修复首次在HexBox右击打开菜单的位置等同于在主菜单点击编辑的Bug*/
             MenuItemEdit.ShowDropDown();
 
-            MIAdmin.Image = SystemIcons.Shield.ToBitmap();
+            WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(identity);
+
+            if (principal.IsInRole(WindowsBuiltInRole.Administrator))
+            {
+                MIAdmin.Click -= MIAdmin_Click;
+                ts13.Dispose();
+                MIAdmin.Dispose();
+                MenuItemFile.Image = SystemIcons.Shield.ToBitmap();
+            }
+            else
+            {
+                MIAdmin.Image = SystemIcons.Shield.ToBitmap();
+            }
 
             BookMarkregions = new List<HexBox.HighlightedRegion>();
 
@@ -248,21 +262,20 @@ namespace PEHexExplorer
                     FrmProcess.ProcessResult result = frmProcess.Result;
                     if (!hexBox.OpenProcessMemory(result.Process, result.writeable))
                     {
-                        MessageBox.Show("打开进程失败，可能是由于权限不足导致！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("打开进程失败，可能是由于权限不足导致！", Program.SoftwareName,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                     EnableEdit();
+                    pe?.Dispose();
+                    Stream provider = (hexBox.ByteProvider as ProcessByteProvider).Stream;
+                    provider.Position = 0;
+                    pe = new PEPParser(provider);
+                    bookMark = new BookMarkPE(pe);
+                    bookMark.ApplyTreeView(in tvPEStruct);
+                    bookMark.ApplyHexbox(hexBox);
                 }
             }
-
-            pe?.Dispose();
-            Stream provider = (hexBox.ByteProvider as ProcessByteProvider).Stream;
-            provider.Position = 0;
-            pe = new PEPParser(provider);
-            bookMark = new BookMarkPE(pe);
-            bookMark.ApplyTreeView(in tvPEStruct);
-            bookMark.ApplyHexbox(hexBox);
-
         }
 
         private void MIClose_Click(object sender, EventArgs e)
@@ -371,18 +384,18 @@ namespace PEHexExplorer
         #region HexBox事件
 
         private void HexBox_ScalingChanged(object sender, EventArgs e) => 
-            LblScale.Text = string.Format("{0}%", hexBox.Scaling * 100);
+            LblScale.Text = $"{hexBox.Scaling * 100}%";
 
         private void HexBox_CurrentLineChanged(object sender, EventArgs e)
         {
             pos.X = hexBox.CurrentLine;
-            LblLocation.Text = string.Format("({0},{1})", pos.X - 1, pos.Y - 1);
+            LblLocation.Text = $"({pos.X - 1},{pos.Y - 1})";
         }
 
         private void HexBox_CurrentPositionInLineChanged(object sender, EventArgs e)
         {
             pos.Y = hexBox.CurrentPositionInLine;
-            LblLocation.Text = string.Format("({0},{1})", pos.X - 1, pos.Y - 1);
+            LblLocation.Text = $"({pos.X - 1},{pos.Y - 1})";
         }
 
         private void HexBox_InsertActiveChanged(object sender, EventArgs e) =>
@@ -400,7 +413,7 @@ namespace PEHexExplorer
             lblLocked.ForeColor = hexBox.IsLockedBuffer ? EnabledColor : DisabledColor;
 
         private void HexBox_SelectionLengthChanged(object sender, EventArgs e) =>
-            LblLen.Text = string.Format("{0:D} - 0x{0:X}", hexBox.SelectionLength);
+            LblLen.Text = $"{hexBox.SelectionLength:D} - 0x{hexBox.SelectionLength:X}";
 
         private void HexBox_ByteProviderChanged(object sender, EventArgs e) => hexBox.ClearHighlightedRegion();
 
@@ -638,7 +651,28 @@ namespace PEHexExplorer
 
         }
 
+        private void MIAdmin_Click(object sender, EventArgs e)
+        {
+            MIClose_Click(sender, e);
 
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            {
+                FileName = Process.GetCurrentProcess().ProcessName,
+                Verb = "runas",
+                UseShellExecute = true,
+                WorkingDirectory = Environment.CurrentDirectory,
+            };
 
+            try
+            {
+                Process.Start(startInfo);
+                Environment.Exit(0);
+            }
+            catch 
+            {
+                MessageBox.Show("管理员权限重启程序失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+        }
     }
 }

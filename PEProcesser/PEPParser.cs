@@ -217,6 +217,7 @@ namespace PEProcesser
                         _viewAccessor = null;
                         return ParserError.PEDamaged;
                     }
+                    IMAGE_DOS_HEADER_ = _DOS_HEADER;
                     peData.NT_HEADER_Addr = _DOS_HEADER.e_lfanew;
 
                 }
@@ -809,6 +810,7 @@ namespace PEProcesser
                             _viewAccessor = null;
                             return ParserError.PEDamaged;
                         }
+                        IMAGE_DOS_HEADER_ = _DOS_HEADER;
                         peData.NT_HEADER_Addr = _DOS_HEADER.e_lfanew;
 
                     }

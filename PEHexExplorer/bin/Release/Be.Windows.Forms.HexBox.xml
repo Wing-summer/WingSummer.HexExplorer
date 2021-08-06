@@ -552,26 +552,106 @@
             Represents a hex box control.
             </summary>
         </member>
-        <member name="M:Be.Windows.Forms.HexBox.OpenFile(System.String,System.Boolean)">
+        <member name="T:Be.Windows.Forms.HexBox.IOError">
+            <summary>
+            打开或关闭文件或缓冲区引发的错误枚举
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.HexBox.IOError.Success">
+            <summary>
+            成功完成操作
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.HexBox.IOError.HasOpenedBuffer">
+            <summary>
+            已打开缓冲区异常，发生在OpenFile函数中
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.HexBox.IOError.HasOpenedFile">
+            <summary>
+            已打开缓冲区异常，发生在CreateBuffer函数中
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.HexBox.IOError.FileNotExist">
+            <summary>
+             文件不存在异常，发生在OpenFile函数中
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.HexBox.IOError.Exception">
+            <summary>
+            .Net的Exception类型异常
+            </summary>
+        </member>
+        <member name="F:Be.Windows.Forms.HexBox.IOError.NullObject">
+            <summary>
+            对象或其内容为空异常
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.Readint(System.Int64)">
+            <summary>
+            读取int
+            </summary>
+            <param name="Pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.Readshort(System.Int64)">
+            <summary>
+            读取short
+            </summary>
+            <param name="Pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.Readlong(System.Int64)">
+            <summary>
+            读取long
+            </summary>
+            <param name="Pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.Read``1(System.Int64)">
+            <summary>
+            读取指定类型接口
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="Pos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.OpenFile(Be.Windows.Forms.HexBox.IOError@,System.String,System.Boolean,System.Boolean)">
             <summary>
             Opens a file.
             </summary>
             <param name="fileName">the file name of the file to open，为null为新建一个流</param>
             <param name="writeable">是否可写权限</param>
+            <param name="force">是否强制打开文件（如果打开缓冲区则强制关闭）</param>
+            <param name="error">输出错误记录</param>
         </member>
-        <member name="M:Be.Windows.Forms.HexBox.SaveFile(System.String,System.Boolean)">
+        <member name="M:Be.Windows.Forms.HexBox.SaveFile(Be.Windows.Forms.HexBox.IOError@,System.String,System.Boolean)">
             <summary>
             保存文件
             </summary>
+            <param name="error">输出错误记录</param>
             <param name="filename">如果此参数为空，则为保存，否则为导出或另存为</param>
             <param name="isExport">如果为导出，则值为True</param>
             <returns>成功为True，反之为False</returns>
         </member>
-        <member name="M:Be.Windows.Forms.HexBox.CloseFile(System.Boolean)">
+        <member name="M:Be.Windows.Forms.HexBox.Close">
             <summary>
-            关闭并默认保存文件
+            关闭文件
             </summary>
-            <param name="IsSave">如果该参数为False，则丢弃更改</param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.CreateBuffer(System.Boolean)">
+            <summary>
+            创建一个可供编写的缓冲区，建议不要用于编写文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.OpenProcessMemory(System.Diagnostics.Process,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="process"></param>
+            <param name="writeable"></param>
             <returns></returns>
         </member>
         <member name="M:Be.Windows.Forms.HexBox.#ctor">
@@ -915,6 +995,11 @@
             Occurs, when the value of VScrollBarVisible property has changed.
             </summary>
         </member>
+        <member name="E:Be.Windows.Forms.HexBox.HScrollBarVisibleChanged">
+            <summary>
+            当 HScrollBarVisible 属性改变完成后会触发该事件
+            </summary>
+        </member>
         <member name="E:Be.Windows.Forms.HexBox.HexCasingChanged">
             <summary>
             Occurs, when the value of HexCasing property has changed.
@@ -940,6 +1025,11 @@
             Occurs, when the value of CurrentPositionInLine property has changed.
             </summary>
         </member>
+        <member name="E:Be.Windows.Forms.HexBox.CurrentPositionChanged">
+            <summary>
+            当光标位置发生改变时会触发该事件
+            </summary>
+        </member>
         <member name="E:Be.Windows.Forms.HexBox.Copied">
             <summary>
             Occurs, when Copy method was invoked and ClipBoardData changed.
@@ -963,6 +1053,16 @@
         <member name="E:Be.Windows.Forms.HexBox.ScalingChanged">
             <summary>
             当Scaling(缩放)属性更改时会触发该事件
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.HexBox.SavedStatusChanged">
+            <summary>
+            当有更改完成后会触发该事件
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.HexBox.LockedBufferChanged">
+            <summary>
+            当越界锁状态改变后会触发该事件
             </summary>
         </member>
         <member name="F:Be.Windows.Forms.HexBox._recContent">
@@ -1181,6 +1281,11 @@
             </summary>
             <param name="region"></param>
         </member>
+        <member name="M:Be.Windows.Forms.HexBox.ClearHighlightedRegion">
+            <summary>
+            清空高亮区段
+            </summary>
+        </member>
         <member name="M:Be.Windows.Forms.HexBox.RemoveHighlightedRegion(Be.Windows.Forms.HexBox.HighlightedRegion)">
             <summary>
             删除高亮区域，全部已知
@@ -1192,6 +1297,12 @@
             删除高亮区域，已知高亮区域开头
             </summary>
             <param name="regionStart"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.RemoveHighlightedRegionAt(System.Int32)">
+            <summary>
+            删除高亮区域，已知在高亮区块列表中的索引
+            </summary>
+            <param name="index"></param>
         </member>
         <member name="M:Be.Windows.Forms.HexBox.ModHighlightedRegion(Be.Windows.Forms.HexBox.HighlightedRegion,Be.Windows.Forms.HexBox.HighlightedRegion)">
             <summary>
@@ -1540,11 +1651,6 @@
             行标号边缘空白大小
             </summary>
         </member>
-        <member name="P:Be.Windows.Forms.HexBox.LineInfoWidth">
-            <summary>
-            获取或设置行标号的宽度（以CharWidth的宽度作为1个单位）
-            </summary>
-        </member>
         <member name="P:Be.Windows.Forms.HexBox.ShadowSelectionColor">
             <summary>
             Gets or sets the color of the shadow selection.
@@ -1589,6 +1695,11 @@
             判断是否已打开文件
             </summary>
         </member>
+        <member name="P:Be.Windows.Forms.HexBox.IsOpenedBuffer">
+            <summary>
+            判断是否已打开缓冲区
+            </summary>
+        </member>
         <member name="P:Be.Windows.Forms.HexBox.InsertActive">
             <summary>
             Gets the a value if insertion mode is active or not.
@@ -1602,6 +1713,21 @@
         <member name="P:Be.Windows.Forms.HexBox.IsCharToUnicode">
             <summary>
             是否不用ASCII编码而用Unicode显示字符串解析结果
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.HexBox.IsLockedBuffer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.HexBox.BaseAddr">
+            <summary>
+            行信息的默认起始
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.HexBox.Force64Bit">
+            <summary>
+            是否强制64位地址显示
             </summary>
         </member>
         <member name="P:Be.Windows.Forms.HexBox.CharSizeRefer">
@@ -1934,6 +2060,128 @@
              将PenF转化为Pen对象
             </summary>
             <param name="penF">需要转化的PenF对象</param>
+        </member>
+        <member name="T:Be.Windows.Forms.ProcessByteProvider">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.ProcessByteProvider.Length">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.ProcessByteProvider.LengthChanged">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.ProcessByteProvider.Changed">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.ProcessByteProvider.BaseAddr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.ProcessByteProvider.Process">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.ProcessByteProvider.ReadOnly">
+            <summary>
+            Gets a value, if the file is opened in read-only mode.
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.ProcessByteProvider.Stream">
+            <summary>
+            目前文件流
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="processid"></param>
+            <param name="writeable"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.#ctor(System.Diagnostics.Process,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="process"></param>
+            <param name="writeable"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.Finalize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.ReadByte(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.WriteByte(System.Int64,System.Byte)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.InsertBytes(System.Int64,System.Byte[])">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="bs"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.DeleteBytes(System.Int64,System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.HasChanges">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.ApplyChanges(System.IO.Stream)">
+            <summary>
+            
+            </summary>
+            <param name="stream"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.SupportsWriteByte">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.SupportsInsertBytes">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.SupportsDeleteBytes">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Be.Windows.Forms.Properties.Resources">
             <summary>

@@ -19,3 +19,8 @@ E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Release\PEProcesser.pdb
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Release\PEHexExplorer.csproj.CopyComplete
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Release\PEHexExplorer.exe
 E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Release\PEHexExplorer.pdb
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Release\WSPEHexPluginHost.dll
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\bin\Release\WSPEHexPluginHost.pdb
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Release\PEHexExplorer.FrmAddrConvert.resources
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Release\PEHexExplorer.FrmFill.resources
+E:\VsProject\Open Source\PEHexExplorer\PEHexExplorer\obj\Release\PEHexExplorer.FrmProcess.resources

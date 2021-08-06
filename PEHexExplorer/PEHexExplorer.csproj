@@ -70,6 +70,7 @@
     <Compile Include="BookMarkPE.cs" />
     <Compile Include="BookMarkProperty.cs" />
     <Compile Include="ConstInfo.cs" />
+    <Compile Include="EditorPageManager.cs" />
     <Compile Include="FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
