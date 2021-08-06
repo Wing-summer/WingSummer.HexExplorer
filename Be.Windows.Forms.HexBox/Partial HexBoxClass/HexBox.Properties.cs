@@ -240,7 +240,7 @@ namespace Be.Windows.Forms
                     }
                     else
                     {
-                        if (value.Length > 4294967295L)   //int32能表示的最大数字
+                        if (value.Length+BaseAddr > 4294967295L)   //int32能表示的最大数字
                         {
                             curIsLongHex = true;
                         }

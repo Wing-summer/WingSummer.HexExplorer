@@ -10,7 +10,7 @@ namespace PEProcesser
         public string FileName { get; private set; }
 
         [DefaultValue(false)]
-        public bool LoadedFile { get; private set; }
+        public bool OccurError { get; private set; }
 
         [DefaultValue(false)]
         public bool IsdotNetFile { get; private set; }

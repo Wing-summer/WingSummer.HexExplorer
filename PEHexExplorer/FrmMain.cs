@@ -81,9 +81,40 @@ namespace PEHexExplorer
 
         #region 文件IO相关
 
+        private bool? CloseFile()
+        {
+            bool? res = hexBox.ByteProvider?.HasChanges();
+            if (res.HasValue && res.Value)
+            {
+                DialogResult result = MessageBox.Show("此文件已有修改，你确定要丢弃吗？",
+                    Program.SoftwareName, MessageBoxButtons.YesNoCancel);
+                switch (result)
+                {
+                    case DialogResult.Cancel:
+                        return null;
+                    case DialogResult.Yes:
+                        MISave_Click(this, EventArgs.Empty);
+                        return true;
+                    case DialogResult.No:
+                        return false;
+                }
+            }
+            return true;
+        }
+
         private void OpenFile(string filename, bool writeable)
         {
-            MIClose_Click(this, EventArgs.Empty);
+            bool? res = CloseFile();
+            if (res.HasValue)
+            {
+                hexBox.Close();
+                DisableEdit();
+            }
+            else
+            {
+                return;
+            }
+
             pe?.Dispose();
             pe = new PEPParser(filename);
             bookMark = new BookMarkPE(pe);
@@ -133,6 +164,7 @@ namespace PEHexExplorer
         {
             if (oD.ShowDialog() == DialogResult.OK)
             {
+                MIClose_Click(sender, e);
                 string filename = oD.FileName;
                 bool writeable = !oD.ReadOnlyChecked;
                 oD.FileName = string.Empty;
@@ -190,28 +222,48 @@ namespace PEHexExplorer
             }
         }
 
-        private void MIClose_Click(object sender, EventArgs e)
+        private void MIOpenProcess_Click(object sender, EventArgs e)
         {
-            bool? res = hexBox.ByteProvider?.HasChanges();
-            if (res.HasValue&&res.Value)
+            bool? res = CloseFile();
+            if (res.HasValue)
             {
-                DialogResult result = MessageBox.Show("此文件已有修改，你确定要丢弃吗？",
-                    Program.SoftwareName, MessageBoxButtons.YesNoCancel);
-                switch (result)
+                hexBox.Close();
+                DisableEdit();
+            }
+            else
+            {
+                return;
+            }
+
+            using (FrmProcess frmProcess = FrmProcess.Instance)
+            {
+                if (frmProcess.ShowDialog() == DialogResult.OK)
                 {
-                    case DialogResult.Cancel:
-                        return;
-                    case DialogResult.Yes:
-                        MISave_Click(sender, e);
-                        break;
-                    case DialogResult.No:
-                        break;
+                    FrmProcess.ProcessResult result = frmProcess.Result;
+                    hexBox.OpenProcessMemory(result.Process, result.writeable);
+                    EnableEdit();
                 }
             }
-            hexBox.Close();
-            DisableEdit();
+
+            pe?.Dispose();
+            Stream provider = (hexBox.ByteProvider as ProcessByteProvider).Stream;
+            provider.Position = 0;
+            pe = new PEPParser(provider);
+            bookMark = new BookMarkPE(pe);
+            bookMark.ApplyTreeView(in tvPEStruct);
+            bookMark.ApplyHexbox(hexBox);
+
         }
 
+        private void MIClose_Click(object sender, EventArgs e)
+        {
+            bool? res = CloseFile();
+            if (res.HasValue)
+            {
+                hexBox.Close();
+                DisableEdit();
+            }
+        }
 
         #endregion
 
@@ -566,17 +618,6 @@ namespace PEHexExplorer
 
         }
 
-        private void MIOpenProcess_Click(object sender, EventArgs e)
-        {
-            using (FrmProcess frmProcess = FrmProcess.Instance)
-            {
-                if (frmProcess.ShowDialog() == DialogResult.OK)
-                {
-                    FrmProcess.ProcessResult result = frmProcess.Result;
-                    hexBox.OpenProcessMemory(result.Process, result.writeable);
-                }
-            }
-        }
 
 
     }

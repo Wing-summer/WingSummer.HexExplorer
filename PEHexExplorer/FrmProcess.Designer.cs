@@ -30,20 +30,63 @@ namespace PEHexExplorer
         private void InitializeComponent()
         {
             System.Windows.Forms.MenuStrip menuStrip1;
+            this.MIOK = new System.Windows.Forms.ToolStripMenuItem();
+            this.MIOpenR = new System.Windows.Forms.ToolStripMenuItem();
+            this.MICancel = new System.Windows.Forms.ToolStripMenuItem();
+            this.MIRefresh = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lbProcess = new System.Windows.Forms.ListBox();
             this.pg = new System.Windows.Forms.PropertyGrid();
-            this.MIOK = new System.Windows.Forms.ToolStripMenuItem();
-            this.MICancel = new System.Windows.Forms.ToolStripMenuItem();
-            this.MIRefresh = new System.Windows.Forms.ToolStripMenuItem();
-            this.MIOpenR = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1 = new System.Windows.Forms.MenuStrip();
+            menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            menuStrip1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MIOK,
+            this.MIOpenR,
+            this.MICancel,
+            this.MIRefresh});
+            menuStrip1.Location = new System.Drawing.Point(0, 425);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new System.Drawing.Size(682, 28);
+            menuStrip1.TabIndex = 1;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // MIOK
+            // 
+            this.MIOK.Name = "MIOK";
+            this.MIOK.Size = new System.Drawing.Size(113, 24);
+            this.MIOK.Text = "确定（可写）";
+            this.MIOK.Click += new System.EventHandler(this.MIOK_Click);
+            // 
+            // MIOpenR
+            // 
+            this.MIOpenR.Name = "MIOpenR";
+            this.MIOpenR.Size = new System.Drawing.Size(113, 24);
+            this.MIOpenR.Text = "确定（只读）";
+            this.MIOpenR.Click += new System.EventHandler(this.MIOpenR_Click);
+            // 
+            // MICancel
+            // 
+            this.MICancel.Name = "MICancel";
+            this.MICancel.Size = new System.Drawing.Size(53, 24);
+            this.MICancel.Text = "取消";
+            this.MICancel.Click += new System.EventHandler(this.MICancel_Click);
+            // 
+            // MIRefresh
+            // 
+            this.MIRefresh.Name = "MIRefresh";
+            this.MIRefresh.Size = new System.Drawing.Size(53, 24);
+            this.MIRefresh.Text = "刷新";
+            this.MIRefresh.Click += new System.EventHandler(this.MIRefresh_Click);
             // 
             // splitContainer1
             // 
@@ -82,49 +125,6 @@ namespace PEHexExplorer
             this.pg.Size = new System.Drawing.Size(356, 425);
             this.pg.TabIndex = 2;
             // 
-            // menuStrip1
-            // 
-            menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MIOK,
-            this.MIOpenR,
-            this.MICancel,
-            this.MIRefresh});
-            menuStrip1.Location = new System.Drawing.Point(0, 425);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new System.Drawing.Size(682, 28);
-            menuStrip1.TabIndex = 1;
-            menuStrip1.Text = "menuStrip1";
-            // 
-            // MIOK
-            // 
-            this.MIOK.Name = "MIOK";
-            this.MIOK.Size = new System.Drawing.Size(113, 24);
-            this.MIOK.Text = "确定（可写）";
-            this.MIOK.Click += new System.EventHandler(this.MIOK_Click);
-            // 
-            // MICancel
-            // 
-            this.MICancel.Name = "MICancel";
-            this.MICancel.Size = new System.Drawing.Size(53, 24);
-            this.MICancel.Text = "取消";
-            this.MICancel.Click += new System.EventHandler(this.MICancel_Click);
-            // 
-            // MIRefresh
-            // 
-            this.MIRefresh.Name = "MIRefresh";
-            this.MIRefresh.Size = new System.Drawing.Size(53, 24);
-            this.MIRefresh.Text = "刷新";
-            this.MIRefresh.Click += new System.EventHandler(this.MIRefresh_Click);
-            // 
-            // MIOpenR
-            // 
-            this.MIOpenR.Name = "MIOpenR";
-            this.MIOpenR.Size = new System.Drawing.Size(113, 24);
-            this.MIOpenR.Text = "确定（只读）";
-            this.MIOpenR.Click += new System.EventHandler(this.MIOpenR_Click);
-            // 
             // FrmProcess
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -139,12 +139,12 @@ namespace PEHexExplorer
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "请选择进程";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmProcess_FormClosed);
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -5,7 +5,10 @@ using System.Runtime.InteropServices;
 
 namespace Be.Windows.Forms
 {
-    class ProcessByteProvider : IByteProvider, IDisposable
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class ProcessByteProvider : IByteProvider, IDisposable
     {
         private const int PROCESS_VM_READ = 0x0010;
         private const int PROCESS_VM_WRITE = 0x0020;
@@ -14,16 +17,30 @@ namespace Be.Windows.Forms
 
         private const ushort SizeOfImageOffset = 56;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public long Length => _stream.Length;
 
 #pragma warning disable CS0067
+        /// <summary>
+        /// 
+        /// </summary>
         [Obsolete("由于操作进程，暂不支持改变镜像大小", true)]
         public event EventHandler LengthChanged;
 #pragma warning restore CS0067
-
+        /// <summary>
+        /// 
+        /// </summary>
         public event EventHandler Changed;
-
+        /// <summary>
+        /// 
+        /// </summary>
         public IntPtr BaseAddr { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Process Process { get; set; }
 
         private MemoryStream _stream;
@@ -31,6 +48,7 @@ namespace Be.Windows.Forms
         private long _totalLength;
         private readonly bool _readOnly;
         private const int COPY_BLOCK_SIZE = 4096;
+        private readonly IntPtr handle;
 
         /// <summary>
         /// Gets a value, if the file is opened in read-only mode.
@@ -42,10 +60,15 @@ namespace Be.Windows.Forms
         /// </summary>
         public Stream Stream { get { return _stream; } }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="processid"></param>
+        /// <param name="writeable"></param>
         public ProcessByteProvider(int processid,bool writeable=false)
         {
             _readOnly = !writeable;
-            if (OpenProcess(writeable ? PROCESS_VM_READ | PROCESS_VM_WRITE : PROCESS_VM_READ, false, processid) != IntPtr.Zero)
+            if ((handle = OpenProcess(writeable ? PROCESS_VM_READ | PROCESS_VM_WRITE : PROCESS_VM_READ, false, processid)) != IntPtr.Zero)
             {
                 Process process = Process.GetProcessById(processid);
                 Process = process;
@@ -70,21 +93,20 @@ namespace Be.Windows.Forms
             }
         }
 
-        public  ProcessByteProvider(Process process, bool writeable = false)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="process"></param>
+        /// <param name="writeable"></param>
+        public ProcessByteProvider(Process process, bool writeable = false)
         {
             _readOnly = !writeable;
             if (OpenProcess(writeable ? PROCESS_VM_READ | PROCESS_VM_WRITE : PROCESS_VM_READ, false, process.Id) != IntPtr.Zero)
             {
                 Process = process;
                 BaseAddr = process.MainModule.BaseAddress;
-                IntPtr ptr = Marshal.AllocHGlobal(sizeof(int));
-                ReadProcessMemory(process.Handle, BaseAddr + 0x3c, ptr, sizeof(int), IntPtr.Zero);
-                int offset = Marshal.ReadInt32(ptr);
-                ReadProcessMemory(process.Handle, BaseAddr + offset +
-                    IMAGE_SIZEOF_FILE_HEADER + 4 + SizeOfImageOffset, ptr, sizeof(int), IntPtr.Zero);
-                int sizeofimage = Marshal.ReadInt32(ptr);
-                Marshal.FreeHGlobal(ptr);
-                ptr = Marshal.AllocHGlobal(sizeofimage);
+                int sizeofimage = process.MainModule.ModuleMemorySize;
+                IntPtr  ptr = Marshal.AllocHGlobal(sizeofimage);
                 ReadProcessMemory(process.Handle, BaseAddr, ptr, sizeofimage, IntPtr.Zero);
 
                 byte[] buffer = new byte[sizeofimage];
@@ -96,23 +118,33 @@ namespace Be.Windows.Forms
                 Marshal.FreeHGlobal(ptr);
                 ReInitialize();
             }
+            else
+            {
+                throw new UnauthorizedAccessException("无法打开进程，拒绝访问");
+            }
         }
 
-        ~ProcessByteProvider() => Dispose();
+        /// <summary>
+        /// 
+        /// </summary>
+        ~ProcessByteProvider()
+        {
+            Dispose();
+        }
 
         #region WinAPI
 
         [DllImport("kernel32.dll", EntryPoint = "ReadProcessMemory",
             CallingConvention = CallingConvention.Winapi, SetLastError =true, CharSet = CharSet.Unicode)]
-        public static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, IntPtr lpBuffer, int nSize, IntPtr lpNumberOfBytesRead);
+        private static extern bool ReadProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, IntPtr lpBuffer, int nSize, IntPtr lpNumberOfBytesRead);
 
         [DllImport("kernel32.dll", EntryPoint = "WriteProcessMemory",
             CallingConvention = CallingConvention.Winapi, SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int nSize, IntPtr lpNumberOfBytesWritten);
+        private static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, int nSize, IntPtr lpNumberOfBytesWritten);
 
         [DllImport("kernel32.dll", EntryPoint = "OpenProcess",
             CallingConvention = CallingConvention.Winapi, SetLastError = true, CharSet = CharSet.Unicode)]
-        public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
+        private static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
 
         [DllImport("kernel32.dll",CallingConvention = CallingConvention.Winapi, SetLastError = true)]
         private static extern void CloseHandle(IntPtr hObject);
@@ -126,6 +158,9 @@ namespace Be.Windows.Forms
             _totalLength = _stream.Length;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             if (_stream != null)
@@ -134,7 +169,7 @@ namespace Be.Windows.Forms
                 _stream = null;
             }
             _dataMap = null;
-            GC.SuppressFinalize(this);
+            CloseHandle(handle);
         }
 
         private byte ReadByteFromImage(long fileOffset)
@@ -147,6 +182,11 @@ namespace Be.Windows.Forms
             return (byte)_stream.ReadByte();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public byte ReadByte(long index)
         {
             DataBlock block = GetDataBlock(index, out long blockOffset);
@@ -181,6 +221,11 @@ namespace Be.Windows.Forms
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="value"></param>
         public void WriteByte(long index, byte value)
         {
             try
@@ -260,12 +305,22 @@ namespace Be.Windows.Forms
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="bs"></param>
         [Obsolete("由于操作进程，暂不支持改变镜像大小", true)]
         public void InsertBytes(long index, byte[] bs)
         {
             return;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="length"></param>
         public void DeleteBytes(long index, long length)
         {
             for (int i = 0; i < length; i++)
@@ -274,6 +329,10 @@ namespace Be.Windows.Forms
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool HasChanges()
         {
             long offset = 0;
@@ -294,6 +353,10 @@ namespace Be.Windows.Forms
             return (offset != _stream.Length);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stream"></param>
         public void ApplyChanges(Stream stream = null)
         {
             var mstream = stream ?? _stream;
@@ -324,16 +387,28 @@ namespace Be.Windows.Forms
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool SupportsWriteByte()
         {
             return !_readOnly;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool SupportsInsertBytes()
         {
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool SupportsDeleteBytes()
         {
             return !_readOnly;

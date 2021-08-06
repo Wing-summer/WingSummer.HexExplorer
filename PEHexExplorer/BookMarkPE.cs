@@ -16,8 +16,8 @@ namespace PEHexExplorer
         readonly MUserProfile mUser = UserSetting.UserProfile;
 
         private readonly bool Is32bit;
-        private readonly bool loaded;
         private readonly bool processed;
+        private readonly bool haserror;
         private const string exe32bit = "PE 文件 (32位)";
         private const string exe64bit = "PE 文件 (64位)";
         private const string exedefault = "PE 文件";
@@ -30,11 +30,8 @@ namespace PEHexExplorer
                 throw new ArgumentNullException("PEPParser");
             }
 
-            loaded = parser.LoadedFile;
             processed = parser.Processed;
-
-            if (!loaded)
-                return;
+            haserror = parser.OccurError;
 
             PEPParser.PEStructData data = parser.PEData;
 
@@ -68,7 +65,7 @@ namespace PEHexExplorer
                 region = new HexBox.HighlightedRegion
                 {
                     Color = mUser.IMAGE_NT_HEADERS_Color,
-                    Start = (int)parser.PEData.NT_HEADER_FOA,
+                    Start = (int)parser.PEData.NT_HEADER_Addr,
                     Length = sizeof(uint)
                 };
                 regions.Add(region);
@@ -82,7 +79,7 @@ namespace PEHexExplorer
                 region = new HexBox.HighlightedRegion
                 {
                     Color = mUser.IMAGE_NT_HEADERS_Color,
-                    Start = (int)parser.PEData.NT_HEADER_FOA,
+                    Start = (int)parser.PEData.NT_HEADER_Addr,
                     Length = sizeof(uint)
                 };
                 regions.Add(region);
@@ -96,7 +93,7 @@ namespace PEHexExplorer
             region = new HexBox.HighlightedRegion
             {
                 Color = mUser.IMAGE_FILE_HEADER_Color,
-                Start= (long)data.FILE_HEADER_FOA,
+                Start= (long)data.FILE_HEADER_Addr,
                 Length=  PEPParser.IMAGE_SIZEOF_FILE_HEADER
             };
             regions.Add(region);
@@ -107,7 +104,7 @@ namespace PEHexExplorer
             region = new HexBox.HighlightedRegion
             {
                 Color = mUser.IMAGE_OPTIONAL_HEADER_Color,
-                Start = (int)parser.PEData.OPTIONAL_HEADER_FOA,
+                Start = (int)parser.PEData.OPTIONAL_HEADER_Addr,
                 Length = data.SizeOPTIONAL_HEADER
             };
             regions.Add(region);
@@ -124,7 +121,7 @@ namespace PEHexExplorer
                 region = new HexBox.HighlightedRegion
                 {
                     Color = mUser.IMAGE_DATA_DIRECTORY_Color,
-                    Start = (int)data.DATA_DIRECTORIES_FOA + DATA_DIRECTORIES_Size * i,
+                    Start = (int)data.DATA_DIRECTORIES_Addr + DATA_DIRECTORIES_Size * i,
                     Length = DATA_DIRECTORIES_Size
                 };
                 regions.Add(region);
@@ -142,7 +139,7 @@ namespace PEHexExplorer
                 region = new HexBox.HighlightedRegion
                 {
                     Color = mUser.IMAGE_SECTION_HEADER_Color,
-                    Start = (long)data.SECTION_HEADERS_FOA + i * SECTION_HEADER_Size,
+                    Start = (long)data.SECTION_HEADERS_Addr + i * SECTION_HEADER_Size,
                     Length = SECTION_HEADER_Size
                 };
                 regions.Add(region);
@@ -284,33 +281,35 @@ namespace PEHexExplorer
             TreeNodeCollection collection = treeView.Nodes;
             try
             {
-                if (!loaded)
+                if (processed)
                 {
-                    if (processed)
+                    if (haserror)
                     {
                         collection[0].Text = exeno;
                     }
                     else
                     {
-                        collection[0].Text = exedefault;
+                        if (Is32bit)
+                        {
+                            collection[0].Text = exe32bit;
+                        }
+                        else
+                        {
+                            collection[0].Text = exe64bit;
+                        }
                     }
-                    collection = collection[0].Nodes;
                 }
                 else
                 {
-                    if (Is32bit)
-                    {
-                        collection[0].Text = exe32bit;
-                    }
-                    else
-                    {
-                        collection[0].Text = exe64bit;
-                    }
+                    collection[0].Text = exedefault;
+
                 }
             }
             catch
             {
             }
+
+            collection = collection[0].Nodes;
 
         }
 

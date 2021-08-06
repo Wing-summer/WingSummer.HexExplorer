@@ -17,17 +17,17 @@ namespace PEProcesser
             public uint FileAlign;
             public uint VirtualAlign;
             public uint NumberOfSections;
-            public ulong NT_HEADER_FOA;
-            public ulong FILE_HEADER_FOA;
-            public ulong OPTIONAL_HEADER_FOA;
+            public ulong NT_HEADER_Addr;
+            public ulong FILE_HEADER_Addr;
+            public ulong OPTIONAL_HEADER_Addr;
             public uint SizeOPTIONAL_HEADER;
-            public ulong DATA_DIRECTORIES_FOA;
-            public ulong DEBUG_DIR_FOA;
+            public ulong DATA_DIRECTORIES_Addr;
+            public ulong DEBUG_DIR_Addr;
             public uint SizeofDEBUG_DIR;
-            public ulong RESOURCE_DIR_FOA;
-            public ulong SECTION_HEADERS_FOA;
-            public ulong COR20_HEADER_FOA;
-            public ulong MetaData_FOA;
+            public ulong RESOURCE_DIR_Addr;
+            public ulong SECTION_HEADERS_Addr;
+            public ulong COR20_HEADER_Addr;
+            public ulong MetaData_Addr;
         };
 
         public struct ExportTable

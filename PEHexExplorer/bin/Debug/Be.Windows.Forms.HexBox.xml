@@ -2061,6 +2061,36 @@
             </summary>
             <param name="penF">需要转化的PenF对象</param>
         </member>
+        <member name="T:Be.Windows.Forms.ProcessByteProvider">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.ProcessByteProvider.Length">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.ProcessByteProvider.LengthChanged">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:Be.Windows.Forms.ProcessByteProvider.Changed">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.ProcessByteProvider.BaseAddr">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.ProcessByteProvider.Process">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:Be.Windows.Forms.ProcessByteProvider.ReadOnly">
             <summary>
             Gets a value, if the file is opened in read-only mode.
@@ -2070,6 +2100,88 @@
             <summary>
             目前文件流
             </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="processid"></param>
+            <param name="writeable"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.#ctor(System.Diagnostics.Process,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="process"></param>
+            <param name="writeable"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.Finalize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.ReadByte(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.WriteByte(System.Int64,System.Byte)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.InsertBytes(System.Int64,System.Byte[])">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="bs"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.DeleteBytes(System.Int64,System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.HasChanges">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.ApplyChanges(System.IO.Stream)">
+            <summary>
+            
+            </summary>
+            <param name="stream"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.SupportsWriteByte">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.SupportsInsertBytes">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Be.Windows.Forms.ProcessByteProvider.SupportsDeleteBytes">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Be.Windows.Forms.Properties.Resources">
             <summary>
