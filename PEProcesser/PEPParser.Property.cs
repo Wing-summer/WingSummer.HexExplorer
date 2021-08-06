@@ -18,7 +18,9 @@ namespace PEProcesser
         [DefaultValue(false)]
         public bool Processed { get; private set; }
 
-        public IMAGE_DOS_HEADER IMAGE_DOS_HEADER_ { get; private set; }
+        [DefaultValue(null)]
+        public IMAGE_DOS_HEADER? IMAGE_DOS_HEADER_ { get; private set; }
+
         public MemoryMappedViewAccessor ViewAccessor { get { return _viewAccessor; } }
         private MemoryMappedViewAccessor _viewAccessor = null;
         public PEStructData PEData { get { return peData; } }

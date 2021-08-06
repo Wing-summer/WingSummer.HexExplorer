@@ -33,6 +33,12 @@ namespace PEHexExplorer
         public FrmMain(string filename = null)
         {
             InitializeComponent();
+
+            /*修复首次在HexBox右击打开菜单的位置等同于在主菜单点击编辑的Bug*/
+            MenuItemEdit.ShowDropDown();
+
+            MIAdmin.Image = SystemIcons.Shield.ToBitmap();
+
             BookMarkregions = new List<HexBox.HighlightedRegion>();
 
             //begin：载入用户设置
@@ -240,7 +246,11 @@ namespace PEHexExplorer
                 if (frmProcess.ShowDialog() == DialogResult.OK)
                 {
                     FrmProcess.ProcessResult result = frmProcess.Result;
-                    hexBox.OpenProcessMemory(result.Process, result.writeable);
+                    if (!hexBox.OpenProcessMemory(result.Process, result.writeable))
+                    {
+                        MessageBox.Show("打开进程失败，可能是由于权限不足导致！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     EnableEdit();
                 }
             }
@@ -436,6 +446,11 @@ namespace PEHexExplorer
         {
             hexMenuStrip.Enabled = false;
 
+            MISave.Enabled = false;
+            MISaveAs.Enabled = false;
+            MIExport.Enabled = false;
+            MIClose.Enabled = false;
+
             tbExport.Enabled = false;
             tbSave.Enabled = false;
             tbSaveAs.Enabled = false;
@@ -470,6 +485,11 @@ namespace PEHexExplorer
                     (item as ToolStripMenuItem).Enabled = true;
                 }
             }
+
+            MISave.Enabled = true;
+            MISaveAs.Enabled = true;
+            MIExport.Enabled = true;
+            MIClose.Enabled = true;
 
             tbExport.Enabled = true;
             tbSave.Enabled = true;

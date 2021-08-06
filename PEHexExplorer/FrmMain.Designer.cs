@@ -36,15 +36,23 @@
             System.Windows.Forms.ToolStripStatusLabel Slbl6;
             System.Windows.Forms.MenuStrip MainMenu;
             System.Windows.Forms.ToolStripMenuItem MenuItemFile;
+            System.Windows.Forms.ToolStripMenuItem MINew;
+            System.Windows.Forms.ToolStripMenuItem MIOpen;
+            System.Windows.Forms.ToolStripMenuItem MIOpenProcess;
             System.Windows.Forms.ToolStripSeparator MIS0;
             System.Windows.Forms.ToolStripSeparator MIS1;
-            System.Windows.Forms.ToolStripMenuItem MenuItemEdit;
+            System.Windows.Forms.ToolStripMenuItem MIExit;
             System.Windows.Forms.ToolStripSeparator MIS2;
             System.Windows.Forms.ToolStripSeparator MIS3;
             System.Windows.Forms.ToolStripSeparator MIS7;
             System.Windows.Forms.ToolStripSeparator MIS4;
             System.Windows.Forms.ToolStripSeparator MIS8;
             System.Windows.Forms.ToolStripMenuItem MenuItemSetting;
+            System.Windows.Forms.ToolStripMenuItem MIGeneral;
+            System.Windows.Forms.ToolStripMenuItem MIPlugin;
+            System.Windows.Forms.ToolStripMenuItem MIInfo;
+            System.Windows.Forms.ToolStripMenuItem MICalculator;
+            System.Windows.Forms.ToolStripMenuItem MIAddrConverter;
             System.Windows.Forms.ToolStripMenuItem MenuItemAbout;
             System.Windows.Forms.ToolStripSeparator ts9;
             System.Windows.Forms.ToolStripSeparator ts1;
@@ -87,14 +95,11 @@
             this.LblLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.Slbl3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.LblLen = new System.Windows.Forms.ToolStripStatusLabel();
-            this.MINew = new System.Windows.Forms.ToolStripMenuItem();
-            this.MIOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.MIOpenProcess = new System.Windows.Forms.ToolStripMenuItem();
             this.MISave = new System.Windows.Forms.ToolStripMenuItem();
             this.MISaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.MIExport = new System.Windows.Forms.ToolStripMenuItem();
             this.MIClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.MIExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.hexMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MISelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.MICut = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,12 +116,7 @@
             this.MIFillZero = new System.Windows.Forms.ToolStripMenuItem();
             this.MIFillNop = new System.Windows.Forms.ToolStripMenuItem();
             this.MIBookMark = new System.Windows.Forms.ToolStripMenuItem();
-            this.MIGeneral = new System.Windows.Forms.ToolStripMenuItem();
-            this.MIPlugin = new System.Windows.Forms.ToolStripMenuItem();
-            this.MIInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemTool = new System.Windows.Forms.ToolStripMenuItem();
-            this.MICalculator = new System.Windows.Forms.ToolStripMenuItem();
-            this.MIAddrConverter = new System.Windows.Forms.ToolStripMenuItem();
             this.MIS = new System.Windows.Forms.ToolStripSeparator();
             this.MenuPlugin = new System.Windows.Forms.ToolStripMenuItem();
             this.tvPEStruct = new System.Windows.Forms.TreeView();
@@ -170,6 +170,8 @@
             this.TMIFind = new System.Windows.Forms.ToolStripMenuItem();
             this.TMIJmp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.MIAdmin = new System.Windows.Forms.ToolStripMenuItem();
+            this.ts13 = new System.Windows.Forms.ToolStripSeparator();
             statusStrip2 = new System.Windows.Forms.StatusStrip();
             Slbl1 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -177,15 +179,23 @@
             Slbl6 = new System.Windows.Forms.ToolStripStatusLabel();
             MainMenu = new System.Windows.Forms.MenuStrip();
             MenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
+            MINew = new System.Windows.Forms.ToolStripMenuItem();
+            MIOpen = new System.Windows.Forms.ToolStripMenuItem();
+            MIOpenProcess = new System.Windows.Forms.ToolStripMenuItem();
             MIS0 = new System.Windows.Forms.ToolStripSeparator();
             MIS1 = new System.Windows.Forms.ToolStripSeparator();
-            MenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
+            MIExit = new System.Windows.Forms.ToolStripMenuItem();
             MIS2 = new System.Windows.Forms.ToolStripSeparator();
             MIS3 = new System.Windows.Forms.ToolStripSeparator();
             MIS7 = new System.Windows.Forms.ToolStripSeparator();
             MIS4 = new System.Windows.Forms.ToolStripSeparator();
             MIS8 = new System.Windows.Forms.ToolStripSeparator();
             MenuItemSetting = new System.Windows.Forms.ToolStripMenuItem();
+            MIGeneral = new System.Windows.Forms.ToolStripMenuItem();
+            MIPlugin = new System.Windows.Forms.ToolStripMenuItem();
+            MIInfo = new System.Windows.Forms.ToolStripMenuItem();
+            MICalculator = new System.Windows.Forms.ToolStripMenuItem();
+            MIAddrConverter = new System.Windows.Forms.ToolStripMenuItem();
             MenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
             ts9 = new System.Windows.Forms.ToolStripSeparator();
             ts1 = new System.Windows.Forms.ToolStripSeparator();
@@ -302,7 +312,7 @@
             MainMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             MenuItemFile,
-            MenuItemEdit,
+            this.MenuItemEdit,
             MenuItemSetting,
             this.MenuItemTool,
             this.MenuPlugin,
@@ -317,16 +327,18 @@
             // MenuItemFile
             // 
             MenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MINew,
-            this.MIOpen,
-            this.MIOpenProcess,
+            MINew,
+            MIOpen,
+            MIOpenProcess,
             MIS0,
             this.MISave,
             this.MISaveAs,
             this.MIExport,
             MIS1,
+            this.MIAdmin,
+            this.ts13,
             this.MIClose,
-            this.MIExit});
+            MIExit});
             MenuItemFile.Image = global::PEHexExplorer.Properties.Resources.file;
             MenuItemFile.Name = "MenuItemFile";
             MenuItemFile.Size = new System.Drawing.Size(91, 24);
@@ -334,95 +346,99 @@
             // 
             // MINew
             // 
-            this.MINew.Image = global::PEHexExplorer.Properties.Resources._new;
-            this.MINew.Name = "MINew";
-            this.MINew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.MINew.Size = new System.Drawing.Size(254, 26);
-            this.MINew.Text = "新建";
-            this.MINew.Click += new System.EventHandler(this.MINew_Click);
+            MINew.Image = global::PEHexExplorer.Properties.Resources._new;
+            MINew.Name = "MINew";
+            MINew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            MINew.Size = new System.Drawing.Size(287, 26);
+            MINew.Text = "新建";
+            MINew.Click += new System.EventHandler(this.MINew_Click);
             // 
             // MIOpen
             // 
-            this.MIOpen.Image = global::PEHexExplorer.Properties.Resources.open;
-            this.MIOpen.Name = "MIOpen";
-            this.MIOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.MIOpen.Size = new System.Drawing.Size(254, 26);
-            this.MIOpen.Text = "打开";
-            this.MIOpen.Click += new System.EventHandler(this.MIOpen_Click);
+            MIOpen.Image = global::PEHexExplorer.Properties.Resources.open;
+            MIOpen.Name = "MIOpen";
+            MIOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            MIOpen.Size = new System.Drawing.Size(287, 26);
+            MIOpen.Text = "打开";
+            MIOpen.Click += new System.EventHandler(this.MIOpen_Click);
             // 
             // MIOpenProcess
             // 
-            this.MIOpenProcess.Name = "MIOpenProcess";
-            this.MIOpenProcess.Size = new System.Drawing.Size(254, 26);
-            this.MIOpenProcess.Text = "从进程读取";
-            this.MIOpenProcess.Click += new System.EventHandler(this.MIOpenProcess_Click);
+            MIOpenProcess.Name = "MIOpenProcess";
+            MIOpenProcess.Size = new System.Drawing.Size(287, 26);
+            MIOpenProcess.Text = "从进程读取";
+            MIOpenProcess.Click += new System.EventHandler(this.MIOpenProcess_Click);
             // 
             // MIS0
             // 
             MIS0.Name = "MIS0";
-            MIS0.Size = new System.Drawing.Size(251, 6);
+            MIS0.Size = new System.Drawing.Size(284, 6);
             // 
             // MISave
             // 
+            this.MISave.Enabled = false;
             this.MISave.Image = global::PEHexExplorer.Properties.Resources.save;
             this.MISave.Name = "MISave";
             this.MISave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.MISave.Size = new System.Drawing.Size(254, 26);
+            this.MISave.Size = new System.Drawing.Size(287, 26);
             this.MISave.Text = "保存";
             this.MISave.Click += new System.EventHandler(this.MISave_Click);
             // 
             // MISaveAs
             // 
+            this.MISaveAs.Enabled = false;
             this.MISaveAs.Image = global::PEHexExplorer.Properties.Resources.saveas;
             this.MISaveAs.Name = "MISaveAs";
             this.MISaveAs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.MISaveAs.Size = new System.Drawing.Size(254, 26);
+            this.MISaveAs.Size = new System.Drawing.Size(287, 26);
             this.MISaveAs.Text = "另存为";
             this.MISaveAs.Click += new System.EventHandler(this.MISaveAs_Click);
             // 
             // MIExport
             // 
+            this.MIExport.Enabled = false;
             this.MIExport.Image = global::PEHexExplorer.Properties.Resources.export;
             this.MIExport.Name = "MIExport";
             this.MIExport.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.MIExport.Size = new System.Drawing.Size(254, 26);
+            this.MIExport.Size = new System.Drawing.Size(287, 26);
             this.MIExport.Text = "导出";
             this.MIExport.Click += new System.EventHandler(this.MIExport_Click);
             // 
             // MIS1
             // 
             MIS1.Name = "MIS1";
-            MIS1.Size = new System.Drawing.Size(251, 6);
+            MIS1.Size = new System.Drawing.Size(284, 6);
             // 
             // MIClose
             // 
+            this.MIClose.Enabled = false;
             this.MIClose.Image = global::PEHexExplorer.Properties.Resources.closefile;
             this.MIClose.Name = "MIClose";
             this.MIClose.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Q)));
-            this.MIClose.Size = new System.Drawing.Size(254, 26);
+            this.MIClose.Size = new System.Drawing.Size(287, 26);
             this.MIClose.Text = "关闭文件";
             this.MIClose.Click += new System.EventHandler(this.MIClose_Click);
             // 
             // MIExit
             // 
-            this.MIExit.Image = global::PEHexExplorer.Properties.Resources.exit;
-            this.MIExit.Name = "MIExit";
-            this.MIExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.MIExit.Size = new System.Drawing.Size(254, 26);
-            this.MIExit.Text = "退出";
-            this.MIExit.Click += new System.EventHandler(this.MIExit_Click);
+            MIExit.Image = global::PEHexExplorer.Properties.Resources.exit;
+            MIExit.Name = "MIExit";
+            MIExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            MIExit.Size = new System.Drawing.Size(287, 26);
+            MIExit.Text = "退出";
+            MIExit.Click += new System.EventHandler(this.MIExit_Click);
             // 
             // MenuItemEdit
             // 
-            MenuItemEdit.DropDown = this.hexMenuStrip;
-            MenuItemEdit.Image = global::PEHexExplorer.Properties.Resources.edit;
-            MenuItemEdit.Name = "MenuItemEdit";
-            MenuItemEdit.Size = new System.Drawing.Size(91, 24);
-            MenuItemEdit.Text = "编辑(&E)";
+            this.MenuItemEdit.DropDown = this.hexMenuStrip;
+            this.MenuItemEdit.Image = global::PEHexExplorer.Properties.Resources.edit;
+            this.MenuItemEdit.Name = "MenuItemEdit";
+            this.MenuItemEdit.Size = new System.Drawing.Size(91, 24);
+            this.MenuItemEdit.Text = "编辑(&E)";
             // 
             // hexMenuStrip
             // 
@@ -450,7 +466,6 @@
             MIS8,
             this.MIBookMark});
             this.hexMenuStrip.Name = "hexMenuStrip";
-            this.hexMenuStrip.OwnerItem = MenuItemEdit;
             this.hexMenuStrip.Size = new System.Drawing.Size(262, 424);
             // 
             // MISelectAll
@@ -635,9 +650,9 @@
             // MenuItemSetting
             // 
             MenuItemSetting.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MIGeneral,
-            this.MIPlugin,
-            this.MIInfo});
+            MIGeneral,
+            MIPlugin,
+            MIInfo});
             MenuItemSetting.Image = global::PEHexExplorer.Properties.Resources.setting;
             MenuItemSetting.Name = "MenuItemSetting";
             MenuItemSetting.Size = new System.Drawing.Size(92, 24);
@@ -645,37 +660,37 @@
             // 
             // MIGeneral
             // 
-            this.MIGeneral.Image = global::PEHexExplorer.Properties.Resources.general;
-            this.MIGeneral.Name = "MIGeneral";
-            this.MIGeneral.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
-            this.MIGeneral.Size = new System.Drawing.Size(268, 26);
-            this.MIGeneral.Text = "常规";
-            this.MIGeneral.Click += new System.EventHandler(this.MIGeneral_Click);
+            MIGeneral.Image = global::PEHexExplorer.Properties.Resources.general;
+            MIGeneral.Name = "MIGeneral";
+            MIGeneral.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
+            MIGeneral.Size = new System.Drawing.Size(268, 26);
+            MIGeneral.Text = "常规";
+            MIGeneral.Click += new System.EventHandler(this.MIGeneral_Click);
             // 
             // MIPlugin
             // 
-            this.MIPlugin.Image = global::PEHexExplorer.Properties.Resources.settingplugin;
-            this.MIPlugin.Name = "MIPlugin";
-            this.MIPlugin.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            MIPlugin.Image = global::PEHexExplorer.Properties.Resources.settingplugin;
+            MIPlugin.Name = "MIPlugin";
+            MIPlugin.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.K)));
-            this.MIPlugin.Size = new System.Drawing.Size(268, 26);
-            this.MIPlugin.Text = "插件设置";
-            this.MIPlugin.Click += new System.EventHandler(this.MIPlugin_Click);
+            MIPlugin.Size = new System.Drawing.Size(268, 26);
+            MIPlugin.Text = "插件设置";
+            MIPlugin.Click += new System.EventHandler(this.MIPlugin_Click);
             // 
             // MIInfo
             // 
-            this.MIInfo.Image = global::PEHexExplorer.Properties.Resources.info;
-            this.MIInfo.Name = "MIInfo";
-            this.MIInfo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.MIInfo.Size = new System.Drawing.Size(268, 26);
-            this.MIInfo.Text = "显示/隐藏侧栏信息";
-            this.MIInfo.Click += new System.EventHandler(this.MIInfo_Click);
+            MIInfo.Image = global::PEHexExplorer.Properties.Resources.info;
+            MIInfo.Name = "MIInfo";
+            MIInfo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            MIInfo.Size = new System.Drawing.Size(268, 26);
+            MIInfo.Text = "显示/隐藏侧栏信息";
+            MIInfo.Click += new System.EventHandler(this.MIInfo_Click);
             // 
             // MenuItemTool
             // 
             this.MenuItemTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MICalculator,
-            this.MIAddrConverter,
+            MICalculator,
+            MIAddrConverter,
             this.MIS});
             this.MenuItemTool.Image = global::PEHexExplorer.Properties.Resources.tools;
             this.MenuItemTool.Name = "MenuItemTool";
@@ -684,21 +699,21 @@
             // 
             // MICalculator
             // 
-            this.MICalculator.Image = global::PEHexExplorer.Properties.Resources.calc;
-            this.MICalculator.Name = "MICalculator";
-            this.MICalculator.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad0)));
-            this.MICalculator.Size = new System.Drawing.Size(284, 26);
-            this.MICalculator.Text = "计算器";
-            this.MICalculator.Click += new System.EventHandler(this.MICalculator_Click);
+            MICalculator.Image = global::PEHexExplorer.Properties.Resources.calc;
+            MICalculator.Name = "MICalculator";
+            MICalculator.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad0)));
+            MICalculator.Size = new System.Drawing.Size(284, 26);
+            MICalculator.Text = "计算器";
+            MICalculator.Click += new System.EventHandler(this.MICalculator_Click);
             // 
             // MIAddrConverter
             // 
-            this.MIAddrConverter.Image = global::PEHexExplorer.Properties.Resources.AddrConv;
-            this.MIAddrConverter.Name = "MIAddrConverter";
-            this.MIAddrConverter.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad1)));
-            this.MIAddrConverter.Size = new System.Drawing.Size(284, 26);
-            this.MIAddrConverter.Text = "地址转化器";
-            this.MIAddrConverter.Click += new System.EventHandler(this.MIAddrConverter_Click);
+            MIAddrConverter.Image = global::PEHexExplorer.Properties.Resources.AddrConv;
+            MIAddrConverter.Name = "MIAddrConverter";
+            MIAddrConverter.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.NumPad1)));
+            MIAddrConverter.Size = new System.Drawing.Size(284, 26);
+            MIAddrConverter.Text = "地址转化器";
+            MIAddrConverter.Click += new System.EventHandler(this.MIAddrConverter_Click);
             // 
             // MIS
             // 
@@ -1507,6 +1522,19 @@
             // 
             this.toolTip.ShowAlways = true;
             // 
+            // MIAdmin
+            // 
+            this.MIAdmin.Name = "MIAdmin";
+            this.MIAdmin.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.Q)));
+            this.MIAdmin.Size = new System.Drawing.Size(287, 26);
+            this.MIAdmin.Text = "管理员权限重启";
+            // 
+            // ts13
+            // 
+            this.ts13.Name = "ts13";
+            this.ts13.Size = new System.Drawing.Size(284, 6);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1560,11 +1588,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.ToolStripMenuItem MINew;
-        private System.Windows.Forms.ToolStripMenuItem MIOpen;
         private System.Windows.Forms.ToolStripMenuItem MISave;
         private System.Windows.Forms.ToolStripMenuItem MIExport;
-        private System.Windows.Forms.ToolStripMenuItem MIExit;
         private System.Windows.Forms.ToolStripMenuItem MICopy;
         private System.Windows.Forms.ToolStripMenuItem MIPaste;
         private System.Windows.Forms.ToolStripMenuItem MICut;
@@ -1575,7 +1600,6 @@
         private System.Windows.Forms.PropertyGrid pgConst;
         private System.Windows.Forms.OpenFileDialog oD;
         private System.Windows.Forms.SaveFileDialog sD;
-        private System.Windows.Forms.ToolStripMenuItem MIGeneral;
         private System.Windows.Forms.ToolStripStatusLabel LblScale;
         private System.Windows.Forms.ToolStripStatusLabel LblLocation;
         private System.Windows.Forms.ToolStripStatusLabel LblStatus;
@@ -1583,14 +1607,12 @@
         private System.Windows.Forms.ToolStripStatusLabel LblSaved;
         private System.Windows.Forms.ToolStripStatusLabel LblWritable;
         private System.Windows.Forms.ToolStripStatusLabel LblFilename;
-        private System.Windows.Forms.ToolStripMenuItem MIPlugin;
         private System.Windows.Forms.ToolStripMenuItem MIInsert;
         private System.Windows.Forms.ToolStripMenuItem MINewInsert;
         private System.Windows.Forms.ToolStripMenuItem MIFill;
         private System.Windows.Forms.ToolStripMenuItem MIFillZero;
         private System.Windows.Forms.ToolStripMenuItem MIFillNop;
         private System.Windows.Forms.ToolStripMenuItem MenuItemTool;
-        private System.Windows.Forms.ToolStripMenuItem MICalculator;
         private System.Windows.Forms.ToolStripStatusLabel Slbl3;
         private System.Windows.Forms.ToolStripStatusLabel LblLen;
         private System.Windows.Forms.ToolStripMenuItem MIFind;
@@ -1642,11 +1664,11 @@
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.TreeView tvPEStruct;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
-        private System.Windows.Forms.ToolStripMenuItem MIAddrConverter;
         private System.Windows.Forms.SplitContainer scEdit;
         private System.Windows.Forms.ToolStripButton tbInfo;
-        private System.Windows.Forms.ToolStripMenuItem MIInfo;
-        private System.Windows.Forms.ToolStripMenuItem MIOpenProcess;
+        private System.Windows.Forms.ToolStripSeparator ts13;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemEdit;
+        private System.Windows.Forms.ToolStripMenuItem MIAdmin;
     }
 }
 
