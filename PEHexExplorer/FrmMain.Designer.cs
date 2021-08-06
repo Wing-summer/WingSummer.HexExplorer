@@ -38,7 +38,6 @@
             System.Windows.Forms.ToolStripMenuItem MenuItemFile;
             System.Windows.Forms.ToolStripSeparator MIS0;
             System.Windows.Forms.ToolStripSeparator MIS1;
-            System.Windows.Forms.ToolStripMenuItem MenuItemEdit;
             System.Windows.Forms.ToolStripSeparator MIS2;
             System.Windows.Forms.ToolStripSeparator MIS3;
             System.Windows.Forms.ToolStripSeparator MIS7;
@@ -95,6 +94,7 @@
             this.MIExport = new System.Windows.Forms.ToolStripMenuItem();
             this.MIClose = new System.Windows.Forms.ToolStripMenuItem();
             this.MIExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.hexMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MISelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.MICut = new System.Windows.Forms.ToolStripMenuItem();
@@ -170,6 +170,8 @@
             this.TMIFind = new System.Windows.Forms.ToolStripMenuItem();
             this.TMIJmp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.MIAdmin = new System.Windows.Forms.ToolStripMenuItem();
+            this.ts13 = new System.Windows.Forms.ToolStripSeparator();
             statusStrip2 = new System.Windows.Forms.StatusStrip();
             Slbl1 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -179,7 +181,6 @@
             MenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
             MIS0 = new System.Windows.Forms.ToolStripSeparator();
             MIS1 = new System.Windows.Forms.ToolStripSeparator();
-            MenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             MIS2 = new System.Windows.Forms.ToolStripSeparator();
             MIS3 = new System.Windows.Forms.ToolStripSeparator();
             MIS7 = new System.Windows.Forms.ToolStripSeparator();
@@ -302,7 +303,7 @@
             MainMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             MenuItemFile,
-            MenuItemEdit,
+            this.MenuItemEdit,
             MenuItemSetting,
             this.MenuItemTool,
             this.MenuPlugin,
@@ -325,6 +326,8 @@
             this.MISaveAs,
             this.MIExport,
             MIS1,
+            this.MIAdmin,
+            this.ts13,
             this.MIClose,
             this.MIExit});
             MenuItemFile.Image = global::PEHexExplorer.Properties.Resources.file;
@@ -337,7 +340,7 @@
             this.MINew.Image = global::PEHexExplorer.Properties.Resources._new;
             this.MINew.Name = "MINew";
             this.MINew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.MINew.Size = new System.Drawing.Size(254, 26);
+            this.MINew.Size = new System.Drawing.Size(287, 26);
             this.MINew.Text = "新建";
             this.MINew.Click += new System.EventHandler(this.MINew_Click);
             // 
@@ -346,28 +349,28 @@
             this.MIOpen.Image = global::PEHexExplorer.Properties.Resources.open;
             this.MIOpen.Name = "MIOpen";
             this.MIOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.MIOpen.Size = new System.Drawing.Size(254, 26);
+            this.MIOpen.Size = new System.Drawing.Size(287, 26);
             this.MIOpen.Text = "打开";
             this.MIOpen.Click += new System.EventHandler(this.MIOpen_Click);
             // 
             // MIOpenProcess
             // 
             this.MIOpenProcess.Name = "MIOpenProcess";
-            this.MIOpenProcess.Size = new System.Drawing.Size(254, 26);
+            this.MIOpenProcess.Size = new System.Drawing.Size(287, 26);
             this.MIOpenProcess.Text = "从进程读取";
             this.MIOpenProcess.Click += new System.EventHandler(this.MIOpenProcess_Click);
             // 
             // MIS0
             // 
             MIS0.Name = "MIS0";
-            MIS0.Size = new System.Drawing.Size(251, 6);
+            MIS0.Size = new System.Drawing.Size(284, 6);
             // 
             // MISave
             // 
             this.MISave.Image = global::PEHexExplorer.Properties.Resources.save;
             this.MISave.Name = "MISave";
             this.MISave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.MISave.Size = new System.Drawing.Size(254, 26);
+            this.MISave.Size = new System.Drawing.Size(287, 26);
             this.MISave.Text = "保存";
             this.MISave.Click += new System.EventHandler(this.MISave_Click);
             // 
@@ -377,7 +380,7 @@
             this.MISaveAs.Name = "MISaveAs";
             this.MISaveAs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.MISaveAs.Size = new System.Drawing.Size(254, 26);
+            this.MISaveAs.Size = new System.Drawing.Size(287, 26);
             this.MISaveAs.Text = "另存为";
             this.MISaveAs.Click += new System.EventHandler(this.MISaveAs_Click);
             // 
@@ -388,14 +391,14 @@
             this.MIExport.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.MIExport.Size = new System.Drawing.Size(254, 26);
+            this.MIExport.Size = new System.Drawing.Size(287, 26);
             this.MIExport.Text = "导出";
             this.MIExport.Click += new System.EventHandler(this.MIExport_Click);
             // 
             // MIS1
             // 
             MIS1.Name = "MIS1";
-            MIS1.Size = new System.Drawing.Size(251, 6);
+            MIS1.Size = new System.Drawing.Size(284, 6);
             // 
             // MIClose
             // 
@@ -403,7 +406,7 @@
             this.MIClose.Name = "MIClose";
             this.MIClose.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Q)));
-            this.MIClose.Size = new System.Drawing.Size(254, 26);
+            this.MIClose.Size = new System.Drawing.Size(287, 26);
             this.MIClose.Text = "关闭文件";
             this.MIClose.Click += new System.EventHandler(this.MIClose_Click);
             // 
@@ -412,17 +415,17 @@
             this.MIExit.Image = global::PEHexExplorer.Properties.Resources.exit;
             this.MIExit.Name = "MIExit";
             this.MIExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.MIExit.Size = new System.Drawing.Size(254, 26);
+            this.MIExit.Size = new System.Drawing.Size(287, 26);
             this.MIExit.Text = "退出";
             this.MIExit.Click += new System.EventHandler(this.MIExit_Click);
             // 
             // MenuItemEdit
             // 
-            MenuItemEdit.DropDown = this.hexMenuStrip;
-            MenuItemEdit.Image = global::PEHexExplorer.Properties.Resources.edit;
-            MenuItemEdit.Name = "MenuItemEdit";
-            MenuItemEdit.Size = new System.Drawing.Size(91, 24);
-            MenuItemEdit.Text = "编辑(&E)";
+            this.MenuItemEdit.DropDown = this.hexMenuStrip;
+            this.MenuItemEdit.Image = global::PEHexExplorer.Properties.Resources.edit;
+            this.MenuItemEdit.Name = "MenuItemEdit";
+            this.MenuItemEdit.Size = new System.Drawing.Size(91, 24);
+            this.MenuItemEdit.Text = "编辑(&E)";
             // 
             // hexMenuStrip
             // 
@@ -450,8 +453,8 @@
             MIS8,
             this.MIBookMark});
             this.hexMenuStrip.Name = "hexMenuStrip";
-            this.hexMenuStrip.OwnerItem = MenuItemEdit;
-            this.hexMenuStrip.Size = new System.Drawing.Size(262, 424);
+            this.hexMenuStrip.OwnerItem = this.MenuItemEdit;
+            this.hexMenuStrip.Size = new System.Drawing.Size(262, 452);
             // 
             // MISelectAll
             // 
@@ -1507,6 +1510,19 @@
             // 
             this.toolTip.ShowAlways = true;
             // 
+            // MIAdmin
+            // 
+            this.MIAdmin.Name = "MIAdmin";
+            this.MIAdmin.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.Q)));
+            this.MIAdmin.Size = new System.Drawing.Size(287, 26);
+            this.MIAdmin.Text = "管理员权限重启";
+            // 
+            // ts13
+            // 
+            this.ts13.Name = "ts13";
+            this.ts13.Size = new System.Drawing.Size(284, 6);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1647,6 +1663,9 @@
         private System.Windows.Forms.ToolStripButton tbInfo;
         private System.Windows.Forms.ToolStripMenuItem MIInfo;
         private System.Windows.Forms.ToolStripMenuItem MIOpenProcess;
+        private System.Windows.Forms.ToolStripMenuItem MIAdmin;
+        private System.Windows.Forms.ToolStripSeparator ts13;
+        private System.Windows.Forms.ToolStripMenuItem MenuItemEdit;
     }
 }
 
