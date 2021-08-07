@@ -12,7 +12,7 @@ namespace PEHexExplorer
 {
     public partial class FrmMain : Form
     {
-        private PEPParser pe;
+        readonly EditorPageManager pageManager;
 
         private string EditFileExt = string.Empty;
 
@@ -23,11 +23,8 @@ namespace PEHexExplorer
         private const string DefaultPoint = "(0,0)";
         private const string ODefaultSel = "0 - 0x0";
         private const string DefaultSel = "*";
-        private const string DefaultFilename = "<未知>";
-        private const string NewFilename = "<未命名文件>";
         private readonly ConstInfo constInfo;
 
-        private BookMarkPE bookMark;
 
         private readonly List<HexBox.HighlightedRegion> BookMarkregions;
 
@@ -58,14 +55,9 @@ namespace PEHexExplorer
             //begin：载入用户设置
             MUserProfile mUser = UserSetting.UserProfile;
             Font = mUser.ProgramFont;
-            hexBox.LineInfoBackColor = mUser.LineInfoBackColor;
-            hexBox.ColumnInfoBackColor = mUser.ColInfoBackColor;
-            hexBox.LineInfoVisible = mUser.EnableLineInfo;
-            hexBox.ColumnInfoVisible = mUser.EnableColInfo;
-            hexBox.SelectionBackColor = mUser.SelBackColor;
-            hexBox.SelectionForeColor = mUser.SelTextColor;
-            hexBox.GroupLinePen = mUser.GroupLinePen;
-            hexBox.HexStringLinePen = mUser.HexStringLinePen;
+
+            pageManager = new EditorPageManager(tabEditArea);
+
             //end：载入用户设置
 
             if (filename != null)
@@ -74,7 +66,7 @@ namespace PEHexExplorer
 
                 if (filename.Length > 0 && File.Exists(filename))
                 {
-                    OpenFile(filename, true);
+                    pageManager.NewPage(filename);
                 }
             }
 
@@ -101,82 +93,77 @@ namespace PEHexExplorer
 
         #region 文件IO相关
 
-        private bool? CloseFile()
-        {
-            bool? res = hexBox.ByteProvider?.HasChanges();
-            if (res.HasValue && res.Value)
-            {
-                DialogResult result = MessageBox.Show("此文件已有修改，你确定要丢弃吗？",
-                    Program.SoftwareName, MessageBoxButtons.YesNoCancel);
-                switch (result)
-                {
-                    case DialogResult.Cancel:
-                        return null;
-                    case DialogResult.Yes:
-                        MISave_Click(this, EventArgs.Empty);
-                        return true;
-                    case DialogResult.No:
-                        return false;
-                }
-            }
-            return true;
-        }
+        //private bool? CloseFile()
+        //{
+        //    bool? res = pageManager.CurrentHexBox.ByteProvider?.HasChanges();
+        //    if (res.HasValue && res.Value)
+        //    {
+        //        DialogResult result = MessageBox.Show("此文件已有修改，你确定要丢弃吗？",
+        //            Program.SoftwareName, MessageBoxButtons.YesNoCancel);
+        //        switch (result)
+        //        {
+        //            case DialogResult.Cancel:
+        //                return null;
+        //            case DialogResult.Yes:
+        //                MISave_Click(this, EventArgs.Empty);
+        //                return true;
+        //            case DialogResult.No:
+        //                return false;
+        //        }
+        //    }
+        //    return true;
+        //}
 
-        private void OpenFile(string filename, bool writeable)
-        {
-            bool? res = CloseFile();
-            if (res.HasValue)
-            {
-                hexBox.Close();
-                DisableEdit();
-            }
-            else
-            {
-                return;
-            }
+        //private void OpenFile(string filename, bool writeable)
+        //{
+        //    bool? res = CloseFile();
+        //    if (res.HasValue)
+        //    {
+        //        pageManager.CurrentHexBox.Close();
+        //        DisableEdit();
+        //    }
+        //    else
+        //    {
+        //        return;
+        //    }
 
-            pe?.Dispose();
-            pe = new PEPParser(filename);
-            bookMark = new BookMarkPE(pe);
-            bookMark.ApplyTreeView(in tvPEStruct);
+        //    pe?.Dispose();
+        //    pe = new PEPParser(filename);
+        //    bookMark = new BookMarkPE(pe);
+        //    bookMark.ApplyTreeView(in tvPEStruct);
 
-        reopen:
+        //reopen:
 
-            if (!hexBox.OpenFile(out HexBox.IOError error, filename, writeable))
-            {
-                if (error == HexBox.IOError.Exception && writeable)
-                {
-                    if (MessageBox.Show("文件无法以写入模式打开，可能被占用，您是否用只读模式打开？",
-                        Program.SoftwareName, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    {
-                        writeable = false;
-                        goto reopen;
-                    }
-                }
-            }
+        //    if (!pageManager.CurrentHexBox.OpenFile(out HexBox.IOError error, filename, writeable))
+        //    {
+        //        if (error == HexBox.IOError.Exception && writeable)
+        //        {
+        //            if (MessageBox.Show("文件无法以写入模式打开，可能被占用，您是否用只读模式打开？",
+        //                Program.SoftwareName, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+        //            {
+        //                writeable = false;
+        //                goto reopen;
+        //            }
+        //        }
+        //    }
 
-            bookMark.ApplyHexbox(hexBox);
+        //    bookMark.ApplyHexbox(pageManager.CurrentHexBox);
 
-            LblFilename.Text = hexBox.Filename;
+        //    LblFilename.Text = pageManager.CurrentHexBox.Filename;
 
-            LblWritable.ForeColor = writeable ? EnabledColor : DisabledColor;
+        //    LblWritable.ForeColor = writeable ? EnabledColor : DisabledColor;
 
-            hexBox.InsertActive = false;
+        //    pageManager.CurrentHexBox.InsertActive = false;
 
-            LblLen.Text = ODefaultSel;
-            EnableEdit();
-            EditFileExt = Path.GetExtension(filename).TrimStart('.');
-        }
+        //    LblLen.Text = ODefaultSel;
+        //    EnableEdit();
+        //    EditFileExt = Path.GetExtension(filename).TrimStart('.');
+        //}
 
         private void MINew_Click(object sender, EventArgs e)
         {
-            if (!hexBox.OpenFile(error: out _, force: true))
-            {
-                MessageBox.Show("新建文件失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            LblFilename.Text = NewFilename;
-            EditFileExt = "bin";
+            pageManager.NewPage();
+
             EnableEdit();
         }
 
@@ -184,30 +171,16 @@ namespace PEHexExplorer
         {
             if (oD.ShowDialog() == DialogResult.OK)
             {
-                MIClose_Click(sender, e);
                 string filename = oD.FileName;
                 bool writeable = !oD.ReadOnlyChecked;
                 oD.FileName = string.Empty;
-                OpenFile(filename, writeable);
+                pageManager.CurrentPage.OpenFile(filename, writeable);
             }
         }
 
         private void MISave_Click(object sender, EventArgs e)
         {
-            if (hexBox.Filename.Length != 0)
-            {
-                if (!hexBox.SaveFile(out HexBox.IOError oError))
-                {
-                    if (oError == HexBox.IOError.Exception)
-                    {
-                        MessageBox.Show("保存文件失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            else
-            {
-                MISaveAs_Click(sender, e);
-            }
+            pageManager.CurrentPage.SaveFile();
         }
 
         private void MIExport_Click(object sender, EventArgs e)
@@ -215,13 +188,7 @@ namespace PEHexExplorer
             sD.Filter = $"{EditFileExt}文件|*.{EditFileExt}";
             if (sD.ShowDialog() == DialogResult.OK)
             {
-                if (!hexBox.SaveFile(out HexBox.IOError oError, sD.FileName))
-                {
-                    if (oError == HexBox.IOError.Exception)
-                    {
-                        MessageBox.Show("保存出错，可能由于权限导致！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+                pageManager.CurrentPage.SaveFileAs(sD.FileName, true);
                 sD.FileName = string.Empty;
             }
         }
@@ -231,80 +198,42 @@ namespace PEHexExplorer
             sD.Filter = string.Format("{0}文件|*.{0}", EditFileExt);
             if (sD.ShowDialog() == DialogResult.OK)
             {
-                if (hexBox.SaveFile(out HexBox.IOError oError, sD.FileName, false))
-                {
-                    if (oError == HexBox.IOError.Exception)
-                    {
-                        MessageBox.Show("保存文件失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+                pageManager.CurrentPage.SaveFileAs(sD.FileName, true);            
                 sD.FileName = string.Empty;
             }
         }
 
-        private void MIOpenProcess_Click(object sender, EventArgs e)
-        {
-            bool? res = CloseFile();
-            if (res.HasValue)
-            {
-                hexBox.Close();
-                DisableEdit();
-            }
-            else
-            {
-                return;
-            }
-
-            using (FrmProcess frmProcess = FrmProcess.Instance)
-            {
-                if (frmProcess.ShowDialog() == DialogResult.OK)
-                {
-                    FrmProcess.ProcessResult result = frmProcess.Result;
-                    if (!hexBox.OpenProcessMemory(result.Process, result.writeable))
-                    {
-                        MessageBox.Show("打开进程失败，可能是由于权限不足导致！", Program.SoftwareName,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    EnableEdit();
-                    pe?.Dispose();
-                    Stream provider = (hexBox.ByteProvider as ProcessByteProvider).Stream;
-                    provider.Position = 0;
-                    pe = new PEPParser(provider);
-                    bookMark = new BookMarkPE(pe);
-                    bookMark.ApplyTreeView(in tvPEStruct);
-                    bookMark.ApplyHexbox(hexBox);
-                }
-            }
-        }
+        private void MIOpenProcess_Click(object sender, EventArgs e) => pageManager.CurrentPage.OpenProcess();
 
         private void MIClose_Click(object sender, EventArgs e)
         {
-            bool? res = CloseFile();
-            if (res.HasValue)
-            {
-                hexBox.Close();
-                DisableEdit();
-            }
+            pageManager.CurrentPage.CloseFile();
+
+            //bool? res = CloseFile();
+            //if (res.HasValue)
+            //{
+            //    pageManager.CurrentHexBox.Close();
+            //    DisableEdit();
+            //}
         }
 
         #endregion
 
         #region 文件操作相关
 
-        private void MISelectAll_Click(object sender, EventArgs e) => hexBox.SelectAll();
+        private void MISelectAll_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.SelectAll();
 
-        private void MICut_Click(object sender, EventArgs e) => hexBox.Cut();
+        private void MICut_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.Cut();
 
-        private void MICopy_Click(object sender, EventArgs e) => hexBox.Copy();
+        private void MICopy_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.Copy();
 
-        private void MICopyHex_Click(object sender, EventArgs e) => hexBox.CopyHex();
+        private void MICopyHex_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.CopyHex();
 
-        private void MIPaste_Click(object sender, EventArgs e) => hexBox.Paste();
+        private void MIPaste_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.Paste();
 
-        private void MIPasteHex_Click(object sender, EventArgs e) => hexBox.PasteHex();
+        private void MIPasteHex_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.PasteHex();
 
-        private void MIDel_Click(object sender, EventArgs e) => hexBox.Delete();
+        private void MIDel_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.Delete();
 
         private void MIInsert_Click(object sender, EventArgs e)
         {
@@ -312,8 +241,8 @@ namespace PEHexExplorer
             {
                 if (frmInsert.ShowDialog() == DialogResult.OK)
                 {
-                    hexBox.ByteProvider.InsertBytes(hexBox.SelectionStart, frmInsert.Result.buffer);
-                    hexBox.Invalidate();
+                    pageManager.CurrentHexBox.ByteProvider.InsertBytes(pageManager.CurrentHexBox.SelectionStart, frmInsert.Result.buffer);
+                    pageManager.CurrentHexBox.Invalidate();
                 }
             }
         }
@@ -324,8 +253,8 @@ namespace PEHexExplorer
             {
                 if (frmInsert.ShowDialog() == DialogResult.OK)
                 {
-                    hexBox.ByteProvider.InsertBytes(hexBox.SelectionStart, frmInsert.Result.buffer);
-                    hexBox.Invalidate();
+                    pageManager.CurrentHexBox.ByteProvider.InsertBytes(pageManager.CurrentHexBox.SelectionStart, frmInsert.Result.buffer);
+                    pageManager.CurrentHexBox.Invalidate();
                 }
             }
         }
@@ -333,7 +262,7 @@ namespace PEHexExplorer
         private void MIFind_Click(object sender, EventArgs e)
         {
             FrmFind frmFind = FrmFind.Instance;
-            frmFind.HexBox = hexBox;
+            frmFind.HexBox = pageManager.CurrentHexBox;
             frmFind.Show(this);
         }
 
@@ -346,14 +275,14 @@ namespace PEHexExplorer
                     FrmGoto.GotoResult result = frmGoto.Result;
                     if (result.IsRow)
                     {
-                        if (!hexBox.ScrollLineIntoView((long)result.Number))
+                        if (!pageManager.CurrentHexBox.ScrollLineIntoView((long)result.Number))
                         {
                             MessageBox.Show("跳转失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                     {
-                        if (!hexBox.GotoByOffset((long)result.Number, result.IsFromBase))
+                        if (!pageManager.CurrentHexBox.GotoByOffset((long)result.Number, result.IsFromBase))
                         {
                             MessageBox.Show("跳转失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
@@ -368,58 +297,64 @@ namespace PEHexExplorer
             {
                 if (frmFill.ShowDialog() == DialogResult.OK)
                 {
-                    hexBox.Delete();
-                    hexBox.ByteProvider.InsertBytes(hexBox.SelectionStart, frmFill.Result.buffer);
-                    hexBox.Invalidate();
+                    pageManager.CurrentHexBox.Delete();
+                    pageManager.CurrentHexBox.ByteProvider.InsertBytes(pageManager.CurrentHexBox.SelectionStart, frmFill.Result.buffer);
+                    pageManager.CurrentHexBox.Invalidate();
                 }
             }
         }
 
-        private void MIFillZero_Click(object sender, EventArgs e) => hexBox.WriteBytes(hexBox.SelectionStart, 0, hexBox.SelectionLength);
+        private void MIFillZero_Click(object sender, EventArgs e)
+        {
+            pageManager.CurrentHexBox.WriteBytes(pageManager.CurrentHexBox.SelectionStart, 0, pageManager.CurrentHexBox.SelectionLength);
+        }
 
-        private void MIFillNop_Click(object sender, EventArgs e) => hexBox.WriteBytes(hexBox.SelectionStart, 0x90, hexBox.SelectionLength);
+        private void MIFillNop_Click(object sender, EventArgs e)
+        {
+            pageManager.CurrentHexBox.WriteBytes(pageManager.CurrentHexBox.SelectionStart, 0x90, pageManager.CurrentHexBox.SelectionLength);
+        }
 
         #endregion
 
         #region HexBox事件
 
         private void HexBox_ScalingChanged(object sender, EventArgs e) => 
-            LblScale.Text = $"{hexBox.Scaling * 100}%";
+            LblScale.Text = $"{pageManager.CurrentHexBox.Scaling * 100}%";
 
         private void HexBox_CurrentLineChanged(object sender, EventArgs e)
         {
-            pos.X = hexBox.CurrentLine;
+            pos.X = pageManager.CurrentHexBox.CurrentLine;
             LblLocation.Text = $"({pos.X - 1},{pos.Y - 1})";
         }
 
         private void HexBox_CurrentPositionInLineChanged(object sender, EventArgs e)
         {
-            pos.Y = hexBox.CurrentPositionInLine;
+            pos.Y = pageManager.CurrentHexBox.CurrentPositionInLine;
             LblLocation.Text = $"({pos.X - 1},{pos.Y - 1})";
         }
 
         private void HexBox_InsertActiveChanged(object sender, EventArgs e) =>
-            lblInsert.ForeColor = hexBox.InsertActive ? EnabledColor : DisabledColor;
+            lblInsert.ForeColor = pageManager.CurrentHexBox.InsertActive ? EnabledColor : DisabledColor;
 
         private void HexBox_ContentChanged(object sender, EventArgs e)
         {
-            if (hexBox.ByteProvider!=null)
+            if (pageManager.CurrentHexBox.ByteProvider!=null)
             {
-                LblSaved.ForeColor = hexBox.ByteProvider.HasChanges() ? DisabledColor : EnabledColor;
+                LblSaved.ForeColor = pageManager.CurrentHexBox.ByteProvider.HasChanges() ? DisabledColor : EnabledColor;
             }
         }
 
         private void HexBox_LockedBufferChanged(object sender, EventArgs e) =>
-            lblLocked.ForeColor = hexBox.IsLockedBuffer ? EnabledColor : DisabledColor;
+            lblLocked.ForeColor = pageManager.CurrentHexBox.IsLockedBuffer ? EnabledColor : DisabledColor;
 
         private void HexBox_SelectionLengthChanged(object sender, EventArgs e) =>
-            LblLen.Text = $"{hexBox.SelectionLength:D} - 0x{hexBox.SelectionLength:X}";
+            LblLen.Text = $"{pageManager.CurrentHexBox.SelectionLength:D} - 0x{pageManager.CurrentHexBox.SelectionLength:X}";
 
-        private void HexBox_ByteProviderChanged(object sender, EventArgs e) => hexBox.ClearHighlightedRegion();
+        private void HexBox_ByteProviderChanged(object sender, EventArgs e) => pageManager.CurrentHexBox.ClearHighlightedRegion();
 
         private void HexBox_CurrentPositionChanged(object sender, EventArgs e)
         {
-            long sels = hexBox.SelectionStart;
+            long sels = pageManager.CurrentHexBox.SelectionStart;
             constInfo.Char = null;
             constInfo.Int = null;
             constInfo.Int16 = null;
@@ -431,13 +366,13 @@ namespace PEHexExplorer
             //吃掉不必处理的异常
             try
             {
-                if (hexBox.ByteProvider?.Length != 0)
+                if (pageManager.CurrentHexBox.ByteProvider?.Length != 0)
                 {
-                    constInfo.Char = hexBox.ByteProvider?.ReadByte(sels);
+                    constInfo.Char = pageManager.CurrentHexBox.ByteProvider?.ReadByte(sels);
                 }
-                constInfo.Int = hexBox.Readint(sels);
-                constInfo.Int16 = hexBox.Readshort(sels);
-                constInfo.Long = hexBox.Readlong(sels);
+                constInfo.Int = pageManager.CurrentHexBox.Readint(sels);
+                constInfo.Int16 = pageManager.CurrentHexBox.Readshort(sels);
+                constInfo.Long = pageManager.CurrentHexBox.Readlong(sels);
                 constInfo.UInt = (uint)constInfo?.Int;
                 constInfo.UInt16 = (ushort)constInfo?.Int16;
                 constInfo.ULong = (ulong)constInfo?.Long;
@@ -453,7 +388,7 @@ namespace PEHexExplorer
 
         #region 编辑和文件状态相关
 
-        private void LblScale_DoubleClick(object sender, EventArgs e) => hexBox.Scaling = 1.0F;
+        private void LblScale_DoubleClick(object sender, EventArgs e) => pageManager.CurrentHexBox.Scaling = 1.0F;
 
         private void DisableEdit()
         {
@@ -482,7 +417,7 @@ namespace PEHexExplorer
             lblLocked.Enabled = false;
             LblWritable.Enabled = false;
 
-            LblFilename.Text = DefaultFilename;
+            LblFilename.Text = pageManager.CurrentPage.Filename;
             LblLocation.Text = DefaultPoint;
             LblLen.Text = DefaultSel;
 
@@ -525,26 +460,26 @@ namespace PEHexExplorer
 
         private void LblInsert_Click(object sender, EventArgs e)
         {
-            if (hexBox.ReadOnly)
+            if (pageManager.CurrentHexBox.ReadOnly)
             {
                 return;
             }
             else
             {
-                if (hexBox.InsertActive)
+                if (pageManager.CurrentHexBox.InsertActive)
                 {
-                    hexBox.InsertActive = false;
+                    pageManager.CurrentHexBox.InsertActive = false;
                     lblInsert.ForeColor = DisabledColor;
                 }
                 else
                 {
-                    hexBox.InsertActive = true;
+                    pageManager.CurrentHexBox.InsertActive = true;
                     lblInsert.ForeColor = EnabledColor;
                 }
             }
         }
 
-        private void LblLocked_Click(object sender, EventArgs e) => hexBox.IsLockedBuffer = !hexBox.IsLockedBuffer;
+        private void LblLocked_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.IsLockedBuffer = !pageManager.CurrentHexBox.IsLockedBuffer;
 
         private void LblFilename_TextChanged(object sender, EventArgs e) => LblFilename.ToolTipText = LblFilename.Text;
 
@@ -613,14 +548,14 @@ namespace PEHexExplorer
 
         private void MIBookMark_Click(object sender, EventArgs e)
         {
-            int res = BookMarkregions.FindIndex(k => k.IsByteSelected(hexBox.SelectionStart));
-            if (!hexBox.RemoveHighlightedRegionAt(res))
+            int res = BookMarkregions.FindIndex(k => k.IsByteSelected(pageManager.CurrentHexBox.SelectionStart));
+            if (!pageManager.CurrentHexBox.RemoveHighlightedRegionAt(res))
             {
-                hexBox.AddHighligedRegion(new HexBox.HighlightedRegion
+                pageManager.CurrentHexBox.AddHighligedRegion(new HexBox.HighlightedRegion
                 {
                     Color = Color.AliceBlue,
-                    Length = hexBox.SelectionLength == 0 ? 1 : hexBox.SelectionLength,
-                    Start = hexBox.SelectionStart
+                    Length = pageManager.CurrentHexBox.SelectionLength == 0 ? 1 : pageManager.CurrentHexBox.SelectionLength,
+                    Start = pageManager.CurrentHexBox.SelectionStart
                 });
             }
         }
@@ -635,7 +570,7 @@ namespace PEHexExplorer
 
         private void LblFilename_Click(object sender, EventArgs e)
         {
-            string filename = hexBox.Filename;
+            string filename = pageManager.CurrentHexBox.Filename;
             if (filename?.Length > 0)
             {
                 Process.Start("Explorer.exe", $"/e,/select,{filename}");

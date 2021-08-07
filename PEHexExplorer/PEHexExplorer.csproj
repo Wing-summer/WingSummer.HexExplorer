@@ -71,6 +71,9 @@
     <Compile Include="BookMarkProperty.cs" />
     <Compile Include="ConstInfo.cs" />
     <Compile Include="EditorPageManager.cs" />
+    <Compile Include="EditPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
