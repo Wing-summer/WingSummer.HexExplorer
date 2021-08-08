@@ -437,6 +437,13 @@ namespace Be.Windows.Forms
         public PenF HexStringLinePen { get; set; } = Pens.Gray;
 
         /// <summary>
+        /// 判断是否打开的是PE镜像
+        /// </summary>
+        [Category("Hex"), Description("判断是否打开的是PE镜像"),DefaultValue(false)]
+        public bool IsOpenImage =>_isOpenImage;
+        private bool _isOpenImage;
+
+        /// <summary>
         /// Gets or sets whether the HexBox control displays the hex characters in upper or lower case.
         /// </summary>
         [DefaultValue(typeof(HexCasing), "Upper"), Category("Hex"), Description("Gets or sets whether the HexBox control displays the hex characters in upper or lower case.")]
@@ -765,15 +772,15 @@ namespace Be.Windows.Forms
         /// 判断是否已打开文件
         /// </summary>
         [DefaultValue(false), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool IsOpenedFile
-        { get; private set; }
+        public bool IsOpenedFile => _isOpenedFile;
+        private bool _isOpenedFile;
 
         /// <summary>
         /// 判断是否已打开缓冲区
         /// </summary>
         [DefaultValue(false), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public bool IsOpenedBuffer
-        { get; private set; }
+        public bool IsOpenedBuffer => _isOpenedBuffer;
+        private bool _isOpenedBuffer;
 
         /// <summary>
         /// Gets the a value if insertion mode is active or not.

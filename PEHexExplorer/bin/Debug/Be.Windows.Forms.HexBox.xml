@@ -111,6 +111,11 @@
             Contains a byte collection.
             </summary>
         </member>
+        <member name="P:Be.Windows.Forms.DynamicByteProvider.Limit">
+            <summary>
+            最大容量限制
+            </summary>
+        </member>
         <member name="M:Be.Windows.Forms.DynamicByteProvider.#ctor(System.Byte[])">
             <summary>
             Initializes a new instance of the DynamicByteProvider class.
@@ -640,7 +645,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Be.Windows.Forms.HexBox.CreateBuffer(System.Boolean)">
+        <member name="M:Be.Windows.Forms.HexBox.CreateBuffer(System.Boolean,System.Int64)">
             <summary>
             创建一个可供编写的缓冲区，建议不要用于编写文件
             </summary>
@@ -888,6 +893,21 @@
             </summary>
             <param name="start"></param>
             <param name="buffer"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.InsertBytes(System.Int64,System.Byte[])">
+            <summary>
+            插入字节
+            </summary>
+            <param name="start"></param>
+            <param name="buffer"></param>
+        </member>
+        <member name="M:Be.Windows.Forms.HexBox.WriteBytes(System.Int64,System.Byte[],System.Int64)">
+            <summary>
+            写入字节
+            </summary>
+            <param name="start"></param>
+            <param name="buffer"></param>
+            <param name="count"></param>
         </member>
         <member name="M:Be.Windows.Forms.HexBox.WriteBytes(System.Int64,System.Byte,System.Int64)">
             <summary>
@@ -1579,6 +1599,11 @@
         <member name="P:Be.Windows.Forms.HexBox.HexStringLinePen">
             <summary>
             设置绘制十六进制数据组间隔线
+            </summary>
+        </member>
+        <member name="P:Be.Windows.Forms.HexBox.IsOpenImage">
+            <summary>
+            判断是否打开的是PE镜像
             </summary>
         </member>
         <member name="P:Be.Windows.Forms.HexBox.HexCasing">

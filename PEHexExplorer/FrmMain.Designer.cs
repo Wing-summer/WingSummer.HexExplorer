@@ -128,6 +128,7 @@
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.propertyGridB = new System.Windows.Forms.PropertyGrid();
             this.scEdit = new System.Windows.Forms.SplitContainer();
+            this.tabEditArea = new System.Windows.Forms.TabControl();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.tbNew = new System.Windows.Forms.ToolStripButton();
             this.tbOpen = new System.Windows.Forms.ToolStripButton();
@@ -171,7 +172,6 @@
             this.TMIFind = new System.Windows.Forms.ToolStripMenuItem();
             this.TMIJmp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.tabEditArea = new System.Windows.Forms.TabControl();
             statusStrip2 = new System.Windows.Forms.StatusStrip();
             Slbl1 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -753,32 +753,32 @@
             // ts9
             // 
             ts9.Name = "ts9";
-            ts9.Size = new System.Drawing.Size(6, 27);
+            ts9.Size = new System.Drawing.Size(6, 31);
             // 
             // ts1
             // 
             ts1.Name = "ts1";
-            ts1.Size = new System.Drawing.Size(6, 27);
+            ts1.Size = new System.Drawing.Size(6, 31);
             // 
             // ts2
             // 
             ts2.Name = "ts2";
-            ts2.Size = new System.Drawing.Size(6, 27);
+            ts2.Size = new System.Drawing.Size(6, 31);
             // 
             // ts3
             // 
             ts3.Name = "ts3";
-            ts3.Size = new System.Drawing.Size(6, 27);
+            ts3.Size = new System.Drawing.Size(6, 31);
             // 
             // ts4
             // 
             ts4.Name = "ts4";
-            ts4.Size = new System.Drawing.Size(6, 27);
+            ts4.Size = new System.Drawing.Size(6, 31);
             // 
             // ts5
             // 
             ts5.Name = "ts5";
-            ts5.Size = new System.Drawing.Size(6, 27);
+            ts5.Size = new System.Drawing.Size(6, 31);
             // 
             // tabPage2
             // 
@@ -945,7 +945,7 @@
             // 
             splitContainer2.Panel2.Controls.Add(this.propertyGridB);
             splitContainer2.Size = new System.Drawing.Size(634, 658);
-            splitContainer2.SplitterDistance = 243;
+            splitContainer2.SplitterDistance = 242;
             splitContainer2.TabIndex = 3;
             // 
             // checkedListBox1
@@ -954,7 +954,7 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(0, 0);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(634, 243);
+            this.checkedListBox1.Size = new System.Drawing.Size(634, 242);
             this.checkedListBox1.TabIndex = 3;
             // 
             // propertyGridB
@@ -962,7 +962,7 @@
             this.propertyGridB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGridB.Location = new System.Drawing.Point(0, 0);
             this.propertyGridB.Name = "propertyGridB";
-            this.propertyGridB.Size = new System.Drawing.Size(634, 411);
+            this.propertyGridB.Size = new System.Drawing.Size(634, 412);
             this.propertyGridB.TabIndex = 0;
             // 
             // ts11
@@ -994,6 +994,15 @@
             this.scEdit.Size = new System.Drawing.Size(1782, 693);
             this.scEdit.SplitterDistance = 1130;
             this.scEdit.TabIndex = 5;
+            // 
+            // tabEditArea
+            // 
+            this.tabEditArea.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabEditArea.Location = new System.Drawing.Point(0, 27);
+            this.tabEditArea.Name = "tabEditArea";
+            this.tabEditArea.SelectedIndex = 0;
+            this.tabEditArea.Size = new System.Drawing.Size(1130, 636);
+            this.tabEditArea.TabIndex = 3;
             // 
             // toolStrip
             // 
@@ -1028,7 +1037,7 @@
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.ShowItemToolTips = false;
-            this.toolStrip.Size = new System.Drawing.Size(1130, 31);
+            this.toolStrip.Size = new System.Drawing.Size(1130, 27);
             this.toolStrip.TabIndex = 2;
             // 
             // tbNew
@@ -1037,7 +1046,7 @@
             this.tbNew.Image = global::PEHexExplorer.Properties.Resources._new;
             this.tbNew.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbNew.Name = "tbNew";
-            this.tbNew.Size = new System.Drawing.Size(29, 24);
+            this.tbNew.Size = new System.Drawing.Size(29, 28);
             this.tbNew.Tag = "2";
             this.tbNew.Text = "新建";
             this.tbNew.ToolTipText = "新建";
@@ -1051,7 +1060,7 @@
             this.tbOpen.Image = global::PEHexExplorer.Properties.Resources.open;
             this.tbOpen.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbOpen.Name = "tbOpen";
-            this.tbOpen.Size = new System.Drawing.Size(29, 24);
+            this.tbOpen.Size = new System.Drawing.Size(29, 28);
             this.tbOpen.Tag = "2";
             this.tbOpen.Text = "打开";
             this.tbOpen.Click += new System.EventHandler(this.MIOpen_Click);
@@ -1065,7 +1074,7 @@
             this.tbExport.Image = global::PEHexExplorer.Properties.Resources.export;
             this.tbExport.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbExport.Name = "tbExport";
-            this.tbExport.Size = new System.Drawing.Size(29, 24);
+            this.tbExport.Size = new System.Drawing.Size(29, 28);
             this.tbExport.Tag = "2";
             this.tbExport.Text = "导出";
             this.tbExport.Click += new System.EventHandler(this.MIExport_Click);
@@ -1079,7 +1088,7 @@
             this.tbSave.Image = global::PEHexExplorer.Properties.Resources.save;
             this.tbSave.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbSave.Name = "tbSave";
-            this.tbSave.Size = new System.Drawing.Size(29, 24);
+            this.tbSave.Size = new System.Drawing.Size(29, 28);
             this.tbSave.Tag = "2";
             this.tbSave.Text = "保存";
             this.tbSave.Click += new System.EventHandler(this.MISave_Click);
@@ -1093,7 +1102,7 @@
             this.tbSaveAs.Image = global::PEHexExplorer.Properties.Resources.saveas;
             this.tbSaveAs.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbSaveAs.Name = "tbSaveAs";
-            this.tbSaveAs.Size = new System.Drawing.Size(29, 24);
+            this.tbSaveAs.Size = new System.Drawing.Size(29, 28);
             this.tbSaveAs.Tag = "2";
             this.tbSaveAs.Text = "另存为";
             this.tbSaveAs.Click += new System.EventHandler(this.MISaveAs_Click);
@@ -1107,7 +1116,7 @@
             this.tbCut.Image = global::PEHexExplorer.Properties.Resources.cut;
             this.tbCut.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbCut.Name = "tbCut";
-            this.tbCut.Size = new System.Drawing.Size(29, 24);
+            this.tbCut.Size = new System.Drawing.Size(29, 28);
             this.tbCut.Tag = "2";
             this.tbCut.Text = "剪切";
             this.tbCut.Click += new System.EventHandler(this.MICut_Click);
@@ -1124,7 +1133,7 @@
             this.tbCopy.Image = global::PEHexExplorer.Properties.Resources.copy;
             this.tbCopy.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbCopy.Name = "tbCopy";
-            this.tbCopy.Size = new System.Drawing.Size(39, 24);
+            this.tbCopy.Size = new System.Drawing.Size(39, 28);
             this.tbCopy.Tag = "2";
             this.tbCopy.Text = "复制";
             this.tbCopy.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
@@ -1156,7 +1165,7 @@
             this.tbPaste.Image = global::PEHexExplorer.Properties.Resources.paste;
             this.tbPaste.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbPaste.Name = "tbPaste";
-            this.tbPaste.Size = new System.Drawing.Size(39, 24);
+            this.tbPaste.Size = new System.Drawing.Size(39, 28);
             this.tbPaste.Tag = "2";
             this.tbPaste.Text = "粘贴";
             this.tbPaste.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
@@ -1185,7 +1194,7 @@
             this.tbDel.Image = global::PEHexExplorer.Properties.Resources.del;
             this.tbDel.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbDel.Name = "tbDel";
-            this.tbDel.Size = new System.Drawing.Size(29, 24);
+            this.tbDel.Size = new System.Drawing.Size(29, 28);
             this.tbDel.Tag = "2";
             this.tbDel.Text = "删除";
             this.tbDel.Click += new System.EventHandler(this.MIDel_Click);
@@ -1199,7 +1208,7 @@
             this.tbFill.Image = global::PEHexExplorer.Properties.Resources.fill;
             this.tbFill.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbFill.Name = "tbFill";
-            this.tbFill.Size = new System.Drawing.Size(29, 24);
+            this.tbFill.Size = new System.Drawing.Size(29, 28);
             this.tbFill.Tag = "2";
             this.tbFill.Text = "填充数据";
             this.tbFill.Click += new System.EventHandler(this.MIFill_Click);
@@ -1213,7 +1222,7 @@
             this.tbFillZero.Image = global::PEHexExplorer.Properties.Resources.fillZero;
             this.tbFillZero.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbFillZero.Name = "tbFillZero";
-            this.tbFillZero.Size = new System.Drawing.Size(29, 24);
+            this.tbFillZero.Size = new System.Drawing.Size(29, 28);
             this.tbFillZero.Tag = "2";
             this.tbFillZero.Text = "二进制置零";
             this.tbFillZero.Click += new System.EventHandler(this.MIFillZero_Click);
@@ -1227,7 +1236,7 @@
             this.tbFillNop.Image = global::PEHexExplorer.Properties.Resources.fillNop;
             this.tbFillNop.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbFillNop.Name = "tbFillNop";
-            this.tbFillNop.Size = new System.Drawing.Size(29, 24);
+            this.tbFillNop.Size = new System.Drawing.Size(29, 28);
             this.tbFillNop.Tag = "2";
             this.tbFillNop.Text = "汇编置零";
             this.tbFillNop.Click += new System.EventHandler(this.MIFillNop_Click);
@@ -1241,7 +1250,7 @@
             this.tbBookMark.Image = global::PEHexExplorer.Properties.Resources.bookmark;
             this.tbBookMark.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbBookMark.Name = "tbBookMark";
-            this.tbBookMark.Size = new System.Drawing.Size(29, 24);
+            this.tbBookMark.Size = new System.Drawing.Size(29, 28);
             this.tbBookMark.Tag = "2";
             this.tbBookMark.Text = "书签";
             this.tbBookMark.Click += new System.EventHandler(this.MIBookMark_Click);
@@ -1254,7 +1263,7 @@
             this.tbInfo.Image = global::PEHexExplorer.Properties.Resources.info;
             this.tbInfo.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbInfo.Name = "tbInfo";
-            this.tbInfo.Size = new System.Drawing.Size(29, 24);
+            this.tbInfo.Size = new System.Drawing.Size(29, 28);
             this.tbInfo.Tag = "2";
             this.tbInfo.Text = "文件信息";
             this.tbInfo.Click += new System.EventHandler(this.MIInfo_Click);
@@ -1267,7 +1276,7 @@
             this.tbSetting.Image = global::PEHexExplorer.Properties.Resources.setting;
             this.tbSetting.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbSetting.Name = "tbSetting";
-            this.tbSetting.Size = new System.Drawing.Size(29, 24);
+            this.tbSetting.Size = new System.Drawing.Size(29, 28);
             this.tbSetting.Tag = "2";
             this.tbSetting.Text = "总体设置";
             this.tbSetting.ToolTipText = "常规设置";
@@ -1281,7 +1290,7 @@
             this.tbSettingPlugin.Image = global::PEHexExplorer.Properties.Resources.settingplugin;
             this.tbSettingPlugin.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbSettingPlugin.Name = "tbSettingPlugin";
-            this.tbSettingPlugin.Size = new System.Drawing.Size(29, 24);
+            this.tbSettingPlugin.Size = new System.Drawing.Size(29, 28);
             this.tbSettingPlugin.Tag = "2";
             this.tbSettingPlugin.Text = "插件设置";
             this.tbSettingPlugin.Click += new System.EventHandler(this.MIPlugin_Click);
@@ -1294,7 +1303,7 @@
             this.tbCalc.Image = global::PEHexExplorer.Properties.Resources.calc;
             this.tbCalc.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbCalc.Name = "tbCalc";
-            this.tbCalc.Size = new System.Drawing.Size(29, 24);
+            this.tbCalc.Size = new System.Drawing.Size(29, 28);
             this.tbCalc.Tag = "2";
             this.tbCalc.Text = "计算器";
             this.tbCalc.Click += new System.EventHandler(this.MICalculator_Click);
@@ -1308,7 +1317,7 @@
             this.tbClose.Image = global::PEHexExplorer.Properties.Resources.closefile;
             this.tbClose.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbClose.Name = "tbClose";
-            this.tbClose.Size = new System.Drawing.Size(29, 24);
+            this.tbClose.Size = new System.Drawing.Size(29, 28);
             this.tbClose.Tag = "2";
             this.tbClose.Text = "关闭此文件";
             this.tbClose.Click += new System.EventHandler(this.MIClose_Click);
@@ -1318,7 +1327,7 @@
             // ts10
             // 
             this.ts10.Name = "ts10";
-            this.ts10.Size = new System.Drawing.Size(6, 27);
+            this.ts10.Size = new System.Drawing.Size(6, 31);
             // 
             // tbAboutthis
             // 
@@ -1326,7 +1335,7 @@
             this.tbAboutthis.Image = global::PEHexExplorer.Properties.Resources.aboutthis;
             this.tbAboutthis.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.tbAboutthis.Name = "tbAboutthis";
-            this.tbAboutthis.Size = new System.Drawing.Size(29, 24);
+            this.tbAboutthis.Size = new System.Drawing.Size(29, 28);
             this.tbAboutthis.Tag = "2";
             this.tbAboutthis.Text = "关于此软件";
             this.tbAboutthis.Click += new System.EventHandler(this.MIAboutThis_Click);
@@ -1492,15 +1501,6 @@
             // toolTip
             // 
             this.toolTip.ShowAlways = true;
-            // 
-            // tabEditArea
-            // 
-            this.tabEditArea.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabEditArea.Location = new System.Drawing.Point(0, 31);
-            this.tabEditArea.Name = "tabEditArea";
-            this.tabEditArea.SelectedIndex = 0;
-            this.tabEditArea.Size = new System.Drawing.Size(1130, 632);
-            this.tabEditArea.TabIndex = 3;
             // 
             // FrmMain
             // 

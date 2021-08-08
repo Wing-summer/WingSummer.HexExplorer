@@ -982,6 +982,46 @@ namespace Be.Windows.Forms
         }
 
         /// <summary>
+        /// 插入字节
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="buffer"></param>
+        public void InsertBytes(long start,byte[] buffer)
+        {
+            if (_isOpenImage)
+            {
+                return;
+            }
+         
+            _byteProvider.InsertBytes(start, buffer);
+
+            UndoStack.Push(SnapShotOperation(EditOperation.Insert, start, buffer));
+            Invalidate();
+        }
+
+        /// <summary>
+        /// 写入字节
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="buffer"></param>
+        /// <param name="count"></param>
+        public void WriteBytes(long start,byte[] buffer,long count)
+        {
+            if (count <= 0 || count > buffer.Length)
+            {
+                throw new ArgumentOutOfRangeException("count");
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                _byteProvider.WriteByte(start + i, buffer[i]);
+            }
+            UndoStack.Push(SnapShotOperation(EditOperation.OverWrite, start, buffer));
+            Invalidate();
+
+        }
+
+        /// <summary>
         /// 填充字节
         /// </summary>
         /// <param name="start"></param>

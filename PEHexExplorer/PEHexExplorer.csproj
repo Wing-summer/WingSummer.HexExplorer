@@ -54,6 +54,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
@@ -317,6 +318,7 @@
   <ItemGroup>
     <Content Include="icon.ico" />
     <Content Include="Resources\AddrConv.png" />
+    <Content Include="Resources\close.png" />
     <Content Include="Resources\info.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

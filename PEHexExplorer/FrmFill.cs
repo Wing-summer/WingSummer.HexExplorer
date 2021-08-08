@@ -26,6 +26,8 @@ namespace PEHexExplorer
             get;private set;
         }
 
+        public long Limit { get; set; }
+
         public struct FillResult
         {
             public byte[] buffer;
@@ -53,10 +55,11 @@ namespace PEHexExplorer
         {
             if (Visible)
             {
-                hexBoxFill.CreateBuffer(true);
+                hexBoxFill.CreateBuffer(true,Limit);
             }
             else
             {
+                Limit = 0;
                 hexBoxFill.Close();
             }
         }

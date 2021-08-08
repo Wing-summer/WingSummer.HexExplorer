@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 
 namespace Be.Windows.Forms
@@ -18,6 +19,12 @@ namespace Be.Windows.Forms
         /// Contains a byte collection.
         /// </summary>
         private readonly List<byte> _bytes;
+
+        /// <summary>
+        /// 最大容量限制
+        /// </summary>
+        [DefaultValue(0)]
+        public long Limit { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the DynamicByteProvider class.
@@ -134,8 +141,25 @@ namespace Be.Windows.Forms
         /// <param name="bs">the byte array to insert</param>
         public void InsertBytes(long index, byte[] bs)
         {
-            _bytes.InsertRange((int)index, bs);
-
+            long limit = Limit;
+            if (limit > 0 && bs.Length + _bytes.Count > limit)
+            {
+                if (_bytes.Count== limit)
+                {
+                    return;
+                }
+                else
+                {
+                    long count = limit - _bytes.Count;
+                    byte[] buffer = new byte[count];
+                    Array.Copy(bs, buffer, count);
+                    _bytes.InsertRange((int)index, buffer);
+                }
+            }
+            else
+            {
+                _bytes.InsertRange((int)index, bs);
+            }
             OnLengthChanged(EventArgs.Empty);
             OnChanged(EventArgs.Empty);
         }

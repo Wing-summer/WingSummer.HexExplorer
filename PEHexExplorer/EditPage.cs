@@ -71,7 +71,7 @@ namespace PEHexExplorer
         private const string DefaultFilename = "<未知>";
         private const string NewFilename = "<未命名文件>";
 
-        [DefaultValue(DefaultFilename)]
+        [DefaultValue(null)]
         public string Filename
         {
             get
@@ -392,6 +392,11 @@ namespace PEHexExplorer
                 return args.info;
             }
             return true;
+        }
+
+        public void ApplyContextMenuStrip(ContextMenuStrip menuStrip)
+        {
+            hexBox.ContextMenuStrip = menuStrip;
         }
 
         #endregion

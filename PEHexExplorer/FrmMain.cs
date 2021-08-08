@@ -21,6 +21,7 @@ namespace PEHexExplorer
         private readonly Color EnabledColor = Color.Green;
         private readonly Color DisabledColor = Color.Red;
         private const string DefaultPoint = "(0,0)";
+        private const string DefaultFilename = "<未知>";
         private const string ODefaultSel = "0 - 0x0";
         private const string DefaultSel = "*";
         private readonly ConstInfo constInfo;
@@ -56,7 +57,9 @@ namespace PEHexExplorer
             MUserProfile mUser = UserSetting.UserProfile;
             Font = mUser.ProgramFont;
 
-            pageManager = new EditorPageManager(tabEditArea);
+            pageManager = new EditorPageManager(tabEditArea,hexMenuStrip);
+            pageManager.EditorPageChanged += PageManager_EditorPageChanged;
+            pageManager.EditorPageMessagePipe += PageManager_EditorPageMessagePipe;
 
             //end：载入用户设置
 
@@ -66,13 +69,61 @@ namespace PEHexExplorer
 
                 if (filename.Length > 0 && File.Exists(filename))
                 {
-                    pageManager.NewPage(filename);
+                    pageManager.OpenOrCreateFilePage(filename);
                 }
             }
 
             constInfo = new ConstInfo();
             pgConst.SelectedObject = constInfo;
 
+        }
+
+        private void PageManager_EditorPageMessagePipe(object sender, EditPage.EditorPageMessageArgs e)
+        {
+            switch (e.EditorMessageType)
+            {
+                case EditPage.EditorMessageType.All:
+
+                    break;
+                case EditPage.EditorMessageType.Scaling:
+
+                    break;
+                case EditPage.EditorMessageType.CurrentLine:
+
+                    break;
+                case EditPage.EditorMessageType.CurrentPositionInLine:
+
+                    break;
+                case EditPage.EditorMessageType.InsertActive:
+
+                    break;
+                case EditPage.EditorMessageType.SavedStatus:
+
+                    break;
+                case EditPage.EditorMessageType.LockedBuffer:
+
+                    break;
+                case EditPage.EditorMessageType.SelectionLength:
+
+                    break;
+                case EditPage.EditorMessageType.SelectionStart:
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void PageManager_EditorPageChanged(object sender, EditorPageManager.EditorPageEventArgs e)
+        {
+            if (e.EditorPageData.EditEnabled)
+            {
+                EnableEdit();
+            }
+            else
+            {
+                DisableEdit();
+            }
         }
 
         #region 窗体事件
@@ -160,12 +211,7 @@ namespace PEHexExplorer
         //    EditFileExt = Path.GetExtension(filename).TrimStart('.');
         //}
 
-        private void MINew_Click(object sender, EventArgs e)
-        {
-            pageManager.NewPage();
-
-            EnableEdit();
-        }
+        private void MINew_Click(object sender, EventArgs e) => pageManager.OpenOrCreateFilePage();
 
         private void MIOpen_Click(object sender, EventArgs e)
         {
@@ -174,14 +220,11 @@ namespace PEHexExplorer
                 string filename = oD.FileName;
                 bool writeable = !oD.ReadOnlyChecked;
                 oD.FileName = string.Empty;
-                pageManager.CurrentPage.OpenFile(filename, writeable);
+                pageManager.OpenOrCreateFilePage(filename, writeable);
             }
         }
 
-        private void MISave_Click(object sender, EventArgs e)
-        {
-            pageManager.CurrentPage.SaveFile();
-        }
+        private void MISave_Click(object sender, EventArgs e) => pageManager.CurrentPage.SaveFile();
 
         private void MIExport_Click(object sender, EventArgs e)
         {
@@ -203,19 +246,9 @@ namespace PEHexExplorer
             }
         }
 
-        private void MIOpenProcess_Click(object sender, EventArgs e) => pageManager.CurrentPage.OpenProcess();
+        private void MIOpenProcess_Click(object sender, EventArgs e) => pageManager.OpenProcessPage();
 
-        private void MIClose_Click(object sender, EventArgs e)
-        {
-            pageManager.CurrentPage.CloseFile();
-
-            //bool? res = CloseFile();
-            //if (res.HasValue)
-            //{
-            //    pageManager.CurrentHexBox.Close();
-            //    DisableEdit();
-            //}
-        }
+        private void MIClose_Click(object sender, EventArgs e) => pageManager.CloseCurrentPage();
 
         #endregion
 
@@ -241,8 +274,7 @@ namespace PEHexExplorer
             {
                 if (frmInsert.ShowDialog() == DialogResult.OK)
                 {
-                    pageManager.CurrentHexBox.ByteProvider.InsertBytes(pageManager.CurrentHexBox.SelectionStart, frmInsert.Result.buffer);
-                    pageManager.CurrentHexBox.Invalidate();
+                    pageManager.CurrentHexBox.InsertBytes(pageManager.CurrentHexBox.SelectionStart, frmInsert.Result.buffer);
                 }
             }
         }
@@ -253,8 +285,7 @@ namespace PEHexExplorer
             {
                 if (frmInsert.ShowDialog() == DialogResult.OK)
                 {
-                    pageManager.CurrentHexBox.ByteProvider.InsertBytes(pageManager.CurrentHexBox.SelectionStart, frmInsert.Result.buffer);
-                    pageManager.CurrentHexBox.Invalidate();
+                    pageManager.CurrentHexBox.InsertBytes(pageManager.CurrentHexBox.SelectionStart, frmInsert.Result.buffer);
                 }
             }
         }
@@ -297,9 +328,11 @@ namespace PEHexExplorer
             {
                 if (frmFill.ShowDialog() == DialogResult.OK)
                 {
-                    pageManager.CurrentHexBox.Delete();
-                    pageManager.CurrentHexBox.ByteProvider.InsertBytes(pageManager.CurrentHexBox.SelectionStart, frmFill.Result.buffer);
-                    pageManager.CurrentHexBox.Invalidate();
+                    HexBox hexBox = pageManager.CurrentHexBox;
+                    byte[] buffer = frmFill.Result.buffer;
+
+                    pageManager.CurrentHexBox.WriteBytes(hexBox.SelectionStart, buffer, hexBox.SelectionLength);
+
                 }
             }
         }
@@ -417,7 +450,15 @@ namespace PEHexExplorer
             lblLocked.Enabled = false;
             LblWritable.Enabled = false;
 
-            LblFilename.Text = pageManager.CurrentPage.Filename;
+            if (pageManager.CurrentPage!=null)
+            {
+                LblFilename.Text = pageManager.CurrentPage.Filename;
+            }
+            else
+            {
+                LblFilename.Text = DefaultFilename;
+            }
+
             LblLocation.Text = DefaultPoint;
             LblLen.Text = DefaultSel;
 

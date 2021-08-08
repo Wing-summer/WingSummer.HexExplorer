@@ -131,7 +131,7 @@ namespace Be.Windows.Forms
         /// <param name="error">输出错误记录</param>
         public bool OpenFile(out IOError error, string fileName = null, bool writeable = true, bool force = false)
         {
-            if (IsOpenedBuffer)
+            if (_isOpenedBuffer)
             {
                 if (force)
                 {
@@ -152,10 +152,10 @@ namespace Be.Windows.Forms
                     dynamicFileByteProvider = new DynamicFileByteProvider(new MemoryStream());
                     ByteProvider = dynamicFileByteProvider;
                     Filename = string.Empty;
-                    IsOpenedFile = true;
+                    _isOpenedFile = true;
                     error = IOError.Success;
-                    InsertActive = true;
-                    IsLockedBuffer = false;
+                    _insertActive = true;
+                    _isLockedBuffer = false;
                     return true;
                 }
                 catch (Exception)
@@ -189,10 +189,11 @@ namespace Be.Windows.Forms
                 error = IOError.Exception;
                 return false;
             }
-            IsOpenedFile = true;
+            _isOpenedFile = true;
             error = IOError.Success;
-            IsLockedBuffer = true;
-            InsertActive = false;
+            _isLockedBuffer = true;
+            _insertActive = false;
+            _isOpenImage = false;
             return true;
         }
 
@@ -205,7 +206,7 @@ namespace Be.Windows.Forms
         /// <returns>成功为True，反之为False</returns>
         public bool SaveFile(out IOError error , string filename = null, bool isExport = true)
         {
-            if (IsOpenedBuffer)
+            if (_isOpenedBuffer)
             {
                 error = IOError.HasOpenedBuffer;
                 return false;
@@ -274,8 +275,8 @@ namespace Be.Windows.Forms
             {
                 return false;
             }
-            IsOpenedFile = false;
-            IsOpenedBuffer = false;
+            _isOpenedFile = false;
+            _isOpenedBuffer = false;
             return true;
         }
 
@@ -283,9 +284,9 @@ namespace Be.Windows.Forms
         /// 创建一个可供编写的缓冲区，建议不要用于编写文件
         /// </summary>
         /// <returns></returns>
-        public bool CreateBuffer(bool force = false)
+        public bool CreateBuffer(bool force = false, long limit = 0)
         {
-            if (!force && IsOpenedFile)
+            if (!force && _isOpenedFile)
             {
                 return false;
             }
@@ -294,12 +295,17 @@ namespace Be.Windows.Forms
             {
                 Close();
                 dynamicByteProvider = new DynamicByteProvider(new byte[0]);
+                if (limit>0)
+                {
+                    dynamicByteProvider.Limit = limit;
+                }
                 ByteProvider = dynamicByteProvider;
                 Filename = string.Empty;
-                IsOpenedFile = false;
-                IsOpenedBuffer = true;
-                InsertActive = true;
-                IsLockedBuffer = false;
+                _isOpenedFile = false;
+                _isOpenedBuffer = true;
+                _insertActive = true;
+                _isLockedBuffer = false;
+                _isOpenImage = false;
                 return true;
             }
             catch 
@@ -322,8 +328,9 @@ namespace Be.Windows.Forms
                 processByteProvider = new ProcessByteProvider(process, writeable);
                 ByteProvider = processByteProvider;
                 Filename = process.MainModule.FileName;
-                IsLockedBuffer = true;
-                InsertActive = false;
+                _isLockedBuffer = true;
+                _insertActive = false;
+                _isOpenImage = true;
             }
             catch 
             {
