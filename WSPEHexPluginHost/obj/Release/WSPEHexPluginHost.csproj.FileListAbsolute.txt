@@ -1,6 +1,0 @@
-E:\VsProject\Open Source\PEHexExplorer\WSPEHexPluginHost\bin\Release\WSPEHexPluginHost.dll
-E:\VsProject\Open Source\PEHexExplorer\WSPEHexPluginHost\bin\Release\WSPEHexPluginHost.pdb
-E:\VsProject\Open Source\PEHexExplorer\WSPEHexPluginHost\obj\Release\WSPEHexPluginHost.csproj.AssemblyReference.cache
-E:\VsProject\Open Source\PEHexExplorer\WSPEHexPluginHost\obj\Release\WSPEHexPluginHost.csproj.CoreCompileInputs.cache
-E:\VsProject\Open Source\PEHexExplorer\WSPEHexPluginHost\obj\Release\WSPEHexPluginHost.dll
-E:\VsProject\Open Source\PEHexExplorer\WSPEHexPluginHost\obj\Release\WSPEHexPluginHost.pdb
