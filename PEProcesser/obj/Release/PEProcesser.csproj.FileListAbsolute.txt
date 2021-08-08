@@ -1,6 +1,0 @@
-E:\VsProject\Open Source\PEHexExplorer\PEProcesser\obj\Release\PEProcesser.csproj.AssemblyReference.cache
-E:\VsProject\Open Source\PEHexExplorer\PEProcesser\obj\Release\PEProcesser.csproj.CoreCompileInputs.cache
-E:\VsProject\Open Source\PEHexExplorer\PEProcesser\bin\Release\PEProcesser.dll
-E:\VsProject\Open Source\PEHexExplorer\PEProcesser\bin\Release\PEProcesser.pdb
-E:\VsProject\Open Source\PEHexExplorer\PEProcesser\obj\Release\PEProcesser.dll
-E:\VsProject\Open Source\PEHexExplorer\PEProcesser\obj\Release\PEProcesser.pdb
