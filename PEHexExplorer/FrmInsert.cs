@@ -1,17 +1,10 @@
 ﻿using Be.Windows.Forms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PEHexExplorer
 {
-    public partial class FrmInsert : Form
+    public partial class FrmInsert : ToolWindowBase
     {
         private static FrmInsert frmInsert;
         public static FrmInsert Instance

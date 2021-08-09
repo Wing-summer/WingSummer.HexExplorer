@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace PEHexExplorer
 {
-    public partial class FrmFind : Form
+    public partial class FrmFind : ToolWindowBase
     {
         public FrmFind()
         {

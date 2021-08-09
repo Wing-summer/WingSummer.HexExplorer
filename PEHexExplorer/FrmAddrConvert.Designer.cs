@@ -65,6 +65,24 @@ namespace PEHexExplorer
             label1.TabIndex = 12;
             label1.Text = "FOA：";
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(24, 25);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(38, 15);
+            label3.TabIndex = 12;
+            label3.Text = "VA：";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(24, 140);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(54, 15);
+            label4.TabIndex = 13;
+            label4.Text = "Base：";
+            // 
             // ntRVA
             // 
             this.ntRVA.Hexadecimal = true;
@@ -87,15 +105,6 @@ namespace PEHexExplorer
             this.ntFOA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ntFOA.ValueChanged += new System.EventHandler(this.NtOffset_ValueChanged);
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(24, 25);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(38, 15);
-            label3.TabIndex = 12;
-            label3.Text = "VA：";
-            // 
             // ntVA
             // 
             this.ntVA.Hexadecimal = true;
@@ -106,15 +115,6 @@ namespace PEHexExplorer
             this.ntVA.TabIndex = 7;
             this.ntVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ntVA.ValueChanged += new System.EventHandler(this.NtOffset_ValueChanged);
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(24, 140);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(54, 15);
-            label4.TabIndex = 13;
-            label4.Text = "Base：";
             // 
             // ntBase
             // 
@@ -140,12 +140,8 @@ namespace PEHexExplorer
             this.Controls.Add(label3);
             this.Controls.Add(this.ntFOA);
             this.Controls.Add(label1);
-            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmAddrConvert";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "文件地址和虚拟地址转换器";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmAddrConvert_FormClosed);
             this.VisibleChanged += new System.EventHandler(this.FrmAddrConvert_VisibleChanged);

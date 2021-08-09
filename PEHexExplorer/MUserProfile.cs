@@ -103,11 +103,8 @@ namespace PEHexExplorer
 
         #endregion
 
-        public MUserProfile(bool IsInit = true)
+        public MUserProfile()
         {
-            if (IsInit)
-            {
-
             ProgramFont = SystemFonts.DefaultFont;
             StringViewEncoding = 0;
             ScalingPercent = 100;
@@ -146,7 +143,6 @@ namespace PEHexExplorer
 
             EnablePE = true;
 
-            }
         }
 
         #region 常规
@@ -173,7 +169,8 @@ namespace PEHexExplorer
         }
         public int StringViewEncoding
         {
-            get => stringViewEncoding; set
+            get => stringViewEncoding; 
+            set
             {
                 stringViewEncoding = value;
                 NotifyPropertyChanged();
@@ -181,7 +178,8 @@ namespace PEHexExplorer
         }
         public uint ScalingPercent
         {
-            get => scalingPercent; set
+            get => scalingPercent;
+            set
             {
                 scalingPercent = value;
                 NotifyPropertyChanged();
@@ -189,7 +187,8 @@ namespace PEHexExplorer
         }
         public bool EnableStringView
         {
-            get => enableStringView; set
+            get => enableStringView;
+            set
             {
                 enableStringView = value;
                 NotifyPropertyChanged();
@@ -197,7 +196,8 @@ namespace PEHexExplorer
         }
         public bool EnableLineInfo
         {
-            get => enableLineInfo; set
+            get => enableLineInfo; 
+            set
             {
                 enableLineInfo = value;
                 NotifyPropertyChanged();
@@ -205,7 +205,8 @@ namespace PEHexExplorer
         }
         public bool EnableColInfo
         {
-            get => enableColInfo; set
+            get => enableColInfo; 
+            set
             {
                 enableColInfo = value;
                 NotifyPropertyChanged();
@@ -213,7 +214,8 @@ namespace PEHexExplorer
         }
         public bool EnableGroupLine
         {
-            get => enableGroupLine; set
+            get => enableGroupLine; 
+            set
             {
                 enableGroupLine = value;
                 NotifyPropertyChanged();
@@ -221,7 +223,8 @@ namespace PEHexExplorer
         }
         public bool EnableHexStringLine
         {
-            get => enableHexStringLine; set
+            get => enableHexStringLine; 
+            set
             {
                 enableHexStringLine = value;
                 NotifyPropertyChanged();
@@ -229,7 +232,8 @@ namespace PEHexExplorer
         }
         public Color SelBackColor
         {
-            get => selBackColor; set
+            get => selBackColor; 
+            set
             {
                 selBackColor = value;
                 NotifyPropertyChanged();
@@ -237,7 +241,8 @@ namespace PEHexExplorer
         }
         public Color SelTextColor
         {
-            get => selTextColor; set
+            get => selTextColor; 
+            set
             {
                 selTextColor = value;
                 NotifyPropertyChanged();
@@ -245,7 +250,8 @@ namespace PEHexExplorer
         }
         public Color LineInfoBackColor
         {
-            get => lineInfoBackColor; set
+            get => lineInfoBackColor; 
+            set
             {
                 lineInfoBackColor = value;
                 NotifyPropertyChanged();
@@ -253,7 +259,8 @@ namespace PEHexExplorer
         }
         public Color ColInfoBackColor
         {
-            get => colInfoBackColor; set
+            get => colInfoBackColor; 
+            set
             {
                 colInfoBackColor = value;
                 NotifyPropertyChanged();
@@ -261,7 +268,8 @@ namespace PEHexExplorer
         }
         public Color ShadowSelColor
         {
-            get => shadowSelColor; set
+            get => shadowSelColor; 
+            set
             {
                 shadowSelColor = value;
                 NotifyPropertyChanged();
@@ -269,7 +277,8 @@ namespace PEHexExplorer
         }
         public PenF GroupLinePen
         {
-            get => groupLinePen; set
+            get => groupLinePen; 
+            set
             {
                 groupLinePen = value;
                 NotifyPropertyChanged();
@@ -277,7 +286,8 @@ namespace PEHexExplorer
         }
         public PenF HexStringLinePen
         {
-            get => hexStringLinePen; set
+            get => hexStringLinePen; 
+            set
             {
                 hexStringLinePen = value;
                 NotifyPropertyChanged();

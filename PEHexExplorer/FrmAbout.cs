@@ -2,7 +2,7 @@
 
 namespace PEHexExplorer
 {
-    public partial class FrmAbout : Form
+    public partial class FrmAbout : ToolWindowBase
     {
         private static FrmAbout frmAbout = null;
 

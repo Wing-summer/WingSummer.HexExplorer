@@ -179,11 +179,8 @@ namespace PEHexExplorer
             this.ClientSize = new System.Drawing.Size(682, 453);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(toolStrip1);
-            this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.KeyPreview = true;
             this.Name = "FrmProcess";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "请选择进程";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmProcess_FormClosed);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmProcess_KeyDown);

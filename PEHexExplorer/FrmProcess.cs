@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace PEHexExplorer
 {
-    public partial class FrmProcess : Form
+    public partial class FrmProcess : ToolWindowBase
     {
         private Process[] processes;
         private static FrmProcess frmProcess;

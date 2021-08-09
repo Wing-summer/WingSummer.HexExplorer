@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System;
+using System.Collections.Generic;
 
 namespace PEHexExplorer
 {
@@ -134,7 +135,7 @@ namespace PEHexExplorer
                     //Don't do anything if we are hovering over ourself.
                     if (item_drag_index != drop_location_index)
                     {
-                        ArrayList pages = new ArrayList();
+                        List<TabPage> pages = new List<TabPage>();
 
                         //Put all tab pages into an array.
                         for (int i = 0; i < TabPages.Count; i++)
@@ -151,7 +152,7 @@ namespace PEHexExplorer
                         TabPages.Clear();
 
                         //Add them all back in.
-                        TabPages.AddRange((EditPage[])pages.ToArray(typeof(EditPage)));
+                        TabPages.AddRange(pages.ToArray());
 
                         //Make sure the drag tab is selected.
                         SelectedTab = drag_tab;
@@ -179,13 +180,6 @@ namespace PEHexExplorer
             DragDropPage = null;
         }
 
-        protected override void OnMouseClick(MouseEventArgs e)
-        {
-            base.OnMouseClick(e);
-            isMouseDown = false;
-            DragDropPage = null;
-        }
-
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
@@ -203,52 +197,50 @@ namespace PEHexExplorer
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
-
-            Point pt = new Point(e.X, e.Y);
-
-            EditPage tp = GetTabPageByTab(pt, out int index);
-
-            switch (e.Button)
+            EditPage tp = GetTabPageByTab(e.Location, out int index);
+            if (tp != null)
             {
-                case MouseButtons.Left:
-                    if (tp != null)
-                    {
-                        var tabPage = TabPages[index];
-                        var tabRect = GetTabRect(index);
-                        tabRect.Inflate(-2, -2);
 
-                        Rectangle closebtnRec = new Rectangle(tabRect.Right - CloseButtonSize - 2,
-                            tabRect.Top + (tabRect.Height - CloseButtonSize) / 2, CloseButtonSize, CloseButtonSize);
-                        if (closebtnRec.Contains(e.Location))
+                if (e.Button == MouseButtons.Left)
+                {
+                    var tabPage = TabPages[index];
+                    var tabRect = GetTabRect(index);
+                    tabRect.Inflate(-2, -2);
+
+                    Rectangle closebtnRec = new Rectangle(tabRect.Right - CloseButtonSize - 2,
+                        tabRect.Top + (tabRect.Height - CloseButtonSize) / 2, CloseButtonSize, CloseButtonSize);
+                    if (closebtnRec.Contains(e.Location))
+                    {
+                        ClosingPageArgs args = new ClosingPageArgs();
+                        OnClosingPage?.Invoke(tp, args);
+                        if (!args.Cancel)
                         {
-                            ClosingPageArgs args = new ClosingPageArgs();
-                            OnClosingPage?.Invoke(tp, args);
-                            if (!args.Cancel)
-                            {
-                                TabPages.RemoveAt(index);
-                                tabPage.Dispose();
-                                return;
-                            }
+                            TabPages.RemoveAt(index);
+                            tabPage.Dispose();
                         }
-                        DragDropPage = tp;
-                        isMouseDown = true;
+                        return;
                     }
-                    break;
-                case MouseButtons.None:
-                    break;
-                case MouseButtons.Right:
-                    break;
-                case MouseButtons.Middle:
-                    TabPages.RemoveAt(index);
-                    break;
-                case MouseButtons.XButton1:
-                    break;
-                case MouseButtons.XButton2:
-                    break;
-                default:
-                    break;
+                }
+
+                if (e.Button == MouseButtons.Middle)
+                {
+                    ClosingPageArgs args0 = new ClosingPageArgs();
+                    OnClosingPage?.Invoke(tp, args0);
+                    if (!args0.Cancel)
+                        TabPages.RemoveAt(index);
+                    return;
+                }
+
             }
-         
+
+            if (e.Button== MouseButtons.Left)
+            {
+                if (tp != null)
+                {
+                    DragDropPage = tp;
+                    isMouseDown = true;
+                }
+            }         
         }
 
         /// <summary>

@@ -41,7 +41,7 @@ namespace PEHexExplorer
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Be.Windows.Forms.PenF penF1 = new Be.Windows.Forms.PenF();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmFind));
             this.txtFind = new System.Windows.Forms.TextBox();
             this.rbString = new System.Windows.Forms.RadioButton();
             this.rbHex = new System.Windows.Forms.RadioButton();
@@ -129,6 +129,7 @@ namespace PEHexExplorer
             // 
             // hexFind
             // 
+            this.hexFind.BaseAddr = ((long)(0));
             this.hexFind.ColumnInfoBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.hexFind.ColumnInfoVisible = true;
             this.hexFind.Enabled = false;
@@ -142,15 +143,7 @@ namespace PEHexExplorer
             this.hexFind.GroupLinePen.StartCap = System.Drawing.Drawing2D.LineCap.Flat;
             this.hexFind.GroupLinePen.Width = 1F;
             this.hexFind.GroupSeparatorVisible = true;
-            penF1.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-            penF1.Color = System.Drawing.Color.Gray;
-            penF1.DashCap = System.Drawing.Drawing2D.DashCap.Flat;
-            penF1.DashOffset = 0F;
-            penF1.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            penF1.EndCap = System.Drawing.Drawing2D.LineCap.Flat;
-            penF1.StartCap = System.Drawing.Drawing2D.LineCap.Flat;
-            penF1.Width = 1F;
-            this.hexFind.HexStringLinePen = penF1;
+            this.hexFind.HexStringLinePen = ((Be.Windows.Forms.PenF)(resources.GetObject("hexFind.HexStringLinePen")));
             this.hexFind.HScrollBarVisible = true;
             this.hexFind.LineInfoBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.hexFind.Location = new System.Drawing.Point(20, 106);
@@ -202,16 +195,9 @@ namespace PEHexExplorer
             this.Controls.Add(this.rbString);
             this.Controls.Add(this.txtFind);
             this.Controls.Add(this.hexFind);
-            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FrmFind";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "查找";
             this.Activated += new System.EventHandler(this.FrmFind_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmFind_FormClosed);

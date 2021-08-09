@@ -2,6 +2,8 @@
 using WSPEHexPluginHost;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace PEHexExplorer
 {
@@ -10,7 +12,7 @@ namespace PEHexExplorer
 
         public List<IWSPEHexPluginVer> pluginVers;
 
-        public static MUserProfile UserProfile = new MUserProfile(false);
+        public static MUserProfile UserProfile;
 
         private readonly BinaryFormatter formatter;
 
@@ -31,13 +33,19 @@ namespace PEHexExplorer
                     {
                         if (content.Length > 0)
                         {
-                            object res = formatter.Deserialize(content);
-                            if (res == null || res.GetHashCode() == UserProfile.GetHashCode())
+                            MUserProfile res = (MUserProfile)formatter.Deserialize(content);
+                            if (res == null || res.ProgramFont == null || res.GroupLinePen == null || res.HexStringLinePen == null)
                             {
+                                var re = MessageBox.Show("配置信息出错，如果让程序重置继续，请点击 是 。如果保留现场直接退出程序，请选择 否。",
+                               Program.SoftwareName, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+
+                                if (re == DialogResult.No)
+                                    Process.GetCurrentProcess().Kill();     //直接把自己杀掉以保留现场
+
                                 UserProfile = new MUserProfile();
                                 return false;
                             }
-                            UserProfile = res as MUserProfile;
+                            UserProfile = res;
                         }
                     }
                     catch

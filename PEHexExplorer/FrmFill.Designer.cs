@@ -29,7 +29,7 @@ namespace PEHexExplorer
         /// </summary>
         private void InitializeComponent()
         {
-            Be.Windows.Forms.PenF penF1 = new Be.Windows.Forms.PenF();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmFill));
             this.hexBoxFill = new Be.Windows.Forms.HexBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnOk = new System.Windows.Forms.Button();
@@ -38,6 +38,7 @@ namespace PEHexExplorer
             // 
             // hexBoxFill
             // 
+            this.hexBoxFill.BaseAddr = ((long)(0));
             this.hexBoxFill.ColumnInfoBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.hexBoxFill.ColumnInfoVisible = true;
             this.hexBoxFill.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
@@ -50,15 +51,7 @@ namespace PEHexExplorer
             this.hexBoxFill.GroupLinePen.StartCap = System.Drawing.Drawing2D.LineCap.Flat;
             this.hexBoxFill.GroupLinePen.Width = 1F;
             this.hexBoxFill.GroupSeparatorVisible = true;
-            penF1.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-            penF1.Color = System.Drawing.Color.Gray;
-            penF1.DashCap = System.Drawing.Drawing2D.DashCap.Flat;
-            penF1.DashOffset = 0F;
-            penF1.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            penF1.EndCap = System.Drawing.Drawing2D.LineCap.Flat;
-            penF1.StartCap = System.Drawing.Drawing2D.LineCap.Flat;
-            penF1.Width = 1F;
-            this.hexBoxFill.HexStringLinePen = penF1;
+            this.hexBoxFill.HexStringLinePen = ((Be.Windows.Forms.PenF)(resources.GetObject("hexBoxFill.HexStringLinePen")));
             this.hexBoxFill.HScrollBarVisible = true;
             this.hexBoxFill.LineInfoBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.hexBoxFill.Location = new System.Drawing.Point(23, 41);
@@ -115,9 +108,7 @@ namespace PEHexExplorer
             this.Controls.Add(this.label1);
             this.Controls.Add(this.hexBoxFill);
             this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "FrmFill";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "填充数据";
             this.VisibleChanged += new System.EventHandler(this.FrmFill_VisibleChanged);
             this.ResumeLayout(false);

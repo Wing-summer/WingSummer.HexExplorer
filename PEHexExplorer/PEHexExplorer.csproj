@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindingEnum.cs" />
     <Compile Include="BookMarkPE.cs" />
     <Compile Include="BookMarkProperty.cs" />
     <Compile Include="ConstInfo.cs" />
@@ -75,11 +76,20 @@
     <Compile Include="EditPage.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="BaseClass\FormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FrmAbout.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmAbout.Designer.cs">
       <DependentUpon>FrmAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAddrBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddrBase.Designer.cs">
+      <DependentUpon>FrmAddrBase.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmAddrConvert.cs">
       <SubType>Form</SubType>
@@ -123,6 +133,12 @@
     <Compile Include="FrmNewInsert.Designer.cs">
       <DependentUpon>FrmNewInsert.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmPenFEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPenFEdit.Designer.cs">
+      <DependentUpon>FrmPenFEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmProcess.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,11 +157,17 @@
     <Compile Include="TabControlEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="BaseClass\ToolWindowBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UserSetting.cs" />
     <Compile Include="WSPlugin.cs" />
     <EmbeddedResource Include="FrmAbout.resx">
       <DependentUpon>FrmAbout.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAddrBase.resx">
+      <DependentUpon>FrmAddrBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmAddrConvert.resx">
       <DependentUpon>FrmAddrConvert.cs</DependentUpon>
@@ -168,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmNewInsert.resx">
       <DependentUpon>FrmNewInsert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPenFEdit.resx">
+      <DependentUpon>FrmPenFEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmProcess.resx">
       <DependentUpon>FrmProcess.cs</DependentUpon>
@@ -322,6 +347,15 @@
     <Content Include="icon.ico" />
     <Content Include="Resources\AddrConv.png" />
     <Content Include="Resources\close.png" />
+    <None Include="Resources\mHexStr.png" />
+    <None Include="Resources\mHexGroup.png" />
+    <None Include="Resources\mColInfo.png" />
+    <None Include="Resources\mColBack.png" />
+    <None Include="Resources\mAddr.png" />
+    <None Include="Resources\mStr.png" />
+    <None Include="Resources\mPEInfo.png" />
+    <None Include="Resources\mLineInfo.png" />
+    <None Include="Resources\mLineBack.png" />
     <None Include="Resources\icon.png" />
     <Content Include="Resources\info.png" />
   </ItemGroup>

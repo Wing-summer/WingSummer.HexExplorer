@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace PEHexExplorer
 {
-    public partial class FrmMain : Form
+    public partial class FrmMain : FormBase
     {
         readonly EditorPageManager pageManager;
 
@@ -28,9 +28,14 @@ namespace PEHexExplorer
 
         private readonly List<HexBox.HighlightedRegion> BookMarkregions;
 
+
+
         public FrmMain(string filename = null)
         {
             InitializeComponent();
+
+            tscbEncoding.SelectedIndex = 0;
+            tvPEStruct.ExpandAll();
 
             /*修复首次在HexBox右击打开菜单的位置等同于在主菜单点击编辑的Bug*/
             MenuItemEdit.ShowDropDown();
@@ -395,6 +400,7 @@ namespace PEHexExplorer
         private void DisableEdit()
         {
             hexMenuStrip.Enabled = false;
+            toolStripHexEdit.Enabled = false;
 
             MISave.Enabled = false;
             MISaveAs.Enabled = false;
@@ -436,6 +442,7 @@ namespace PEHexExplorer
 
         private void EnableEdit()
         {
+            toolStripHexEdit.Enabled = true;
             hexMenuStrip.Enabled = true;
             foreach (var item in hexMenuStrip.Items)
             {

@@ -5,7 +5,7 @@ using PEProcesser;
 
 namespace PEHexExplorer
 {
-    public partial class FrmAddrConvert : Form
+    public partial class FrmAddrConvert : ToolWindowBase
     {
 
         public static FrmAddrConvert frmAddrConvert=null;

@@ -122,11 +122,7 @@ namespace PEHexExplorer
             this.Controls.Add(label2);
             this.Controls.Add(this.ntOffset);
             this.Controls.Add(label1);
-            this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmNewInsert";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "新建数据块";
             ((System.ComponentModel.ISupportInitialize)(this.ntOffset)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ntValue)).EndInit();

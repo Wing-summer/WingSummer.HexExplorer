@@ -184,6 +184,33 @@
   <data name="jmp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\jmp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="mAddr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mAddr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mColBack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mColBack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mColInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mColInfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mHexGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mHexGroup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mHexStr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mHexStr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mLineBack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mLineBack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mLineInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mLineInfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mPEInfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mPEInfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mStr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mStr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="newinsert" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\newinsert.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

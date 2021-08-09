@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace PEHexExplorer
 {
-    public partial class FrmNewInsert : Form
+    public partial class FrmNewInsert : ToolWindowBase
     {
         private static FrmNewInsert newInsert;
 

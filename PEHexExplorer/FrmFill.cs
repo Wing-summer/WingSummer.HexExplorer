@@ -5,7 +5,7 @@ using Be.Windows.Forms;
 
 namespace PEHexExplorer
 {
-    public partial class FrmFill : Form
+    public partial class FrmFill : ToolWindowBase
     {
         private static FrmFill frmFill=null;
 

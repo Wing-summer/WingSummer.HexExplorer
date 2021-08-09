@@ -45,12 +45,12 @@ namespace PEHexExplorer
             this.btnStringLine = new System.Windows.Forms.Button();
             this.btnGroupLine = new System.Windows.Forms.Button();
             this.btnColInfo = new System.Windows.Forms.Button();
-            this.btnFileAddr = new System.Windows.Forms.Button();
+            this.btnLineInfo = new System.Windows.Forms.Button();
             this.cbStringLine = new System.Windows.Forms.CheckBox();
             this.cbGroupLine = new System.Windows.Forms.CheckBox();
             this.cbColInfo = new System.Windows.Forms.CheckBox();
             this.cbEnableString = new System.Windows.Forms.CheckBox();
-            this.cbFileAddr = new System.Windows.Forms.CheckBox();
+            this.cbLineInfo = new System.Windows.Forms.CheckBox();
             this.btnSelTextColor = new System.Windows.Forms.Button();
             this.btnSelBackColor = new System.Windows.Forms.Button();
             this.ntScaling = new System.Windows.Forms.NumericUpDown();
@@ -168,12 +168,12 @@ namespace PEHexExplorer
             groupBox1.Controls.Add(this.btnStringLine);
             groupBox1.Controls.Add(this.btnGroupLine);
             groupBox1.Controls.Add(this.btnColInfo);
-            groupBox1.Controls.Add(this.btnFileAddr);
+            groupBox1.Controls.Add(this.btnLineInfo);
             groupBox1.Controls.Add(this.cbStringLine);
             groupBox1.Controls.Add(this.cbGroupLine);
             groupBox1.Controls.Add(this.cbColInfo);
             groupBox1.Controls.Add(this.cbEnableString);
-            groupBox1.Controls.Add(this.cbFileAddr);
+            groupBox1.Controls.Add(this.cbLineInfo);
             groupBox1.Controls.Add(this.btnSelTextColor);
             groupBox1.Controls.Add(this.btnSelBackColor);
             groupBox1.Controls.Add(label4);
@@ -198,6 +198,7 @@ namespace PEHexExplorer
             this.btnStringLine.Text = "🖊";
             this.toolTip.SetToolTip(this.btnStringLine, "更改颜色");
             this.btnStringLine.UseVisualStyleBackColor = true;
+            this.btnStringLine.Click += new System.EventHandler(this.BtnPenFEdit_Click);
             // 
             // btnGroupLine
             // 
@@ -209,9 +210,13 @@ namespace PEHexExplorer
             this.btnGroupLine.Text = "🖊";
             this.toolTip.SetToolTip(this.btnGroupLine, "更改颜色");
             this.btnGroupLine.UseVisualStyleBackColor = true;
+            this.btnGroupLine.Click += new System.EventHandler(this.BtnPenFEdit_Click);
             // 
             // btnColInfo
             // 
+            this.btnColInfo.BackColor = System.Drawing.Color.Black;
+            this.btnColInfo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnColInfo.ForeColor = System.Drawing.Color.White;
             this.btnColInfo.Location = new System.Drawing.Point(319, 63);
             this.btnColInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnColInfo.Name = "btnColInfo";
@@ -219,20 +224,23 @@ namespace PEHexExplorer
             this.btnColInfo.TabIndex = 0;
             this.btnColInfo.Text = "☻";
             this.toolTip.SetToolTip(this.btnColInfo, "更改颜色");
-            this.btnColInfo.UseVisualStyleBackColor = true;
+            this.btnColInfo.UseVisualStyleBackColor = false;
             this.btnColInfo.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
-            // btnFileAddr
+            // btnLineInfo
             // 
-            this.btnFileAddr.Location = new System.Drawing.Point(319, 34);
-            this.btnFileAddr.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnFileAddr.Name = "btnFileAddr";
-            this.btnFileAddr.Size = new System.Drawing.Size(43, 25);
-            this.btnFileAddr.TabIndex = 0;
-            this.btnFileAddr.Text = "☻";
-            this.toolTip.SetToolTip(this.btnFileAddr, "更改颜色");
-            this.btnFileAddr.UseVisualStyleBackColor = true;
-            this.btnFileAddr.Click += new System.EventHandler(this.BtnSelectColor_Click);
+            this.btnLineInfo.BackColor = System.Drawing.Color.Black;
+            this.btnLineInfo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnLineInfo.ForeColor = System.Drawing.Color.White;
+            this.btnLineInfo.Location = new System.Drawing.Point(319, 34);
+            this.btnLineInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnLineInfo.Name = "btnLineInfo";
+            this.btnLineInfo.Size = new System.Drawing.Size(43, 25);
+            this.btnLineInfo.TabIndex = 0;
+            this.btnLineInfo.Text = "☻";
+            this.toolTip.SetToolTip(this.btnLineInfo, "更改颜色");
+            this.btnLineInfo.UseVisualStyleBackColor = false;
+            this.btnLineInfo.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // cbStringLine
             // 
@@ -286,22 +294,23 @@ namespace PEHexExplorer
             this.cbEnableString.Text = "字符表";
             this.cbEnableString.UseVisualStyleBackColor = true;
             // 
-            // cbFileAddr
+            // cbLineInfo
             // 
-            this.cbFileAddr.AutoSize = true;
-            this.cbFileAddr.Checked = true;
-            this.cbFileAddr.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbFileAddr.Location = new System.Drawing.Point(233, 38);
-            this.cbFileAddr.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cbFileAddr.Name = "cbFileAddr";
-            this.cbFileAddr.Size = new System.Drawing.Size(89, 19);
-            this.cbFileAddr.TabIndex = 5;
-            this.cbFileAddr.Text = "文件地址";
-            this.cbFileAddr.UseVisualStyleBackColor = true;
+            this.cbLineInfo.AutoSize = true;
+            this.cbLineInfo.Checked = true;
+            this.cbLineInfo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbLineInfo.Location = new System.Drawing.Point(233, 38);
+            this.cbLineInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbLineInfo.Name = "cbLineInfo";
+            this.cbLineInfo.Size = new System.Drawing.Size(89, 19);
+            this.cbLineInfo.TabIndex = 5;
+            this.cbLineInfo.Text = "行号信息";
+            this.cbLineInfo.UseVisualStyleBackColor = true;
             // 
             // btnSelTextColor
             // 
             this.btnSelTextColor.BackColor = System.Drawing.Color.Black;
+            this.btnSelTextColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSelTextColor.ForeColor = System.Drawing.Color.White;
             this.btnSelTextColor.Location = new System.Drawing.Point(26, 121);
             this.btnSelTextColor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -315,6 +324,7 @@ namespace PEHexExplorer
             // btnSelBackColor
             // 
             this.btnSelBackColor.BackColor = System.Drawing.Color.Black;
+            this.btnSelBackColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSelBackColor.ForeColor = System.Drawing.Color.White;
             this.btnSelBackColor.Location = new System.Drawing.Point(26, 88);
             this.btnSelBackColor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -394,6 +404,7 @@ namespace PEHexExplorer
             // btnOther
             // 
             this.btnOther.BackColor = System.Drawing.Color.Black;
+            this.btnOther.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnOther.ForeColor = System.Drawing.Color.White;
             this.btnOther.Location = new System.Drawing.Point(318, 112);
             this.btnOther.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -407,6 +418,7 @@ namespace PEHexExplorer
             // btnIMAGE_BASE_RELOCATION
             // 
             this.btnIMAGE_BASE_RELOCATION.BackColor = System.Drawing.Color.Black;
+            this.btnIMAGE_BASE_RELOCATION.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnIMAGE_BASE_RELOCATION.ForeColor = System.Drawing.Color.White;
             this.btnIMAGE_BASE_RELOCATION.Location = new System.Drawing.Point(318, 69);
             this.btnIMAGE_BASE_RELOCATION.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -420,6 +432,7 @@ namespace PEHexExplorer
             // btnIMAGE_IMPORT_DESCRIPTOR
             // 
             this.btnIMAGE_IMPORT_DESCRIPTOR.BackColor = System.Drawing.Color.Black;
+            this.btnIMAGE_IMPORT_DESCRIPTOR.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnIMAGE_IMPORT_DESCRIPTOR.ForeColor = System.Drawing.Color.White;
             this.btnIMAGE_IMPORT_DESCRIPTOR.Location = new System.Drawing.Point(318, 26);
             this.btnIMAGE_IMPORT_DESCRIPTOR.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -433,6 +446,7 @@ namespace PEHexExplorer
             // btnIMAGE_EXPORT_DIRECTORY
             // 
             this.btnIMAGE_EXPORT_DIRECTORY.BackColor = System.Drawing.Color.Black;
+            this.btnIMAGE_EXPORT_DIRECTORY.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnIMAGE_EXPORT_DIRECTORY.ForeColor = System.Drawing.Color.White;
             this.btnIMAGE_EXPORT_DIRECTORY.Location = new System.Drawing.Point(74, 286);
             this.btnIMAGE_EXPORT_DIRECTORY.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -446,6 +460,7 @@ namespace PEHexExplorer
             // btnIMAGE_SECTION_HEADER
             // 
             this.btnIMAGE_SECTION_HEADER.BackColor = System.Drawing.Color.Black;
+            this.btnIMAGE_SECTION_HEADER.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnIMAGE_SECTION_HEADER.ForeColor = System.Drawing.Color.White;
             this.btnIMAGE_SECTION_HEADER.Location = new System.Drawing.Point(74, 243);
             this.btnIMAGE_SECTION_HEADER.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -459,6 +474,7 @@ namespace PEHexExplorer
             // btnIMAGE_DATA_DIRECTORY
             // 
             this.btnIMAGE_DATA_DIRECTORY.BackColor = System.Drawing.Color.Black;
+            this.btnIMAGE_DATA_DIRECTORY.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnIMAGE_DATA_DIRECTORY.ForeColor = System.Drawing.Color.White;
             this.btnIMAGE_DATA_DIRECTORY.Location = new System.Drawing.Point(74, 200);
             this.btnIMAGE_DATA_DIRECTORY.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -472,6 +488,7 @@ namespace PEHexExplorer
             // btnIMAGE_OPTIONAL_HEADER
             // 
             this.btnIMAGE_OPTIONAL_HEADER.BackColor = System.Drawing.Color.Black;
+            this.btnIMAGE_OPTIONAL_HEADER.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnIMAGE_OPTIONAL_HEADER.ForeColor = System.Drawing.Color.White;
             this.btnIMAGE_OPTIONAL_HEADER.Location = new System.Drawing.Point(74, 156);
             this.btnIMAGE_OPTIONAL_HEADER.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -485,6 +502,7 @@ namespace PEHexExplorer
             // btnIMAGE_FILE_HEADER
             // 
             this.btnIMAGE_FILE_HEADER.BackColor = System.Drawing.Color.Black;
+            this.btnIMAGE_FILE_HEADER.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnIMAGE_FILE_HEADER.ForeColor = System.Drawing.Color.White;
             this.btnIMAGE_FILE_HEADER.Location = new System.Drawing.Point(74, 112);
             this.btnIMAGE_FILE_HEADER.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -498,6 +516,7 @@ namespace PEHexExplorer
             // btnIMAGE_NT_HEADERS
             // 
             this.btnIMAGE_NT_HEADERS.BackColor = System.Drawing.Color.Black;
+            this.btnIMAGE_NT_HEADERS.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnIMAGE_NT_HEADERS.ForeColor = System.Drawing.Color.White;
             this.btnIMAGE_NT_HEADERS.Location = new System.Drawing.Point(74, 69);
             this.btnIMAGE_NT_HEADERS.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -511,6 +530,7 @@ namespace PEHexExplorer
             // btnIMAGE_DOS_HEADER
             // 
             this.btnIMAGE_DOS_HEADER.BackColor = System.Drawing.Color.Black;
+            this.btnIMAGE_DOS_HEADER.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnIMAGE_DOS_HEADER.ForeColor = System.Drawing.Color.White;
             this.btnIMAGE_DOS_HEADER.Location = new System.Drawing.Point(74, 26);
             this.btnIMAGE_DOS_HEADER.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -641,12 +661,8 @@ namespace PEHexExplorer
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(620, 368);
             this.Controls.Add(this.tabSetting);
-            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmSetting";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "设置";
             this.VisibleChanged += new System.EventHandler(this.FrmSetting_VisibleChanged);
             tabGeneral.ResumeLayout(false);
@@ -679,8 +695,8 @@ namespace PEHexExplorer
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbEncoding;
         private System.Windows.Forms.NumericUpDown ntScaling;
-        private System.Windows.Forms.CheckBox cbFileAddr;
-        private System.Windows.Forms.Button btnFileAddr;
+        private System.Windows.Forms.CheckBox cbLineInfo;
+        private System.Windows.Forms.Button btnLineInfo;
         private System.Windows.Forms.CheckBox cbColInfo;
         private System.Windows.Forms.Button btnColInfo;
         private System.Windows.Forms.CheckBox cbStringLine;

@@ -98,7 +98,7 @@ namespace PEHexExplorer
                 Parent = this,
                 Dock = DockStyle.Fill,
                 UseFixedBytesPerLine = true,
-                StringViewVisible = true,
+                StringViewVisible = mUser.EnableStringView,
                 SelectionBackColorOpacity = 100,
                 ShowColumnInfoBackColor = true,
                 ShowLineInfoBackColor = true,

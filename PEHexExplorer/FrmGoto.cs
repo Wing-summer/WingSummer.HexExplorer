@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace PEHexExplorer
 {
-    public partial class FrmGoto : Form
+    public partial class FrmGoto : ToolWindowBase
     {
         private static FrmGoto frmGoto;
 

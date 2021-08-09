@@ -227,10 +227,7 @@ namespace PEHexExplorer
             this.Controls.Add(btnCancel);
             this.Controls.Add(btnJmp);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmGoto";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "定位";
             this.VisibleChanged += new System.EventHandler(this.FrmGoto_VisibleChanged);
             groupBox1.ResumeLayout(false);

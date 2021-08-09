@@ -11,7 +11,7 @@ namespace Be.Windows.Forms
     [Browsable(true)]
     [Serializable]
 
-    public class PenF : IDisposable
+    public class PenF : ICloneable
     {
         /// <summary>
         /// 指定虚线中在每一划线段的两端使用的图形形状的类型
@@ -62,11 +62,12 @@ namespace Be.Windows.Forms
         public float DashOffset { get; set; }
 
         /// <summary>
-        /// 释放资源
+        /// 生成浅层拷贝
         /// </summary>
-        public void Dispose()
+        /// <returns></returns>
+        public object Clone()
         {
-            GC.SuppressFinalize(this);
+            return MemberwiseClone();
         }
 
         /// <summary>
