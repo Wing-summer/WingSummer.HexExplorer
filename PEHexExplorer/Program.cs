@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using System.IO;
 
 namespace PEHexExplorer

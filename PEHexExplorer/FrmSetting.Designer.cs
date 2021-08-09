@@ -54,6 +54,7 @@ namespace PEHexExplorer
             this.btnSelTextColor = new System.Windows.Forms.Button();
             this.btnSelBackColor = new System.Windows.Forms.Button();
             this.ntScaling = new System.Windows.Forms.NumericUpDown();
+            this.cbEnablePE = new System.Windows.Forms.CheckBox();
             this.btnOther = new System.Windows.Forms.Button();
             this.btnIMAGE_BASE_RELOCATION = new System.Windows.Forms.Button();
             this.btnIMAGE_IMPORT_DESCRIPTOR = new System.Windows.Forms.Button();
@@ -74,7 +75,6 @@ namespace PEHexExplorer
             this.cD = new System.Windows.Forms.ColorDialog();
             this.fD = new System.Windows.Forms.FontDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.cbEnablePE = new System.Windows.Forms.CheckBox();
             tabGeneral = new System.Windows.Forms.TabPage();
             groupBox2 = new System.Windows.Forms.GroupBox();
             groupBox1 = new System.Windows.Forms.GroupBox();
@@ -220,6 +220,7 @@ namespace PEHexExplorer
             this.btnColInfo.Text = "☻";
             this.toolTip.SetToolTip(this.btnColInfo, "更改颜色");
             this.btnColInfo.UseVisualStyleBackColor = true;
+            this.btnColInfo.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // btnFileAddr
             // 
@@ -231,6 +232,7 @@ namespace PEHexExplorer
             this.btnFileAddr.Text = "☻";
             this.toolTip.SetToolTip(this.btnFileAddr, "更改颜色");
             this.btnFileAddr.UseVisualStyleBackColor = true;
+            this.btnFileAddr.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // cbStringLine
             // 
@@ -308,6 +310,7 @@ namespace PEHexExplorer
             this.btnSelTextColor.TabIndex = 0;
             this.btnSelTextColor.Text = "选中颜色";
             this.btnSelTextColor.UseVisualStyleBackColor = false;
+            this.btnSelTextColor.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // btnSelBackColor
             // 
@@ -320,6 +323,7 @@ namespace PEHexExplorer
             this.btnSelBackColor.TabIndex = 0;
             this.btnSelBackColor.Text = "选区颜色";
             this.btnSelBackColor.UseVisualStyleBackColor = false;
+            this.btnSelBackColor.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // label4
             // 
@@ -375,6 +379,18 @@ namespace PEHexExplorer
             tabPE.Text = "PE结构";
             tabPE.UseVisualStyleBackColor = true;
             // 
+            // cbEnablePE
+            // 
+            this.cbEnablePE.AutoSize = true;
+            this.cbEnablePE.Checked = true;
+            this.cbEnablePE.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbEnablePE.Location = new System.Drawing.Point(361, 224);
+            this.cbEnablePE.Name = "cbEnablePE";
+            this.cbEnablePE.Size = new System.Drawing.Size(135, 19);
+            this.cbEnablePE.TabIndex = 2;
+            this.cbEnablePE.Text = "PE结构分析支持";
+            this.cbEnablePE.UseVisualStyleBackColor = true;
+            // 
             // btnOther
             // 
             this.btnOther.BackColor = System.Drawing.Color.Black;
@@ -386,6 +402,7 @@ namespace PEHexExplorer
             this.btnOther.TabIndex = 1;
             this.btnOther.Text = "其他";
             this.btnOther.UseVisualStyleBackColor = false;
+            this.btnOther.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // btnIMAGE_BASE_RELOCATION
             // 
@@ -398,6 +415,7 @@ namespace PEHexExplorer
             this.btnIMAGE_BASE_RELOCATION.TabIndex = 1;
             this.btnIMAGE_BASE_RELOCATION.Text = "IMAGE_BASE_RELOCATION ";
             this.btnIMAGE_BASE_RELOCATION.UseVisualStyleBackColor = false;
+            this.btnIMAGE_BASE_RELOCATION.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // btnIMAGE_IMPORT_DESCRIPTOR
             // 
@@ -410,6 +428,7 @@ namespace PEHexExplorer
             this.btnIMAGE_IMPORT_DESCRIPTOR.TabIndex = 1;
             this.btnIMAGE_IMPORT_DESCRIPTOR.Text = "IMAGE_IMPORT_DESCRIPTOR";
             this.btnIMAGE_IMPORT_DESCRIPTOR.UseVisualStyleBackColor = false;
+            this.btnIMAGE_IMPORT_DESCRIPTOR.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // btnIMAGE_EXPORT_DIRECTORY
             // 
@@ -422,6 +441,7 @@ namespace PEHexExplorer
             this.btnIMAGE_EXPORT_DIRECTORY.TabIndex = 1;
             this.btnIMAGE_EXPORT_DIRECTORY.Text = "IMAGE_EXPORT_DIRECTORY";
             this.btnIMAGE_EXPORT_DIRECTORY.UseVisualStyleBackColor = false;
+            this.btnIMAGE_EXPORT_DIRECTORY.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // btnIMAGE_SECTION_HEADER
             // 
@@ -434,6 +454,7 @@ namespace PEHexExplorer
             this.btnIMAGE_SECTION_HEADER.TabIndex = 1;
             this.btnIMAGE_SECTION_HEADER.Text = "IMAGE_SECTION_HEADER";
             this.btnIMAGE_SECTION_HEADER.UseVisualStyleBackColor = false;
+            this.btnIMAGE_SECTION_HEADER.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // btnIMAGE_DATA_DIRECTORY
             // 
@@ -446,6 +467,7 @@ namespace PEHexExplorer
             this.btnIMAGE_DATA_DIRECTORY.TabIndex = 1;
             this.btnIMAGE_DATA_DIRECTORY.Text = "IMAGE_DATA_DIRECTORY";
             this.btnIMAGE_DATA_DIRECTORY.UseVisualStyleBackColor = false;
+            this.btnIMAGE_DATA_DIRECTORY.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // btnIMAGE_OPTIONAL_HEADER
             // 
@@ -458,6 +480,7 @@ namespace PEHexExplorer
             this.btnIMAGE_OPTIONAL_HEADER.TabIndex = 1;
             this.btnIMAGE_OPTIONAL_HEADER.Text = " IMAGE_OPTIONAL_HEADER";
             this.btnIMAGE_OPTIONAL_HEADER.UseVisualStyleBackColor = false;
+            this.btnIMAGE_OPTIONAL_HEADER.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // btnIMAGE_FILE_HEADER
             // 
@@ -470,6 +493,7 @@ namespace PEHexExplorer
             this.btnIMAGE_FILE_HEADER.TabIndex = 1;
             this.btnIMAGE_FILE_HEADER.Text = "IMAGE_FILE_HEADER";
             this.btnIMAGE_FILE_HEADER.UseVisualStyleBackColor = false;
+            this.btnIMAGE_FILE_HEADER.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // btnIMAGE_NT_HEADERS
             // 
@@ -482,6 +506,7 @@ namespace PEHexExplorer
             this.btnIMAGE_NT_HEADERS.TabIndex = 1;
             this.btnIMAGE_NT_HEADERS.Text = "IMAGE_NT_HEADERS";
             this.btnIMAGE_NT_HEADERS.UseVisualStyleBackColor = false;
+            this.btnIMAGE_NT_HEADERS.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // btnIMAGE_DOS_HEADER
             // 
@@ -494,6 +519,7 @@ namespace PEHexExplorer
             this.btnIMAGE_DOS_HEADER.TabIndex = 1;
             this.btnIMAGE_DOS_HEADER.Text = "IMAGE_DOS_HEADER";
             this.btnIMAGE_DOS_HEADER.UseVisualStyleBackColor = false;
+            this.btnIMAGE_DOS_HEADER.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // tabBookMark
             // 
@@ -608,18 +634,6 @@ namespace PEHexExplorer
             this.fD.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.fD.ScriptsOnly = true;
             this.fD.ShowEffects = false;
-            // 
-            // cbEnablePE
-            // 
-            this.cbEnablePE.AutoSize = true;
-            this.cbEnablePE.Checked = true;
-            this.cbEnablePE.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbEnablePE.Location = new System.Drawing.Point(361, 224);
-            this.cbEnablePE.Name = "cbEnablePE";
-            this.cbEnablePE.Size = new System.Drawing.Size(135, 19);
-            this.cbEnablePE.TabIndex = 2;
-            this.cbEnablePE.Text = "PE结构分析支持";
-            this.cbEnablePE.UseVisualStyleBackColor = true;
             // 
             // FrmSetting
             // 

@@ -8,53 +8,48 @@ namespace PEHexExplorer
     partial class UserSetting
     {
 
-        public  List<IWSPEHexPluginVer> pluginVers;
+        public List<IWSPEHexPluginVer> pluginVers;
 
-        public static MUserProfile UserProfile = new MUserProfile();
+        public static MUserProfile UserProfile = new MUserProfile(false);
 
-       // private readonly XmlSerializer serializer;
         private readonly BinaryFormatter formatter;
 
 
         public UserSetting()
         {
-           // serializer = new XmlSerializer(typeof(MUserProfile));
             formatter = new BinaryFormatter();
             pluginVers = new List<IWSPEHexPluginVer>();
         }
 
         public bool Load(string config = null)
         {
-            if (config==null)
+            if (File.Exists(config ?? Program.AppConfig))
             {
-                if (File.Exists(config ?? Program.AppConfig))
+                using (Stream content = File.OpenRead(config ?? Program.AppConfig))
                 {
-                    using (Stream content = File.OpenRead(config ?? Program.AppConfig))
+                    try
                     {
-                        try
+                        if (content.Length > 0)
                         {
-                            if (content.Length > 0)
+                            object res = formatter.Deserialize(content);
+                            if (res == null || res.GetHashCode() == UserProfile.GetHashCode())
                             {
-                                object res = formatter.Deserialize(content);
-                                if (res == null)
-                                {
-                                    UserProfile = new MUserProfile();
-                                    return false;
-                                }
-                                UserProfile = res as MUserProfile;
+                                UserProfile = new MUserProfile();
+                                return false;
                             }
-                        }
-                        catch
-                        {
-                            UserProfile = new MUserProfile();
+                            UserProfile = res as MUserProfile;
                         }
                     }
+                    catch
+                    {
+                        UserProfile = new MUserProfile();
+                    }
                 }
-                else
-                {
-                    UserProfile = new MUserProfile();
-                    return false;
-                }
+            }
+            else
+            {
+                UserProfile = new MUserProfile();
+                return false;
             }
             return true;
         }
@@ -66,7 +61,7 @@ namespace PEHexExplorer
 
         public bool Save(string outconfig = null)
         {
-            using (Stream stream = File.Create(outconfig??Program.AppConfig))
+            using (Stream stream = File.Create(outconfig ?? Program.AppConfig))
             {
                 formatter.Serialize(stream, UserProfile);
             }

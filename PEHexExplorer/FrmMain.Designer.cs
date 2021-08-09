@@ -62,29 +62,29 @@
             System.Windows.Forms.TabPage tabPage2;
             System.Windows.Forms.SplitContainer splitContainer3;
             System.Windows.Forms.SplitContainer splitContainer4;
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("IMAGE_DOS_HEADER", 1, 1);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("IMAGE_NT_HEADERS", 1, 1);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("IMAGE_FILE_HEADER", 1, 1);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("IMAGE_OPTIONAL_HEADER", 1, 1);
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("IMAGE_DATA_DIRECTORY", 1, 1);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("IMAGE_EXPORT_DIRECTORY", 1, 1);
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("IMAGE_IMPORT_DESCRIPTOR", 1, 1);
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("IMAGE_BASE_RELOCATION", 1, 1);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("IMAGE_SECTION_HEADER", 1, 1);
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("IMAGE_COR20_HEADER\n", 1, 1);
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode(".NET", 3, 3, new System.Windows.Forms.TreeNode[] {
-            treeNode10});
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("PE 文件", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8,
-            treeNode9,
-            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("IMAGE_DOS_HEADER", 1, 1);
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("IMAGE_NT_HEADERS", 1, 1);
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("IMAGE_FILE_HEADER", 1, 1);
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("IMAGE_OPTIONAL_HEADER", 1, 1);
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("IMAGE_DATA_DIRECTORY", 1, 1);
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("IMAGE_EXPORT_DIRECTORY", 1, 1);
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("IMAGE_IMPORT_DESCRIPTOR", 1, 1);
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("IMAGE_BASE_RELOCATION", 1, 1);
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("IMAGE_SECTION_HEADER", 1, 1);
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("IMAGE_COR20_HEADER\n", 1, 1);
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode(".NET", 3, 3, new System.Windows.Forms.TreeNode[] {
+            treeNode22});
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("PE 文件", new System.Windows.Forms.TreeNode[] {
+            treeNode13,
+            treeNode14,
+            treeNode15,
+            treeNode16,
+            treeNode17,
+            treeNode18,
+            treeNode19,
+            treeNode20,
+            treeNode21,
+            treeNode23});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             System.Windows.Forms.TabPage tabPage3;
             System.Windows.Forms.SplitContainer splitContainer2;
@@ -124,11 +124,9 @@
             this.tvPEStruct = new System.Windows.Forms.TreeView();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.pgConst = new System.Windows.Forms.PropertyGrid();
-            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.propertyGridB = new System.Windows.Forms.PropertyGrid();
             this.scEdit = new System.Windows.Forms.SplitContainer();
-            this.tabEditArea = new PEHexExplorer.TabControlEx();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.tbNew = new System.Windows.Forms.ToolStripButton();
             this.tbOpen = new System.Windows.Forms.ToolStripButton();
@@ -172,6 +170,8 @@
             this.TMIFind = new System.Windows.Forms.ToolStripMenuItem();
             this.TMIJmp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.tabEditArea = new PEHexExplorer.TabControlEx();
             statusStrip2 = new System.Windows.Forms.StatusStrip();
             Slbl1 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -837,54 +837,54 @@
             this.tvPEStruct.Location = new System.Drawing.Point(0, 0);
             this.tvPEStruct.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tvPEStruct.Name = "tvPEStruct";
-            treeNode1.ImageIndex = 1;
-            treeNode1.Name = "tDOS_HEADER";
-            treeNode1.SelectedImageIndex = 1;
-            treeNode1.Text = "IMAGE_DOS_HEADER";
-            treeNode2.ImageIndex = 1;
-            treeNode2.Name = "tNT_HEADERS";
-            treeNode2.SelectedImageIndex = 1;
-            treeNode2.Text = "IMAGE_NT_HEADERS";
-            treeNode3.ImageIndex = 1;
-            treeNode3.Name = "tFILE_HEADER";
-            treeNode3.SelectedImageIndex = 1;
-            treeNode3.Text = "IMAGE_FILE_HEADER";
-            treeNode4.ImageIndex = 1;
-            treeNode4.Name = "tOPTIONAL_HEADER";
-            treeNode4.SelectedImageIndex = 1;
-            treeNode4.Text = "IMAGE_OPTIONAL_HEADER";
-            treeNode5.ImageIndex = 1;
-            treeNode5.Name = "tDATA_DIRECTORY";
-            treeNode5.SelectedImageIndex = 1;
-            treeNode5.Text = "IMAGE_DATA_DIRECTORY";
-            treeNode6.ImageIndex = 1;
-            treeNode6.Name = "tEXPORT_DIRECTORY";
-            treeNode6.SelectedImageIndex = 1;
-            treeNode6.Text = "IMAGE_EXPORT_DIRECTORY";
-            treeNode7.ImageIndex = 1;
-            treeNode7.Name = "tIMPORT_DESCRIPTOR";
-            treeNode7.SelectedImageIndex = 1;
-            treeNode7.Text = "IMAGE_IMPORT_DESCRIPTOR";
-            treeNode8.ImageIndex = 1;
-            treeNode8.Name = "tBASE_RELOCATION";
-            treeNode8.SelectedImageIndex = 1;
-            treeNode8.Text = "IMAGE_BASE_RELOCATION";
-            treeNode9.ImageIndex = 1;
-            treeNode9.Name = "tSECTION_HEADER";
-            treeNode9.SelectedImageIndex = 1;
-            treeNode9.Text = "IMAGE_SECTION_HEADER";
-            treeNode10.ImageIndex = 1;
-            treeNode10.Name = "tCOR20_HEADER\n";
-            treeNode10.SelectedImageIndex = 1;
-            treeNode10.Text = "IMAGE_COR20_HEADER\n";
-            treeNode11.ImageIndex = 3;
-            treeNode11.Name = "tNET";
-            treeNode11.SelectedImageIndex = 3;
-            treeNode11.Text = ".NET";
-            treeNode12.Name = "nodeRoot";
-            treeNode12.Text = "PE 文件";
+            treeNode13.ImageIndex = 1;
+            treeNode13.Name = "tDOS_HEADER";
+            treeNode13.SelectedImageIndex = 1;
+            treeNode13.Text = "IMAGE_DOS_HEADER";
+            treeNode14.ImageIndex = 1;
+            treeNode14.Name = "tNT_HEADERS";
+            treeNode14.SelectedImageIndex = 1;
+            treeNode14.Text = "IMAGE_NT_HEADERS";
+            treeNode15.ImageIndex = 1;
+            treeNode15.Name = "tFILE_HEADER";
+            treeNode15.SelectedImageIndex = 1;
+            treeNode15.Text = "IMAGE_FILE_HEADER";
+            treeNode16.ImageIndex = 1;
+            treeNode16.Name = "tOPTIONAL_HEADER";
+            treeNode16.SelectedImageIndex = 1;
+            treeNode16.Text = "IMAGE_OPTIONAL_HEADER";
+            treeNode17.ImageIndex = 1;
+            treeNode17.Name = "tDATA_DIRECTORY";
+            treeNode17.SelectedImageIndex = 1;
+            treeNode17.Text = "IMAGE_DATA_DIRECTORY";
+            treeNode18.ImageIndex = 1;
+            treeNode18.Name = "tEXPORT_DIRECTORY";
+            treeNode18.SelectedImageIndex = 1;
+            treeNode18.Text = "IMAGE_EXPORT_DIRECTORY";
+            treeNode19.ImageIndex = 1;
+            treeNode19.Name = "tIMPORT_DESCRIPTOR";
+            treeNode19.SelectedImageIndex = 1;
+            treeNode19.Text = "IMAGE_IMPORT_DESCRIPTOR";
+            treeNode20.ImageIndex = 1;
+            treeNode20.Name = "tBASE_RELOCATION";
+            treeNode20.SelectedImageIndex = 1;
+            treeNode20.Text = "IMAGE_BASE_RELOCATION";
+            treeNode21.ImageIndex = 1;
+            treeNode21.Name = "tSECTION_HEADER";
+            treeNode21.SelectedImageIndex = 1;
+            treeNode21.Text = "IMAGE_SECTION_HEADER";
+            treeNode22.ImageIndex = 1;
+            treeNode22.Name = "tCOR20_HEADER\n";
+            treeNode22.SelectedImageIndex = 1;
+            treeNode22.Text = "IMAGE_COR20_HEADER\n";
+            treeNode23.ImageIndex = 3;
+            treeNode23.Name = "tNET";
+            treeNode23.SelectedImageIndex = 3;
+            treeNode23.Text = ".NET";
+            treeNode24.Name = "nodeRoot";
+            treeNode24.Text = "PE 文件";
             this.tvPEStruct.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode12});
+            treeNode24});
             this.tvPEStruct.SelectedImageIndex = 0;
             this.tvPEStruct.Size = new System.Drawing.Size(300, 347);
             this.tvPEStruct.TabIndex = 0;
@@ -911,21 +911,13 @@
             this.pgConst.TabIndex = 0;
             this.pgConst.ToolbarVisible = false;
             // 
-            // propertyGrid1
-            // 
-            this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
-            this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(634, 301);
-            this.propertyGrid1.TabIndex = 1;
-            // 
             // tabPage3
             // 
             tabPage3.Controls.Add(splitContainer2);
-            tabPage3.Location = new System.Drawing.Point(4, 25);
+            tabPage3.Location = new System.Drawing.Point(4, 29);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            tabPage3.Size = new System.Drawing.Size(640, 664);
+            tabPage3.Size = new System.Drawing.Size(640, 660);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "书签";
             tabPage3.UseVisualStyleBackColor = true;
@@ -944,7 +936,7 @@
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(this.propertyGridB);
-            splitContainer2.Size = new System.Drawing.Size(634, 658);
+            splitContainer2.Size = new System.Drawing.Size(634, 654);
             splitContainer2.SplitterDistance = 241;
             splitContainer2.TabIndex = 3;
             // 
@@ -962,7 +954,7 @@
             this.propertyGridB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGridB.Location = new System.Drawing.Point(0, 0);
             this.propertyGridB.Name = "propertyGridB";
-            this.propertyGridB.Size = new System.Drawing.Size(634, 413);
+            this.propertyGridB.Size = new System.Drawing.Size(634, 409);
             this.propertyGridB.TabIndex = 0;
             // 
             // ts11
@@ -994,15 +986,6 @@
             this.scEdit.Size = new System.Drawing.Size(1782, 693);
             this.scEdit.SplitterDistance = 1130;
             this.scEdit.TabIndex = 5;
-            // 
-            // tabEditArea
-            // 
-            this.tabEditArea.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabEditArea.Location = new System.Drawing.Point(0, 27);
-            this.tabEditArea.Name = "tabEditArea";
-            this.tabEditArea.SelectedIndex = 0;
-            this.tabEditArea.Size = new System.Drawing.Size(1130, 636);
-            this.tabEditArea.TabIndex = 3;
             // 
             // toolStrip
             // 
@@ -1501,6 +1484,27 @@
             // toolTip
             // 
             this.toolTip.ShowAlways = true;
+            // 
+            // propertyGrid1
+            // 
+            this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
+            this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.Size = new System.Drawing.Size(634, 301);
+            this.propertyGrid1.TabIndex = 1;
+            // 
+            // tabEditArea
+            // 
+            this.tabEditArea.AllowDrop = true;
+            this.tabEditArea.CloseButtonSize = 12;
+            this.tabEditArea.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabEditArea.Location = new System.Drawing.Point(0, 27);
+            this.tabEditArea.Name = "tabEditArea";
+            this.tabEditArea.Padding = new System.Drawing.Point(9, 3);
+            this.tabEditArea.SelectedIndex = 0;
+            this.tabEditArea.SelTextColor = System.Drawing.Color.White;
+            this.tabEditArea.Size = new System.Drawing.Size(1130, 636);
+            this.tabEditArea.TabIndex = 3;
             // 
             // FrmMain
             // 
