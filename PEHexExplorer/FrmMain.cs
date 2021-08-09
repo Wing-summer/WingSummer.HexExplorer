@@ -1,5 +1,4 @@
-﻿using PEProcesser;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -14,15 +13,15 @@ namespace PEHexExplorer
     {
         readonly EditorPageManager pageManager;
 
-        private string EditFileExt = string.Empty;
+        private readonly string EditFileExt = string.Empty;
 
         private PointF pos = new PointF(0, 0);
 
         private readonly Color EnabledColor = Color.Green;
         private readonly Color DisabledColor = Color.Red;
         private const string DefaultPoint = "(0,0)";
+        private const string DefaultScaling = "100%";
         private const string DefaultFilename = "<未知>";
-        private const string ODefaultSel = "0 - 0x0";
         private const string DefaultSel = "*";
         private readonly ConstInfo constInfo;
 
@@ -60,6 +59,7 @@ namespace PEHexExplorer
             pageManager = new EditorPageManager(tabEditArea,hexMenuStrip);
             pageManager.EditorPageChanged += PageManager_EditorPageChanged;
             pageManager.EditorPageMessagePipe += PageManager_EditorPageMessagePipe;
+            pageManager.EditorPageClosing += PageManager_EditorPageClosing;
 
             //end：载入用户设置
 
@@ -75,7 +75,25 @@ namespace PEHexExplorer
 
             constInfo = new ConstInfo();
             pgConst.SelectedObject = constInfo;
+        }
 
+        private void PageManager_EditorPageClosing(object sender, EditPage.CloseFileArgs e)
+        {
+            DialogResult result = MessageBox.Show("此文件已有修改，你确定要丢弃吗？",
+                    Program.SoftwareName, MessageBoxButtons.YesNoCancel);
+            switch (result)
+            {
+                case DialogResult.Cancel:
+                    e.Cancel = true;
+                    break;
+                case DialogResult.Yes:
+                    MISave_Click(this, EventArgs.Empty);
+                    e.Cancel = false;
+                    break;
+                case DialogResult.No:
+                    e.Cancel = false;
+                    break;
+            }
         }
 
         private void PageManager_EditorPageMessagePipe(object sender, EditPage.EditorPageMessageArgs e)
@@ -83,31 +101,44 @@ namespace PEHexExplorer
             switch (e.EditorMessageType)
             {
                 case EditPage.EditorMessageType.All:
-
+                    HexBox_ScalingChanged(e.EditorMessage.Scaling);
+                    HexBox_CurrentLineChanged(e.EditorMessage.CurrentLine);
+                    HexBox_CurrentPositionInLineChanged(e.EditorMessage.CurrentPositionInLine);
+                    HexBox_InsertActiveChanged(e.EditorMessage.InsertActive);
+                    HexBox_ContentChanged(e.EditorHost == null, e.EditorMessage.HasChanges);
+                    HexBox_LockedBufferChanged(e.EditorMessage.LockedBuffer);
+                    HexBox_SelectionLengthChanged(e.EditorMessage.SelectionLength);
+                    HexBox_CurrentPositionChanged(e.EditorMessage.SelectionStart);
                     break;
                 case EditPage.EditorMessageType.Scaling:
-
+                    HexBox_ScalingChanged(e.EditorMessage.Scaling);
                     break;
                 case EditPage.EditorMessageType.CurrentLine:
-
+                    HexBox_CurrentLineChanged(e.EditorMessage.CurrentLine);
                     break;
                 case EditPage.EditorMessageType.CurrentPositionInLine:
-
+                    HexBox_CurrentPositionInLineChanged(e.EditorMessage.CurrentPositionInLine);
                     break;
                 case EditPage.EditorMessageType.InsertActive:
-
+                    HexBox_InsertActiveChanged(e.EditorMessage.InsertActive);
                     break;
                 case EditPage.EditorMessageType.SavedStatus:
-
+                    HexBox_ContentChanged(e.EditorHost == null, e.EditorMessage.HasChanges);
                     break;
                 case EditPage.EditorMessageType.LockedBuffer:
-
+                    HexBox_LockedBufferChanged(e.EditorMessage.LockedBuffer);
                     break;
                 case EditPage.EditorMessageType.SelectionLength:
-
+                    HexBox_SelectionLengthChanged(e.EditorMessage.SelectionLength);
                     break;
                 case EditPage.EditorMessageType.SelectionStart:
-
+                    HexBox_CurrentPositionChanged(e.EditorMessage.SelectionStart);
+                    break;
+                case EditPage.EditorMessageType.ApplyTreeView:
+                    
+                    break;
+                case EditPage.EditorMessageType.Quit:
+                    
                     break;
                 default:
                     break;
@@ -144,73 +175,6 @@ namespace PEHexExplorer
 
         #region 文件IO相关
 
-        //private bool? CloseFile()
-        //{
-        //    bool? res = pageManager.CurrentHexBox.ByteProvider?.HasChanges();
-        //    if (res.HasValue && res.Value)
-        //    {
-        //        DialogResult result = MessageBox.Show("此文件已有修改，你确定要丢弃吗？",
-        //            Program.SoftwareName, MessageBoxButtons.YesNoCancel);
-        //        switch (result)
-        //        {
-        //            case DialogResult.Cancel:
-        //                return null;
-        //            case DialogResult.Yes:
-        //                MISave_Click(this, EventArgs.Empty);
-        //                return true;
-        //            case DialogResult.No:
-        //                return false;
-        //        }
-        //    }
-        //    return true;
-        //}
-
-        //private void OpenFile(string filename, bool writeable)
-        //{
-        //    bool? res = CloseFile();
-        //    if (res.HasValue)
-        //    {
-        //        pageManager.CurrentHexBox.Close();
-        //        DisableEdit();
-        //    }
-        //    else
-        //    {
-        //        return;
-        //    }
-
-        //    pe?.Dispose();
-        //    pe = new PEPParser(filename);
-        //    bookMark = new BookMarkPE(pe);
-        //    bookMark.ApplyTreeView(in tvPEStruct);
-
-        //reopen:
-
-        //    if (!pageManager.CurrentHexBox.OpenFile(out HexBox.IOError error, filename, writeable))
-        //    {
-        //        if (error == HexBox.IOError.Exception && writeable)
-        //        {
-        //            if (MessageBox.Show("文件无法以写入模式打开，可能被占用，您是否用只读模式打开？",
-        //                Program.SoftwareName, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-        //            {
-        //                writeable = false;
-        //                goto reopen;
-        //            }
-        //        }
-        //    }
-
-        //    bookMark.ApplyHexbox(pageManager.CurrentHexBox);
-
-        //    LblFilename.Text = pageManager.CurrentHexBox.Filename;
-
-        //    LblWritable.ForeColor = writeable ? EnabledColor : DisabledColor;
-
-        //    pageManager.CurrentHexBox.InsertActive = false;
-
-        //    LblLen.Text = ODefaultSel;
-        //    EnableEdit();
-        //    EditFileExt = Path.GetExtension(filename).TrimStart('.');
-        //}
-
         private void MINew_Click(object sender, EventArgs e) => pageManager.OpenOrCreateFilePage();
 
         private void MIOpen_Click(object sender, EventArgs e)
@@ -224,7 +188,13 @@ namespace PEHexExplorer
             }
         }
 
-        private void MISave_Click(object sender, EventArgs e) => pageManager.CurrentPage.SaveFile();
+        private void MISave_Click(object sender, EventArgs e)
+        {
+            if (!pageManager.CurrentPage.SaveFile())
+            {
+                MISaveAs_Click(sender, e);
+            }
+        }
 
         private void MIExport_Click(object sender, EventArgs e)
         {
@@ -349,45 +319,44 @@ namespace PEHexExplorer
 
         #endregion
 
-        #region HexBox事件
+        #region HexBox事件处理
 
-        private void HexBox_ScalingChanged(object sender, EventArgs e) => 
-            LblScale.Text = $"{pageManager.CurrentHexBox.Scaling * 100}%";
+        private void HexBox_ScalingChanged(uint scaling) => LblScale.Text = $"{scaling}%";
 
-        private void HexBox_CurrentLineChanged(object sender, EventArgs e)
+        private void HexBox_CurrentLineChanged(long CurrentLine)
         {
-            pos.X = pageManager.CurrentHexBox.CurrentLine;
+            pos.X = CurrentLine;
             LblLocation.Text = $"({pos.X - 1},{pos.Y - 1})";
         }
 
-        private void HexBox_CurrentPositionInLineChanged(object sender, EventArgs e)
+        private void HexBox_CurrentPositionInLineChanged(long CurrentPositionInLine)
         {
-            pos.Y = pageManager.CurrentHexBox.CurrentPositionInLine;
+            pos.Y = CurrentPositionInLine;
             LblLocation.Text = $"({pos.X - 1},{pos.Y - 1})";
         }
 
-        private void HexBox_InsertActiveChanged(object sender, EventArgs e) =>
-            lblInsert.ForeColor = pageManager.CurrentHexBox.InsertActive ? EnabledColor : DisabledColor;
+        private void HexBox_InsertActiveChanged(bool InsertActive) =>
+            lblInsert.ForeColor = InsertActive ? EnabledColor : DisabledColor;
 
-        private void HexBox_ContentChanged(object sender, EventArgs e)
+        private void HexBox_ContentChanged(bool ByteProviderIsNull, bool HasChanges)
         {
-            if (pageManager.CurrentHexBox.ByteProvider!=null)
+            if (!ByteProviderIsNull)
             {
-                LblSaved.ForeColor = pageManager.CurrentHexBox.ByteProvider.HasChanges() ? DisabledColor : EnabledColor;
+                LblSaved.ForeColor = HasChanges ? DisabledColor : EnabledColor;
             }
         }
 
-        private void HexBox_LockedBufferChanged(object sender, EventArgs e) =>
-            lblLocked.ForeColor = pageManager.CurrentHexBox.IsLockedBuffer ? EnabledColor : DisabledColor;
+        private void HexBox_LockedBufferChanged(bool IsLockedBuffer) =>
+            lblLocked.ForeColor = IsLockedBuffer ? EnabledColor : DisabledColor;
 
-        private void HexBox_SelectionLengthChanged(object sender, EventArgs e) =>
-            LblLen.Text = $"{pageManager.CurrentHexBox.SelectionLength:D} - 0x{pageManager.CurrentHexBox.SelectionLength:X}";
+        private void HexBox_SelectionLengthChanged(long SelectionLength) =>
+            LblLen.Text = $"{SelectionLength:D} - 0x{SelectionLength:X}";
 
         private void HexBox_ByteProviderChanged(object sender, EventArgs e) => pageManager.CurrentHexBox.ClearHighlightedRegion();
 
-        private void HexBox_CurrentPositionChanged(object sender, EventArgs e)
+        private void HexBox_CurrentPositionChanged(long SelectionStart)
         {
-            long sels = pageManager.CurrentHexBox.SelectionStart;
+            long sels = SelectionStart;
             constInfo.Char = null;
             constInfo.Int = null;
             constInfo.Int16 = null;
@@ -459,6 +428,7 @@ namespace PEHexExplorer
                 LblFilename.Text = DefaultFilename;
             }
 
+            LblScale.Text = DefaultScaling;
             LblLocation.Text = DefaultPoint;
             LblLen.Text = DefaultSel;
 
@@ -650,5 +620,7 @@ namespace PEHexExplorer
             }
             
         }
+
+     
     }
 }

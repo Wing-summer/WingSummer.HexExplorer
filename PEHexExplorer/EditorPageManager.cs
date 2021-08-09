@@ -3,6 +3,7 @@ using Be.Windows.Forms;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Collections;
 
 namespace PEHexExplorer
 {
@@ -11,9 +12,12 @@ namespace PEHexExplorer
 
         public event EventHandler<EditorPageEventArgs> EditorPageChanged;
         public event EventHandler<EditPage.EditorPageMessageArgs> EditorPageMessagePipe;
-        private List<string> OpenFilenames;
+        public event EventHandler<EditPage.CloseFileArgs> EditorPageClosing;
 
-        ContextMenuStrip MenuStrip;
+        private readonly List<string> OpenFilenames;
+        readonly ContextMenuStrip MenuStrip;
+        private readonly EditPage.EditorPageMessageArgs quitMessage 
+            = new EditPage.EditorPageMessageArgs { EditorMessageType = EditPage.EditorMessageType.Quit };
 
         public EditPage CurrentPage => _tabControl.SelectedTab as EditPage;
         public HexBox CurrentHexBox => (_tabControl.SelectedTab as EditPage).HexBox;
@@ -36,19 +40,40 @@ namespace PEHexExplorer
 
         private readonly TabControl _tabControl;
 
-        public EditorPageManager(TabControl tabControl, ContextMenuStrip menuStrip = null)
+        public EditorPageManager(TabControlEx tabControl, ContextMenuStrip menuStrip = null)
         {
             _tabControl = tabControl ?? throw new ArgumentNullException("TabControl");
             MenuStrip = menuStrip;
             tabControl.Padding = new Point(12, 3);
+            tabControl.AllowDrop = true;
             tabControl.Appearance = TabAppearance.Normal;
-            tabControl.DrawItem += TabControl_DrawItem;
-            tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             tabControl.ControlAdded += TabControl_ControlAdded;
-            tabControl.MouseDown += TabControl_MouseDown;
+            tabControl.SelectedIndexChanged += TabControl_SelectedIndexChanged;
+            tabControl.OnClosingPage += TabControl_OnClosingPage;
             tabControl.ControlRemoved += TabControl_ControlRemoved;
             tabControl.GotFocus += TabControl_GotFocus;
+            
             OpenFilenames = new List<string>();
+        }
+
+        private void TabControl_OnClosingPage(object sender, TabControlEx.ClosingPageArgs e)
+        {
+            e.Cancel = true;
+            ClosePage(sender as EditPage);
+        }
+
+        ~EditorPageManager()
+        {
+            OpenFilenames.Clear();
+            _tabControl.ControlAdded -= TabControl_ControlAdded;
+            _tabControl.SelectedIndexChanged -= TabControl_SelectedIndexChanged;
+            _tabControl.ControlRemoved -= TabControl_ControlRemoved;
+            _tabControl.GotFocus -= TabControl_GotFocus;
+        }
+
+        private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CurrentPage?.PostWholeMessage();
         }
 
         private void TabControl_GotFocus(object sender, EventArgs e)
@@ -56,57 +81,11 @@ namespace PEHexExplorer
             _tabControl.SelectedTab?.Focus();   //去虚框
         }
 
-        private void TabControl_MouseDown(object sender, MouseEventArgs e)
-        {
-            EditPage page=null;
-            foreach (EditPage item in _tabControl.TabPages)
-            {
-                Rectangle rec = (Rectangle)item.Tag;
-                if (rec.Contains(e.Location))
-                {
-                    page = item;
-                    break;
-                }
-            }
-            if (page!=null)
-                ClosePage(page);
-
-        }
-
-        private const int CloseButtonSize= 12;
-
-        private void TabControl_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            try
-            {
-                e.DrawBackground();
-           
-                var tabPage = _tabControl.TabPages[e.Index];            
-                var tabRect = _tabControl.GetTabRect(e.Index);
-                tabRect.Inflate(-2, -2);
-
-                Rectangle CloseButtonRec = new Rectangle(tabRect.Right - CloseButtonSize - 2,
-                      tabRect.Top + (tabRect.Height - CloseButtonSize) / 2, CloseButtonSize, CloseButtonSize);
-
-                    e.Graphics.DrawImage(Properties.Resources.close, CloseButtonRec);
-
-                tabPage.Tag = CloseButtonRec;
-
-                TextRenderer.DrawText(e.Graphics, tabPage.Text, tabPage.Font, tabRect,
-                    e.State == DrawItemState.Selected ? Color.White : tabPage.ForeColor, TextFormatFlags.Left);
-
-            }
-            catch
-            {
-            }
-
-        }
-
         private void TabControl_ControlRemoved(object sender, ControlEventArgs e)
         {
             EditorPageEventArgs args = new EditorPageEventArgs
             {
-                EditorPageData = new EditorPageData { EditEnabled = _tabControl.TabCount > 1 }      //虽然被删除了，但这个数还没改
+                EditorPageData = new EditorPageData { EditEnabled = _tabControl.TabCount > 1 }      //虽然被删除了，但这个数在这一时刻还没改
             };
             EditorPageChanged?.Invoke(sender, args);
         }
@@ -123,7 +102,7 @@ namespace PEHexExplorer
 
         public void OpenOrCreateFilePage(string filename = null, bool writeable = true)
         {
-            EditPage page = new EditPage();
+            EditPage page = new EditPage { UseVisualStyleBackColor = false };
             if (filename==null)
             {
                 page.NewFile();
@@ -149,16 +128,34 @@ namespace PEHexExplorer
             _tabControl.SelectedTab = page;
             page.ApplyContextMenuStrip(MenuStrip);
             page.HostMessagePipe += Page_HostMessagePipe;
+            page.ClosingFile += Page_ClosingFile;
+
+            page.PostWholeMessage();
+
+        }
+
+        private void Page_ClosingFile(object sender, EditPage.CloseFileArgs e)
+        {
+            if (EditorPageClosing==null)
+            {
+                throw new NullReferenceException("必要事件未接入");
+            }
+            _tabControl.SelectedTab = (TabPage)sender;
+            EditorPageClosing.Invoke(sender, e);
         }
 
         public void OpenProcessPage()
         {
-            EditPage page = new EditPage { ContextMenuStrip = MenuStrip };
+            EditPage page = new EditPage { UseVisualStyleBackColor = false };
             page.OpenProcess();
             _tabControl.TabPages.Add(page);
             _tabControl.SelectedTab = page;
             page.ApplyContextMenuStrip(MenuStrip);
             page.HostMessagePipe += Page_HostMessagePipe;
+            page.ClosingFile += Page_ClosingFile;
+
+            page.PostWholeMessage();
+
         }
 
         /// <summary>
@@ -176,12 +173,24 @@ namespace PEHexExplorer
 
         public void ClosePage(EditPage page)
         {
-            page.HostMessagePipe -= Page_HostMessagePipe;
-            _tabControl.TabPages.Remove(page);
-            page.Dispose();
+            bool res = page.CloseFile();
+            if (res)
+            {
+                EditorPageMessagePipe?.Invoke(page,quitMessage);
+
+                page.HostMessagePipe -= Page_HostMessagePipe;
+                page.ClosingFile -= Page_ClosingFile;
+                _tabControl.TabPages.Remove(page);
+                page.Dispose();
+            }
         }
 
         public void CloseCurrentPage() => ClosePage(_tabControl.SelectedTab as EditPage);
+
+        #region MyRegion
+
+
+        #endregion
 
     }
 }

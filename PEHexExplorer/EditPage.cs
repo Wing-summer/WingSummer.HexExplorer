@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using Be.Windows.Forms;
-using System.Drawing;
 using System.ComponentModel;
 using PEProcesser;
 
@@ -17,7 +12,9 @@ namespace PEHexExplorer
 
         public class CloseFileArgs : EventArgs
         {
-            public bool? info;
+            [DefaultValue(false)]
+            public bool Cancel { get; set; }
+
         }
 
         public enum EditorMessageType
@@ -30,7 +27,9 @@ namespace PEHexExplorer
             SavedStatus,
             LockedBuffer,
             SelectionLength,
-            SelectionStart
+            SelectionStart,
+            ApplyTreeView,
+            Quit
         }
 
         public struct EditorMessage
@@ -39,7 +38,7 @@ namespace PEHexExplorer
             public long CurrentLine;
             public long CurrentPositionInLine;
             public bool InsertActive;
-            public bool SavedStatus;
+            public bool HasChanges;
             public bool LockedBuffer;
             public long SelectionLength;
             public long SelectionStart;
@@ -48,7 +47,7 @@ namespace PEHexExplorer
 
         public class EditorPageMessageArgs : EventArgs
         {
-
+            public HexBox EditorHost;
             public EditorMessageType EditorMessageType;
             public EditorMessage EditorMessage;
 
@@ -94,7 +93,6 @@ namespace PEHexExplorer
         public EditPage() 
         {
             MUserProfile mUser = UserSetting.UserProfile;
-
             hexBox = new HexBox
             {
                 Parent = this,
@@ -135,6 +133,7 @@ namespace PEHexExplorer
             editorMessage.SelectionStart = hexBox.SelectionStart;
             HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
             {
+                EditorHost=hexBox,
                 EditorMessageType = EditorMessageType.SelectionStart,
                 EditorMessage = editorMessage
             });
@@ -145,6 +144,7 @@ namespace PEHexExplorer
             editorMessage.SelectionLength = hexBox.SelectionLength;
             HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
             {
+                EditorHost = hexBox,
                 EditorMessageType = EditorMessageType.SelectionLength,
                 EditorMessage = editorMessage
             });
@@ -152,9 +152,10 @@ namespace PEHexExplorer
 
         private void HexBox_SavedStatusChanged(object sender, EventArgs e)
         {
-            editorMessage.SavedStatus = hexBox.ByteProvider.HasChanges();
+            editorMessage.HasChanges = hexBox.ByteProvider.HasChanges();
             HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
             {
+                EditorHost = hexBox,
                 EditorMessageType = EditorMessageType.SavedStatus,
                 EditorMessage = editorMessage
             });
@@ -165,6 +166,7 @@ namespace PEHexExplorer
             editorMessage.LockedBuffer = hexBox.IsLockedBuffer;
             HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
             {
+                EditorHost = hexBox,
                 EditorMessageType = EditorMessageType.LockedBuffer,
                 EditorMessage = editorMessage
             });
@@ -175,6 +177,7 @@ namespace PEHexExplorer
             editorMessage.InsertActive = hexBox.InsertActive;
             HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
             {
+                EditorHost = hexBox,
                 EditorMessageType = EditorMessageType.InsertActive,
                 EditorMessage = editorMessage
             });
@@ -185,6 +188,7 @@ namespace PEHexExplorer
             editorMessage.CurrentPositionInLine = hexBox.CurrentPositionInLine;
             HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
             {
+                EditorHost = hexBox,
                 EditorMessageType = EditorMessageType.CurrentPositionInLine,
                 EditorMessage = editorMessage
             });
@@ -195,6 +199,7 @@ namespace PEHexExplorer
             editorMessage.Scaling = (uint)(hexBox.Scaling * 100);
             HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
             {
+                EditorHost = hexBox,
                 EditorMessageType = EditorMessageType.Scaling,
                 EditorMessage = editorMessage
             });
@@ -205,7 +210,30 @@ namespace PEHexExplorer
             editorMessage.CurrentLine = hexBox.CurrentLine;
             HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
             {
+                EditorHost = hexBox,
                 EditorMessageType = EditorMessageType.CurrentLine,
+                EditorMessage = editorMessage
+            });
+        }
+
+        /// <summary>
+        /// 向 EditorPageManager 宿主发送自己的完整信息
+        /// </summary>
+        public void PostWholeMessage()
+        {
+            editorMessage.CurrentLine = hexBox.CurrentLine;
+            editorMessage.CurrentPositionInLine = hexBox.CurrentPositionInLine;
+            editorMessage.HasChanges = hexBox.ByteProvider.HasChanges();
+            editorMessage.InsertActive = hexBox.InsertActive;
+            editorMessage.LockedBuffer = hexBox.IsLockedBuffer;
+            editorMessage.Scaling = (uint)(hexBox.Scaling * 100);
+            editorMessage.SelectionLength = hexBox.SelectionLength;
+            editorMessage.SelectionStart = hexBox.SelectionStart;
+
+            HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
+            {
+                EditorHost = hexBox,
+                EditorMessageType = EditorMessageType.All,
                 EditorMessage = editorMessage
             });
         }
@@ -243,14 +271,14 @@ namespace PEHexExplorer
         public void OpenFile(string filename, bool writeable, bool EnablePEParser = true)
         {
             bool? res = Closefile();
-            if (res.HasValue)
+            if (res.HasValue&&res.Value)
             {
-                hexBox.Close();
-                DisableEdit?.Invoke(this, EventArgs.Empty);
+                return;
             }
             else
             {
-                return;
+                hexBox.Close();
+                DisableEdit?.Invoke(this, EventArgs.Empty);
             }
 
         reopen:
@@ -285,15 +313,18 @@ namespace PEHexExplorer
         /// <summary>
         /// 关闭文件
         /// </summary>
-        public void CloseFile()
+        /// <returns>如果文件正常关闭，则返回true</returns>
+        public bool CloseFile()
         {
             bool? res = Closefile();
-            if (res.HasValue)
+            if (res == null || (res.HasValue && !res.Value))
             {
                 hexBox.Close();
                 Filename = DefaultFilename;
                 DisableEdit?.Invoke(this, EventArgs.Empty);
+                return true;
             }
+            return false;
         }
 
         /// <summary>
@@ -344,14 +375,14 @@ namespace PEHexExplorer
         public void OpenProcess()
         {
             bool? res = Closefile();
-            if (res.HasValue)
+            if (res.HasValue && res.Value)
             {
-                hexBox.Close();
-                DisableEdit?.Invoke(this, EventArgs.Empty);
+                return;
             }
             else
             {
-                return;
+                hexBox.Close();
+                DisableEdit?.Invoke(this, EventArgs.Empty);
             }
 
             using (FrmProcess frmProcess = FrmProcess.Instance)
@@ -378,6 +409,12 @@ namespace PEHexExplorer
             }
         }
 
+        /// <summary>
+        /// 返回值为真，说明被取消关闭；
+        /// 返回为空，则无更改；
+        /// 返回为假，文件已被正常关闭。
+        /// </summary>
+        /// <returns></returns>
         private bool? Closefile()
         {
             bool? res = hexBox.ByteProvider?.HasChanges();
@@ -389,9 +426,9 @@ namespace PEHexExplorer
                 }
                 CloseFileArgs args = new CloseFileArgs();
                 ClosingFile.Invoke(this, args);
-                return args.info;
+                return args.Cancel;
             }
-            return true;
+            return null;
         }
 
         public void ApplyContextMenuStrip(ContextMenuStrip menuStrip)
@@ -407,13 +444,6 @@ namespace PEHexExplorer
 
         #endregion
 
-        /// <summary>
-        /// 向 EditorPageManager 宿主发送自己的完整信息
-        /// </summary>
-        public void PostWholeMessage()
-        {
-
-        }
 
     }
 

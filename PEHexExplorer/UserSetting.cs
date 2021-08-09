@@ -61,7 +61,6 @@ namespace PEHexExplorer
 
         public bool Reset()
         {
-
             return true;
         }
 
@@ -75,4 +74,5 @@ namespace PEHexExplorer
         }
 
     }
+
 }
