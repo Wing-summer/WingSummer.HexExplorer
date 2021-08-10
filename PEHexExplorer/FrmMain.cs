@@ -115,7 +115,13 @@ namespace PEHexExplorer
                     HexBox_SelectionLengthChanged(e.EditorMessage.SelectionLength);
                     HexBox_CurrentPositionChanged(e.EditorMessage.SelectionStart);
                     tbLineInfo.Checked = e.EditorMessage.LineInfo;
-
+                    tbLineBg.Checked = e.EditorMessage.LineInfoBG;
+                    tbColInfo.Checked = e.EditorMessage.ColInfo;
+                    tbColBg.Checked = e.EditorMessage.ColInfoBG;
+                    tbGroupSep.Checked = e.EditorMessage.GroupLine;
+                    tbPEInfo.Checked = e.EditorMessage.PEInfo;
+                    tbString.Checked = e.EditorMessage.HexStr;
+                    tscbEncoding.SelectedIndex = (int)e.EditorMessage.Encoding;
                     break;
                 case EditPage.EditorMessageType.Scaling:
                     HexBox_ScalingChanged(e.EditorMessage.Scaling);
@@ -142,40 +148,34 @@ namespace PEHexExplorer
                     HexBox_CurrentPositionChanged(e.EditorMessage.SelectionStart);
                     break;
                 case EditPage.EditorMessageType.ApplyTreeView:
-
+                    
                     break;
                 case EditPage.EditorMessageType.Quit:
 
                     break;
-                case EditPage.EditorMessageType.AddrStatus:
+                case EditPage.EditorMessageType.LineInfoStatus:
                     tbLineInfo.Checked = e.EditorMessage.LineInfo;
                     break;
-                case EditPage.EditorMessageType.LineInfoStatus:
-
-                    break;
                 case EditPage.EditorMessageType.LineInfoBGStatus:
-
+                    tbLineBg.Checked = e.EditorMessage.LineInfoBG;
                     break;
                 case EditPage.EditorMessageType.ColInfoStatus:
-
+                    tbColInfo.Checked = e.EditorMessage.ColInfo;
                     break;
                 case EditPage.EditorMessageType.ColInfoBGStatus:
-
+                    tbColBg.Checked = e.EditorMessage.ColInfoBG;
                     break;
                 case EditPage.EditorMessageType.GroupStatus:
-
-                    break;
-                case EditPage.EditorMessageType.HexStrStatus:
-
+                    tbGroupSep.Checked = e.EditorMessage.GroupLine;
                     break;
                 case EditPage.EditorMessageType.PEInfoStatus:
-
+                    tbPEInfo.Checked = e.EditorMessage.PEInfo;
                     break;
                 case EditPage.EditorMessageType.StringStatus:
-
+                    tbString.Checked = e.EditorMessage.HexStr;
                     break;
                 case EditPage.EditorMessageType.EncodingChanged:
-
+                    tscbEncoding.SelectedIndex = (int)e.EditorMessage.Encoding;
                     break;
                 default:
                     break;
@@ -337,22 +337,18 @@ namespace PEHexExplorer
                 {
                     HexBox hexBox = pageManager.CurrentHexBox;
                     byte[] buffer = frmFill.Result.buffer;
-
                     pageManager.CurrentHexBox.WriteBytes(hexBox.SelectionStart, buffer, hexBox.SelectionLength);
-
                 }
             }
         }
 
-        private void MIFillZero_Click(object sender, EventArgs e)
-        {
-            pageManager.CurrentHexBox.WriteBytes(pageManager.CurrentHexBox.SelectionStart, 0, pageManager.CurrentHexBox.SelectionLength);
-        }
+        private void MIFillZero_Click(object sender, EventArgs e) 
+            => pageManager.CurrentHexBox.WriteBytes
+            (pageManager.CurrentHexBox.SelectionStart, 0, pageManager.CurrentHexBox.SelectionLength);
 
-        private void MIFillNop_Click(object sender, EventArgs e)
-        {
-            pageManager.CurrentHexBox.WriteBytes(pageManager.CurrentHexBox.SelectionStart, 0x90, pageManager.CurrentHexBox.SelectionLength);
-        }
+        private void MIFillNop_Click(object sender, EventArgs e) 
+            => pageManager.CurrentHexBox.WriteBytes
+            (pageManager.CurrentHexBox.SelectionStart, 0x90, pageManager.CurrentHexBox.SelectionLength);
 
         #endregion
 
@@ -618,27 +614,11 @@ namespace PEHexExplorer
             }
         }
 
-        private void LblFilename_Click(object sender, EventArgs e)
-        {
-            string filename = pageManager.CurrentHexBox.Filename;
-            if (filename?.Length > 0)
-            {
-                Process.Start("Explorer.exe", $"/e,/select,{filename}");
-            }
-        }
-
         private void MIInfo_Click(object sender, EventArgs e) => scEdit.Panel2Collapsed = !scEdit.Panel2Collapsed;
-
-        #endregion
-
-        private void TvPEStruct_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
 
         private void MIAdmin_Click(object sender, EventArgs e)
         {
-            MIClose_Click(sender, e);
+        
 
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
@@ -653,11 +633,67 @@ namespace PEHexExplorer
                 Process.Start(startInfo);
                 Environment.Exit(0);
             }
-            catch 
+            catch
             {
                 MessageBox.Show("管理员权限重启程序失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+        }
+
+        #endregion
+
+        #region 状态栏
+
+        private void LblFilename_Click(object sender, EventArgs e)
+        {
+            string filename = pageManager.CurrentHexBox.Filename;
+            if (filename?.Length > 0)
+            {
+                Process.Start("Explorer.exe", $"/e,/select,{filename}");
+            }
+        }
+
+        private void TscbEncoding_SelectedIndexChanged(object sender, EventArgs e) 
+            => pageManager?.CurrentPage.ChangeEncoding(tscbEncoding.SelectedIndex);
+
+        private void TbAddr_Click(object sender, EventArgs e)
+        {
+            using (FrmAddrBase frmAddr= FrmAddrBase.Instance)
+            {
+                if (frmAddr.ShowDialog()== DialogResult.OK)
+                {
+                    pageManager.CurrentPage.ChangeBaseAddr(frmAddr.Result);
+                }
+            }
+        }
+
+        private void TbLineInfo_Click(object sender, EventArgs e)
+            => pageManager.CurrentPage.ChangeLineInfoVisible();
+
+        private void TbLineBg_Click(object sender, EventArgs e)
+            => pageManager.CurrentPage.ChangeLineInfoBGVisible();
+
+        private void TbColInfo_Click(object sender, EventArgs e)
+             => pageManager.CurrentPage.ChangeColInfoVisible();
+
+        private void TbColBg_Click(object sender, EventArgs e)
+            => pageManager.CurrentPage.ChangeColInfoBGVisible();
+
+        private void TbGroupSep_Click(object sender, EventArgs e)
+            => pageManager.CurrentPage.ChangeGroupSepVisible();
+
+        private void TbPEInfo_Click(object sender, EventArgs e)
+             => pageManager.CurrentPage.ChangePEInfoVisible();
+
+        private void TbString_Click(object sender, EventArgs e)
+            => pageManager.CurrentPage.ChangeHexStrVisible();
+
+        #endregion
+
+
+
+        private void TvPEStruct_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
         }
 
 

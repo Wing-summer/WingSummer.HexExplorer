@@ -28,6 +28,10 @@ namespace PEHexExplorer
         public FrmAddrConvert()
         {
             InitializeComponent();
+            ntBase.Maximum = Program.Int64Max;
+            ntFOA.Maximum = Program.Int64Max;
+            ntRVA.Maximum = Program.Int64Max;
+            ntVA.Maximum = Program.Int64Max;
         }
 
         private void NtOffset_ValueChanged(object sender, EventArgs e)

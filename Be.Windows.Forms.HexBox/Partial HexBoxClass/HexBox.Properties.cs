@@ -15,9 +15,7 @@ namespace Be.Windows.Forms
         public Color BackColorDisabled
         {
             get
-            {
-                return _backColorDisabled;
-            }
+            => _backColorDisabled;
             set
             {
                 _backColorDisabled = value;
@@ -35,7 +33,7 @@ namespace Be.Windows.Forms
         [DefaultValue(false), Category("十六进制相关"), Description("获取或设置是否只读")]
         public bool ReadOnly
         {
-            get { return _readOnly; }
+            get => _readOnly;
             set
             {
                 if (_readOnly == value)
@@ -56,7 +54,7 @@ namespace Be.Windows.Forms
         [DefaultValue(1.0), Category("Hex"), Description("缩放率")]
         public float Scaling
         {
-            get { return _scaling; }
+            get => _scaling;
             set
             {
                 if (value <= 0)
@@ -79,7 +77,7 @@ namespace Be.Windows.Forms
         [DefaultValue(16), Category("Hex"), Description("Gets or sets the maximum count of bytes in one line.")]
         public int BytesPerLine
         {
-            get { return _bytesPerLine; }
+            get => _bytesPerLine;
             set
             {
                 if (_bytesPerLine == value)
@@ -105,7 +103,7 @@ namespace Be.Windows.Forms
         [DefaultValue(4), Category("Hex"), Description("Gets or sets the byte-count between group separators (if visible).")]
         public int GroupSize
         {
-            get { return _groupSize; }
+            get => _groupSize;
             set
             {
                 if (_groupSize == value)
@@ -131,7 +129,7 @@ namespace Be.Windows.Forms
         [DefaultValue(false), Category("Hex"), Description("Gets or sets if the count of bytes in one line is fix.")]
         public bool UseFixedBytesPerLine
         {
-            get { return _useFixedBytesPerLine; }
+            get => _useFixedBytesPerLine;
             set
             {
                 if (_useFixedBytesPerLine == value)
@@ -153,7 +151,7 @@ namespace Be.Windows.Forms
         [DefaultValue(false), Category("Hex"), Description("Gets or sets the visibility of a vertical scroll bar.")]
         public bool VScrollBarVisible
         {
-            get { return _vScrollBarVisible; }
+            get => _vScrollBarVisible;
             set
             {
                 if (_vScrollBarVisible == value)
@@ -181,7 +179,7 @@ namespace Be.Windows.Forms
         [DefaultValue(false), Category("Hex"), Description("获取或设置水平滚动条是否可见")]
         public bool HScrollBarVisible
         {
-            get { return _hScrollBarVisible; }
+            get => _hScrollBarVisible;
             set
             {
                 if (_hScrollBarVisible == value)
@@ -209,7 +207,7 @@ namespace Be.Windows.Forms
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IByteProvider ByteProvider
         {
-            get { return _byteProvider; }
+            get => _byteProvider;
             set
             {
                 if (_byteProvider == value)
@@ -240,7 +238,7 @@ namespace Be.Windows.Forms
                     }
                     else
                     {
-                        if (value.Length+BaseAddr > 4294967295L)   //int32能表示的最大数字
+                        if (value.Length + BaseAddr > 4294967295L)   //int32能表示的最大数字
                         {
                             curIsLongHex = true;
                         }
@@ -289,7 +287,7 @@ namespace Be.Windows.Forms
 
         private void ByteProvider_Changed(object sender, EventArgs e)
         {
-            SavedStatusChanged?.Invoke(sender,e);
+            SavedStatusChanged?.Invoke(sender, e);
         }
 
         private IByteProvider _byteProvider;
@@ -305,7 +303,7 @@ namespace Be.Windows.Forms
         [DefaultValue(false), Category("Hex"), Description("Gets or sets the visibility of a separator vertical line.")]
         public bool GroupSeparatorVisible
         {
-            get { return _groupSeparatorVisible; }
+            get => _groupSeparatorVisible;
             set
             {
                 if (_groupSeparatorVisible == value)
@@ -327,7 +325,7 @@ namespace Be.Windows.Forms
         [DefaultValue(false), Category("Hex"), Description("Gets or sets the visibility of header row.")]
         public bool ColumnInfoVisible
         {
-            get { return _columnInfoVisible; }
+            get => _columnInfoVisible;
             set
             {
                 if (_columnInfoVisible == value)
@@ -349,7 +347,7 @@ namespace Be.Windows.Forms
         [DefaultValue(false), Category("Hex"), Description("Gets or sets the visibility of a line info.")]
         public bool LineInfoVisible
         {
-            get { return _lineInfoVisible; }
+            get => _lineInfoVisible;
             set
             {
                 if (_lineInfoVisible == value)
@@ -371,7 +369,7 @@ namespace Be.Windows.Forms
         [DefaultValue(typeof(BorderStyle), "Fixed3D"), Category("Hex"), Description("Gets or sets the hex box's border style.")]
         public BorderStyle BorderStyle
         {
-            get { return _borderStyle; }
+            get => _borderStyle;
             set
             {
                 if (_borderStyle == value)
@@ -407,7 +405,7 @@ namespace Be.Windows.Forms
         [DefaultValue(false), Category("Hex"), Description("Gets or sets the visibility of the string view.")]
         public bool StringViewVisible
         {
-            get { return _stringViewVisible; }
+            get => _stringViewVisible;
             set
             {
                 if (_stringViewVisible == value)
@@ -439,8 +437,8 @@ namespace Be.Windows.Forms
         /// <summary>
         /// 判断是否打开的是PE镜像
         /// </summary>
-        [Category("Hex"), Description("判断是否打开的是PE镜像"),DefaultValue(false)]
-        public bool IsOpenImage =>_isOpenImage;
+        [Category("Hex"), Description("判断是否打开的是PE镜像"), DefaultValue(false)]
+        public bool IsOpenImage => _isOpenImage;
         private bool _isOpenImage;
 
         /// <summary>
@@ -480,7 +478,7 @@ namespace Be.Windows.Forms
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public long SelectionStart
         {
-            get { return _bytePos; }
+            get => _bytePos;
             set
             {
                 SetPosition(value, 0);
@@ -495,7 +493,7 @@ namespace Be.Windows.Forms
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public long SelectionLength
         {
-            get { return _selectionLength; }
+            get => _selectionLength;
             set
             {
                 SetSelectionLength(value);
@@ -512,7 +510,7 @@ namespace Be.Windows.Forms
         [DefaultValue(typeof(Color), "Gray"), Category("Hex"), Description("Gets or sets the line info color. When this property is null, then ForeColor property is used.")]
         public Color InfoForeColor
         {
-            get { return _infoForeColor; }
+            get => _infoForeColor;
             set { _infoForeColor = value; Invalidate(); }
         }
 
@@ -524,7 +522,7 @@ namespace Be.Windows.Forms
         [DefaultValue(typeof(Color), "Blue"), Category("Hex"), Description("Gets or sets the background color for the selected bytes.")]
         public Color SelectionBackColor
         {
-            get { return _selectionBackColor; }
+            get => _selectionBackColor;
             set { _selectionBackColor = value; Invalidate(); }
         }
 
@@ -536,7 +534,7 @@ namespace Be.Windows.Forms
         [DefaultValue(100), Category("Hex"), Description("选择区块色彩透明度")]
         public int SelectionBackColorOpacity
         {
-            get { return _selectionBackColorOpacity; }
+            get => _selectionBackColorOpacity;
             set
             {
                 if (value >= 0 && value <= 255)
@@ -554,8 +552,11 @@ namespace Be.Windows.Forms
         [DefaultValue(typeof(Color), "White"), Category("Hex"), Description("Gets or sets the foreground color for the selected bytes.")]
         public Color SelectionForeColor
         {
-            get { return _selectionForeColor; }
-            set { _selectionForeColor = value; Invalidate(); }
+            get => _selectionForeColor;
+            set
+            {
+                _selectionForeColor = value; Invalidate();
+            }
         }
 
         private Color _selectionForeColor = Color.White;
@@ -566,10 +567,7 @@ namespace Be.Windows.Forms
         [DefaultValue(typeof(Color), "White"), Category("Hex"), Description("获取或设置列标号的背景色")]
         public Color ColumnInfoBackColor
         {
-            get
-            {
-                return _columnInfoBackColor;
-            }
+            get => _columnInfoBackColor;
             set
             {
                 _columnInfoBackColor = value;
@@ -585,7 +583,13 @@ namespace Be.Windows.Forms
         [DefaultValue(false), Category("Hex"), Description("获取或设置列标号的背景色")]
         public bool ShowColumnInfoBackColor
         {
-            get; set;
+            get => showColumnInfoBackColor; 
+            set
+            {
+                showColumnInfoBackColor = value;
+                ShowColumnInfoBackColorChanged?.Invoke(this, EventArgs.Empty);
+                Invalidate();
+            }
         }
 
         /// <summary>
@@ -594,10 +598,7 @@ namespace Be.Windows.Forms
         [DefaultValue(typeof(Color), "White"), Category("Hex"), Description("获取或设置行标号的背景色")]
         public Color LineInfoBackColor
         {
-            get
-            {
-                return _lineInfoBackColor;
-            }
+            get => _lineInfoBackColor;
 
             set
             {
@@ -611,10 +612,16 @@ namespace Be.Windows.Forms
         /// <summary>
         /// 获取或设置是否填充行标号的背景色
         /// </summary>
-        [DefaultValue(false), Category("Hex"), Description("获取或设置行标号的背景色")]
+        [DefaultValue(false), Category("Hex"), Description("获取或设置是否填充行标号的背景色")]
         public bool ShowLineInfoBackColor
         {
-            get; set;
+            get => showLineInfoBackColor; 
+            set
+            {
+                showLineInfoBackColor = value;
+                ShowLineInfoBackColorChanged?.Invoke(this, EventArgs.Empty);
+                Invalidate();
+            }
         }
 
         /// <summary>
@@ -623,7 +630,7 @@ namespace Be.Windows.Forms
         [DefaultValue(true), Category("Hex"), Description("Gets or sets the visibility of a shadow selection.")]
         public bool ShadowSelectionVisible
         {
-            get { return _shadowSelectionVisible; }
+            get => _shadowSelectionVisible;
             set
             {
                 if (_shadowSelectionVisible == value)
@@ -641,10 +648,7 @@ namespace Be.Windows.Forms
         [DefaultValue(HorizontalAlignment.Center), Category("Hex"), Description("设置或获取行列标号对齐方式")]
         public HorizontalAlignment LineInfoAlignment
         {
-            get
-            {
-                return _lineInfoAlignment;
-            }
+            get => _lineInfoAlignment;
             set
             {
                 _lineInfoAlignment = value;
@@ -660,10 +664,7 @@ namespace Be.Windows.Forms
         [DefaultValue(4), Category("Hex"), Description("行标号边缘空白大小")]
         public int MarginLineInfo
         {
-            get
-            {
-                return _marginLineInfo;
-            }
+            get => _marginLineInfo;
             set
             {
                 if (value >= 0)
@@ -686,7 +687,7 @@ namespace Be.Windows.Forms
         [Category("Hex"), Description("Gets or sets the color of the shadow selection.")]
         public Color ShadowSelectionColor
         {
-            get { return _shadowSelectionColor; }
+            get => _shadowSelectionColor;
             set { _shadowSelectionColor = value; Invalidate(); }
         }
 
@@ -698,7 +699,7 @@ namespace Be.Windows.Forms
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public SizeF CharSize
         {
-            get { return _charSize; }
+            get => _charSize;
             private set
             {
                 if (_charSize == value)
@@ -716,7 +717,7 @@ namespace Be.Windows.Forms
         [DefaultValue(0), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int RequiredWidth
         {
-            get { return _requiredWidth; }
+            get => _requiredWidth;
             private set
             {
                 if (_requiredWidth == value)
@@ -732,28 +733,19 @@ namespace Be.Windows.Forms
         /// Gets the number bytes drawn horizontally.
         /// </summary>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int HorizontalByteCount
-        {
-            get { return _iHexMaxHBytes; }
-        }
+        public int HorizontalByteCount => _iHexMaxHBytes;
 
         /// <summary>
         /// Gets the number bytes drawn vertically.
         /// </summary>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int VerticalByteCount
-        {
-            get { return _iHexMaxVBytes; }
-        }
+        public int VerticalByteCount => _iHexMaxVBytes;
 
         /// <summary>
         /// Gets the current line
         /// </summary>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public long CurrentLine
-        {
-            get { return _currentLine; }
-        }
+        public long CurrentLine => _currentLine;
 
         private long _currentLine;
 
@@ -761,10 +753,7 @@ namespace Be.Windows.Forms
         /// Gets the current position in the current line
         /// </summary>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public long CurrentPositionInLine
-        {
-            get { return _currentPositionInLine; }
-        }
+        public long CurrentPositionInLine => _currentPositionInLine;
 
         private int _currentPositionInLine;
 
@@ -788,7 +777,7 @@ namespace Be.Windows.Forms
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool InsertActive
         {
-            get { return _insertActive; }
+            get => _insertActive;
             set
             {
                 if (_insertActive == value)
@@ -823,6 +812,7 @@ namespace Be.Windows.Forms
                 {
                     _byteCharConverter = value;
                     Invalidate();
+                    EncodingChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -835,14 +825,12 @@ namespace Be.Windows.Forms
         [DefaultValue(false), Category("Hex"), Description("是否不用ASCII编码而用Unicode显示字符串解析结果")]
         public bool IsCharToUnicode
         {
-            get
-            {
-                return _isCharToUnicode;
-            }
+            get => _isCharToUnicode;
             set
             {
                 _isCharToUnicode = value;
                 Refresh();
+                EncodingChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -854,16 +842,14 @@ namespace Be.Windows.Forms
         [DefaultValue(false), Category("Hex"), Description("越界锁，如果开启，光标最后一个空白字节，插入将失效")]
         public bool IsLockedBuffer
         {
-            get
-            {
-                return _isLockedBuffer;
-            }
+            get => _isLockedBuffer;
             set
             {
                 _isLockedBuffer = value;
-                LockedBufferChanged?.Invoke(this,EventArgs.Empty);
+                LockedBufferChanged?.Invoke(this, EventArgs.Empty);
             }
-        }private bool _isLockedBuffer;
+        }
+        private bool _isLockedBuffer;
 
         /// <summary>
         /// 行信息的默认起始
@@ -871,17 +857,47 @@ namespace Be.Windows.Forms
         [DefaultValue(0), Category("Hex"), Description("行信息的默认起始")]
         public long BaseAddr
         {
-            get
-            {
-                return _baseAddr;
-            }
+            get => _baseAddr;
             set
             {
                 if (value >= 0)
                     _baseAddr = value;
+                Invalidate();
             }
         }
         private long _baseAddr = 0;
+
+        private bool _ShowBookMarkMain;
+        /// <summary>
+        /// 是否显示主书签背景指示
+        /// </summary>
+        [DefaultValue(true), Category("Hex"), Description("是否显示主书签背景指示")]
+        public bool ShowBookMarkMain
+        {
+            get => _ShowBookMarkMain;
+            set
+            {
+                _ShowBookMarkMain = value; 
+                ShowBookMarkMainChanged?.Invoke(this, EventArgs.Empty);
+                Invalidate();
+            }
+        }
+
+        private bool _ShowBookMark;
+        /// <summary>
+        /// 是否显示书签背景指示
+        /// </summary>
+        [DefaultValue(true), Category("Hex"), Description("是否显示书签背景指示")]
+        public bool ShowBookMark
+        {
+            get => _ShowBookMark;
+            set
+            {
+                _ShowBookMark = value; 
+                ShowBookMarkChanged?.Invoke(this, EventArgs.Empty);
+                Invalidate();
+            }
+        }
 
 
         /// <summary>
@@ -890,7 +906,7 @@ namespace Be.Windows.Forms
         [DefaultValue(false), Category("Hex"), Description("是否强制64位地址显示")]
         public bool Force64Bit
         {
-            get;set;
+            get; set;
         }
 
         /// <summary>
@@ -899,7 +915,7 @@ namespace Be.Windows.Forms
         [DefaultValue("A."), Category("Hex"), Description("每个字符占用宽度参考字符串，不得为空")]
         public string CharSizeRefer
         {
-            get { return _charSizeRefer; }
+            get => _charSizeRefer;
             set
             {
                 StringBuilder stringBuilder = new StringBuilder();
@@ -919,5 +935,7 @@ namespace Be.Windows.Forms
         }
 
         private string _charSizeRefer = "A.";
+        private bool showColumnInfoBackColor;
+        private bool showLineInfoBackColor;
     }
 }

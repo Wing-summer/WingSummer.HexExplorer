@@ -186,10 +186,19 @@ namespace PEHexExplorer
 
         public void CloseCurrentPage() => ClosePage(_tabControl.SelectedTab as EditPage);
 
-        #region MyRegion
-
-
-        #endregion
+        public void CloseAllPage()
+        {
+            List<EditPage> editPages = new List<EditPage>();
+            foreach (EditPage item in _tabControl.TabPages)
+            {
+                editPages.Add(item);
+            }
+            foreach (var item in editPages)
+            {
+                ClosePage(item);
+            }
+            editPages.Clear();
+        }
 
     }
 }

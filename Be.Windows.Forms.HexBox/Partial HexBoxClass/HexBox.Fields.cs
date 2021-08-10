@@ -173,8 +173,8 @@ namespace Be.Windows.Forms
 
         private bool curIsLongHex = false;
 
-        private const string longhex = "0000000000000000";
-        private const string shorthex = "00000000";
+        private readonly string longhex = new string('~', 16);
+        private readonly string shorthex = new string('~', 8);
 
         /// <summary>
         /// Contains the current key interpreter
@@ -217,21 +217,28 @@ namespace Be.Windows.Forms
         private bool _insertActive;
 
         /// <summary>
-        /// 高亮区段列表
+        /// 主高亮区段列表
         /// </summary>
         private readonly List<HighlightedRegion> HighligedRegions = new List<HighlightedRegion>();
+
+        /// <summary>
+        /// 备用高亮区段列表
+        /// </summary>
+        private readonly List<HighlightedRegion> HighlightedRegions = new List<HighlightedRegion>();
 
         /// <summary>
         /// 添加高亮区段
         /// </summary>
         /// <param name="region"></param>
-        public bool AddHighligedRegion(HighlightedRegion region)
+        /// <param name="IsMain"></param>
+        public bool AddHighligedRegion(HighlightedRegion region,bool IsMain=true)
         {
-            if (HighligedRegions.Contains(region))
+            List<HighlightedRegion> highlightedRegions = IsMain ? HighligedRegions : HighlightedRegions;
+            if (highlightedRegions.Contains(region))
             {
                 return false;
             }
-            HighligedRegions.Add(region);
+            highlightedRegions.Add(region);
             Invalidate();
             return true;
         }
@@ -239,9 +246,24 @@ namespace Be.Windows.Forms
         /// <summary>
         /// 清空高亮区段
         /// </summary>
-        public void ClearHighlightedRegion()
+        public void ClearHighlightedRegion(bool? IsMain = true)
         {
-            HighligedRegions.Clear();
+            if (IsMain.HasValue)
+            {
+                if (IsMain.Value)
+                {
+                    HighligedRegions.Clear();
+                }
+                else
+                {
+                    HighlightedRegions.Clear();
+                }
+            }
+            else
+            {
+                HighligedRegions.Clear();
+                HighlightedRegions.Clear();
+            }
             Invalidate();
         }
 
@@ -249,9 +271,12 @@ namespace Be.Windows.Forms
         /// 删除高亮区域，全部已知
         /// </summary>
         /// <param name="region"></param>
-        public void RemoveHighlightedRegion(HighlightedRegion region)
+        /// <param name="IsMain"></param>
+        public void RemoveHighlightedRegion(HighlightedRegion region,bool IsMain=true)
         {
-            HighligedRegions.Remove(region);
+            List<HighlightedRegion> highlightedRegions = IsMain ? HighligedRegions : HighlightedRegions;
+
+            highlightedRegions.Remove(region);
             Invalidate();
         }
 
@@ -259,9 +284,11 @@ namespace Be.Windows.Forms
         /// 删除高亮区域，已知高亮区域开头
         /// </summary>
         /// <param name="regionStart"></param>
-        public void RemoveHighlightedRegion(int regionStart)
+        /// <param name="IsMain"></param>
+        public void RemoveHighlightedRegion(int regionStart, bool IsMain = true)
         {
-            HighligedRegions.RemoveAll(k => k.Start == regionStart);
+            List<HighlightedRegion> highlightedRegions = IsMain ? HighligedRegions : HighlightedRegions;
+            highlightedRegions.RemoveAll(k => k.Start == regionStart);
             Invalidate();
         }
 
@@ -269,13 +296,15 @@ namespace Be.Windows.Forms
         /// 删除高亮区域，已知在高亮区块列表中的索引
         /// </summary>
         /// <param name="index"></param>
-        public bool RemoveHighlightedRegionAt(int index)
+        /// <param name="IsMain"></param>
+        public bool RemoveHighlightedRegionAt(int index ,bool IsMain = true)
         {
-            if (index>= HighligedRegions.Count||index<0)
+            List<HighlightedRegion> highlightedRegions = IsMain ? HighligedRegions : HighlightedRegions;
+            if (index>= highlightedRegions.Count||index<0)
             {
                 return false;
             }
-            HighligedRegions.RemoveAt(index);
+            highlightedRegions.RemoveAt(index);
             Invalidate();
             return true;
         }
@@ -285,16 +314,19 @@ namespace Be.Windows.Forms
         /// </summary>
         /// <param name="OldRegion"></param>
         /// <param name="newRegion"></param>
+        /// <param name="IsMain"></param>
         /// <returns></returns>
-        public bool ModHighlightedRegion(HighlightedRegion OldRegion, HighlightedRegion newRegion)
+        public bool ModHighlightedRegion(HighlightedRegion OldRegion, HighlightedRegion newRegion, bool IsMain = true)
         {
-            if (HighligedRegions.Remove(OldRegion))
+            List<HighlightedRegion> highlightedRegions = IsMain ? HighligedRegions : HighlightedRegions;
+            if (highlightedRegions.Remove(OldRegion))
             {
-                HighligedRegions.Add(newRegion);
+                highlightedRegions.Add(newRegion);
                 Invalidate();
                 return true;
             }
             return false;
         }
+
     }
 }

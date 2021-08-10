@@ -13,6 +13,8 @@ namespace PEHexExplorer
         internal static readonly string AppErrDir = AppDir + "Error";
         internal static UserSetting userSetting;
 
+        internal const ulong Int64Max = (1UL << 63) - 1;
+
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>

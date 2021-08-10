@@ -326,6 +326,7 @@ namespace Be.Windows.Forms
             try
             {
                 processByteProvider = new ProcessByteProvider(process, writeable);
+                BaseAddr = processByteProvider.BaseAddr.ToInt64();
                 ByteProvider = processByteProvider;
                 Filename = process.MainModule.FileName;
                 _isLockedBuffer = true;

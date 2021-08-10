@@ -468,7 +468,7 @@ namespace Be.Windows.Forms
                 {
                     _recLineInfo = new Rectangle(_recContent.X + _marginLineInfo,
                         _recContent.Y,
-                        (int)(graphics.MeasureString(curIsLongHex ? longhex : shorthex, font).Width + _charSize.Width * 2),
+                        (int)(graphics.MeasureString(curIsLongHex ? longhex : shorthex, font).Width + _charSize.Width),
                         _recContent.Height);
                     requiredWidth += _recLineInfo.Width;
                 }

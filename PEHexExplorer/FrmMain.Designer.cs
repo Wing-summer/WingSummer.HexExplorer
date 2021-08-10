@@ -137,8 +137,7 @@
             this.tscbEncoding = new System.Windows.Forms.ToolStripComboBox();
             this.tbString = new System.Windows.Forms.ToolStripButton();
             this.tbPEInfo = new System.Windows.Forms.ToolStripButton();
-            this.tbHexString = new System.Windows.Forms.ToolStripButton();
-            this.tbGroup = new System.Windows.Forms.ToolStripButton();
+            this.tbGroupSep = new System.Windows.Forms.ToolStripButton();
             this.tbColBg = new System.Windows.Forms.ToolStripButton();
             this.tbColInfo = new System.Windows.Forms.ToolStripButton();
             this.tbLineBg = new System.Windows.Forms.ToolStripButton();
@@ -312,12 +311,14 @@
             this.ts13,
             this.MIClose,
             MIExit});
+            this.MenuItemFile.Image = global::PEHexExplorer.Properties.Resources.file;
             this.MenuItemFile.Name = "MenuItemFile";
-            this.MenuItemFile.Size = new System.Drawing.Size(71, 24);
+            this.MenuItemFile.Size = new System.Drawing.Size(91, 24);
             this.MenuItemFile.Text = "文件(&F)";
             // 
             // MINew
             // 
+            MINew.Image = global::PEHexExplorer.Properties.Resources._new;
             MINew.Name = "MINew";
             MINew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             MINew.Size = new System.Drawing.Size(287, 26);
@@ -326,6 +327,7 @@
             // 
             // MIOpen
             // 
+            MIOpen.Image = global::PEHexExplorer.Properties.Resources.open;
             MIOpen.Name = "MIOpen";
             MIOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             MIOpen.Size = new System.Drawing.Size(287, 26);
@@ -347,6 +349,7 @@
             // MISave
             // 
             this.MISave.Enabled = false;
+            this.MISave.Image = global::PEHexExplorer.Properties.Resources.save;
             this.MISave.Name = "MISave";
             this.MISave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.MISave.Size = new System.Drawing.Size(287, 26);
@@ -356,6 +359,7 @@
             // MISaveAs
             // 
             this.MISaveAs.Enabled = false;
+            this.MISaveAs.Image = global::PEHexExplorer.Properties.Resources.saveas;
             this.MISaveAs.Name = "MISaveAs";
             this.MISaveAs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
@@ -366,6 +370,7 @@
             // MIExport
             // 
             this.MIExport.Enabled = false;
+            this.MIExport.Image = global::PEHexExplorer.Properties.Resources.export;
             this.MIExport.Name = "MIExport";
             this.MIExport.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.Shift) 
@@ -396,6 +401,7 @@
             // MIClose
             // 
             this.MIClose.Enabled = false;
+            this.MIClose.Image = global::PEHexExplorer.Properties.Resources.closefile;
             this.MIClose.Name = "MIClose";
             this.MIClose.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Q)));
@@ -405,6 +411,7 @@
             // 
             // MIExit
             // 
+            MIExit.Image = global::PEHexExplorer.Properties.Resources.exit;
             MIExit.Name = "MIExit";
             MIExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
             MIExit.Size = new System.Drawing.Size(287, 26);
@@ -445,12 +452,12 @@
             MIS8,
             this.MIBookMark});
             this.hexMenuStrip.Name = "hexMenuStrip";
-            this.hexMenuStrip.OwnerItem = this.MenuItemEdit;
             this.hexMenuStrip.Size = new System.Drawing.Size(262, 424);
             // 
             // MISelectAll
             // 
             this.MISelectAll.Enabled = false;
+            this.MISelectAll.Image = global::PEHexExplorer.Properties.Resources.selectAll;
             this.MISelectAll.Name = "MISelectAll";
             this.MISelectAll.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
             this.MISelectAll.Size = new System.Drawing.Size(261, 26);
@@ -465,6 +472,7 @@
             // MICut
             // 
             this.MICut.Enabled = false;
+            this.MICut.Image = global::PEHexExplorer.Properties.Resources.cut;
             this.MICut.Name = "MICut";
             this.MICut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.MICut.Size = new System.Drawing.Size(261, 26);
@@ -474,6 +482,7 @@
             // MICopy
             // 
             this.MICopy.Enabled = false;
+            this.MICopy.Image = global::PEHexExplorer.Properties.Resources.copy;
             this.MICopy.Name = "MICopy";
             this.MICopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.MICopy.Size = new System.Drawing.Size(261, 26);
@@ -483,6 +492,7 @@
             // MICopyHex
             // 
             this.MICopyHex.Enabled = false;
+            this.MICopyHex.Image = global::PEHexExplorer.Properties.Resources.copy;
             this.MICopyHex.Name = "MICopyHex";
             this.MICopyHex.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.C)));
@@ -493,6 +503,7 @@
             // MIPaste
             // 
             this.MIPaste.Enabled = false;
+            this.MIPaste.Image = global::PEHexExplorer.Properties.Resources.paste;
             this.MIPaste.Name = "MIPaste";
             this.MIPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.MIPaste.Size = new System.Drawing.Size(261, 26);
@@ -502,6 +513,7 @@
             // MIPasteHex
             // 
             this.MIPasteHex.Enabled = false;
+            this.MIPasteHex.Image = global::PEHexExplorer.Properties.Resources.paste;
             this.MIPasteHex.Name = "MIPasteHex";
             this.MIPasteHex.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.V)));
@@ -512,6 +524,7 @@
             // MIDel
             // 
             this.MIDel.Enabled = false;
+            this.MIDel.Image = global::PEHexExplorer.Properties.Resources.del;
             this.MIDel.Name = "MIDel";
             this.MIDel.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.MIDel.Size = new System.Drawing.Size(261, 26);
@@ -1042,8 +1055,7 @@
             this.tbString,
             this.tbPEInfo,
             ts17,
-            this.tbHexString,
-            this.tbGroup,
+            this.tbGroupSep,
             ts16,
             this.tbColBg,
             this.tbColInfo,
@@ -1077,6 +1089,7 @@
             this.tscbEncoding.Name = "tscbEncoding";
             this.tscbEncoding.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tscbEncoding.Size = new System.Drawing.Size(121, 28);
+            this.tscbEncoding.SelectedIndexChanged += new System.EventHandler(this.TscbEncoding_SelectedIndexChanged);
             // 
             // tbString
             // 
@@ -1088,6 +1101,7 @@
             this.tbString.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbString.Size = new System.Drawing.Size(29, 29);
             this.tbString.Text = "字符串解析表";
+            this.tbString.Click += new System.EventHandler(this.TbString_Click);
             // 
             // tbPEInfo
             // 
@@ -1099,28 +1113,19 @@
             this.tbPEInfo.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbPEInfo.Size = new System.Drawing.Size(29, 29);
             this.tbPEInfo.Text = "PE底色显示";
+            this.tbPEInfo.Click += new System.EventHandler(this.TbPEInfo_Click);
             // 
-            // tbHexString
+            // tbGroupSep
             // 
-            this.tbHexString.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tbHexString.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbHexString.Image = global::PEHexExplorer.Properties.Resources.mHexStr;
-            this.tbHexString.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbHexString.Name = "tbHexString";
-            this.tbHexString.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tbHexString.Size = new System.Drawing.Size(29, 29);
-            this.tbHexString.Text = "字节字符串分割线";
-            // 
-            // tbGroup
-            // 
-            this.tbGroup.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tbGroup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbGroup.Image = global::PEHexExplorer.Properties.Resources.mHexGroup;
-            this.tbGroup.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbGroup.Name = "tbGroup";
-            this.tbGroup.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tbGroup.Size = new System.Drawing.Size(29, 29);
-            this.tbGroup.Text = "字节分组线";
+            this.tbGroupSep.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tbGroupSep.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbGroupSep.Image = global::PEHexExplorer.Properties.Resources.mHexStr;
+            this.tbGroupSep.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbGroupSep.Name = "tbGroupSep";
+            this.tbGroupSep.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tbGroupSep.Size = new System.Drawing.Size(29, 29);
+            this.tbGroupSep.Text = "字节字符串分割线";
+            this.tbGroupSep.Click += new System.EventHandler(this.TbGroupSep_Click);
             // 
             // tbColBg
             // 
@@ -1132,6 +1137,7 @@
             this.tbColBg.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbColBg.Size = new System.Drawing.Size(29, 29);
             this.tbColBg.Text = "列信息背景";
+            this.tbColBg.Click += new System.EventHandler(this.TbColBg_Click);
             // 
             // tbColInfo
             // 
@@ -1143,6 +1149,7 @@
             this.tbColInfo.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbColInfo.Size = new System.Drawing.Size(29, 29);
             this.tbColInfo.Text = "列信息";
+            this.tbColInfo.Click += new System.EventHandler(this.TbColInfo_Click);
             // 
             // tbLineBg
             // 
@@ -1154,6 +1161,7 @@
             this.tbLineBg.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbLineBg.Size = new System.Drawing.Size(29, 29);
             this.tbLineBg.Text = "行信息背景";
+            this.tbLineBg.Click += new System.EventHandler(this.TbLineBg_Click);
             // 
             // tbLineInfo
             // 
@@ -1165,6 +1173,7 @@
             this.tbLineInfo.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbLineInfo.Size = new System.Drawing.Size(29, 29);
             this.tbLineInfo.Text = "行信息";
+            this.tbLineInfo.Click += new System.EventHandler(this.TbLineInfo_Click);
             // 
             // tbAddr
             // 
@@ -1176,6 +1185,7 @@
             this.tbAddr.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbAddr.Size = new System.Drawing.Size(29, 29);
             this.tbAddr.Text = "文件基址重定位";
+            this.tbAddr.Click += new System.EventHandler(this.TbAddr_Click);
             // 
             // toolStrip
             // 
@@ -1810,8 +1820,7 @@
         private System.Windows.Forms.ToolStrip toolStripHexEdit;
         private System.Windows.Forms.ToolStripButton tbString;
         private System.Windows.Forms.ToolStripButton tbPEInfo;
-        private System.Windows.Forms.ToolStripButton tbHexString;
-        private System.Windows.Forms.ToolStripButton tbGroup;
+        private System.Windows.Forms.ToolStripButton tbGroupSep;
         private System.Windows.Forms.ToolStripButton tbColBg;
         private System.Windows.Forms.ToolStripButton tbColInfo;
         private System.Windows.Forms.ToolStripButton tbLineBg;

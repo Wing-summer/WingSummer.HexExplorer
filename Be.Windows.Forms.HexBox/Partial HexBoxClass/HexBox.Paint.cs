@@ -11,7 +11,7 @@ namespace Be.Windows.Forms
 {
     public partial class HexBox
     {
-        /// <summary>
+        /// <summary>f
         /// Paints the background.
         /// </summary>
         /// <param name="e">A PaintEventArgs that contains the event data.</param>
@@ -97,15 +97,15 @@ namespace Be.Windows.Forms
             if (_lineInfoVisible)
                 PaintLineInfo(e.Graphics, _startByte, _endByte);
 
-            if (!_stringViewVisible)
-            {
-                PaintHex(e.Graphics, _startByte, _endByte);
-            }
-            else
+            if (_stringViewVisible)
             {
                 PaintHexAndStringView(e.Graphics, _startByte, _endByte);
                 if (_shadowSelectionVisible)
                     PaintCurrentBytesSign(e.Graphics);
+            }
+            else
+            {
+                PaintHex(e.Graphics, _startByte, _endByte);
             }
             if (_columnInfoVisible)
                 PaintHeaderRow(e.Graphics);
@@ -137,19 +137,20 @@ namespace Be.Windows.Forms
 
             for (int i = 0; i < maxLine; i++)
             {
-                long firstLineByte = startByte + _iHexMaxHBytes * i+_baseAddr;
+                long firstLineByte = startByte + _iHexMaxHBytes * i + _baseAddr;
 
                 PointF bytePointF = GetBytePointF(new Point(0, 0 + i));
                 string info = firstLineByte.ToString(_hexStringFormat, Thread.CurrentThread.CurrentCulture);
-                int nulls = 8 - info.Length;
+                int addrlen = curIsLongHex ? 16 : 8;
+                int nulls = addrlen - info.Length;
                 string formattedInfo;
                 if (nulls > -1)
                 {
-                    formattedInfo = info.PadLeft(curIsLongHex ? 16 : 8, '0');
+                    formattedInfo = info.PadLeft(addrlen, '0');
                 }
                 else
                 {
-                    formattedInfo = new string('~', curIsLongHex ? 16 : 8);
+                    formattedInfo = curIsLongHex ? longhex : shorthex;
                 }
 
                 SizeF sizeF = g.MeasureString(formattedInfo, font);
@@ -161,11 +162,11 @@ namespace Be.Windows.Forms
                         break;
 
                     case HorizontalAlignment.Right:
-                        pointF = new PointF(_recLineInfo.Width - sizeF.Width + GetHOffValue(), bytePointF.Y);
+                        pointF = new PointF(_recLineInfo.Right - sizeF.Width + GetHOffValue(), bytePointF.Y);
                         break;
 
                     case HorizontalAlignment.Center:
-                        pointF = new PointF((_recLineInfo.Width - sizeF.Width) / 2 + GetHOffValue(), bytePointF.Y);
+                        pointF = new PointF(_recLineInfo.X + (_recLineInfo.Width - sizeF.Width) / 2 + GetHOffValue(), bytePointF.Y);
                         break;
 
                     default:
@@ -335,16 +336,34 @@ namespace Be.Windows.Forms
                 {
                     // Check if its in a higlighted region
                     bool paintedByte = false;
-                    foreach (var HiSection in HighligedRegions)
+                    if (_ShowBookMarkMain)
                     {
-                        if (HiSection.IsByteSelected(i))
+                        foreach (var HiSection in HighligedRegions)
                         {
-                            var colorBrush = new SolidBrush(HiSection.Color);
-                            PaintHexString(g, b, brush, gridPoint, colorBrush);
-                            paintedByte = true;
-                            break;
+                            if (HiSection.IsByteSelected(i))
+                            {
+                                var colorBrush = new SolidBrush(HiSection.Color);
+                                PaintHexString(g, b, brush, gridPoint, colorBrush);
+                                paintedByte = true;
+                                break;
+                            }
                         }
                     }
+
+                    if (_ShowBookMark)
+                    {
+                        foreach (var HiSection in HighlightedRegions)
+                        {
+                            if (HiSection.IsByteSelected(i))
+                            {
+                                var colorBrush = new SolidBrush(HiSection.Color);
+                                PaintHexString(g, b, brush, gridPoint, colorBrush);
+                                paintedByte = true;
+                                break;
+                            }
+                        }
+                    }
+
                     if (!paintedByte)
                     {
                         PaintHexString(g, b, brush, gridPoint);

@@ -17,6 +17,13 @@ namespace PEHexExplorer
 
         }
 
+        public enum StrEncoding : int
+        {
+            ASCII,
+            EBCDIC,
+            Unicode
+        }
+
         public enum EditorMessageType
         {
             All,
@@ -30,13 +37,11 @@ namespace PEHexExplorer
             SelectionStart,
             ApplyTreeView,
             Quit,
-            AddrStatus,
             LineInfoStatus,
             LineInfoBGStatus,
             ColInfoStatus,
             ColInfoBGStatus,
             GroupStatus,
-            HexStrStatus,
             PEInfoStatus,
             StringStatus,
             EncodingChanged
@@ -53,6 +58,13 @@ namespace PEHexExplorer
             public long SelectionLength;
             public long SelectionStart;
             public bool LineInfo;
+            public bool LineInfoBG;
+            public bool ColInfo;
+            public bool ColInfoBG;
+            public bool GroupLine;
+            public bool HexStr;
+            public bool PEInfo;
+            public StrEncoding Encoding;
         }
 
         public class EditorPageMessageArgs : EventArgs
@@ -109,12 +121,14 @@ namespace PEHexExplorer
                 Dock = DockStyle.Fill,
                 UseFixedBytesPerLine = true,
                 StringViewVisible = mUser.EnableStringView,
-                SelectionBackColorOpacity = 100,
+                SelectionBackColorOpacity = 150,
                 ShowColumnInfoBackColor = true,
                 ShowLineInfoBackColor = true,
-                HScrollBarVisible=true,
-                VScrollBarVisible=true,
-                GroupSeparatorVisible=true,
+                HScrollBarVisible = true,
+                VScrollBarVisible = true,
+                GroupSeparatorVisible = true,
+                ShowBookMark = true,
+                ShowBookMarkMain=mUser.EnablePE,
                 LineInfoAlignment= HorizontalAlignment.Center,
                 LineInfoBackColor = mUser.LineInfoBackColor,
                 ColumnInfoBackColor = mUser.ColInfoBackColor,
@@ -129,6 +143,14 @@ namespace PEHexExplorer
             hexBox.CurrentLineChanged += HexBox_CurrentLineChanged;
             hexBox.ScalingChanged += HexBox_ScalingChanged;
             hexBox.CurrentPositionInLineChanged += HexBox_CurrentPositionInLineChanged;
+            hexBox.LineInfoVisibleChanged += HexBox_LineInfoVisibleChanged;
+            hexBox.ColumnInfoVisibleChanged += HexBox_ColumnInfoVisibleChanged;
+            hexBox.ShowColumnInfoBackColorChanged += HexBox_ShowColumnInfoBackColorChanged;
+            hexBox.ShowLineInfoBackColorChanged += HexBox_ShowLineInfoBackColorChanged;
+            hexBox.StringViewVisibleChanged += HexBox_StringViewVisibleChanged;
+            hexBox.GroupSeparatorVisibleChanged += HexBox_GroupSeparatorVisibleChanged;
+            hexBox.ShowBookMarkMainChanged += HexBox_ShowBookMarkMainChanged;
+            hexBox.EncodingChanged += HexBox_EncodingChanged;
             hexBox.InsertActiveChanged += HexBox_InsertActiveChanged;
             hexBox.LockedBufferChanged += HexBox_LockedBufferChanged;
             hexBox.SavedStatusChanged += HexBox_SavedStatusChanged;
@@ -136,6 +158,28 @@ namespace PEHexExplorer
             hexBox.SelectionStartChanged += HexBox_SelectionStartChanged;
 
             Controls.Add(hexBox);
+        }
+
+        private void HexBox_StringViewVisibleChanged(object sender, EventArgs e)
+        {
+            editorMessage.HexStr = hexBox.StringViewVisible;
+            HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
+            {
+                EditorHost = hexBox,
+                EditorMessageType = EditorMessageType.StringStatus,
+                EditorMessage = editorMessage
+            });
+        }
+
+        private void HexBox_ShowBookMarkMainChanged(object sender, EventArgs e)
+        {
+            editorMessage.PEInfo = hexBox.ShowBookMarkMain;
+            HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
+            {
+                EditorHost = hexBox,
+                EditorMessageType = EditorMessageType.PEInfoStatus,
+                EditorMessage = editorMessage
+            });
         }
 
         private void HexBox_SelectionStartChanged(object sender, EventArgs e)
@@ -226,6 +270,136 @@ namespace PEHexExplorer
             });
         }
 
+        private void HexBox_LineInfoVisibleChanged(object sender, EventArgs e)
+        {
+            editorMessage.LineInfo = hexBox.LineInfoVisible;
+            HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
+            {
+                EditorHost = hexBox,
+                EditorMessageType = EditorMessageType.LineInfoStatus,
+                EditorMessage = editorMessage
+            });
+        }
+
+        private void HexBox_ShowLineInfoBackColorChanged(object sender, EventArgs e)
+        {
+            editorMessage.LineInfoBG = hexBox.ShowLineInfoBackColor;
+            HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
+            {
+                EditorHost = hexBox,
+                EditorMessageType = EditorMessageType.LineInfoBGStatus,
+                EditorMessage = editorMessage
+            });
+        }
+
+        private void HexBox_ColumnInfoVisibleChanged(object sender, EventArgs e)
+        {
+            editorMessage.ColInfo = hexBox.ColumnInfoVisible;
+            HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
+            {
+                EditorHost = hexBox,
+                EditorMessageType = EditorMessageType.ColInfoStatus,
+                EditorMessage = editorMessage
+            });
+        }
+
+        private void HexBox_ShowColumnInfoBackColorChanged(object sender, EventArgs e)
+        {
+            editorMessage.ColInfoBG = hexBox.ShowColumnInfoBackColor;
+            HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
+            {
+                EditorHost = hexBox,
+                EditorMessageType = EditorMessageType.ColInfoBGStatus,
+                EditorMessage = editorMessage
+            });
+        }
+
+        private void HexBox_GroupSeparatorVisibleChanged(object sender, EventArgs e)
+        {
+            editorMessage.GroupLine = hexBox.GroupSeparatorVisible;
+            HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
+            {
+                EditorHost = hexBox,
+                EditorMessageType = EditorMessageType.GroupStatus,
+                EditorMessage = editorMessage
+            });
+        }
+
+        private void HexBox_EncodingChanged(object sender, EventArgs e)
+        {
+            editorMessage.Encoding = GetStrEncoding();
+            HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
+            {
+                EditorHost = hexBox,
+                EditorMessageType = EditorMessageType.EncodingChanged,
+                EditorMessage = editorMessage
+            });
+        }
+
+        private StrEncoding GetStrEncoding()
+        {
+            string j = hexBox.ByteCharConverter.ToString();
+
+            if (j[0] == 'A')        //ASCII
+            {
+                if (hexBox.IsCharToUnicode)
+                {
+                    return StrEncoding.Unicode;
+                }
+                else
+                {
+                    return StrEncoding.ASCII;
+                }
+            }
+            else
+            {
+                return StrEncoding.EBCDIC;
+            }
+        }
+
+        public void ChangeEncoding(int SelIndex)
+        {
+            switch (SelIndex)
+            {
+                case 0:
+                    hexBox.ByteCharConverter = new DefaultByteCharConverter() ;
+                    hexBox.IsCharToUnicode = false;
+                    break;
+                case 1:
+                    hexBox.ByteCharConverter = new EbcdicByteCharProvider();
+                    hexBox.IsCharToUnicode = false;
+                    break;
+                case 2:
+                    hexBox.ByteCharConverter = new DefaultByteCharConverter();
+                    hexBox.IsCharToUnicode = true;
+                    break;
+            }
+        }
+
+        public void ChangeLineInfoVisible()
+            => hexBox.LineInfoVisible = !hexBox.LineInfoVisible;
+
+        public void ChangeColInfoVisible()
+            => hexBox.ColumnInfoVisible = !hexBox.ColumnInfoVisible;
+
+        public void ChangeLineInfoBGVisible()
+            => hexBox.ShowLineInfoBackColor = !hexBox.ShowLineInfoBackColor;
+
+        public void ChangeColInfoBGVisible()
+            => hexBox.ShowColumnInfoBackColor = !hexBox.ShowColumnInfoBackColor;
+
+        public void ChangeHexStrVisible()
+            => hexBox.StringViewVisible = !hexBox.StringViewVisible;
+
+        public void ChangeGroupSepVisible()
+            => hexBox.GroupSeparatorVisible = !hexBox.GroupSeparatorVisible;
+
+        public void ChangePEInfoVisible()
+            => hexBox.ShowBookMarkMain = !hexBox.ShowBookMarkMain;
+
+        public void ChangeBaseAddr(long Base)
+            => hexBox.BaseAddr = Base;
+
         /// <summary>
         /// 向 EditorPageManager 宿主发送自己的完整信息
         /// </summary>
@@ -240,7 +414,14 @@ namespace PEHexExplorer
             editorMessage.SelectionLength = hexBox.SelectionLength;
             editorMessage.SelectionStart = hexBox.SelectionStart;
             editorMessage.LineInfo = hexBox.LineInfoVisible;
-
+            editorMessage.LineInfoBG = hexBox.ShowLineInfoBackColor;
+            editorMessage.ColInfo = hexBox.ColumnInfoVisible;
+            editorMessage.ColInfoBG = hexBox.ShowColumnInfoBackColor;
+            editorMessage.GroupLine = hexBox.GroupSeparatorVisible;
+            editorMessage.PEInfo = hexBox.ShowBookMarkMain;
+            editorMessage.HexStr = hexBox.StringViewVisible;
+            editorMessage.Encoding = GetStrEncoding();
+         
             HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
             {
                 EditorHost = hexBox,

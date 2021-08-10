@@ -31,6 +31,8 @@ namespace PEHexExplorer
         public FrmGoto()
         {
             InitializeComponent();
+            ntOffset.Maximum = Program.Int64Max;
+            ntRow.Maximum = Program.Int64Max;
         }
 
         private void RbGotoGroup_CheckedChanged(object sender, EventArgs e)

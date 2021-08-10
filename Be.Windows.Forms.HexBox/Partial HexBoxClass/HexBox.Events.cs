@@ -172,5 +172,36 @@ namespace Be.Windows.Forms
         /// </summary>
         [Description("当越界锁状态改变后会触发该事件")]
         public event EventHandler LockedBufferChanged;
+
+        /// <summary>
+        /// 当是否显示列信息背景色状态改变后会触发该事件
+        /// </summary>
+        [Description("当是否显示列信息背景色状态改变后会触发该事件")]
+        public event EventHandler ShowColumnInfoBackColorChanged;
+
+        /// <summary>
+        /// 当是否显示行信息背景色状态改变后会触发该事件
+        /// </summary>
+        [Description("当是否显示行信息背景色状态改变后会触发该事件")]
+        public event EventHandler ShowLineInfoBackColorChanged;
+
+        /// <summary>
+        /// 当是字符表编码改变后会触发该事件
+        /// </summary>
+        [Description("当字符表编码改变后会触发该事件")]
+        public event EventHandler EncodingChanged;
+
+
+        /// <summary>
+        /// 当主书签背景指示状态改变后会触发该事件
+        /// </summary>
+        [Description("当主书签背景指示状态改变后会触发该事件")]
+        public event EventHandler ShowBookMarkMainChanged;
+
+        /// <summary>
+        /// 当书签背景指示状态改变后会触发该事件
+        /// </summary>
+        [Description("当书签背景指示状态改变后会触发该事件")]
+        public event EventHandler ShowBookMarkChanged;
     }
 }

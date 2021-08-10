@@ -17,16 +17,19 @@ namespace PEHexExplorer
             {
                 CreateParams cp = base.CreateParams;
 
-                cp.ExStyle |= 0x02000000;   //WS_EX_COMPOSITED    
-
-                OperatingSystem os = Environment.OSVersion;
-                Version vs = os.Version;
-                if (os.Platform == PlatformID.Win32NT)
+                if (!DesignMode)        //如果执行内部语句，VS设计器就不能及时刷新，导致无法正常使用
                 {
-                    if ((vs.Major == 5) && (vs.Minor != 0))
+                    cp.ExStyle |= 0x02000000;   //WS_EX_COMPOSITED    
+
+                    OperatingSystem os = Environment.OSVersion;
+                    Version vs = os.Version;
+                    if (os.Platform == PlatformID.Win32NT)
                     {
-                        cp.ExStyle |= 0x00080000;  //WS_EX_LAYERED  
-                        Opacity = 1;
+                        if ((vs.Major == 5) && (vs.Minor != 0))
+                        {
+                            cp.ExStyle |= 0x00080000;  //WS_EX_LAYERED  
+                            Opacity = 1;
+                        }
                     }
                 }
 
