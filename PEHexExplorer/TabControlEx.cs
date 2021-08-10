@@ -1,6 +1,5 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
-using System.Collections;
 using System.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -218,6 +217,7 @@ namespace PEHexExplorer
                             TabPages.RemoveAt(index);
                             tabPage.Dispose();
                         }
+                        Refresh();
                         return;
                     }
                 }
@@ -228,6 +228,7 @@ namespace PEHexExplorer
                     OnClosingPage?.Invoke(tp, args0);
                     if (!args0.Cancel)
                         TabPages.RemoveAt(index);
+                    Refresh();
                     return;
                 }
 

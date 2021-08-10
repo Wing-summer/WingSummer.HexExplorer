@@ -29,7 +29,17 @@ namespace PEHexExplorer
             SelectionLength,
             SelectionStart,
             ApplyTreeView,
-            Quit
+            Quit,
+            AddrStatus,
+            LineInfoStatus,
+            LineInfoBGStatus,
+            ColInfoStatus,
+            ColInfoBGStatus,
+            GroupStatus,
+            HexStrStatus,
+            PEInfoStatus,
+            StringStatus,
+            EncodingChanged
         }
 
         public struct EditorMessage
@@ -42,7 +52,7 @@ namespace PEHexExplorer
             public bool LockedBuffer;
             public long SelectionLength;
             public long SelectionStart;
-
+            public bool LineInfo;
         }
 
         public class EditorPageMessageArgs : EventArgs
@@ -229,6 +239,7 @@ namespace PEHexExplorer
             editorMessage.Scaling = (uint)(hexBox.Scaling * 100);
             editorMessage.SelectionLength = hexBox.SelectionLength;
             editorMessage.SelectionStart = hexBox.SelectionStart;
+            editorMessage.LineInfo = hexBox.LineInfoVisible;
 
             HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
             {

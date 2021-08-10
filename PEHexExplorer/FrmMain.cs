@@ -114,6 +114,8 @@ namespace PEHexExplorer
                     HexBox_LockedBufferChanged(e.EditorMessage.LockedBuffer);
                     HexBox_SelectionLengthChanged(e.EditorMessage.SelectionLength);
                     HexBox_CurrentPositionChanged(e.EditorMessage.SelectionStart);
+                    tbLineInfo.Checked = e.EditorMessage.LineInfo;
+
                     break;
                 case EditPage.EditorMessageType.Scaling:
                     HexBox_ScalingChanged(e.EditorMessage.Scaling);
@@ -140,10 +142,40 @@ namespace PEHexExplorer
                     HexBox_CurrentPositionChanged(e.EditorMessage.SelectionStart);
                     break;
                 case EditPage.EditorMessageType.ApplyTreeView:
-                    
+
                     break;
                 case EditPage.EditorMessageType.Quit:
-                    
+
+                    break;
+                case EditPage.EditorMessageType.AddrStatus:
+                    tbLineInfo.Checked = e.EditorMessage.LineInfo;
+                    break;
+                case EditPage.EditorMessageType.LineInfoStatus:
+
+                    break;
+                case EditPage.EditorMessageType.LineInfoBGStatus:
+
+                    break;
+                case EditPage.EditorMessageType.ColInfoStatus:
+
+                    break;
+                case EditPage.EditorMessageType.ColInfoBGStatus:
+
+                    break;
+                case EditPage.EditorMessageType.GroupStatus:
+
+                    break;
+                case EditPage.EditorMessageType.HexStrStatus:
+
+                    break;
+                case EditPage.EditorMessageType.PEInfoStatus:
+
+                    break;
+                case EditPage.EditorMessageType.StringStatus:
+
+                    break;
+                case EditPage.EditorMessageType.EncodingChanged:
+
                     break;
                 default:
                     break;
@@ -628,6 +660,6 @@ namespace PEHexExplorer
             
         }
 
-     
+
     }
 }

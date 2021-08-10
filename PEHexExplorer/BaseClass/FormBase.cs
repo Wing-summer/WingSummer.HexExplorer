@@ -16,7 +16,8 @@ namespace PEHexExplorer
             get
             {
                 CreateParams cp = base.CreateParams;
-                cp.ExStyle |= 0x02000000;   // Turn on WS_EX_COMPOSITED    
+
+                cp.ExStyle |= 0x02000000;   //WS_EX_COMPOSITED    
 
                 OperatingSystem os = Environment.OSVersion;
                 Version vs = os.Version;
@@ -24,7 +25,7 @@ namespace PEHexExplorer
                 {
                     if ((vs.Major == 5) && (vs.Minor != 0))
                     {
-                        cp.ExStyle |= 0x00080000;  // Turn on WS_EX_LAYERED  
+                        cp.ExStyle |= 0x00080000;  //WS_EX_LAYERED  
                         Opacity = 1;
                     }
                 }
