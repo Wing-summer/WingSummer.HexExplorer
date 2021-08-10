@@ -319,14 +319,7 @@ namespace PEHexExplorer
                     }
                     else
                     {
-                        if (Is32bit)
-                        {
-                            collection[0].Text = exe32bit;
-                        }
-                        else
-                        {
-                            collection[0].Text = exe64bit;
-                        }
+                        collection[0].Text = Is32bit ? exe32bit : exe64bit;
                     }
                 }
                 else
@@ -339,6 +332,16 @@ namespace PEHexExplorer
             }
 
             collection = collection[0].Nodes;
+
+            //IMAGE_DOS_HEADER 到 IMAGE_RESOURCE_DIRECTORY
+            for (int i = 0; i < 10; i++)
+            {
+                collection[i].Tag = peRegions[(PEPParser.PEStructType)i];
+            }
+
+            collection[(int)PEPParser.PEStructType.DotNetDir].Nodes[0].Tag = peRegions[PEPParser.PEStructType.IMAGE_COR20_HEADER];
+
+
 
         }
 

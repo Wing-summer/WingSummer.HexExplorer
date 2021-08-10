@@ -89,7 +89,7 @@ namespace PEHexExplorer
             {
                 if (cD.Color == Color.Black)
                 {
-                    MessageBox.Show("所选颜色不能为黑色！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("所选颜色不能为黑色！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 (sender as Button).ForeColor = cD.Color;

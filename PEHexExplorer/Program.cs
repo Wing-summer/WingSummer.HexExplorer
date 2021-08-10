@@ -7,10 +7,11 @@ namespace PEHexExplorer
     internal static class Program
     {
 
-        internal static readonly string SoftwareName="羽云PE浏览器";
+        internal static readonly string AppName="羽云PE浏览器";
         internal static readonly string AppDir = AppDomain.CurrentDomain.BaseDirectory;
         internal static readonly string AppConfig = AppDir + "config.dat";
         internal static readonly string AppErrDir = AppDir + "Error";
+        internal static readonly string AppPlugin = AppDir + "Plugin";
         internal static UserSetting userSetting;
 
         internal const ulong Int64Max = (1UL << 63) - 1;
@@ -54,7 +55,7 @@ namespace PEHexExplorer
             MessageBox.Show(
                 $"恭喜你，你发现了一个Bug，已将错误信息填入{errfile}文件，" +
                 $"请在开发者的开发仓库提 Issue 并将其附上并描述触发操作，感谢您对开源软件做出的贡献！",
-                SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
     }

@@ -445,7 +445,7 @@ namespace PEHexExplorer
         {
             if (!hexBox.OpenFile(error: out _, force: true))
             {
-                MessageBox.Show("新建文件失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("新建文件失败！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             Filename = NewFilename;
@@ -480,7 +480,7 @@ namespace PEHexExplorer
                 if (error == HexBox.IOError.Exception && writeable)
                 {
                     if (MessageBox.Show("文件无法以写入模式打开，可能被占用，您是否用只读模式打开？",
-                        Program.SoftwareName, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                        Program.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
                         writeable = false;
                         goto reopen;
@@ -531,7 +531,7 @@ namespace PEHexExplorer
                 {
                     if (oError == HexBox.IOError.Exception)
                     {
-                        MessageBox.Show("保存文件失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("保存文件失败！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 return true;
@@ -558,7 +558,7 @@ namespace PEHexExplorer
             {
                 if (oError == HexBox.IOError.Exception)
                 {
-                    MessageBox.Show("保存文件失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("保存文件失败！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             Filename = filename;
@@ -584,7 +584,7 @@ namespace PEHexExplorer
                     FrmProcess.ProcessResult result = frmProcess.Result;
                     if (!hexBox.OpenProcessMemory(result.Process, result.writeable))
                     {
-                        MessageBox.Show("打开进程失败，可能是由于权限不足导致！", Program.SoftwareName,
+                        MessageBox.Show("打开进程失败，可能是由于权限不足导致！", Program.AppName,
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }

@@ -17,19 +17,24 @@ namespace PEProcesser
 
         public enum PEStructType : int
         {
+            #region 提供PE信息跳转的结构体
+
             IMAGE_DOS_HEADER,
-            IMAGE_FILE_HEADER,
             IMAGE_NT_HEADERS,
+            IMAGE_FILE_HEADER,
             IMAGE_OPTIONAL_HEADER,
             IMAGE_DATA_DIRECTORY,
             IMAGE_SECTION_HEADER,
             IMAGE_IMPORT_DESCRIPTOR,
             IMAGE_EXPORT_DIRECTORY,
-            IMAGE_IMPORT_BY_NAME,
             IMAGE_BASE_RELOCATION,
             IMAGE_RESOURCE_DIRECTORY,
-            IMAGE_COR20_HEADER,
+            DotNetDir = 10,
+            IMAGE_COR20_HEADER = 10,
 
+            #endregion
+
+            IMAGE_IMPORT_BY_NAME,
             IMAGE_THUNK_DATA,
             IMAGE_DATA_DIRECTORY_Content,
             IMAGE_RESOURCE_DIRECTORY_ENTRY,

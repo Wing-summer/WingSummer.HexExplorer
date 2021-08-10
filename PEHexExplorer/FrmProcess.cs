@@ -74,7 +74,7 @@ namespace PEHexExplorer
                 catch 
                 {
                     if (MessageBox.Show("读取该程序可能需要管理员权限，建议请以管理员身份启动该程序后重试操作。您是否要继续吗？",
-                        Program.SoftwareName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)== DialogResult.No)
+                        Program.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)== DialogResult.No)
                     {
                         return;
                     }
@@ -87,7 +87,7 @@ namespace PEHexExplorer
             }
             else
             {
-                MessageBox.Show("请选择进程！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("请选择进程！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

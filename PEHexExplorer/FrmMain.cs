@@ -25,10 +25,8 @@ namespace PEHexExplorer
         private const string DefaultSel = "*";
         private readonly ConstInfo constInfo;
 
-
-        private readonly List<HexBox.HighlightedRegion> BookMarkregions;
-
-
+        private readonly Lazy<List<HexBox.HighlightedRegion>> BookMarkregions = new Lazy<List<HexBox.HighlightedRegion>>();
+        WSPlugin pluginManager;
 
         public FrmMain(string filename = null)
         {
@@ -55,8 +53,6 @@ namespace PEHexExplorer
                 MIAdmin.Image = SystemIcons.Shield.ToBitmap();
             }
 
-            BookMarkregions = new List<HexBox.HighlightedRegion>();
-
             //begin：载入用户设置
             MUserProfile mUser = UserSetting.UserProfile;
             Font = mUser.ProgramFont;
@@ -80,12 +76,24 @@ namespace PEHexExplorer
 
             constInfo = new ConstInfo();
             pgConst.SelectedObject = constInfo;
+
+            if (mUser.EnablePlugin)
+            {
+                pluginManager = new WSPlugin();
+                MenuPlugin.DropDown = pluginManager.PluginMenuStrip;
+                if (pluginManager.ToolMenuStrip?.Items.Count > 0)
+                {
+                    MIS.Visible = true;
+                    MenuItemTool.DropDownItems.AddRange(pluginManager.ToolMenuStrip.Items);
+                }
+            }
+
         }
 
         private void PageManager_EditorPageClosing(object sender, EditPage.CloseFileArgs e)
         {
             DialogResult result = MessageBox.Show("此文件已有修改，你确定要丢弃吗？",
-                    Program.SoftwareName, MessageBoxButtons.YesNoCancel);
+                    Program.AppName, MessageBoxButtons.YesNoCancel);
             switch (result)
             {
                 case DialogResult.Cancel:
@@ -315,14 +323,14 @@ namespace PEHexExplorer
                     {
                         if (!pageManager.CurrentHexBox.ScrollLineIntoView((long)result.Number))
                         {
-                            MessageBox.Show("跳转失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("跳转失败！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                     {
                         if (!pageManager.CurrentHexBox.GotoByOffset((long)result.Number, result.IsFromBase))
                         {
-                            MessageBox.Show("跳转失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("跳转失败！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -594,7 +602,7 @@ namespace PEHexExplorer
 
         private void MIBookMark_Click(object sender, EventArgs e)
         {
-            int res = BookMarkregions.FindIndex(k => k.IsByteSelected(pageManager.CurrentHexBox.SelectionStart));
+            int res = BookMarkregions.Value.FindIndex(k => k.IsByteSelected(pageManager.CurrentHexBox.SelectionStart));
             if (!pageManager.CurrentHexBox.RemoveHighlightedRegionAt(res))
             {
                 pageManager.CurrentHexBox.AddHighligedRegion(new HexBox.HighlightedRegion
@@ -635,7 +643,7 @@ namespace PEHexExplorer
             }
             catch
             {
-                MessageBox.Show("管理员权限重启程序失败！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("管理员权限重启程序失败！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

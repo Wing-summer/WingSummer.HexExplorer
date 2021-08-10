@@ -106,7 +106,7 @@ namespace PEHexExplorer
 
             if (res == -1) // -1 = no match
             {
-                MessageBox.Show("查找已越过文件末尾。", Program.SoftwareName,
+                MessageBox.Show("查找已越过文件末尾。", Program.AppName,
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (res == -2) // -2 = find was aborted

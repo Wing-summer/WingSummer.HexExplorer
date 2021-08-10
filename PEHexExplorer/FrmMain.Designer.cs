@@ -66,14 +66,15 @@
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("IMAGE_FILE_HEADER", 1, 1);
             System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("IMAGE_OPTIONAL_HEADER", 1, 1);
             System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("IMAGE_DATA_DIRECTORY", 1, 1);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("IMAGE_EXPORT_DIRECTORY", 1, 1);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("IMAGE_SECTION_HEADER", 1, 1);
             System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("IMAGE_IMPORT_DESCRIPTOR", 1, 1);
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("IMAGE_BASE_RELOCATION", 1, 1);
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("IMAGE_SECTION_HEADER", 1, 1);
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("IMAGE_COR20_HEADER\n", 1, 1);
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode(".NET", 3, 3, new System.Windows.Forms.TreeNode[] {
-            treeNode10});
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("PE 文件", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("IMAGE_EXPORT_DIRECTORY", 1, 1);
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("IMAGE_BASE_RELOCATION", 1, 1);
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("IMAGE_RESOURCE_DIRECTORY", 1, 1);
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("IMAGE_COR20_HEADER\n", 1, 1);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode(".NET", 3, 3, new System.Windows.Forms.TreeNode[] {
+            treeNode11});
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("PE 文件", new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode2,
             treeNode3,
@@ -83,7 +84,8 @@
             treeNode7,
             treeNode8,
             treeNode9,
-            treeNode11});
+            treeNode10,
+            treeNode12});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             System.Windows.Forms.TabPage tabPage3;
             System.Windows.Forms.SplitContainer splitContainer2;
@@ -452,6 +454,7 @@
             MIS8,
             this.MIBookMark});
             this.hexMenuStrip.Name = "hexMenuStrip";
+            this.hexMenuStrip.OwnerItem = this.MenuItemEdit;
             this.hexMenuStrip.Size = new System.Drawing.Size(262, 424);
             // 
             // MISelectAll
@@ -830,33 +833,37 @@
             treeNode5.SelectedImageIndex = 1;
             treeNode5.Text = "IMAGE_DATA_DIRECTORY";
             treeNode6.ImageIndex = 1;
-            treeNode6.Name = "tEXPORT_DIRECTORY";
+            treeNode6.Name = "tSECTION_HEADER";
             treeNode6.SelectedImageIndex = 1;
-            treeNode6.Text = "IMAGE_EXPORT_DIRECTORY";
+            treeNode6.Text = "IMAGE_SECTION_HEADER";
             treeNode7.ImageIndex = 1;
             treeNode7.Name = "tIMPORT_DESCRIPTOR";
             treeNode7.SelectedImageIndex = 1;
             treeNode7.Text = "IMAGE_IMPORT_DESCRIPTOR";
             treeNode8.ImageIndex = 1;
-            treeNode8.Name = "tBASE_RELOCATION";
+            treeNode8.Name = "tEXPORT_DIRECTORY";
             treeNode8.SelectedImageIndex = 1;
-            treeNode8.Text = "IMAGE_BASE_RELOCATION";
+            treeNode8.Text = "IMAGE_EXPORT_DIRECTORY";
             treeNode9.ImageIndex = 1;
-            treeNode9.Name = "tSECTION_HEADER";
+            treeNode9.Name = "tBASE_RELOCATION";
             treeNode9.SelectedImageIndex = 1;
-            treeNode9.Text = "IMAGE_SECTION_HEADER";
+            treeNode9.Text = "IMAGE_BASE_RELOCATION";
             treeNode10.ImageIndex = 1;
-            treeNode10.Name = "tCOR20_HEADER\n";
+            treeNode10.Name = "tRESOURCE_DIRECTORY";
             treeNode10.SelectedImageIndex = 1;
-            treeNode10.Text = "IMAGE_COR20_HEADER\n";
-            treeNode11.ImageIndex = 3;
-            treeNode11.Name = "tNET";
-            treeNode11.SelectedImageIndex = 3;
-            treeNode11.Text = ".NET";
-            treeNode12.Name = "nodeRoot";
-            treeNode12.Text = "PE 文件";
+            treeNode10.Text = "IMAGE_RESOURCE_DIRECTORY";
+            treeNode11.ImageIndex = 1;
+            treeNode11.Name = "tCOR20_HEADER\n";
+            treeNode11.SelectedImageIndex = 1;
+            treeNode11.Text = "IMAGE_COR20_HEADER\n";
+            treeNode12.ImageIndex = 3;
+            treeNode12.Name = "tNET";
+            treeNode12.SelectedImageIndex = 3;
+            treeNode12.Text = ".NET";
+            treeNode13.Name = "nodeRoot";
+            treeNode13.Text = "PE 文件";
             this.tvPEStruct.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode12});
+            treeNode13});
             this.tvPEStruct.SelectedImageIndex = 0;
             this.tvPEStruct.Size = new System.Drawing.Size(300, 347);
             this.tvPEStruct.TabIndex = 0;

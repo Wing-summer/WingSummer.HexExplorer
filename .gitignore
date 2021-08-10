@@ -1,9 +1,3 @@
-/Be.Windows.Forms.HexBox/bin/
-/PEProcesser/bin/
-/PEHexExplorer/bin/
-/WSPEHexPluginHost/bin/
-/Be.Windows.Forms.HexBox/obj/
-/PEHexExplorer/obj/
-/PEProcesser/obj/
-/WSPEHexPluginHost/obj/
+**/bin/
+**/obj/
 /.vs/

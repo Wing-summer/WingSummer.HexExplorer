@@ -10,7 +10,7 @@ namespace PEHexExplorer
     partial class UserSetting
     {
 
-        public List<IWSPEHexPluginVer> pluginVers;
+        public List<IWSPEHexPlugin> pluginVers;
 
         public static MUserProfile UserProfile;
 
@@ -20,7 +20,7 @@ namespace PEHexExplorer
         public UserSetting()
         {
             formatter = new BinaryFormatter();
-            pluginVers = new List<IWSPEHexPluginVer>();
+            pluginVers = new List<IWSPEHexPlugin>();
         }
 
         public bool Load(string config = null)
@@ -37,7 +37,7 @@ namespace PEHexExplorer
                             if (res == null || res.ProgramFont == null || res.GroupLinePen == null || res.HexStringLinePen == null)
                             {
                                 var re = MessageBox.Show("配置信息出错，如果让程序重置继续，请点击 是 。如果保留现场直接退出程序，请选择 否。",
-                               Program.SoftwareName, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                               Program.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 
                                 if (re == DialogResult.No)
                                     Process.GetCurrentProcess().Kill();     //直接把自己杀掉以保留现场

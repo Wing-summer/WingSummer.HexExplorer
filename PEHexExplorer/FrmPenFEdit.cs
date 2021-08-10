@@ -46,7 +46,7 @@ namespace PEHexExplorer
             {
                 if ((Color)e.ChangedItem.Value == Color.White)
                 {
-                    MessageBox.Show("所选颜色不能为白色！", Program.SoftwareName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("所选颜色不能为白色！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     PenF.Color = (Color)e.OldValue;
                 }
             }
