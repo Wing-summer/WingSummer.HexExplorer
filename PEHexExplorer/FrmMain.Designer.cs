@@ -867,7 +867,7 @@
             this.tvPEStruct.SelectedImageIndex = 0;
             this.tvPEStruct.Size = new System.Drawing.Size(300, 347);
             this.tvPEStruct.TabIndex = 0;
-            this.tvPEStruct.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TvPEStruct_AfterSelect);
+            this.tvPEStruct.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TvPEStruct_NodeMouseDoubleClick);
             // 
             // imageList
             // 

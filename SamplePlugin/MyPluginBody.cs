@@ -11,19 +11,20 @@ namespace SamplePlugin
         {
             private readonly ToolStripMenuItem ToolMenu = null;
             private readonly ToolStripMenuItem PluginMenu = null;
+            private readonly Action<object, HostPluginArgs> action = new Action<object, HostPluginArgs>(MyPluginBody_HostToMessagePipe);
 
             public ToolStripItem MenuPluginMenu => PluginMenu;
 
             public ToolStripItem MenuToolMenu => ToolMenu;
 
-            public Action<object, HostPluginArgs> ToHostMessagePipe { get ; set ; }
+            public Action<object, HostPluginArgs> HostToMessagePipe => action;
 
-            public event EventHandler<HostPluginArgs> HostToMessagePipe;
+            public event EventHandler<HostPluginArgs> ToHostMessagePipe;
 
             public MyPluginBody()
             {
                 Image image = Properties.Resources.test;
-                ToolMenu = new ToolStripMenuItem("Tool Menu Test", image, MenuItemClick);
+                ToolMenu = new ToolStripMenuItem("Tool Menu Test（关闭主程序）", image, MenuItemClick);
                 PluginMenu = new ToolStripMenuItem("Plugin Menu Test", image);
                 PluginMenu.DropDownItems.AddRange(new ToolStripItem[] {
                     new ToolStripMenuItem("二级菜单（1）",null, MenuItemClick),
@@ -31,12 +32,11 @@ namespace SamplePlugin
                     new ToolStripSeparator(),
                     new ToolStripMenuItem("二级菜单（3）",null,MenuItemClick)
                 });
-                HostToMessagePipe += MyPluginBody_HostToMessagePipe;
             }
 
-            private void MyPluginBody_HostToMessagePipe(object sender, HostPluginArgs e)
+            private static void MyPluginBody_HostToMessagePipe(object sender, HostPluginArgs e)
             {
-                
+                MessageBox.Show($"监听到事件：{e}");
             }
 
             private void MenuItemClick(object sender, EventArgs e)
@@ -45,7 +45,11 @@ namespace SamplePlugin
                 string tmp = stripItem.Text;
                 if (tmp[0] == 'T')
                 {
-                    MessageBox.Show("您点击了工具菜单项目！");
+                    HostPluginArgs args = new HostPluginArgs
+                    {
+                        MessageType = MessageType.HostQuit
+                    };
+                    ToHostMessagePipe.Invoke(this, args);
                 }
                 else
                 {

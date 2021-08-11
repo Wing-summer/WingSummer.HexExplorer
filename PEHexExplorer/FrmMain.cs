@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Be.Windows.Forms;
 using System.Security.Principal;
 using System.Collections.Generic;
+using WSPEHexPluginHost;
 
 namespace PEHexExplorer
 {
@@ -26,7 +27,7 @@ namespace PEHexExplorer
         private readonly ConstInfo constInfo;
 
         private readonly Lazy<List<HexBox.HighlightedRegion>> BookMarkregions = new Lazy<List<HexBox.HighlightedRegion>>();
-        WSPlugin pluginManager;
+        readonly WSPlugin pluginManager;
 
         public FrmMain(string filename = null)
         {
@@ -122,6 +123,7 @@ namespace PEHexExplorer
                     HexBox_LockedBufferChanged(e.EditorMessage.LockedBuffer);
                     HexBox_SelectionLengthChanged(e.EditorMessage.SelectionLength);
                     HexBox_CurrentPositionChanged(e.EditorMessage.SelectionStart);
+                    pageManager.CurrentPage.ApplyTreeView(tvPEStruct);
                     tbLineInfo.Checked = e.EditorMessage.LineInfo;
                     tbLineBg.Checked = e.EditorMessage.LineInfoBG;
                     tbColInfo.Checked = e.EditorMessage.ColInfo;
@@ -156,7 +158,7 @@ namespace PEHexExplorer
                     HexBox_CurrentPositionChanged(e.EditorMessage.SelectionStart);
                     break;
                 case EditPage.EditorMessageType.ApplyTreeView:
-                    
+                    pageManager.CurrentPage.ApplyTreeView(tvPEStruct);
                     break;
                 case EditPage.EditorMessageType.Quit:
 
@@ -224,6 +226,10 @@ namespace PEHexExplorer
 
         private void MIOpen_Click(object sender, EventArgs e)
         {
+            foreach (var item in pluginManager.actions.Value)
+            {
+                item.Invoke(this, new HostPluginArgs { MessageType = MessageType.OpenFile, IsBefore = true });
+            }
             if (oD.ShowDialog() == DialogResult.OK)
             {
                 string filename = oD.FileName;
@@ -697,13 +703,17 @@ namespace PEHexExplorer
 
         #endregion
 
-
-
-        private void TvPEStruct_AfterSelect(object sender, TreeViewEventArgs e)
+        private void TvPEStruct_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
+            if (e.Button== MouseButtons.Left)
+            {
+                if (pageManager.CurrentPage != null&& e.Node.Tag!=null)
+                {
+                    pageManager.CurrentPage.Goto(((HexBox.HighlightedRegion)e.Node.Tag).Start);
 
+                }
+            }
         }
-
 
     }
 }

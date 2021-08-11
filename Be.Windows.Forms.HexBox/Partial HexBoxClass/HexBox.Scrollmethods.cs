@@ -486,8 +486,12 @@ namespace Be.Windows.Forms
             /*增添水平滚动条的更新位置并修复Bug*/
             if (_hScrollBar.Visible && (ClientRectangle.X > pointF.X || ClientRectangle.X + ClientRectangle.Width / 2 < pointF.X))
             {
-                PerformVScrollThumpPosition(point.Y);
                 PerformHScrollThumpPosition((long)_charSize.Width * point.X);
+            }
+
+            if (index < _startByte || index > _endByte)
+            {
+                PerformVScrollThumpPosition(point.Y);
             }
 
         }

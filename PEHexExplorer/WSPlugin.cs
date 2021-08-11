@@ -15,13 +15,13 @@ namespace PEHexExplorer
         private readonly CompositionContainer container;
         private readonly ContextMenuStrip pluginMenuStrip;
         private readonly ContextMenuStrip toolMenuStrip;
-        private readonly Action<object, HostPluginArgs> pipe = 
-            new Action<object, HostPluginArgs>((sender,e)=> { PluginBody_HostMenuMessagePipe(sender, e); });
+ 
         public ContextMenuStrip PluginMenuStrip => pluginMenuStrip;
         public ContextMenuStrip ToolMenuStrip => toolMenuStrip;
 
         private readonly IEnumerable<Lazy<IWSPEHexPlugin>> _plugins;
         public Lazy<List<IWSPEHexPlugin>> plugins=new Lazy<List<IWSPEHexPlugin>>();
+        public Lazy<List<Action<object, HostPluginArgs>>> actions = new Lazy<List<Action<object, HostPluginArgs>>>();
 
         public WSPlugin()
         {
@@ -68,22 +68,26 @@ namespace PEHexExplorer
                 {
                     toolMenuStrip.Items.Add(menuItem);
                 }
-                pluginBody.ToHostMessagePipe = pipe;
-                pluginBody.HostToMessagePipe += PluginBody_PluginMenuMessagePipe;
+                pluginBody.ToHostMessagePipe += PluginBody_ToHostMessagePipe;
+                actions.Value.Add(pluginBody.HostToMessagePipe);
                 plugins.Value.Add(item.Value);                
             }
 
         }
 
-        private void PluginBody_PluginMenuMessagePipe(object sender, HostPluginArgs e)
+        private void PluginBody_ToHostMessagePipe(object sender, HostPluginArgs e)
         {
-           
+            if (e.MessageType== MessageType.HostQuit)
+            {
+                Application.Exit();
+            }
         }
 
-        private static void PluginBody_HostMenuMessagePipe(object sender, HostPluginArgs e)
+        private void PluginBody_HostToMessagePipe(object sender, HostPluginArgs e)
         {
-
+       
         }
+
     }
 
 }

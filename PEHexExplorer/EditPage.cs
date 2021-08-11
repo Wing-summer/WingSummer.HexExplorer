@@ -493,6 +493,14 @@ namespace PEHexExplorer
                 pe?.Dispose();
                 pe = new PEPParser(filename);
                 bookMark = new BookMarkPE(pe);
+
+                HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
+                {
+                    EditorHost = hexBox,
+                    EditorMessageType = EditorMessageType.ApplyTreeView,
+                    EditorMessage = editorMessage
+                });
+
                 //bookMark.ApplyTreeView(in tvPEStruct);
                 bookMark.ApplyHexbox(hexBox);
             }
@@ -594,6 +602,14 @@ namespace PEHexExplorer
                     provider.Position = 0;
                     pe = new PEPParser(provider);
                     bookMark = new BookMarkPE(pe);
+
+                    HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
+                    {
+                        EditorHost = hexBox,
+                        EditorMessageType = EditorMessageType.ApplyTreeView,
+                        EditorMessage = editorMessage
+                    });
+
                     //bookMark.ApplyTreeView(in tvPEStruct);
                     bookMark.ApplyHexbox(hexBox);
                     Filename = result.Process.ProcessName;
@@ -631,8 +647,17 @@ namespace PEHexExplorer
         #endregion
 
 
-        #region 需要进一步封装的HexBox方法
+        #region 需要进一步封装的方法
 
+        public void ApplyTreeView(in TreeView treeView) => bookMark?.ApplyTreeView(treeView);
+
+        public void Goto(long index)
+        {
+            hexBox.SelectionStart = index;
+            hexBox.SelectionLength = 1;
+            hexBox.ScrollByteIntoView(index);
+            hexBox.Focus();
+        }
 
         #endregion
 

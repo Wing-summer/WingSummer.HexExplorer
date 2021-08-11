@@ -47,13 +47,39 @@ namespace WSPEHexPluginHost
 
     public enum MessageType
     {
+        OpenFile,
+        SaveAs,
+        Save,
+        Export,
+        HostQuit,
+        CloseFile,
+        Copy,
+        Paste,
+        Goto,
+        WriteBytes,
+        ReadBytes,
+        DeleteBytes,
+        InsetBytes,
+        ShowPEInfo,
+        HidePEInfo,
+        HideLineInfo,
+        ShowLineInfo,
+        HideColInfo,
+        ShowColInfo,
 
     }
 
     public class HostPluginArgs : EventArgs
     {
         public MessageType MessageType;
+        public bool Cancel;
+        public bool IsBefore;
         public object Content;
+
+        public override string ToString()
+        {
+            return MessageType.ToString();
+        }
     }
 
     public interface IWSPEHexPluginBody
@@ -64,9 +90,9 @@ namespace WSPEHexPluginHost
 
         ToolStripItem MenuToolMenu { get; }
 
-        Action<object, HostPluginArgs> ToHostMessagePipe { get; set; }
+        Action<object, HostPluginArgs> HostToMessagePipe { get; }
 
-        event EventHandler<HostPluginArgs> HostToMessagePipe;
+        event EventHandler<HostPluginArgs> ToHostMessagePipe;
 
     }
 
