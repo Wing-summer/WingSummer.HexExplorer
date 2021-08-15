@@ -146,15 +146,16 @@ namespace PEHexExplorer
         public void OpenProcessPage()
         {
             EditPage page = new EditPage { UseVisualStyleBackColor = false };
-            page.OpenProcess();
-            _tabControl.TabPages.Add(page);
-            _tabControl.SelectedTab = page;
-            page.ApplyContextMenuStrip(MenuStrip);
-            page.HostMessagePipe += Page_HostMessagePipe;
-            page.ClosingFile += Page_ClosingFile;
+            if (page.OpenProcess())
+            {
+                _tabControl.TabPages.Add(page);
+                _tabControl.SelectedTab = page;
+                page.ApplyContextMenuStrip(MenuStrip);
+                page.HostMessagePipe += Page_HostMessagePipe;
+                page.ClosingFile += Page_ClosingFile;
 
-            page.PostWholeMessage();
-
+                page.PostWholeMessage();
+            }
         }
 
         /// <summary>

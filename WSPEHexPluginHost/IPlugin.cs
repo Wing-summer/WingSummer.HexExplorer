@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Security.Cryptography;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 
@@ -47,15 +47,27 @@ namespace WSPEHexPluginHost
 
     public enum MessageType
     {
+        PluginLoading,
+        PluginLoaded,
+        NewFile,
         OpenFile,
+        OpenProcess,
         SaveAs,
         Save,
         Export,
         HostQuit,
         CloseFile,
         Copy,
+        CopyHex,
         Paste,
+        PasteHex,
+        Delete,
+        Find,
+        NewInsert,
+        Fill,
         Goto,
+        SelectAll,
+        Cut,
         WriteBytes,
         ReadBytes,
         DeleteBytes,
@@ -85,6 +97,7 @@ namespace WSPEHexPluginHost
     public interface IWSPEHexPluginBody
     {
         /*Version 0 beta*/
+        List<MessageType> Messages { get; }
 
         ToolStripItem MenuPluginMenu { get; }
 

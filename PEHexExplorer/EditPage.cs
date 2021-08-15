@@ -572,12 +572,12 @@ namespace PEHexExplorer
             Filename = filename;
         }
 
-        public void OpenProcess()
+        public bool OpenProcess()
         {
             bool? res = Closefile();
             if (res.HasValue && res.Value)
             {
-                return;
+                return false;
             }
             else
             {
@@ -594,7 +594,7 @@ namespace PEHexExplorer
                     {
                         MessageBox.Show("打开进程失败，可能是由于权限不足导致！", Program.AppName,
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        return false;
                     }
                     EnableEdit?.Invoke(this, EventArgs.Empty);
                     pe?.Dispose();
@@ -613,8 +613,11 @@ namespace PEHexExplorer
                     //bookMark.ApplyTreeView(in tvPEStruct);
                     bookMark.ApplyHexbox(hexBox);
                     Filename = result.Process.ProcessName;
+                    return true;
                 }
             }
+
+            return false;
         }
 
         /// <summary>
@@ -651,7 +654,7 @@ namespace PEHexExplorer
 
         public void ApplyTreeView(in TreeView treeView) => bookMark?.ApplyTreeView(treeView);
 
-        public void Goto(long index)
+        public void Jmpto(long index)
         {
             hexBox.SelectionStart = index;
             hexBox.SelectionLength = 1;

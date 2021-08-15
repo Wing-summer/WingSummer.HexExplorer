@@ -583,7 +583,7 @@
             this.MIJmp.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
             this.MIJmp.Size = new System.Drawing.Size(261, 26);
             this.MIJmp.Text = "定位";
-            this.MIJmp.Click += new System.EventHandler(this.MIJmp_Click);
+            this.MIJmp.Click += new System.EventHandler(this.MIGoto_Click);
             // 
             // MIS4
             // 

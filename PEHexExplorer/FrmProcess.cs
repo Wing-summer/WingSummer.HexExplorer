@@ -24,7 +24,7 @@ namespace PEHexExplorer
         {
             get
             {
-                if (frmProcess==null||frmProcess.IsDisposed)
+                if (frmProcess == null || frmProcess.IsDisposed)
                 {
                     frmProcess = new FrmProcess();
                 }
@@ -45,6 +45,10 @@ namespace PEHexExplorer
 
         private void GetProcesses()
         {
+            if (processes != null)
+                foreach (var item in processes)
+                    item?.Dispose();
+
             processes = Process.GetProcesses();
             lbProcess.Items.Clear();
             foreach (var item in processes)
@@ -56,7 +60,13 @@ namespace PEHexExplorer
         private void LbProcess_SelectedIndexChanged(object sender, EventArgs e) 
             => pg.SelectedObject = lbProcess.SelectedIndex >= 0 ? processes[lbProcess.SelectedIndex] : null;
 
-        private void FrmProcess_FormClosed(object sender, FormClosedEventArgs e) => Dispose();
+        private void FrmProcess_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            foreach (var item in processes)
+                item?.Dispose();
+
+            Dispose();
+        }
 
         private void MIOK_Click(object sender, EventArgs e) => SelectOk(true);
       

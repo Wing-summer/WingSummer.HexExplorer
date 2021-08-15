@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Be.Windows.Forms;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Windows.Forms;
-using Be.Windows.Forms;
 using System.Security.Principal;
-using System.Collections.Generic;
+using System.Windows.Forms;
 using WSPEHexPluginHost;
+using static PEHexExplorer.WSPlugin.PluginSupportFuc;
 
 namespace PEHexExplorer
 {
     public partial class FrmMain : FormBase
     {
-        readonly EditorPageManager pageManager;
+        private readonly EditorPageManager pageManager;
 
         private readonly string EditFileExt = string.Empty;
 
@@ -27,7 +28,7 @@ namespace PEHexExplorer
         private readonly ConstInfo constInfo;
 
         private readonly Lazy<List<HexBox.HighlightedRegion>> BookMarkregions = new Lazy<List<HexBox.HighlightedRegion>>();
-        readonly WSPlugin pluginManager;
+        private readonly WSPlugin pluginManager;
 
         public FrmMain(string filename = null)
         {
@@ -58,7 +59,7 @@ namespace PEHexExplorer
             MUserProfile mUser = UserSetting.UserProfile;
             Font = mUser.ProgramFont;
 
-            pageManager = new EditorPageManager(tabEditArea,hexMenuStrip);
+            pageManager = new EditorPageManager(tabEditArea, hexMenuStrip);
             pageManager.EditorPageChanged += PageManager_EditorPageChanged;
             pageManager.EditorPageMessagePipe += PageManager_EditorPageMessagePipe;
             pageManager.EditorPageClosing += PageManager_EditorPageClosing;
@@ -81,6 +82,8 @@ namespace PEHexExplorer
             if (mUser.EnablePlugin)
             {
                 pluginManager = new WSPlugin();
+                WSPlugin.PluginSupportFuc.pluginManager = pluginManager;
+
                 MenuPlugin.DropDown = pluginManager.PluginMenuStrip;
                 if (pluginManager.ToolMenuStrip?.Items.Count > 0)
                 {
@@ -204,7 +207,7 @@ namespace PEHexExplorer
             }
         }
 
-        #region 窗体事件
+        #region 窗体事件与消息
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -222,153 +225,223 @@ namespace PEHexExplorer
 
         #region 文件IO相关
 
-        private void MINew_Click(object sender, EventArgs e) => pageManager.OpenOrCreateFilePage();
+        private void MINew_Click(object sender, EventArgs e)
+        {
+            PluginSupport(MessageType.NewFile, new Action(() =>
+             {
+                 pageManager.OpenOrCreateFilePage();
+             }));
+        }
 
         private void MIOpen_Click(object sender, EventArgs e)
         {
-            foreach (var item in pluginManager.actions.Value)
-            {
-                item.Invoke(this, new HostPluginArgs { MessageType = MessageType.OpenFile, IsBefore = true });
-            }
-            if (oD.ShowDialog() == DialogResult.OK)
-            {
-                string filename = oD.FileName;
-                bool writeable = !oD.ReadOnlyChecked;
-                oD.FileName = string.Empty;
-                pageManager.OpenOrCreateFilePage(filename, writeable);
-            }
+            PluginSupport(MessageType.OpenFile, new Action(() =>
+             {
+                 if (oD.ShowDialog() == DialogResult.OK)
+                 {
+                     string filename = oD.FileName;
+                     bool writeable = !oD.ReadOnlyChecked;
+                     oD.FileName = string.Empty;
+                     pageManager.OpenOrCreateFilePage(filename, writeable);
+                 }
+             }));
         }
 
         private void MISave_Click(object sender, EventArgs e)
         {
-            if (!pageManager.CurrentPage.SaveFile())
-            {
-                MISaveAs_Click(sender, e);
-            }
+            PluginSupport(MessageType.Save, new Action(() =>
+             {
+                 if (!pageManager.CurrentPage.SaveFile())
+                 {
+                     MISaveAs_Click(sender, e);
+                 }
+             }));
         }
 
         private void MIExport_Click(object sender, EventArgs e)
         {
-            sD.Filter = $"{EditFileExt}文件|*.{EditFileExt}";
-            if (sD.ShowDialog() == DialogResult.OK)
+            PluginSupport(MessageType.Export, new Action(() =>
             {
-                pageManager.CurrentPage.SaveFileAs(sD.FileName, true);
-                sD.FileName = string.Empty;
-            }
+                sD.Filter = $"{EditFileExt}文件|*.{EditFileExt}";
+                if (sD.ShowDialog() == DialogResult.OK)
+                {
+                    pageManager.CurrentPage.SaveFileAs(sD.FileName, true);
+                    sD.FileName = string.Empty;
+                }
+            }));
         }
 
         private void MISaveAs_Click(object sender, EventArgs e)
         {
-            sD.Filter = string.Format("{0}文件|*.{0}", EditFileExt);
-            if (sD.ShowDialog() == DialogResult.OK)
-            {
-                pageManager.CurrentPage.SaveFileAs(sD.FileName, true);            
-                sD.FileName = string.Empty;
-            }
+            PluginSupport(MessageType.SaveAs, new Action(() =>
+             {
+                 sD.Filter = string.Format("{0}文件|*.{0}", EditFileExt);
+                 if (sD.ShowDialog() == DialogResult.OK)
+                 {
+                     pageManager.CurrentPage.SaveFileAs(sD.FileName, true);
+                     sD.FileName = string.Empty;
+                 }
+             }));
         }
 
-        private void MIOpenProcess_Click(object sender, EventArgs e) => pageManager.OpenProcessPage();
+        private void MIOpenProcess_Click(object sender, EventArgs e)
+        {
+            PluginSupport(MessageType.OpenProcess, new Action(() =>
+             {
+                 pageManager.OpenProcessPage();
+             }));
+        }
 
-        private void MIClose_Click(object sender, EventArgs e) => pageManager.CloseCurrentPage();
+        private void MIClose_Click(object sender, EventArgs e)
+        {
+            PluginSupport(MessageType.HostQuit, new Action(() =>
+             {
+                 pageManager.CloseCurrentPage();
+             }));
+        }
 
         #endregion
 
         #region 文件操作相关
 
-        private void MISelectAll_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.SelectAll();
+        private void MISelectAll_Click(object sender, EventArgs e)
+        {
+            PluginSupport(MessageType.SelectAll, new Action(() => pageManager.CurrentHexBox.SelectAll()));
+        }
 
-        private void MICut_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.Cut();
+        private void MICut_Click(object sender, EventArgs e)
+        {
+            PluginSupport(MessageType.Cut, new Action(() => pageManager.CurrentHexBox.Cut()));
+        }
 
-        private void MICopy_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.Copy();
+        private void MICopy_Click(object sender, EventArgs e)
+        {
+            PluginSupport(MessageType.Copy, new Action(() => pageManager.CurrentHexBox.Copy()));
+        }
 
-        private void MICopyHex_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.CopyHex();
+        private void MICopyHex_Click(object sender, EventArgs e)
+        {
+            PluginSupport(MessageType.CopyHex, new Action(() => pageManager.CurrentHexBox.CopyHex()));
+        }
 
-        private void MIPaste_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.Paste();
+        private void MIPaste_Click(object sender, EventArgs e)
+        {
+            PluginSupport(MessageType.Paste, new Action(() => pageManager.CurrentHexBox.Paste()));
+        }
 
-        private void MIPasteHex_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.PasteHex();
+        private void MIPasteHex_Click(object sender, EventArgs e)
+        {
+            PluginSupport(MessageType.PasteHex, new Action(() => pageManager.CurrentHexBox.PasteHex()));
+        }
 
-        private void MIDel_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.Delete();
+        private void MIDel_Click(object sender, EventArgs e)
+        {
+            PluginSupport(MessageType.Delete, new Action(() => pageManager.CurrentHexBox.Delete()));
+        }
 
         private void MIInsert_Click(object sender, EventArgs e)
         {
-            using (FrmInsert frmInsert = FrmInsert.Instance)
-            {
-                if (frmInsert.ShowDialog() == DialogResult.OK)
-                {
-                    pageManager.CurrentHexBox.InsertBytes(pageManager.CurrentHexBox.SelectionStart, frmInsert.Result.buffer);
-                }
-            }
+            PluginSupport(MessageType.InsetBytes, new Action(() =>
+             {
+                 using (FrmInsert frmInsert = FrmInsert.Instance)
+                 {
+                     if (frmInsert.ShowDialog() == DialogResult.OK)
+                     {
+                         pageManager.CurrentHexBox.InsertBytes(pageManager.CurrentHexBox.SelectionStart, frmInsert.Result.buffer);
+                     }
+                 }
+             }));
         }
 
         private void MINewInsert_Click(object sender, EventArgs e)
         {
-            using (FrmInsert frmInsert = FrmInsert.Instance)
-            {
-                if (frmInsert.ShowDialog() == DialogResult.OK)
-                {
-                    pageManager.CurrentHexBox.InsertBytes(pageManager.CurrentHexBox.SelectionStart, frmInsert.Result.buffer);
-                }
-            }
+            PluginSupport(MessageType.NewInsert, new Action(() =>
+             {
+                 using (FrmInsert frmInsert = FrmInsert.Instance)
+                 {
+                     if (frmInsert.ShowDialog() == DialogResult.OK)
+                     {
+                         pageManager.CurrentHexBox.InsertBytes(pageManager.CurrentHexBox.SelectionStart, frmInsert.Result.buffer);
+                     }
+                 }
+             }));
         }
 
         private void MIFind_Click(object sender, EventArgs e)
         {
-            FrmFind frmFind = FrmFind.Instance;
-            frmFind.HexBox = pageManager.CurrentHexBox;
-            frmFind.Show(this);
+            PluginSupport(MessageType.Find, new Action(() =>
+             {
+                 FrmFind frmFind = FrmFind.Instance;
+                 frmFind.HexBox = pageManager.CurrentHexBox;
+                 frmFind.Show(this);
+             }));
         }
 
-        private void MIJmp_Click(object sender, EventArgs e)
+        private void MIGoto_Click(object sender, EventArgs e)
         {
-            using (FrmGoto frmGoto = FrmGoto.Instance)
-            {
-                if (frmGoto.ShowDialog() == DialogResult.OK)
-                {
-                    FrmGoto.GotoResult result = frmGoto.Result;
-                    if (result.IsRow)
-                    {
-                        if (!pageManager.CurrentHexBox.ScrollLineIntoView((long)result.Number))
-                        {
-                            MessageBox.Show("跳转失败！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    else
-                    {
-                        if (!pageManager.CurrentHexBox.GotoByOffset((long)result.Number, result.IsFromBase))
-                        {
-                            MessageBox.Show("跳转失败！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                }
-            }
+            PluginSupport(MessageType.Goto, new Action(() =>
+             {
+                 using (FrmGoto frmGoto = FrmGoto.Instance)
+                 {
+                     if (frmGoto.ShowDialog() == DialogResult.OK)
+                     {
+                         FrmGoto.GotoResult result = frmGoto.Result;
+                         if (result.IsRow)
+                         {
+                             if (!pageManager.CurrentHexBox.ScrollLineIntoView((long)result.Number))
+                             {
+                                 MessageBox.Show("跳转失败！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                             }
+                         }
+                         else
+                         {
+                             if (!pageManager.CurrentHexBox.GotoByOffset((long)result.Number, result.IsFromBase))
+                             {
+                                 MessageBox.Show("跳转失败！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                             }
+                         }
+                     }
+                 }
+             }));
+
         }
 
         private void MIFill_Click(object sender, EventArgs e)
         {
-            using (FrmFill frmFill = FrmFill.Instance)
-            {
-                if (frmFill.ShowDialog() == DialogResult.OK)
-                {
-                    HexBox hexBox = pageManager.CurrentHexBox;
-                    byte[] buffer = frmFill.Result.buffer;
-                    pageManager.CurrentHexBox.WriteBytes(hexBox.SelectionStart, buffer, hexBox.SelectionLength);
-                }
-            }
+            PluginSupport(MessageType.Fill, new Action(() =>
+             {
+                 using (FrmFill frmFill = FrmFill.Instance)
+                 {
+                     if (frmFill.ShowDialog() == DialogResult.OK)
+                     {
+                         HexBox hexBox = pageManager.CurrentHexBox;
+                         byte[] buffer = frmFill.Result.buffer;
+                         pageManager.CurrentHexBox.WriteBytes(hexBox.SelectionStart, buffer, hexBox.SelectionLength);
+                     }
+                 }
+             }));
         }
 
-        private void MIFillZero_Click(object sender, EventArgs e) 
-            => pageManager.CurrentHexBox.WriteBytes
-            (pageManager.CurrentHexBox.SelectionStart, 0, pageManager.CurrentHexBox.SelectionLength);
+        private void MIFillZero_Click(object sender, EventArgs e)
+        {
+            PluginSupport(MessageType.WriteBytes,
+                new Action(() => pageManager.CurrentHexBox.WriteBytes(pageManager.CurrentHexBox.SelectionStart, 0, pageManager.CurrentHexBox.SelectionLength)));
+        }
 
-        private void MIFillNop_Click(object sender, EventArgs e) 
-            => pageManager.CurrentHexBox.WriteBytes
-            (pageManager.CurrentHexBox.SelectionStart, 0x90, pageManager.CurrentHexBox.SelectionLength);
+        private void MIFillNop_Click(object sender, EventArgs e)
+        {
+            PluginSupport(MessageType.WriteBytes,
+                new Action(() => pageManager.CurrentHexBox.WriteBytes(pageManager.CurrentHexBox.SelectionStart, 0x90, pageManager.CurrentHexBox.SelectionLength)));
+        }
 
         #endregion
 
         #region HexBox事件处理
 
-        private void HexBox_ScalingChanged(uint scaling) => LblScale.Text = $"{scaling}%";
+        private void HexBox_ScalingChanged(uint scaling)
+        {
+            LblScale.Text = $"{scaling}%";
+        }
 
         private void HexBox_CurrentLineChanged(long CurrentLine)
         {
@@ -382,8 +455,10 @@ namespace PEHexExplorer
             LblLocation.Text = $"({pos.X - 1},{pos.Y - 1})";
         }
 
-        private void HexBox_InsertActiveChanged(bool InsertActive) =>
+        private void HexBox_InsertActiveChanged(bool InsertActive)
+        {
             lblInsert.ForeColor = InsertActive ? EnabledColor : DisabledColor;
+        }
 
         private void HexBox_ContentChanged(bool ByteProviderIsNull, bool HasChanges)
         {
@@ -393,13 +468,20 @@ namespace PEHexExplorer
             }
         }
 
-        private void HexBox_LockedBufferChanged(bool IsLockedBuffer) =>
+        private void HexBox_LockedBufferChanged(bool IsLockedBuffer)
+        {
             lblLocked.ForeColor = IsLockedBuffer ? EnabledColor : DisabledColor;
+        }
 
-        private void HexBox_SelectionLengthChanged(long SelectionLength) =>
+        private void HexBox_SelectionLengthChanged(long SelectionLength)
+        {
             LblLen.Text = $"{SelectionLength:D} - 0x{SelectionLength:X}";
+        }
 
-        private void HexBox_ByteProviderChanged(object sender, EventArgs e) => pageManager.CurrentHexBox.ClearHighlightedRegion();
+        private void HexBox_ByteProviderChanged(object sender, EventArgs e)
+        {
+            pageManager.CurrentHexBox.ClearHighlightedRegion();
+        }
 
         private void HexBox_CurrentPositionChanged(long SelectionStart)
         {
@@ -437,7 +519,10 @@ namespace PEHexExplorer
 
         #region 编辑和文件状态相关
 
-        private void LblScale_DoubleClick(object sender, EventArgs e) => pageManager.CurrentHexBox.Scaling = 1.0F;
+        private void LblScale_DoubleClick(object sender, EventArgs e)
+        {
+            pageManager.CurrentHexBox.Scaling = 1.0F;
+        }
 
         private void DisableEdit()
         {
@@ -467,7 +552,7 @@ namespace PEHexExplorer
             lblLocked.Enabled = false;
             LblWritable.Enabled = false;
 
-            if (pageManager.CurrentPage!=null)
+            if (pageManager.CurrentPage != null)
             {
                 LblFilename.Text = pageManager.CurrentPage.Filename;
             }
@@ -486,7 +571,7 @@ namespace PEHexExplorer
         {
             toolStripHexEdit.Enabled = true;
             hexMenuStrip.Enabled = true;
-            foreach (var item in hexMenuStrip.Items)
+            foreach (object item in hexMenuStrip.Items)
             {
                 if (item is ToolStripMenuItem)
                 {
@@ -539,9 +624,15 @@ namespace PEHexExplorer
             }
         }
 
-        private void LblLocked_Click(object sender, EventArgs e) => pageManager.CurrentHexBox.IsLockedBuffer = !pageManager.CurrentHexBox.IsLockedBuffer;
+        private void LblLocked_Click(object sender, EventArgs e)
+        {
+            pageManager.CurrentHexBox.IsLockedBuffer = !pageManager.CurrentHexBox.IsLockedBuffer;
+        }
 
-        private void LblFilename_TextChanged(object sender, EventArgs e) => LblFilename.ToolTipText = LblFilename.Text;
+        private void LblFilename_TextChanged(object sender, EventArgs e)
+        {
+            LblFilename.ToolTipText = LblFilename.Text;
+        }
 
         #endregion
 
@@ -581,9 +672,15 @@ namespace PEHexExplorer
 
         #region 实用性相关
 
-        private void MICalculator_Click(object sender, EventArgs e) => Process.Start("calc");
+        private void MICalculator_Click(object sender, EventArgs e)
+        {
+            Process.Start("calc");
+        }
 
-        private void MIExit_Click(object sender, EventArgs e) => Application.Exit();
+        private void MIExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
 
         private void MIGeneral_Click(object sender, EventArgs e)
         {
@@ -628,11 +725,14 @@ namespace PEHexExplorer
             }
         }
 
-        private void MIInfo_Click(object sender, EventArgs e) => scEdit.Panel2Collapsed = !scEdit.Panel2Collapsed;
+        private void MIInfo_Click(object sender, EventArgs e)
+        {
+            scEdit.Panel2Collapsed = !scEdit.Panel2Collapsed;
+        }
 
         private void MIAdmin_Click(object sender, EventArgs e)
         {
-        
+
 
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
@@ -666,14 +766,16 @@ namespace PEHexExplorer
             }
         }
 
-        private void TscbEncoding_SelectedIndexChanged(object sender, EventArgs e) 
-            => pageManager?.CurrentPage.ChangeEncoding(tscbEncoding.SelectedIndex);
+        private void TscbEncoding_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pageManager?.CurrentPage.ChangeEncoding(tscbEncoding.SelectedIndex);
+        }
 
         private void TbAddr_Click(object sender, EventArgs e)
         {
-            using (FrmAddrBase frmAddr= FrmAddrBase.Instance)
+            using (FrmAddrBase frmAddr = FrmAddrBase.Instance)
             {
-                if (frmAddr.ShowDialog()== DialogResult.OK)
+                if (frmAddr.ShowDialog() == DialogResult.OK)
                 {
                     pageManager.CurrentPage.ChangeBaseAddr(frmAddr.Result);
                 }
@@ -681,35 +783,49 @@ namespace PEHexExplorer
         }
 
         private void TbLineInfo_Click(object sender, EventArgs e)
-            => pageManager.CurrentPage.ChangeLineInfoVisible();
+        {
+            pageManager.CurrentPage.ChangeLineInfoVisible();
+        }
 
         private void TbLineBg_Click(object sender, EventArgs e)
-            => pageManager.CurrentPage.ChangeLineInfoBGVisible();
+        {
+            pageManager.CurrentPage.ChangeLineInfoBGVisible();
+        }
 
         private void TbColInfo_Click(object sender, EventArgs e)
-             => pageManager.CurrentPage.ChangeColInfoVisible();
+        {
+            pageManager.CurrentPage.ChangeColInfoVisible();
+        }
 
         private void TbColBg_Click(object sender, EventArgs e)
-            => pageManager.CurrentPage.ChangeColInfoBGVisible();
+        {
+            pageManager.CurrentPage.ChangeColInfoBGVisible();
+        }
 
         private void TbGroupSep_Click(object sender, EventArgs e)
-            => pageManager.CurrentPage.ChangeGroupSepVisible();
+        {
+            pageManager.CurrentPage.ChangeGroupSepVisible();
+        }
 
         private void TbPEInfo_Click(object sender, EventArgs e)
-             => pageManager.CurrentPage.ChangePEInfoVisible();
+        {
+            pageManager.CurrentPage.ChangePEInfoVisible();
+        }
 
         private void TbString_Click(object sender, EventArgs e)
-            => pageManager.CurrentPage.ChangeHexStrVisible();
+        {
+            pageManager.CurrentPage.ChangeHexStrVisible();
+        }
 
         #endregion
 
         private void TvPEStruct_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (e.Button== MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
-                if (pageManager.CurrentPage != null&& e.Node.Tag!=null)
+                if (pageManager.CurrentPage != null && e.Node.Tag != null)
                 {
-                    pageManager.CurrentPage.Goto(((HexBox.HighlightedRegion)e.Node.Tag).Start);
+                    pageManager.CurrentPage.Jmpto(((HexBox.HighlightedRegion)e.Node.Tag).Start);
 
                 }
             }
