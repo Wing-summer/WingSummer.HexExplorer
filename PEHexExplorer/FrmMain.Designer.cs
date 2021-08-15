@@ -171,6 +171,8 @@
             this.ts10 = new System.Windows.Forms.ToolStripSeparator();
             this.tbAboutthis = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tbLog = new System.Windows.Forms.TextBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.Slbl5 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -252,6 +254,7 @@
             this.toolStripHexEdit.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -296,7 +299,7 @@
             MainMenu.Padding = new System.Windows.Forms.Padding(4, 3, 0, 3);
             MainMenu.ShowItemToolTips = true;
             MainMenu.Size = new System.Drawing.Size(1782, 30);
-            MainMenu.TabIndex = 3;
+            MainMenu.TabIndex = 0;
             // 
             // MenuItemFile
             // 
@@ -924,7 +927,7 @@
             // 
             splitContainer2.Panel2.Controls.Add(this.propertyGridB);
             splitContainer2.Size = new System.Drawing.Size(634, 658);
-            splitContainer2.SplitterDistance = 242;
+            splitContainer2.SplitterDistance = 241;
             splitContainer2.TabIndex = 3;
             // 
             // checkedListBox1
@@ -933,7 +936,7 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(0, 0);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(634, 242);
+            this.checkedListBox1.Size = new System.Drawing.Size(634, 241);
             this.checkedListBox1.TabIndex = 3;
             // 
             // propertyGridB
@@ -941,7 +944,7 @@
             this.propertyGridB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGridB.Location = new System.Drawing.Point(0, 0);
             this.propertyGridB.Name = "propertyGridB";
-            this.propertyGridB.Size = new System.Drawing.Size(634, 412);
+            this.propertyGridB.Size = new System.Drawing.Size(634, 413);
             this.propertyGridB.TabIndex = 0;
             // 
             // ts11
@@ -1048,7 +1051,7 @@
             this.tabEditArea.SelectedIndex = 0;
             this.tabEditArea.SelTextColor = System.Drawing.Color.White;
             this.tabEditArea.Size = new System.Drawing.Size(1130, 634);
-            this.tabEditArea.TabIndex = 3;
+            this.tabEditArea.TabIndex = 1;
             // 
             // toolStripHexEdit
             // 
@@ -1081,7 +1084,7 @@
             this.toolStripHexEdit.Name = "toolStripHexEdit";
             this.toolStripHexEdit.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.toolStripHexEdit.Size = new System.Drawing.Size(1130, 32);
-            this.toolStripHexEdit.TabIndex = 4;
+            this.toolStripHexEdit.TabIndex = 2;
             // 
             // tscbEncoding
             // 
@@ -1228,7 +1231,7 @@
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.ShowItemToolTips = false;
             this.toolStrip.Size = new System.Drawing.Size(1130, 27);
-            this.toolStrip.TabIndex = 2;
+            this.toolStrip.TabIndex = 0;
             // 
             // tbNew
             // 
@@ -1536,6 +1539,7 @@
             // 
             this.tabControl1.Controls.Add(tabPage2);
             this.tabControl1.Controls.Add(tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -1543,6 +1547,30 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(648, 693);
             this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.tbLog);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(640, 660);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "插件日志";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tbLog
+            // 
+            this.tbLog.BackColor = System.Drawing.Color.Black;
+            this.tbLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbLog.ForeColor = System.Drawing.SystemColors.Info;
+            this.tbLog.Location = new System.Drawing.Point(3, 3);
+            this.tbLog.Multiline = true;
+            this.tbLog.Name = "tbLog";
+            this.tbLog.ReadOnly = true;
+            this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbLog.Size = new System.Drawing.Size(634, 654);
+            this.tbLog.TabIndex = 0;
             // 
             // statusStrip
             // 
@@ -1561,7 +1589,7 @@
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
             this.statusStrip.Size = new System.Drawing.Size(1782, 30);
-            this.statusStrip.TabIndex = 4;
+            this.statusStrip.TabIndex = 1;
             // 
             // LblStatus
             // 
@@ -1735,6 +1763,8 @@
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -1835,6 +1865,8 @@
         private System.Windows.Forms.ToolStripButton tbAddr;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripComboBox tscbEncoding;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TextBox tbLog;
     }
 }
 

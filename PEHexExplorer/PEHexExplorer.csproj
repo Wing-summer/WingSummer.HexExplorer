@@ -152,9 +152,14 @@
     <Compile Include="FrmSetting.Designer.cs">
       <DependentUpon>FrmSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoggingLib.cs" />
+    <Compile Include="MPropertyGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MUserProfile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleInstanceHelper.cs" />
     <Compile Include="TabControlEx.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -163,6 +168,8 @@
     </Compile>
     <Compile Include="UserSetting.cs" />
     <Compile Include="WSPlugin.cs" />
+    <Compile Include="WSPlugin.PluginInfo.cs" />
+    <Compile Include="WSPlugin.PluginSupportLib.cs" />
     <EmbeddedResource Include="FrmAbout.resx">
       <DependentUpon>FrmAbout.cs</DependentUpon>
       <SubType>Designer</SubType>

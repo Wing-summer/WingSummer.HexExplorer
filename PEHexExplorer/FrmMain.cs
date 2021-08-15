@@ -7,7 +7,7 @@ using System.IO;
 using System.Security.Principal;
 using System.Windows.Forms;
 using WSPEHexPluginHost;
-using static PEHexExplorer.WSPlugin.PluginSupportFuc;
+using static PEHexExplorer.WSPlugin.PluginSupportLib;
 
 namespace PEHexExplorer
 {
@@ -30,10 +30,10 @@ namespace PEHexExplorer
         private readonly Lazy<List<HexBox.HighlightedRegion>> BookMarkregions = new Lazy<List<HexBox.HighlightedRegion>>();
         private readonly WSPlugin pluginManager;
 
-        public FrmMain(string filename = null)
+        public FrmMain(string[] args = null)
         {
+            SetStyle(ControlStyles.Opaque, true);
             InitializeComponent();
-
             tscbEncoding.SelectedIndex = 0;
             tvPEStruct.ExpandAll();
 
@@ -63,17 +63,13 @@ namespace PEHexExplorer
             pageManager.EditorPageChanged += PageManager_EditorPageChanged;
             pageManager.EditorPageMessagePipe += PageManager_EditorPageMessagePipe;
             pageManager.EditorPageClosing += PageManager_EditorPageClosing;
+            SingleInstanceHelper.StartUpNextInstance += SingleInstanceHelper_StartUpNextInstance;
 
             //end：载入用户设置
 
-            if (filename != null)
+            if (args != null && args.Length > 0)
             {
-                filename = filename.Trim();
-
-                if (filename.Length > 0 && File.Exists(filename))
-                {
-                    pageManager.OpenOrCreateFilePage(filename);
-                }
+                CreateOrOpen(args[0].Trim());
             }
 
             constInfo = new ConstInfo();
@@ -81,8 +77,8 @@ namespace PEHexExplorer
 
             if (mUser.EnablePlugin)
             {
-                pluginManager = new WSPlugin();
-                WSPlugin.PluginSupportFuc.pluginManager = pluginManager;
+                pluginManager = WSPlugin.Instance;
+                WSPlugin.PluginSupportLib.pluginManager = pluginManager;
 
                 MenuPlugin.DropDown = pluginManager.PluginMenuStrip;
                 if (pluginManager.ToolMenuStrip?.Items.Count > 0)
@@ -90,13 +86,22 @@ namespace PEHexExplorer
                     MIS.Visible = true;
                     MenuItemTool.DropDownItems.AddRange(pluginManager.ToolMenuStrip.Items);
                 }
+                tbLog.DataBindings.Add(BindingEnum.LogInfo);
             }
+        }
 
+        private void SingleInstanceHelper_StartUpNextInstance(object sender, SingleInstanceHelper.SingleInstanceArgs e)
+        {
+            var args = e.args;
+            if (args != null && args.Length > 0)
+            {
+                CreateOrOpen(args[0].Trim());
+            }
         }
 
         private void PageManager_EditorPageClosing(object sender, EditPage.CloseFileArgs e)
         {
-            DialogResult result = MessageBox.Show("此文件已有修改，你确定要丢弃吗？",
+            DialogResult result = MessageBox.Show("此文件已有修改，你是否要保存吗？",
                     Program.AppName, MessageBoxButtons.YesNoCancel);
             switch (result)
             {
@@ -104,8 +109,7 @@ namespace PEHexExplorer
                     e.Cancel = true;
                     break;
                 case DialogResult.Yes:
-                    MISave_Click(this, EventArgs.Empty);
-                    e.Cancel = false;
+                    MISave_Click(sender, e);
                     break;
                 case DialogResult.No:
                     e.Cancel = false;
@@ -225,6 +229,17 @@ namespace PEHexExplorer
 
         #region 文件IO相关
 
+        private void CreateOrOpen(string filename)
+        {
+            if (filename.Length > 0 && File.Exists(filename))
+            {
+                Invoke(new Action(() => PluginSupport(MessageType.OpenFile,
+                    new Action(() => pageManager.OpenOrCreateFilePage(filename, true)))));
+                //防止线程不安全错误
+            }
+        }
+
+
         private void MINew_Click(object sender, EventArgs e)
         {
             PluginSupport(MessageType.NewFile, new Action(() =>
@@ -244,6 +259,7 @@ namespace PEHexExplorer
                      oD.FileName = string.Empty;
                      pageManager.OpenOrCreateFilePage(filename, writeable);
                  }
+                 sender = null;
              }));
         }
 
@@ -280,6 +296,16 @@ namespace PEHexExplorer
                  {
                      pageManager.CurrentPage.SaveFileAs(sD.FileName, true);
                      sD.FileName = string.Empty;
+                 }
+                 else
+                 {
+                     try
+                     {
+                         (e as EditPage.CloseFileArgs).Cancel = true;
+                     }
+                     catch
+                     {
+                     }
                  }
              }));
         }
@@ -486,6 +512,10 @@ namespace PEHexExplorer
         private void HexBox_CurrentPositionChanged(long SelectionStart)
         {
             long sels = SelectionStart;
+            if (constInfo==null)
+            {
+                return;
+            }
             constInfo.Char = null;
             constInfo.Int = null;
             constInfo.Int16 = null;

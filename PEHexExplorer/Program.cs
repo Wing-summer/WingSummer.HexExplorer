@@ -30,25 +30,33 @@ namespace PEHexExplorer
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            userSetting = new UserSetting();
-
-            userSetting.Load();
-
-            if (args.Length>0)
-                Application.Run(new FrmMain(args[0]));
-            else
-                Application.Run(new FrmMain());
+         
+            SingleInstanceHelper instanceHelper = SingleInstanceHelper.SingleInstance;
+            instanceHelper.IsSingleApp = true;
+            if (instanceHelper.IsFirstStartUp)
+            {
+                userSetting = new UserSetting();
+                userSetting.Load();
+            }
+            instanceHelper.Run(typeof(FrmMain), args, true, args);
+            //启动新实例事件相应写到FrmMain中实现订阅
 
         }
 
         private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
-            userSetting.Save();
+            userSetting?.Save();
         }
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            var ex = e.ExceptionObject as Exception;
+            if (ex.InnerException is DllNotFoundException)
+            {
+                MessageBox.Show(ex.InnerException.Message, AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             Directory.CreateDirectory(AppErrDir);
             string errfile = $"{AppErrDir}\\{DateTime.UtcNow.ToBinary()}.log";
             File.WriteAllText(errfile, e.ExceptionObject.ToString());

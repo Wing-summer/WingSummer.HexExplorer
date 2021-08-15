@@ -9,54 +9,45 @@ using WSPEHexPluginHost;
 
 namespace PEHexExplorer
 {
-    internal class WSPlugin
+    internal partial class WSPlugin
     {
-        internal static class PluginSupportFuc
-        {
-            public static WSPlugin pluginManager = null;
-            public static void PluginSupport(MessageType messageType, Action action)
-            {
-                HostPluginArgs args = new HostPluginArgs { MessageType = messageType, IsBefore = true };
-                bool isvalid = pluginManager != null && pluginManager.MSGQueue.Value.ContainsKey(messageType);
-
-                if (isvalid)
-                {
-                    foreach (var item in pluginManager.MSGQueue.Value[messageType])
-                    {
-                        item.Invoke(null, args);
-
-                        if (args.Cancel)
-                            return;
-                    }
-                }
-
-                action.Invoke();
-
-                if (isvalid)
-                {
-                    args.IsBefore = false;
-                    foreach (var item in pluginManager.MSGQueue.Value[messageType])
-                        item.Invoke(null, args);
-                }
-
-            }
-        }
 
         private readonly CompositionContainer container;
         private readonly ContextMenuStrip pluginMenuStrip;
         private readonly ContextMenuStrip toolMenuStrip;
         private readonly HostPluginArgs LoadingPlugin = new HostPluginArgs { MessageType = MessageType.PluginLoading };
         private readonly HostPluginArgs LoadedPlugin = new HostPluginArgs { MessageType = MessageType.PluginLoaded };
+        private const string NullMSG = "无消息传递到插件的接口错误";
+        private const string ErrSig = "文件签名错误";
+        private const string ErrPUID = "插件标识符校验失败";
+        private const string NullMNP = "无插件菜单错误";
+   
+
+        private static WSPlugin sPlugin = null;
+        private readonly LoggingLib logging = LoggingLib.Instance;
+
+        public static WSPlugin Instance
+        {
+            get
+            {
+                if (sPlugin == null)
+                {
+                    sPlugin = new WSPlugin();
+                }
+                return sPlugin;
+            }
+        }
 
         public ContextMenuStrip PluginMenuStrip => pluginMenuStrip;
         public ContextMenuStrip ToolMenuStrip => toolMenuStrip;
 
         private readonly IEnumerable<Lazy<IWSPEHexPlugin>> _plugins;
-        public Lazy<List<IWSPEHexPlugin>> plugins=new Lazy<List<IWSPEHexPlugin>>();
+        public Lazy<List<IWSPEHexPlugin>> plugins = new Lazy<List<IWSPEHexPlugin>>();
+
         public Lazy<Dictionary<MessageType, List<Action<object, HostPluginArgs>>>> MSGQueue
             = new Lazy<Dictionary<MessageType, List<Action<object, HostPluginArgs>>>>();
 
-        public WSPlugin()
+        private WSPlugin()
         {
             Directory.CreateDirectory(Program.AppPlugin);
             var catalog = new AggregateCatalog();
@@ -84,35 +75,48 @@ namespace PEHexExplorer
 
             foreach (var item in _plugins)
             {
-                if (item.Value.Signature != WSPEHexPluginLib.Sig)
+                var plugin = item.Value;
+                if (plugin.Signature != WSPEHexPluginLib.Sig)
                 {
                     container.ReleaseExport(item);
+                    logging.WritePluginInfo(plugin, false, ErrSig);
                     continue;
                 }
 
-                IWSPEHexPluginBody pluginBody = item.Value.PluginBody;
+                if (plugin.Puid != WSPEHexPluginLib.GetPuid(plugin))
+                {
+                    container.ReleaseExport(item);
+                    logging.WritePluginInfo(plugin, false, ErrPUID);
+                    continue;
+                }
+
+                IWSPEHexPluginBody pluginBody = plugin.PluginBody;
 
                 var hostto = pluginBody.HostToMessagePipe;
 
-                hostto?.Invoke(null, LoadingPlugin);
-
-                var messages = pluginBody.Messages;
-
-                if (pluginBody.Messages == null)
+                if (hostto == null)
                 {
                     container.ReleaseExport(item);
+                    logging.WritePluginInfo(plugin, false, NullMSG);
                     continue;
                 }
 
-                foreach (var msg in messages)
+                hostto.Invoke(null, LoadingPlugin);
+
+                var messages = pluginBody.Messages;
+
+                if (messages != null)
                 {
-                    if (msgqueue.ContainsKey(msg))
+                    foreach (var msg in messages)
                     {
-                        msgqueue[msg].Add(hostto);
-                    }
-                    else
-                    {
-                        msgqueue.Add(msg, new List<Action<object, HostPluginArgs>> { hostto });
+                        if (msgqueue.ContainsKey(msg))
+                        {
+                            msgqueue[msg].Add(hostto);
+                        }
+                        else
+                        {
+                            msgqueue.Add(msg, new List<Action<object, HostPluginArgs>> { hostto });
+                        }
                     }
                 }
 
@@ -120,6 +124,7 @@ namespace PEHexExplorer
                 if (menuItem == null)
                 {
                     container.ReleaseExport(item);
+                    logging.WritePluginInfo(plugin, false, NullMNP);
                     continue;
                 }
 
@@ -128,28 +133,87 @@ namespace PEHexExplorer
                 menuItem = pluginBody.MenuToolMenu;
                 if (menuItem != null)
                 {
+                    menuItem.Visible = true;
                     toolMenuStrip.Items.Add(menuItem);
                 }
                 pluginBody.ToHostMessagePipe += PluginBody_ToHostMessagePipe;
                 hostto?.Invoke(null, LoadedPlugin);
                 plugins.Value.Add(item.Value);
+                logging.WritePluginInfo(plugin);
             }
-
         }
 
         private void PluginBody_ToHostMessagePipe(object sender, HostPluginArgs e)
         {
-            if (e.MessageType== MessageType.HostQuit)
+            switch (e.MessageType)
             {
-                Application.Exit();
+                case MessageType.PluginLoading:
+                    break;
+                case MessageType.PluginLoaded:
+                    break;
+                case MessageType.NewFile:
+                    break;
+                case MessageType.OpenFile:
+                    break;
+                case MessageType.OpenProcess:
+                    break;
+                case MessageType.SaveAs:
+                    break;
+                case MessageType.Save:
+                    break;
+                case MessageType.Export:
+                    break;
+                case MessageType.HostQuit:
+                    Application.Exit();
+                    break;
+                case MessageType.CloseFile:
+                    break;
+                case MessageType.Copy:
+                    break;
+                case MessageType.CopyHex:
+                    break;
+                case MessageType.Paste:
+                    break;
+                case MessageType.PasteHex:
+                    break;
+                case MessageType.Delete:
+                    break;
+                case MessageType.Find:
+                    break;
+                case MessageType.NewInsert:
+                    break;
+                case MessageType.Fill:
+                    break;
+                case MessageType.Goto:
+                    break;
+                case MessageType.SelectAll:
+                    break;
+                case MessageType.Cut:
+                    break;
+                case MessageType.WriteBytes:
+                    break;
+                case MessageType.ReadBytes:
+                    break;
+                case MessageType.DeleteBytes:
+                    break;
+                case MessageType.InsetBytes:
+                    break;
+                case MessageType.ShowPEInfo:
+                    break;
+                case MessageType.HidePEInfo:
+                    break;
+                case MessageType.HideLineInfo:
+                    break;
+                case MessageType.ShowLineInfo:
+                    break;
+                case MessageType.HideColInfo:
+                    break;
+                case MessageType.ShowColInfo:
+                    break;
+                default:
+                    break;
             }
         }
 
-        private void PluginBody_HostToMessagePipe(object sender, HostPluginArgs e)
-        {
-       
-        }
-
     }
-
 }

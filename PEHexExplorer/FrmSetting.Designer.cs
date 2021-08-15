@@ -69,7 +69,7 @@ namespace PEHexExplorer
             this.clbBookMark = new System.Windows.Forms.CheckedListBox();
             this.cbEnableBookMark = new System.Windows.Forms.CheckBox();
             this.pgPlugin = new System.Windows.Forms.PropertyGrid();
-            this.clbPlugin = new System.Windows.Forms.CheckedListBox();
+            this.clbPlugin = new System.Windows.Forms.ListBox();
             this.cbEnablePlugin = new System.Windows.Forms.CheckBox();
             this.tabSetting = new System.Windows.Forms.TabControl();
             this.cD = new System.Windows.Forms.ColorDialog();
@@ -561,8 +561,10 @@ namespace PEHexExplorer
             this.pgBookMark.Location = new System.Drawing.Point(314, 55);
             this.pgBookMark.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pgBookMark.Name = "pgBookMark";
+            this.pgBookMark.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
             this.pgBookMark.Size = new System.Drawing.Size(281, 265);
             this.pgBookMark.TabIndex = 13;
+            this.pgBookMark.ToolbarVisible = false;
             // 
             // clbBookMark
             // 
@@ -606,17 +608,21 @@ namespace PEHexExplorer
             this.pgPlugin.Location = new System.Drawing.Point(314, 55);
             this.pgPlugin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pgPlugin.Name = "pgPlugin";
+            this.pgPlugin.PropertySort = System.Windows.Forms.PropertySort.Alphabetical;
             this.pgPlugin.Size = new System.Drawing.Size(281, 264);
             this.pgPlugin.TabIndex = 2;
+            this.pgPlugin.ToolbarVisible = false;
             // 
             // clbPlugin
             // 
             this.clbPlugin.FormattingEnabled = true;
+            this.clbPlugin.ItemHeight = 15;
             this.clbPlugin.Location = new System.Drawing.Point(20, 55);
             this.clbPlugin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.clbPlugin.Name = "clbPlugin";
-            this.clbPlugin.Size = new System.Drawing.Size(279, 264);
+            this.clbPlugin.Size = new System.Drawing.Size(279, 259);
             this.clbPlugin.TabIndex = 1;
+            this.clbPlugin.SelectedIndexChanged += new System.EventHandler(this.ClbPlugin_SelectedIndexChanged);
             // 
             // cbEnablePlugin
             // 
@@ -686,7 +692,7 @@ namespace PEHexExplorer
 
         private System.Windows.Forms.TabControl tabSetting;
         private System.Windows.Forms.ColorDialog cD;
-        private System.Windows.Forms.CheckedListBox clbPlugin;
+        private System.Windows.Forms.ListBox clbPlugin;
         private System.Windows.Forms.CheckBox cbEnablePlugin;
         private System.Windows.Forms.PropertyGrid pgPlugin;
         private System.Windows.Forms.FontDialog fD;

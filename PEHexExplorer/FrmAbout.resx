@@ -749,7 +749,7 @@
   </data>
   <data name="textBox.Text" xml:space="preserve">
     <value>◖ 本软件由寂静的羽夏(wingsummer)编写，基于本人改良的Be.Windows.Forms.HexBox控件和本人编写的PEProcesser组件(用于解析PE文件)。
-◖ 本软件遵循AGPL-3.0协议，与此同时不得将此软件及附属组件用于商业用途，仅供学习交流使用。
+◖ 本软件遵循AGPL-3.0协议（除部分代码特殊注明外），与此同时不得将此软件及附属组件用于商业用途，仅供学习交流使用。
 ◖ 本软件目前采用的图标主要来源于 https://www.iconfont.cn/ ,部分来源于dnspy项目，如有侵权请联系我处理。
 ◖ 如想对本软件提供Issue或者Pull Request以及Sponsor，请到本软件的Gitee开源仓库见详情。
 ◖ 本软件开发不易，花费本人大量的精力和时间，您如果想参与本软件的开发或者赞助的话，本人会在本软件以及ReadMe.md按照您合理的意愿记录您的贡献。

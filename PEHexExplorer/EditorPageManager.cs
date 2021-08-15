@@ -101,35 +101,42 @@ namespace PEHexExplorer
 
         public void OpenOrCreateFilePage(string filename = null, bool writeable = true)
         {
-            EditPage page = new EditPage { UseVisualStyleBackColor = false };
-            if (filename==null)
+            try
             {
-                page.NewFile();
-            }
-            else
-            {
-                if (OpenFilenames.Contains(filename))
+                EditPage page = new EditPage { UseVisualStyleBackColor = false };
+                if (filename == null)
                 {
-                    foreach (EditPage item in _tabControl.TabPages)
+                    page.NewFile();
+                }
+                else
+                {
+                    if (OpenFilenames.Contains(filename))
                     {
-                        if (string.Compare(item.Filename, filename, true) == 0)
+                        foreach (EditPage item in _tabControl.TabPages)
                         {
-                            _tabControl.SelectedTab = item;
-                            page.Dispose();
-                            return;
+                            if (string.Compare(item.Filename, filename, true) == 0)
+                            {
+                                _tabControl.SelectedTab = item;
+                                page.Dispose();
+                                return;
+                            }
                         }
                     }
+                    page.OpenFile(filename, writeable);
+                    OpenFilenames.Add(filename);
                 }
-                page.OpenFile(filename, writeable);
-                OpenFilenames.Add(filename);
-            }
-            _tabControl.TabPages.Add(page);
-            _tabControl.SelectedTab = page;
-            page.ApplyContextMenuStrip(MenuStrip);
-            page.HostMessagePipe += Page_HostMessagePipe;
-            page.ClosingFile += Page_ClosingFile;
+                _tabControl.TabPages.Add(page);
+                _tabControl.SelectedTab = page;
+                page.ApplyContextMenuStrip(MenuStrip);
+                page.HostMessagePipe += Page_HostMessagePipe;
+                page.ClosingFile += Page_ClosingFile;
 
-            page.PostWholeMessage();
+                page.PostWholeMessage();
+            }
+            catch
+            {
+                throw;
+            }
 
         }
 

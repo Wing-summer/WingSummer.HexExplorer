@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Be.Windows.Forms;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace PEHexExplorer
 {
@@ -9,6 +10,8 @@ namespace PEHexExplorer
     {
 
         private static FrmSetting frmSetting=null;
+        private readonly List<WSPlugin.PluginInfo> pluginInfos;
+        private readonly WSPlugin plugin = WSPlugin.Instance;
 
         public static FrmSetting Instance
         {
@@ -65,6 +68,19 @@ namespace PEHexExplorer
             btnStringLine.DataBindings.Add(BindingEnum.Setting.HexStringLinePen);
             btnStringLine.DataBindings.Add(BindingEnum.Setting.HexStringLinePenFore);
 
+            MUserProfile mUser = UserSetting.UserProfile;
+            var dplugin = mUser.DisableGuid;
+            if (mUser.EnablePlugin)
+            {
+                pluginInfos = new List<WSPlugin.PluginInfo>();
+                foreach (var item in plugin.plugins.Value)
+                {
+                    clbPlugin.Items.Add(item.PluginName);
+                    bool ebable = dplugin == null || !dplugin.Contains(item.Puid);
+                    pluginInfos.Add(new WSPlugin.PluginInfo(item, ebable));
+                }
+            }
+
         }
 
         private void FrmSetting_VisibleChanged(object sender, System.EventArgs e)
@@ -105,5 +121,15 @@ namespace PEHexExplorer
                 frmPenF.Dispose();
             }
         }
+
+        private void ClbPlugin_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            var sel = clbPlugin.SelectedIndex;
+            if (sel >= 0)
+            {
+                pgPlugin.SelectedObject = pluginInfos[sel];
+            }
+        }
+
     }
 }

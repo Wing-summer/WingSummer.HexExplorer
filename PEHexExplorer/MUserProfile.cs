@@ -442,7 +442,7 @@ namespace PEHexExplorer
         #region 插件
 
         public bool EnablePlugin { get; set; }
-        public List<Guid> DisableGuid { get; set; }
+        public List<string> DisableGuid { get; set; }
 
 
         #endregion
