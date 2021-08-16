@@ -98,12 +98,21 @@ namespace PEHexExplorer
                     if (e.Content is object[] openfileArg && openfileArg.Length == 2 && openfileArg[1] is bool writeable)
                     {
                         if (openfileArg[0] is string filename)
-                            pageManager.OpenOrCreateFilePage(filename, writeable);                  
-                        
+                        {
+                            pageManager.OpenOrCreateFilePage(filename, writeable); 
+                            break;
+                        }
+
                         if (openfileArg[0] is string[] filenames)
+                        {
                             foreach (var item in filenames)
                                 pageManager.OpenOrCreateFilePage(item, writeable);
+                            break;
+                        }
+
+                        pluginManager.SendErrorMessage(sender, MessageType.OpenFile, null);
                     }
+                    SendPluginErrorArgMSG(sender);
                     break;
                 case MessageType.OpenProcess:
                     if (e.Content is object[] openProcessArg && openProcessArg.Length == 2 && openProcessArg[1] is bool writePriv)
@@ -115,6 +124,7 @@ namespace PEHexExplorer
                                 pageManager.OpenProcessPage(item, writePriv);
                                 item.Dispose(); 
                             }
+                            break;
                         }
 
                         if (openProcessArg[0] is string[] filenames)
@@ -125,6 +135,7 @@ namespace PEHexExplorer
                                     pageManager.OpenProcessPage(item, writePriv);
                                     item.Dispose(); 
                                 }
+                            break;
                         }
 
                         if (openProcessArg[0] is int pid)
@@ -133,6 +144,7 @@ namespace PEHexExplorer
                             {
                                 pageManager.OpenProcessPage(process, writePriv);
                             }
+                            break;
                         }
 
                         if (openProcessArg[0] is int[] pids)
@@ -144,9 +156,12 @@ namespace PEHexExplorer
                                     pageManager.OpenProcessPage(process, writePriv);
                                 }
                             }
+                            break;
                         }
 
+                        pluginManager.SendErrorMessage(sender, MessageType.OpenProcess, null);
                     }
+                    SendPluginErrorArgMSG(sender);
                     break;
                 case MessageType.SaveAs:
                     if (e.Content is string destin)
@@ -159,11 +174,12 @@ namespace PEHexExplorer
                             }
                             else
                             {
-
+                                pluginManager.SendErrorMessage(sender, MessageType.SaveAs, new Exception("路径含有非法字符"));
                             }
+                            break;
                         }
                     }
-
+                    SendPluginErrorArgMSG(sender);
                     break;
                 case MessageType.Save:
                     MISave_Click(sender, e);
@@ -172,7 +188,7 @@ namespace PEHexExplorer
 
                     break;
                 case MessageType.HostQuit:
-                    Application.Exit();
+                    MIExit_Click(sender, e);
                     break;
                 case MessageType.CloseFile:
 
@@ -216,7 +232,7 @@ namespace PEHexExplorer
                 case MessageType.Read:
 
                     break;
-                case MessageType.Inset:
+                case MessageType.Insert:
 
                     break;
                 case MessageType.ShowPEInfo:
@@ -525,7 +541,7 @@ namespace PEHexExplorer
 
         private void MIInsert_Click(object sender, EventArgs e)
         {
-            PluginSupport(MessageType.Inset, new Action(() =>
+            PluginSupport(MessageType.Insert, new Action(() =>
              {
                  using (FrmInsert frmInsert = FrmInsert.Instance)
                  {
@@ -988,6 +1004,10 @@ namespace PEHexExplorer
         }
 
         #endregion
+
+
+        private void SendPluginErrorArgMSG(object sender) 
+            => pluginManager.SendErrorMessage(sender, MessageType.ErrorMessage, new ArgumentException());
 
         private void TvPEStruct_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {

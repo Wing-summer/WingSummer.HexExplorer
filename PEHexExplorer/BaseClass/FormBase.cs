@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace PEHexExplorer
@@ -14,8 +14,14 @@ namespace PEHexExplorer
             UpdateStyles();
             DoubleBuffered = true;
             StartPosition = FormStartPosition.CenterScreen;
-            Font = UserSetting.UserProfile.ProgramFont;
+
+            if (LicenseManager.UsageMode != LicenseUsageMode.Designtime)
+            {
+                Font = UserSetting.UserProfile.ProgramFont;
+            }
+
         }
+
     }
 
 }

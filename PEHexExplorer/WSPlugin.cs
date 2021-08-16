@@ -77,6 +77,7 @@ namespace PEHexExplorer
             pluginMenuStrip = new ContextMenuStrip();
             toolMenuStrip = new ContextMenuStrip();
             var msgqueue = MSGQueue.Value;
+            msgqueue.Add(MessageType.ErrorMessage, new List<Action<object, HostPluginArgs>>());
 
             foreach (var item in _plugins)
             {
@@ -126,6 +127,8 @@ namespace PEHexExplorer
                     }
                 }
 
+                msgqueue[MessageType.ErrorMessage].Add(hostto);
+
                 ToolStripItem menuItem = pluginBody.MenuPluginMenu;
                 if (menuItem == null)
                 {
@@ -152,6 +155,16 @@ namespace PEHexExplorer
         private void PluginBody_ToHostMessagePipe(object sender, HostPluginArgs e)
         {
             ToHostMessagePipe?.Invoke(sender, e);
+        }
+
+        public void SendErrorMessage(object sender, MessageType err, Exception exception)
+        {
+            if (!(sender is IWSPEHexPlugin s)) return;
+            s.PluginBody.HostToMessagePipe.Invoke(this, new HostPluginArgs
+            {
+                MessageType = MessageType.ErrorMessage,
+                Content = (new object[] { err, exception })
+            });
         }
 
     }

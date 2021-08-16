@@ -42,7 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPlugin.cs" />
+    <Compile Include="HostPluginArgs.cs" />
+    <Compile Include="WSPEHexPluginLib.cs" />
+    <Compile Include="IWSPEHexPlugin.cs" />
+    <Compile Include="IWSPEHexPluginBody.cs" />
+    <Compile Include="MessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
