@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminLib.cs" />
     <Compile Include="BindingEnum.cs" />
     <Compile Include="BookMarkPE.cs" />
     <Compile Include="BookMarkProperty.cs" />

@@ -38,6 +38,7 @@ namespace PEHexExplorer
             cbEncoding.DataBindings.Add(BindingEnum.Setting.StringViewEncoding);
             ntScaling.DataBindings.Add(BindingEnum.Setting.ScalingPercent);
             cbEnableString.DataBindings.Add(BindingEnum.Setting.EnableStringView);
+            cbAdmin.DataBindings.Add(BindingEnum.Setting.AdminStart);
 
             btnSelBackColor.DataBindings.Add(BindingEnum.Setting.SelBackColor);
             btnSelTextColor.DataBindings.Add(BindingEnum.Setting.SelTextColor);

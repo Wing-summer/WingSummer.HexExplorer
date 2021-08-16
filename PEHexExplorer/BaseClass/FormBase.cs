@@ -14,6 +14,7 @@ namespace PEHexExplorer
             UpdateStyles();
             DoubleBuffered = true;
             StartPosition = FormStartPosition.CenterScreen;
+            Font = UserSetting.UserProfile.ProgramFont;
         }
     }
 

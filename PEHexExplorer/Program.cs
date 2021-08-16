@@ -38,6 +38,13 @@ namespace PEHexExplorer
                 userSetting = new UserSetting();
                 userSetting.Load();
             }
+
+            AdminLib adminLib = AdminLib.Instance;
+            if (UserSetting.UserProfile.AdminStart && !adminLib.IsAdmin)
+            {
+                adminLib.RestartAsAdmin();
+            }
+
             instanceHelper.Run(typeof(FrmMain), args, true, args);
             //启动新实例事件相应写到FrmMain中实现订阅
 

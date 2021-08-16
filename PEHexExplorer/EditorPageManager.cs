@@ -3,6 +3,7 @@ using Be.Windows.Forms;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace PEHexExplorer
 {
@@ -150,10 +151,10 @@ namespace PEHexExplorer
             EditorPageClosing.Invoke(sender, e);
         }
 
-        public void OpenProcessPage()
+        public void OpenProcessPage(Process process = null, bool writeable = true)
         {
             EditPage page = new EditPage { UseVisualStyleBackColor = false };
-            if (page.OpenProcess())
+            if (page.OpenProcess(process, writeable))
             {
                 _tabControl.TabPages.Add(page);
                 _tabControl.SelectedTab = page;

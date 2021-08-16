@@ -13,6 +13,9 @@ namespace PEHexExplorer
                 = new Binding("Text", UserSetting.UserProfile.ProgramFont, "Name", true, DataSourceUpdateMode.OnPropertyChanged);
             public static readonly Binding StringViewEncoding
                 = new Binding("SelectedIndex", UserSetting.UserProfile, "StringViewEncoding", true, DataSourceUpdateMode.OnPropertyChanged);
+            public static readonly Binding AdminStart
+                = new Binding("Checked", UserSetting.UserProfile, "AdminStart", true, DataSourceUpdateMode.OnPropertyChanged);
+
             public static readonly Binding ScalingPercent
                 = new Binding("Value", UserSetting.UserProfile, "ScalingPercent", true, DataSourceUpdateMode.OnPropertyChanged);
             public static readonly Binding EnableStringView

@@ -42,6 +42,7 @@ namespace PEHexExplorer
             this.btnFont = new System.Windows.Forms.Button();
             this.cbEncoding = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.cbAdmin = new System.Windows.Forms.CheckBox();
             this.btnStringLine = new System.Windows.Forms.Button();
             this.btnGroupLine = new System.Windows.Forms.Button();
             this.btnColInfo = new System.Windows.Forms.Button();
@@ -112,6 +113,7 @@ namespace PEHexExplorer
             groupBox2.Controls.Add(this.btnFont);
             groupBox2.Controls.Add(this.cbEncoding);
             groupBox2.Controls.Add(this.label2);
+            groupBox2.Controls.Add(this.cbAdmin);
             groupBox2.Location = new System.Drawing.Point(18, 10);
             groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             groupBox2.Name = "groupBox2";
@@ -119,7 +121,7 @@ namespace PEHexExplorer
             groupBox2.Size = new System.Drawing.Size(577, 152);
             groupBox2.TabIndex = 3;
             groupBox2.TabStop = false;
-            groupBox2.Text = "外观";
+            groupBox2.Text = "外观与杂项";
             // 
             // label1
             // 
@@ -162,6 +164,18 @@ namespace PEHexExplorer
             this.label2.Size = new System.Drawing.Size(97, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "字符表编码：";
+            // 
+            // cbAdmin
+            // 
+            this.cbAdmin.AutoSize = true;
+            this.cbAdmin.Location = new System.Drawing.Point(233, 32);
+            this.cbAdmin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbAdmin.Name = "cbAdmin";
+            this.cbAdmin.Size = new System.Drawing.Size(126, 19);
+            this.cbAdmin.TabIndex = 5;
+            this.cbAdmin.Text = "管理员启动 ⏱";
+            this.toolTip.SetToolTip(this.cbAdmin, "打开此项目将会打开更多的进程读取内存");
+            this.cbAdmin.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -394,11 +408,11 @@ namespace PEHexExplorer
             this.cbEnablePE.AutoSize = true;
             this.cbEnablePE.Checked = true;
             this.cbEnablePE.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbEnablePE.Location = new System.Drawing.Point(361, 224);
+            this.cbEnablePE.Location = new System.Drawing.Point(349, 224);
             this.cbEnablePE.Name = "cbEnablePE";
-            this.cbEnablePE.Size = new System.Drawing.Size(135, 19);
+            this.cbEnablePE.Size = new System.Drawing.Size(157, 19);
             this.cbEnablePE.TabIndex = 2;
-            this.cbEnablePE.Text = "PE结构分析支持";
+            this.cbEnablePE.Text = "PE结构分析支持 ⏱";
             this.cbEnablePE.UseVisualStyleBackColor = true;
             // 
             // btnOther
@@ -583,9 +597,9 @@ namespace PEHexExplorer
             this.cbEnableBookMark.Location = new System.Drawing.Point(20, 20);
             this.cbEnableBookMark.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbEnableBookMark.Name = "cbEnableBookMark";
-            this.cbEnableBookMark.Size = new System.Drawing.Size(149, 19);
+            this.cbEnableBookMark.Size = new System.Drawing.Size(171, 19);
             this.cbEnableBookMark.TabIndex = 11;
-            this.cbEnableBookMark.Text = "启用高级书签支持";
+            this.cbEnableBookMark.Text = "启用高级书签支持 ⏱";
             this.cbEnableBookMark.UseVisualStyleBackColor = true;
             // 
             // tabPlugin
@@ -632,9 +646,9 @@ namespace PEHexExplorer
             this.cbEnablePlugin.Location = new System.Drawing.Point(20, 20);
             this.cbEnablePlugin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbEnablePlugin.Name = "cbEnablePlugin";
-            this.cbEnablePlugin.Size = new System.Drawing.Size(254, 19);
+            this.cbEnablePlugin.Size = new System.Drawing.Size(141, 19);
             this.cbEnablePlugin.TabIndex = 0;
-            this.cbEnablePlugin.Text = "启用插件支持（修改后重启有效）";
+            this.cbEnablePlugin.Text = "启用插件支持 ⏱";
             this.cbEnablePlugin.UseVisualStyleBackColor = true;
             // 
             // tabSetting
@@ -727,5 +741,6 @@ namespace PEHexExplorer
         private System.Windows.Forms.PropertyGrid pgBookMark;
         private System.Windows.Forms.CheckedListBox clbBookMark;
         private System.Windows.Forms.CheckBox cbEnablePE;
+        private System.Windows.Forms.CheckBox cbAdmin;
     }
 }

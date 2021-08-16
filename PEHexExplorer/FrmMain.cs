@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Security.Principal;
+using System.Linq;
 using System.Windows.Forms;
 using WSPEHexPluginHost;
 using static PEHexExplorer.WSPlugin.PluginSupportLib;
@@ -26,6 +26,7 @@ namespace PEHexExplorer
         private const string DefaultFilename = "<未知>";
         private const string DefaultSel = "*";
         private readonly ConstInfo constInfo;
+        private readonly char[] InvalidFilenameChars = Path.GetInvalidFileNameChars();
 
         private readonly Lazy<List<HexBox.HighlightedRegion>> BookMarkregions = new Lazy<List<HexBox.HighlightedRegion>>();
         private readonly WSPlugin pluginManager;
@@ -40,10 +41,7 @@ namespace PEHexExplorer
             /*修复首次在HexBox右击打开菜单的位置等同于在主菜单点击编辑的Bug*/
             MenuItemEdit.ShowDropDown();
 
-            WindowsIdentity identity = WindowsIdentity.GetCurrent();
-            WindowsPrincipal principal = new WindowsPrincipal(identity);
-
-            if (principal.IsInRole(WindowsBuiltInRole.Administrator))
+            if (AdminLib.Instance.IsAdmin)
             {
                 MIAdmin.Click -= MIAdmin_Click;
                 ts13.Dispose();
@@ -55,17 +53,11 @@ namespace PEHexExplorer
                 MIAdmin.Image = SystemIcons.Shield.ToBitmap();
             }
 
-            //begin：载入用户设置
-            MUserProfile mUser = UserSetting.UserProfile;
-            Font = mUser.ProgramFont;
-
             pageManager = new EditorPageManager(tabEditArea, hexMenuStrip);
             pageManager.EditorPageChanged += PageManager_EditorPageChanged;
             pageManager.EditorPageMessagePipe += PageManager_EditorPageMessagePipe;
             pageManager.EditorPageClosing += PageManager_EditorPageClosing;
             SingleInstanceHelper.StartUpNextInstance += SingleInstanceHelper_StartUpNextInstance;
-
-            //end：载入用户设置
 
             if (args != null && args.Length > 0)
             {
@@ -75,9 +67,10 @@ namespace PEHexExplorer
             constInfo = new ConstInfo();
             pgConst.SelectedObject = constInfo;
 
-            if (mUser.EnablePlugin)
+            if (UserSetting.UserProfile.EnablePlugin)
             {
                 pluginManager = WSPlugin.Instance;
+                pluginManager.ToHostMessagePipe += PluginManager_ToHostMessagePipe;
                 WSPlugin.PluginSupportLib.pluginManager = pluginManager;
 
                 MenuPlugin.DropDown = pluginManager.PluginMenuStrip;
@@ -90,8 +83,173 @@ namespace PEHexExplorer
             }
         }
 
+        private void PluginManager_ToHostMessagePipe(object sender, HostPluginArgs e)
+        {
+            switch (e.MessageType)
+            {
+                case MessageType.PluginLoading:
+                    break;
+                case MessageType.PluginLoaded:
+                    break;
+                case MessageType.NewFile:
+                    pageManager.OpenOrCreateFilePage();
+                    break;
+                case MessageType.OpenFile:
+                    if (e.Content is object[] openfileArg && openfileArg.Length == 2 && openfileArg[1] is bool writeable)
+                    {
+                        if (openfileArg[0] is string filename)
+                            pageManager.OpenOrCreateFilePage(filename, writeable);                  
+                        
+                        if (openfileArg[0] is string[] filenames)
+                            foreach (var item in filenames)
+                                pageManager.OpenOrCreateFilePage(item, writeable);
+                    }
+                    break;
+                case MessageType.OpenProcess:
+                    if (e.Content is object[] openProcessArg && openProcessArg.Length == 2 && openProcessArg[1] is bool writePriv)
+                    {
+                        if (openProcessArg[0] is string filename)
+                        {
+                            foreach (var item in Process.GetProcessesByName(filename))
+                            {
+                                pageManager.OpenProcessPage(item, writePriv);
+                                item.Dispose(); 
+                            }
+                        }
+
+                        if (openProcessArg[0] is string[] filenames)
+                        {
+                            foreach (var processname in filenames)
+                                foreach (var item in Process.GetProcessesByName(processname))
+                                { 
+                                    pageManager.OpenProcessPage(item, writePriv);
+                                    item.Dispose(); 
+                                }
+                        }
+
+                        if (openProcessArg[0] is int pid)
+                        {
+                            using (Process process = Process.GetProcessById(pid))
+                            {
+                                pageManager.OpenProcessPage(process, writePriv);
+                            }
+                        }
+
+                        if (openProcessArg[0] is int[] pids)
+                        {
+                            foreach (var item in pids)
+                            {
+                                using (Process process = Process.GetProcessById(item))
+                                {
+                                    pageManager.OpenProcessPage(process, writePriv);
+                                }
+                            }
+                        }
+
+                    }
+                    break;
+                case MessageType.SaveAs:
+                    if (e.Content is string destin)
+                    {
+                        if (destin != null) 
+                        {
+                            if (!destin.Any(c => InvalidFilenameChars.Contains(c)))
+                            {
+                                PluginSupport(MessageType.SaveAs, new Action(() => pageManager.CurrentPage.SaveFileAs(destin, true)), sender);
+                            }
+                            else
+                            {
+
+                            }
+                        }
+                    }
+
+                    break;
+                case MessageType.Save:
+                    MISave_Click(sender, e);
+                    break;
+                case MessageType.Export:
+
+                    break;
+                case MessageType.HostQuit:
+                    Application.Exit();
+                    break;
+                case MessageType.CloseFile:
+
+                    break;
+                case MessageType.Copy:
+                    MICopy_Click(sender, e);
+                    break;
+                case MessageType.CopyHex:
+                    MICopyHex_Click(sender, e);
+                    break;
+                case MessageType.Paste:
+                    MIPaste_Click(sender, e);
+                    break;
+                case MessageType.PasteHex:
+                    MIPasteHex_Click(sender, e);
+                    break;
+                case MessageType.Delete:
+                    MIDel_Click(sender, e);
+                    break;
+                case MessageType.Find:
+
+                    break;
+                case MessageType.NewInsert:
+
+                    break;
+                case MessageType.Fill:
+
+                    break;
+                case MessageType.Goto:
+
+                    break;
+                case MessageType.SelectAll:
+                    MISelectAll_Click(sender, e);
+                    break;
+                case MessageType.Cut:
+                    MICut_Click(sender, e);
+                    break;
+                case MessageType.Write:
+
+                    break;
+                case MessageType.Read:
+
+                    break;
+                case MessageType.Inset:
+
+                    break;
+                case MessageType.ShowPEInfo:
+
+                    break;
+                case MessageType.HidePEInfo:
+
+                    break;
+                case MessageType.HideLineInfo:
+
+                    break;
+                case MessageType.ShowLineInfo:
+
+                    break;
+                case MessageType.HideColInfo:
+
+                    break;
+                case MessageType.ShowColInfo:
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private void SingleInstanceHelper_StartUpNextInstance(object sender, SingleInstanceHelper.SingleInstanceArgs e)
         {
+            Invoke(new Action(() =>
+            {
+                WindowState = FormWindowState.Maximized;
+                TopMost = true;
+                TopMost = false;
+            }));
             var args = e.args;
             if (args != null && args.Length > 0)
             {
@@ -367,7 +525,7 @@ namespace PEHexExplorer
 
         private void MIInsert_Click(object sender, EventArgs e)
         {
-            PluginSupport(MessageType.InsetBytes, new Action(() =>
+            PluginSupport(MessageType.Inset, new Action(() =>
              {
                  using (FrmInsert frmInsert = FrmInsert.Instance)
                  {
@@ -450,13 +608,13 @@ namespace PEHexExplorer
 
         private void MIFillZero_Click(object sender, EventArgs e)
         {
-            PluginSupport(MessageType.WriteBytes,
+            PluginSupport(MessageType.Write,
                 new Action(() => pageManager.CurrentHexBox.WriteBytes(pageManager.CurrentHexBox.SelectionStart, 0, pageManager.CurrentHexBox.SelectionLength)));
         }
 
         private void MIFillNop_Click(object sender, EventArgs e)
         {
-            PluginSupport(MessageType.WriteBytes,
+            PluginSupport(MessageType.Write,
                 new Action(() => pageManager.CurrentHexBox.WriteBytes(pageManager.CurrentHexBox.SelectionStart, 0x90, pageManager.CurrentHexBox.SelectionLength)));
         }
 
@@ -762,25 +920,7 @@ namespace PEHexExplorer
 
         private void MIAdmin_Click(object sender, EventArgs e)
         {
-
-
-            ProcessStartInfo startInfo = new ProcessStartInfo
-            {
-                FileName = Process.GetCurrentProcess().ProcessName,
-                Verb = "runas",
-                UseShellExecute = true,
-                WorkingDirectory = Environment.CurrentDirectory,
-            };
-
-            try
-            {
-                Process.Start(startInfo);
-                Environment.Exit(0);
-            }
-            catch
-            {
-                MessageBox.Show("管理员权限重启程序失败！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            AdminLib.Instance.RestartAsAdmin();
         }
 
         #endregion

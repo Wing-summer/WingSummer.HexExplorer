@@ -63,7 +63,7 @@ namespace PEHexExplorer
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName=null)
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
 
@@ -100,6 +100,7 @@ namespace PEHexExplorer
         private PenF hexStringLinePen;
         private bool enableAdvBookMark;
         private List<BookMarkProperty> markProperties;
+        private bool adminStart;
 
         #endregion
 
@@ -113,6 +114,8 @@ namespace PEHexExplorer
             EnableColInfo = true;
             EnableGroupLine = true;
             EnableHexStringLine = true;
+            AdminStart = false;
+
             SelBackColor = DefaultSelBackColor;
             SelTextColor = DefaultSelTextColor;
             ShadowSelColor = DefaultShadowSelColor;
@@ -169,7 +172,7 @@ namespace PEHexExplorer
         }
         public int StringViewEncoding
         {
-            get => stringViewEncoding; 
+            get => stringViewEncoding;
             set
             {
                 stringViewEncoding = value;
@@ -196,7 +199,7 @@ namespace PEHexExplorer
         }
         public bool EnableLineInfo
         {
-            get => enableLineInfo; 
+            get => enableLineInfo;
             set
             {
                 enableLineInfo = value;
@@ -205,7 +208,7 @@ namespace PEHexExplorer
         }
         public bool EnableColInfo
         {
-            get => enableColInfo; 
+            get => enableColInfo;
             set
             {
                 enableColInfo = value;
@@ -214,16 +217,27 @@ namespace PEHexExplorer
         }
         public bool EnableGroupLine
         {
-            get => enableGroupLine; 
+            get => enableGroupLine;
             set
             {
                 enableGroupLine = value;
                 NotifyPropertyChanged();
             }
         }
+
+        public bool AdminStart
+        {
+            get => adminStart;
+            set
+            {
+                adminStart = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public bool EnableHexStringLine
         {
-            get => enableHexStringLine; 
+            get => enableHexStringLine;
             set
             {
                 enableHexStringLine = value;
@@ -232,7 +246,7 @@ namespace PEHexExplorer
         }
         public Color SelBackColor
         {
-            get => selBackColor; 
+            get => selBackColor;
             set
             {
                 selBackColor = value;
@@ -241,7 +255,7 @@ namespace PEHexExplorer
         }
         public Color SelTextColor
         {
-            get => selTextColor; 
+            get => selTextColor;
             set
             {
                 selTextColor = value;
@@ -250,7 +264,7 @@ namespace PEHexExplorer
         }
         public Color LineInfoBackColor
         {
-            get => lineInfoBackColor; 
+            get => lineInfoBackColor;
             set
             {
                 lineInfoBackColor = value;
@@ -259,7 +273,7 @@ namespace PEHexExplorer
         }
         public Color ColInfoBackColor
         {
-            get => colInfoBackColor; 
+            get => colInfoBackColor;
             set
             {
                 colInfoBackColor = value;
@@ -268,7 +282,7 @@ namespace PEHexExplorer
         }
         public Color ShadowSelColor
         {
-            get => shadowSelColor; 
+            get => shadowSelColor;
             set
             {
                 shadowSelColor = value;
@@ -277,7 +291,7 @@ namespace PEHexExplorer
         }
         public PenF GroupLinePen
         {
-            get => groupLinePen; 
+            get => groupLinePen;
             set
             {
                 groupLinePen = value;
@@ -286,7 +300,7 @@ namespace PEHexExplorer
         }
         public PenF HexStringLinePen
         {
-            get => hexStringLinePen; 
+            get => hexStringLinePen;
             set
             {
                 hexStringLinePen = value;

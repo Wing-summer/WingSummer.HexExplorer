@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Be.Windows.Forms;
 using System.ComponentModel;
 using PEProcesser;
+using System.Diagnostics;
 
 namespace PEHexExplorer
 {
@@ -572,7 +573,7 @@ namespace PEHexExplorer
             Filename = filename;
         }
 
-        public bool OpenProcess()
+        public bool OpenProcess(Process process = null, bool writeable = true)
         {
             bool? res = Closefile();
             if (res.HasValue && res.Value)
@@ -584,37 +585,49 @@ namespace PEHexExplorer
                 hexBox.Close();
                 DisableEdit?.Invoke(this, EventArgs.Empty);
             }
-
-            using (FrmProcess frmProcess = FrmProcess.Instance)
+            if (process == null)
             {
-                if (frmProcess.ShowDialog() == DialogResult.OK)
+                using (FrmProcess frmProcess = FrmProcess.Instance)
                 {
-                    FrmProcess.ProcessResult result = frmProcess.Result;
-                    if (!hexBox.OpenProcessMemory(result.Process, result.writeable))
+                    if (frmProcess.ShowDialog() == DialogResult.OK)
                     {
-                        MessageBox.Show("打开进程失败，可能是由于权限不足导致！", Program.AppName,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
+                        FrmProcess.ProcessResult result = frmProcess.Result;
+                        if (!hexBox.OpenProcessMemory(result.Process, result.writeable))
+                        {
+                            MessageBox.Show("打开进程失败，可能是由于权限不足导致！", Program.AppName,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return false;
+                        }
+                        EnableEdit?.Invoke(this, EventArgs.Empty);
+                        pe?.Dispose();
+                        Stream provider = (hexBox.ByteProvider as ProcessByteProvider).Stream;
+                        provider.Position = 0;
+                        pe = new PEPParser(provider);
+                        bookMark = new BookMarkPE(pe);
+
+                        HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
+                        {
+                            EditorHost = hexBox,
+                            EditorMessageType = EditorMessageType.ApplyTreeView,
+                            EditorMessage = editorMessage
+                        });
+
+                        //bookMark.ApplyTreeView(in tvPEStruct);
+                        bookMark.ApplyHexbox(hexBox);
+                        Filename = result.Process.ProcessName;
+                        return true;
                     }
-                    EnableEdit?.Invoke(this, EventArgs.Empty);
-                    pe?.Dispose();
-                    Stream provider = (hexBox.ByteProvider as ProcessByteProvider).Stream;
-                    provider.Position = 0;
-                    pe = new PEPParser(provider);
-                    bookMark = new BookMarkPE(pe);
-
-                    HostMessagePipe?.Invoke(this, new EditorPageMessageArgs
-                    {
-                        EditorHost = hexBox,
-                        EditorMessageType = EditorMessageType.ApplyTreeView,
-                        EditorMessage = editorMessage
-                    });
-
-                    //bookMark.ApplyTreeView(in tvPEStruct);
-                    bookMark.ApplyHexbox(hexBox);
-                    Filename = result.Process.ProcessName;
-                    return true;
                 }
+            }
+            else
+            {
+                if (!hexBox.OpenProcessMemory(process, writeable))
+                {
+                    MessageBox.Show("打开进程失败，可能是由于权限不足导致！", Program.AppName,
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                return true;
             }
 
             return false;

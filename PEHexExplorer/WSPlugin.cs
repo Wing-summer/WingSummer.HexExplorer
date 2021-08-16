@@ -47,6 +47,11 @@ namespace PEHexExplorer
         public Lazy<Dictionary<MessageType, List<Action<object, HostPluginArgs>>>> MSGQueue
             = new Lazy<Dictionary<MessageType, List<Action<object, HostPluginArgs>>>>();
 
+        /// <summary>
+        /// 将事件传递到FrmMain处理
+        /// </summary>
+        public event EventHandler<HostPluginArgs> ToHostMessagePipe;
+
         private WSPlugin()
         {
             Directory.CreateDirectory(Program.AppPlugin);
@@ -100,6 +105,7 @@ namespace PEHexExplorer
                     logging.WritePluginInfo(plugin, false, NullMSG);
                     continue;
                 }
+                pluginBody.Self = plugin;
 
                 hostto.Invoke(null, LoadingPlugin);
 
@@ -145,74 +151,7 @@ namespace PEHexExplorer
 
         private void PluginBody_ToHostMessagePipe(object sender, HostPluginArgs e)
         {
-            switch (e.MessageType)
-            {
-                case MessageType.PluginLoading:
-                    break;
-                case MessageType.PluginLoaded:
-                    break;
-                case MessageType.NewFile:
-                    break;
-                case MessageType.OpenFile:
-                    break;
-                case MessageType.OpenProcess:
-                    break;
-                case MessageType.SaveAs:
-                    break;
-                case MessageType.Save:
-                    break;
-                case MessageType.Export:
-                    break;
-                case MessageType.HostQuit:
-                    Application.Exit();
-                    break;
-                case MessageType.CloseFile:
-                    break;
-                case MessageType.Copy:
-                    break;
-                case MessageType.CopyHex:
-                    break;
-                case MessageType.Paste:
-                    break;
-                case MessageType.PasteHex:
-                    break;
-                case MessageType.Delete:
-                    break;
-                case MessageType.Find:
-                    break;
-                case MessageType.NewInsert:
-                    break;
-                case MessageType.Fill:
-                    break;
-                case MessageType.Goto:
-                    break;
-                case MessageType.SelectAll:
-                    break;
-                case MessageType.Cut:
-                    break;
-                case MessageType.WriteBytes:
-                    break;
-                case MessageType.ReadBytes:
-                    break;
-                case MessageType.DeleteBytes:
-                    break;
-                case MessageType.InsetBytes:
-                    break;
-                case MessageType.ShowPEInfo:
-                    break;
-                case MessageType.HidePEInfo:
-                    break;
-                case MessageType.HideLineInfo:
-                    break;
-                case MessageType.ShowLineInfo:
-                    break;
-                case MessageType.HideColInfo:
-                    break;
-                case MessageType.ShowColInfo:
-                    break;
-                default:
-                    break;
-            }
+            ToHostMessagePipe?.Invoke(sender, e);
         }
 
     }
