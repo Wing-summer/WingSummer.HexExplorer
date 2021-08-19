@@ -52,6 +52,8 @@
             System.Windows.Forms.ToolStripMenuItem MICalculator;
             System.Windows.Forms.ToolStripMenuItem MIAddrConverter;
             System.Windows.Forms.ToolStripMenuItem MenuItemAbout;
+            System.Windows.Forms.ToolStripMenuItem MIAbout;
+            System.Windows.Forms.ToolStripMenuItem MISponsor;
             System.Windows.Forms.ToolStripSeparator ts9;
             System.Windows.Forms.ToolStripSeparator ts1;
             System.Windows.Forms.ToolStripSeparator ts2;
@@ -123,6 +125,7 @@
             this.MenuItemTool = new System.Windows.Forms.ToolStripMenuItem();
             this.MIS = new System.Windows.Forms.ToolStripSeparator();
             this.MenuPlugin = new System.Windows.Forms.ToolStripMenuItem();
+            this.MIUpgrade = new System.Windows.Forms.ToolStripMenuItem();
             this.tvPEStruct = new System.Windows.Forms.TreeView();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.pgConst = new System.Windows.Forms.PropertyGrid();
@@ -170,6 +173,7 @@
             this.tbClose = new System.Windows.Forms.ToolStripButton();
             this.ts10 = new System.Windows.Forms.ToolStripSeparator();
             this.tbAboutthis = new System.Windows.Forms.ToolStripButton();
+            this.tbSponsor = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tbLog = new System.Windows.Forms.TextBox();
@@ -190,6 +194,7 @@
             this.TMIFind = new System.Windows.Forms.ToolStripMenuItem();
             this.TMIJmp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.tbUpgrade = new System.Windows.Forms.ToolStripButton();
             Slbl1 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl2 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl4 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -213,6 +218,8 @@
             MICalculator = new System.Windows.Forms.ToolStripMenuItem();
             MIAddrConverter = new System.Windows.Forms.ToolStripMenuItem();
             MenuItemAbout = new System.Windows.Forms.ToolStripMenuItem();
+            MIAbout = new System.Windows.Forms.ToolStripMenuItem();
+            MISponsor = new System.Windows.Forms.ToolStripMenuItem();
             ts9 = new System.Windows.Forms.ToolStripSeparator();
             ts1 = new System.Windows.Forms.ToolStripSeparator();
             ts2 = new System.Windows.Forms.ToolStripSeparator();
@@ -722,11 +729,39 @@
             // 
             // MenuItemAbout
             // 
-            MenuItemAbout.Image = global::PEHexExplorer.Properties.Resources.aboutthis;
+            MenuItemAbout.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            MIAbout,
+            MISponsor,
+            this.MIUpgrade});
+            MenuItemAbout.Image = global::PEHexExplorer.Properties.Resources.soft;
             MenuItemAbout.Name = "MenuItemAbout";
             MenuItemAbout.Size = new System.Drawing.Size(73, 24);
             MenuItemAbout.Text = "关于";
-            MenuItemAbout.Click += new System.EventHandler(this.MIAboutThis_Click);
+            // 
+            // MIAbout
+            // 
+            MIAbout.Image = global::PEHexExplorer.Properties.Resources.aboutthis;
+            MIAbout.Name = "MIAbout";
+            MIAbout.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            MIAbout.Size = new System.Drawing.Size(172, 26);
+            MIAbout.Text = "此软件";
+            MIAbout.Click += new System.EventHandler(this.MIAboutThis_Click);
+            // 
+            // MISponsor
+            // 
+            MISponsor.Image = global::PEHexExplorer.Properties.Resources.sponsor;
+            MISponsor.Name = "MISponsor";
+            MISponsor.Size = new System.Drawing.Size(172, 26);
+            MISponsor.Text = "捐助";
+            MISponsor.Click += new System.EventHandler(this.MISponsor_Click);
+            // 
+            // MIUpgrade
+            // 
+            this.MIUpgrade.Image = global::PEHexExplorer.Properties.Resources.upgrade;
+            this.MIUpgrade.Name = "MIUpgrade";
+            this.MIUpgrade.Size = new System.Drawing.Size(224, 26);
+            this.MIUpgrade.Text = "软件升级";
+            this.MIUpgrade.Click += new System.EventHandler(this.MIUpgrade_Click);
             // 
             // ts9
             // 
@@ -1226,7 +1261,9 @@
             ts5,
             this.tbClose,
             this.ts10,
-            this.tbAboutthis});
+            this.tbAboutthis,
+            this.tbSponsor,
+            this.tbUpgrade});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.ShowItemToolTips = false;
@@ -1535,6 +1572,19 @@
             this.tbAboutthis.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.tbAboutthis.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
             // 
+            // tbSponsor
+            // 
+            this.tbSponsor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbSponsor.Image = global::PEHexExplorer.Properties.Resources.sponsor;
+            this.tbSponsor.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.tbSponsor.Name = "tbSponsor";
+            this.tbSponsor.Size = new System.Drawing.Size(29, 24);
+            this.tbSponsor.Tag = "2";
+            this.tbSponsor.Text = "捐助";
+            this.tbSponsor.Click += new System.EventHandler(this.MISponsor_Click);
+            this.tbSponsor.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
+            this.tbSponsor.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(tabPage2);
@@ -1551,10 +1601,10 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.tbLog);
-            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(640, 660);
+            this.tabPage1.Size = new System.Drawing.Size(640, 664);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "插件日志";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1569,7 +1619,7 @@
             this.tbLog.Name = "tbLog";
             this.tbLog.ReadOnly = true;
             this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbLog.Size = new System.Drawing.Size(634, 654);
+            this.tbLog.Size = new System.Drawing.Size(634, 658);
             this.tbLog.TabIndex = 0;
             // 
             // statusStrip
@@ -1720,6 +1770,16 @@
             // 
             this.toolTip.ShowAlways = true;
             // 
+            // tbUpgrade
+            // 
+            this.tbUpgrade.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbUpgrade.Image = global::PEHexExplorer.Properties.Resources.upgrade;
+            this.tbUpgrade.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.tbUpgrade.Name = "tbUpgrade";
+            this.tbUpgrade.Size = new System.Drawing.Size(29, 24);
+            this.tbUpgrade.Text = "软件升级";
+            this.tbUpgrade.Click += new System.EventHandler(this.MIUpgrade_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1867,6 +1927,9 @@
         private System.Windows.Forms.ToolStripComboBox tscbEncoding;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TextBox tbLog;
+        private System.Windows.Forms.ToolStripButton tbSponsor;
+        private System.Windows.Forms.ToolStripMenuItem MIUpgrade;
+        private System.Windows.Forms.ToolStripButton tbUpgrade;
     }
 }
 

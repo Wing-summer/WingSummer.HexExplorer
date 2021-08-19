@@ -3,6 +3,7 @@ using System.Windows.Forms;
 
 namespace PEHexExplorer
 {
+
     public class FormBase : Form
     {
         public FormBase()

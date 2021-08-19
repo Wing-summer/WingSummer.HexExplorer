@@ -12,7 +12,10 @@ namespace PEHexExplorer
         internal static readonly string AppConfig = AppDir + "config.dat";
         internal static readonly string AppErrDir = AppDir + "Error";
         internal static readonly string AppPlugin = AppDir + "Plugin";
+        internal static readonly string AppUpDate = AppDir + "Update";
+        internal static readonly string AppUpDateBin = AppUpDate + "\\update.exe";
         internal static UserSetting userSetting;
+        internal static float Version = 1.0F;
 
         internal const ulong Int64Max = (1UL << 63) - 1;
 

@@ -503,10 +503,56 @@ namespace PEHexExplorer.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap soft {
+            get {
+                object obj = ResourceManager.GetObject("soft", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap sponsor {
+            get {
+                object obj = ResourceManager.GetObject("sponsor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap tools {
             get {
                 object obj = ResourceManager.GetObject("tools", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 success: function (msg) {
+        ///    if (msg.zt == &apos;1&apos;) {
+        ///        var data = msg.text;
+        ///        var res = [];
+        ///        $.each(data,
+        ///            function (i, n) {
+        ///                if (n.t != 1 &amp;&amp; n.id != &apos;-1&apos;) {
+        ///                    res.push([n.id, n.name_all, n.size]);
+        ///                }
+        ///            });
+        ///        return res;
+        ///    } else {
+        ///        return null;
+        ///    }
+        ///},
+        ///error: function () {
+        ///    return null;
+        ///} 的本地化字符串。
+        /// </summary>
+        internal static string unblockjs {
+            get {
+                return ResourceManager.GetString("unblockjs", resourceCulture);
             }
         }
         
@@ -516,6 +562,16 @@ namespace PEHexExplorer.Properties {
         internal static System.Drawing.Bitmap undo {
             get {
                 object obj = ResourceManager.GetObject("undo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap upgrade {
+            get {
+                object obj = ResourceManager.GetObject("upgrade", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

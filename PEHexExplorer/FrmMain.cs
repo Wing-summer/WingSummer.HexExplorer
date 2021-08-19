@@ -939,6 +939,19 @@ namespace PEHexExplorer
             AdminLib.Instance.RestartAsAdmin();
         }
 
+        private void MISponsor_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://gitee.com/wingsummer/wing-summer.-pehex-explorer#%E6%8D%90%E5%8A%A9");
+        }
+
+        private void MIUpgrade_Click(object sender, EventArgs e)
+        {
+            using (var frm=FrmUpGrade.Instance)
+            {
+                frm.ShowDialog();
+            }
+        }
+
         #endregion
 
         #region 状态栏
@@ -1020,6 +1033,6 @@ namespace PEHexExplorer
                 }
             }
         }
-
+       
     }
 }

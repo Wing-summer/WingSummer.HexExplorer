@@ -1,0 +1,1 @@
+success:function(msg){if(msg.zt=='1'){var data=msg.text;var res=[];$.each(data,function(i,n){if(n.t!=1&&n.id!='-1'){res.push([n.id,n.name_all,n.size])}});window.external.JsCallBack(res.toString())}}});
