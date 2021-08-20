@@ -190,6 +190,7 @@ namespace Be.Windows.Forms
                 return false;
             }
             _isOpenedFile = true;
+            _readOnly = !writeable;
             error = IOError.Success;
             _isLockedBuffer = true;
             _insertActive = false;

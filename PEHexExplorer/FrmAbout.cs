@@ -6,7 +6,7 @@ namespace PEHexExplorer
     {
         private static FrmAbout frmAbout = null;
 
-        public FrmAbout()
+        private FrmAbout()
         {
             InitializeComponent();
         }

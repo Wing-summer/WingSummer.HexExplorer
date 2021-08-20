@@ -27,7 +27,7 @@ namespace PEHexExplorer
 
         public long Result { get; set; }
 
-        public FrmAddrBase()
+        private FrmAddrBase()
         {
             InitializeComponent();
             nAddr.Maximum = Program.Int64Max;

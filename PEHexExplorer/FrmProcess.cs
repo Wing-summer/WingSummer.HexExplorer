@@ -32,7 +32,7 @@ namespace PEHexExplorer
             }
         }
 
-        public FrmProcess()
+        private FrmProcess()
         {
             InitializeComponent();
             GetProcesses();

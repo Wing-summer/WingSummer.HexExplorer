@@ -23,10 +23,9 @@ namespace PEHexExplorer
 
         public PenF PenF { get; set; }
 
-        public FrmPenFEdit()
+        private FrmPenFEdit()
         {
-            InitializeComponent();
-          
+            InitializeComponent();          
         }
 
         private void FrmPenFEdit_Load(object sender, System.EventArgs e)

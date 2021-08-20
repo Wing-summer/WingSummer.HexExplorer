@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Diagnostics;
+using System.Linq;
 
 namespace PEHexExplorer
 {
@@ -21,6 +22,22 @@ namespace PEHexExplorer
 
         public EditPage CurrentPage => _tabControl.SelectedTab as EditPage;
         public HexBox CurrentHexBox => (_tabControl.SelectedTab as EditPage).HexBox;
+        public TabControl.TabPageCollection Pages => _tabControl.TabPages;
+        public int Count => _tabControl.TabPages.Count;
+
+        public TabPage SelectPage
+        {
+            get => _tabControl.SelectedTab;
+            set => _tabControl.SelectedTab = value;
+        }
+
+        public int SelectIndex
+        {
+            get => _tabControl.SelectedIndex;
+            set => _tabControl.SelectedIndex = value;
+        }
+
+        private ulong fileindex = 0;
 
         public struct EditorPageData
         {
@@ -107,7 +124,7 @@ namespace PEHexExplorer
                 EditPage page = new EditPage { UseVisualStyleBackColor = false };
                 if (filename == null)
                 {
-                    page.NewFile();
+                    page.NewFile(++fileindex);
                 }
                 else
                 {
@@ -123,7 +140,11 @@ namespace PEHexExplorer
                             }
                         }
                     }
-                    page.OpenFile(filename, writeable);
+                    if (!page.OpenFile(filename, writeable))
+                    {
+                        page.Dispose();
+                        return;
+                    }
                     OpenFilenames.Add(filename);
                 }
                 _tabControl.TabPages.Add(page);
@@ -179,9 +200,9 @@ namespace PEHexExplorer
             }
         }
 
-        public void ClosePage(EditPage page)
+        public void ClosePage(EditPage page, bool force = false)
         {
-            bool res = page.CloseFile();
+            bool res = page.CloseFile(force);
             if (res)
             {
                 EditorPageMessagePipe?.Invoke(page,quitMessage);
@@ -193,9 +214,12 @@ namespace PEHexExplorer
             }
         }
 
-        public void CloseCurrentPage() => ClosePage(_tabControl.SelectedTab as EditPage);
+        public void CloseCurrentPage(bool force = false)
+        {
+            ClosePage(_tabControl.SelectedTab as EditPage, force);
+        }
 
-        public void CloseAllPage()
+        public void CloseAllPage(bool force = false, EditPage[] exclude = null)
         {
             List<EditPage> editPages = new List<EditPage>();
             foreach (EditPage item in _tabControl.TabPages)
@@ -204,9 +228,26 @@ namespace PEHexExplorer
             }
             foreach (var item in editPages)
             {
-                ClosePage(item);
+                if (exclude != null && exclude.Contains(item))
+                    continue;
+
+                ClosePage(item, force);
             }
             editPages.Clear();
+        }
+
+        public EditPage[] GetChangesPage()
+        {
+            var pages = Pages;
+            var changesEP = new List<EditPage>();
+            foreach (EditPage item in pages)
+            {
+                if (item.HexBox.ByteProvider.HasChanges())
+                {
+                    changesEP.Add(item);
+                }
+            }
+            return changesEP.ToArray();
         }
 
     }

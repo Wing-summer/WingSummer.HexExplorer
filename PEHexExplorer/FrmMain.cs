@@ -304,6 +304,7 @@ namespace PEHexExplorer
                     HexBox_LockedBufferChanged(e.EditorMessage.LockedBuffer);
                     HexBox_SelectionLengthChanged(e.EditorMessage.SelectionLength);
                     HexBox_CurrentPositionChanged(e.EditorMessage.SelectionStart);
+                    HexBox_WriteableChanged(e.EditorMessage.ReadOnly);
                     pageManager.CurrentPage.ApplyTreeView(tvPEStruct);
                     tbLineInfo.Checked = e.EditorMessage.LineInfo;
                     tbLineBg.Checked = e.EditorMessage.LineInfoBG;
@@ -391,10 +392,60 @@ namespace PEHexExplorer
         {
             if (e.CloseReason != CloseReason.WindowsShutDown)
             {
-                if (MessageBox.Show("你确定退出程序吗？", "羽云PE浏览器", MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning) == DialogResult.No)
+                var pages = pageManager.GetChangesPage();
+                DialogResult res;
+                if (pages.Length > 0)
                 {
-                    e.Cancel = true;
+                    if (pages.Length == 1)
+                    {
+                        res = MessageBox.Show($"〔{pages[0].Filename}〕未保存，您要保存更改吗？", "羽云PE浏览器",
+                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        using (var frmsave=FrmSaveDialog.Instance)
+                        {
+                            frmsave.ChangesPages = pages;
+                            res = frmsave.ShowDialog();
+                        }
+                    }
+
+                    if (res == DialogResult.Cancel)
+                    {
+                        e.Cancel = true;
+                    }
+                    if (res == DialogResult.No)
+                    {
+                        pageManager.CloseAllPage(true);
+                    }
+                    if (res == DialogResult.Yes)
+                    {
+                        pageManager.CloseAllPage(exclude: pages);
+                        foreach (var item in pages)
+                        {
+                            pageManager.SelectPage = item;
+                            MISave_Click(sender, e);
+                        }
+                        pages = pageManager.GetChangesPage();
+                        if (pages.Length>0)
+                        {
+                            pageManager.CloseAllPage(exclude: pages);
+                            e.Cancel = true;
+                        }
+                        else
+                        {
+                            pageManager.CloseAllPage();
+                        }
+                    }
+
+                }
+                else
+                {
+                    if (MessageBox.Show("你确定退出程序吗？", "羽云PE浏览器", MessageBoxButtons.YesNo,
+                       MessageBoxIcon.Warning) == DialogResult.No)
+                    {
+                        e.Cancel = true;
+                    }
                 }
             }
         }
@@ -671,6 +722,11 @@ namespace PEHexExplorer
         private void HexBox_LockedBufferChanged(bool IsLockedBuffer)
         {
             lblLocked.ForeColor = IsLockedBuffer ? EnabledColor : DisabledColor;
+        }
+
+        private void HexBox_WriteableChanged(bool Readonly)
+        {
+            LblWritable.ForeColor = Readonly ? DisabledColor : EnabledColor;
         }
 
         private void HexBox_SelectionLengthChanged(long SelectionLength)

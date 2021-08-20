@@ -28,7 +28,7 @@ namespace PEHexExplorer
         [DefaultValue(false)]
         public bool IsPluginShow { get; set; }
 
-        public FrmSetting()
+        private FrmSetting()
         {
             InitializeComponent();
 

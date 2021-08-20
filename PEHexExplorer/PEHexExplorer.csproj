@@ -163,6 +163,12 @@
     <Compile Include="FrmProcess.Designer.cs">
       <DependentUpon>FrmProcess.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSaveDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSaveDialog.Designer.cs">
+      <DependentUpon>FrmSaveDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmProcess.resx">
       <DependentUpon>FrmProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSaveDialog.resx">
+      <DependentUpon>FrmSaveDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSetting.resx">
       <DependentUpon>FrmSetting.cs</DependentUpon>

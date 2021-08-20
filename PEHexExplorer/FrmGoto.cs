@@ -28,7 +28,7 @@ namespace PEHexExplorer
 
         public GotoResult Result { get; private set; }
 
-        public FrmGoto()
+        private FrmGoto()
         {
             InitializeComponent();
             ntOffset.Maximum = Program.Int64Max;

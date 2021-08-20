@@ -33,7 +33,7 @@ namespace PEHexExplorer
             public byte[] buffer;
         }   
 
-        public FrmFill()
+        private FrmFill()
         {
             InitializeComponent();
         }

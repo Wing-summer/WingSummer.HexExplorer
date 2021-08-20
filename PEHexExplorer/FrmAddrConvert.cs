@@ -25,7 +25,7 @@ namespace PEHexExplorer
         [DefaultValue(null)]
         public PEPParser PEPParser { get; set; }
 
-        public FrmAddrConvert()
+        private FrmAddrConvert()
         {
             InitializeComponent();
             ntBase.Maximum = Program.Int64Max;

@@ -65,6 +65,7 @@ namespace PEHexExplorer
             public bool GroupLine;
             public bool HexStr;
             public bool PEInfo;
+            public bool ReadOnly;
             public StrEncoding Encoding;
         }
 
@@ -91,7 +92,6 @@ namespace PEHexExplorer
         private EditorMessage  editorMessage =new EditorMessage();
        
         private const string DefaultFilename = "<未知>";
-        private const string NewFilename = "<未命名文件>";
 
         [DefaultValue(null)]
         public string Filename
@@ -412,6 +412,7 @@ namespace PEHexExplorer
             editorMessage.InsertActive = hexBox.InsertActive;
             editorMessage.LockedBuffer = hexBox.IsLockedBuffer;
             editorMessage.Scaling = (uint)(hexBox.Scaling * 100);
+            editorMessage.ReadOnly = hexBox.ReadOnly;
             editorMessage.SelectionLength = hexBox.SelectionLength;
             editorMessage.SelectionStart = hexBox.SelectionStart;
             editorMessage.LineInfo = hexBox.LineInfoVisible;
@@ -442,14 +443,14 @@ namespace PEHexExplorer
         /// 新建文件
         /// </summary>
         /// <returns></returns>
-        public bool NewFile()
+        public bool NewFile(ulong fileindex)
         {
             if (!hexBox.OpenFile(error: out _, force: true))
             {
                 MessageBox.Show("新建文件失败！", Program.AppName, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            Filename = NewFilename;
+            Filename = $"未命名文件 - {fileindex}";
             return true;
         }
 
@@ -461,21 +462,8 @@ namespace PEHexExplorer
         /// <param name="EnablePEParser"></param>
         /// <param name="tvPEStruct"></param>
         /// <returns></returns>
-        public void OpenFile(string filename, bool writeable, bool EnablePEParser = true)
+        public bool OpenFile(string filename, bool writeable, bool EnablePEParser = true)
         {
-            bool? res = Closefile();
-            if (res.HasValue&&res.Value)
-            {
-                return;
-            }
-            else
-            {
-                hexBox.Close();
-                DisableEdit?.Invoke(this, EventArgs.Empty);
-            }
-
-        reopen:
-
             if (!hexBox.OpenFile(out HexBox.IOError error, filename, writeable))
             {
                 if (error == HexBox.IOError.Exception && writeable)
@@ -484,7 +472,11 @@ namespace PEHexExplorer
                         Program.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                     {
                         writeable = false;
-                        goto reopen;
+                        return OpenFile(filename, writeable, EnablePEParser);
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
             }
@@ -509,23 +501,35 @@ namespace PEHexExplorer
             hexBox.InsertActive = false;
             Filename = filename;
             EnableEdit?.Invoke(this, EventArgs.Empty);
+
+            return true;
         }
 
         /// <summary>
         /// 关闭文件
         /// </summary>
         /// <returns>如果文件正常关闭，则返回true</returns>
-        public bool CloseFile()
+        public bool CloseFile(bool force = false)
         {
-            bool? res = Closefile();
-            if (res == null || (res.HasValue && !res.Value))
+            if (force)
             {
                 hexBox.Close();
                 Filename = DefaultFilename;
                 DisableEdit?.Invoke(this, EventArgs.Empty);
                 return true;
             }
-            return false;
+            else
+            {
+                bool? res = Closefile();
+                if (res == null || (res.HasValue && !res.Value))
+                {
+                    hexBox.Close();
+                    Filename = DefaultFilename;
+                    DisableEdit?.Invoke(this, EventArgs.Empty);
+                    return true;
+                }
+                return false;
+            }
         }
 
         /// <summary>

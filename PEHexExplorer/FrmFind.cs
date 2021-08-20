@@ -6,7 +6,7 @@ namespace PEHexExplorer
 {
     public partial class FrmFind : ToolWindowBase
     {
-        public FrmFind()
+        private FrmFind()
         {
             InitializeComponent();
             hexFind.CreateBuffer();

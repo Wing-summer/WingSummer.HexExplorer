@@ -30,7 +30,7 @@ namespace PEHexExplorer
             get;private set;
         }
 
-        public FrmNewInsert()
+        private FrmNewInsert()
         {
             InitializeComponent();
         }

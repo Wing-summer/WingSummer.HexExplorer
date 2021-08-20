@@ -30,7 +30,7 @@ namespace PEHexExplorer
         }
 
 
-        public FrmInsert()
+        private FrmInsert()
         {
             InitializeComponent();
         }
