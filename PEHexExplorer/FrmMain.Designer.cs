@@ -98,6 +98,7 @@
             System.Windows.Forms.ToolStripSeparator ts16;
             System.Windows.Forms.ToolStripSeparator ts17;
             System.Windows.Forms.ToolStripSeparator ts18;
+            System.Windows.Forms.TabPage tabPage1;
             this.MenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MISave = new System.Windows.Forms.ToolStripMenuItem();
             this.MISaveAs = new System.Windows.Forms.ToolStripMenuItem();
@@ -174,8 +175,8 @@
             this.ts10 = new System.Windows.Forms.ToolStripSeparator();
             this.tbAboutthis = new System.Windows.Forms.ToolStripButton();
             this.tbSponsor = new System.Windows.Forms.ToolStripButton();
+            this.tbUpgrade = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tbLog = new System.Windows.Forms.TextBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.LblStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -194,7 +195,6 @@
             this.TMIFind = new System.Windows.Forms.ToolStripMenuItem();
             this.TMIJmp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.tbUpgrade = new System.Windows.Forms.ToolStripButton();
             Slbl1 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl2 = new System.Windows.Forms.ToolStripStatusLabel();
             Slbl4 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -238,6 +238,7 @@
             ts16 = new System.Windows.Forms.ToolStripSeparator();
             ts17 = new System.Windows.Forms.ToolStripSeparator();
             ts18 = new System.Windows.Forms.ToolStripSeparator();
+            tabPage1 = new System.Windows.Forms.TabPage();
             MainMenu.SuspendLayout();
             this.hexMenuStrip.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -261,7 +262,7 @@
             this.toolStripHexEdit.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            tabPage1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -759,7 +760,7 @@
             // 
             this.MIUpgrade.Image = global::PEHexExplorer.Properties.Resources.upgrade;
             this.MIUpgrade.Name = "MIUpgrade";
-            this.MIUpgrade.Size = new System.Drawing.Size(224, 26);
+            this.MIUpgrade.Size = new System.Drawing.Size(172, 26);
             this.MIUpgrade.Text = "软件升级";
             this.MIUpgrade.Click += new System.EventHandler(this.MIUpgrade_Click);
             // 
@@ -939,10 +940,10 @@
             // tabPage3
             // 
             tabPage3.Controls.Add(splitContainer2);
-            tabPage3.Location = new System.Drawing.Point(4, 25);
+            tabPage3.Location = new System.Drawing.Point(4, 29);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            tabPage3.Size = new System.Drawing.Size(640, 664);
+            tabPage3.Size = new System.Drawing.Size(640, 660);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "书签";
             tabPage3.UseVisualStyleBackColor = true;
@@ -961,8 +962,8 @@
             // splitContainer2.Panel2
             // 
             splitContainer2.Panel2.Controls.Add(this.propertyGridB);
-            splitContainer2.Size = new System.Drawing.Size(634, 658);
-            splitContainer2.SplitterDistance = 241;
+            splitContainer2.Size = new System.Drawing.Size(634, 654);
+            splitContainer2.SplitterDistance = 239;
             splitContainer2.TabIndex = 3;
             // 
             // checkedListBox1
@@ -971,7 +972,7 @@
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Location = new System.Drawing.Point(0, 0);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(634, 241);
+            this.checkedListBox1.Size = new System.Drawing.Size(634, 239);
             this.checkedListBox1.TabIndex = 3;
             // 
             // propertyGridB
@@ -979,7 +980,7 @@
             this.propertyGridB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGridB.Location = new System.Drawing.Point(0, 0);
             this.propertyGridB.Name = "propertyGridB";
-            this.propertyGridB.Size = new System.Drawing.Size(634, 413);
+            this.propertyGridB.Size = new System.Drawing.Size(634, 411);
             this.propertyGridB.TabIndex = 0;
             // 
             // ts11
@@ -1585,11 +1586,24 @@
             this.tbSponsor.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.tbSponsor.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
             // 
+            // tbUpgrade
+            // 
+            this.tbUpgrade.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbUpgrade.Image = global::PEHexExplorer.Properties.Resources.upgrade;
+            this.tbUpgrade.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.tbUpgrade.Name = "tbUpgrade";
+            this.tbUpgrade.Size = new System.Drawing.Size(29, 24);
+            this.tbUpgrade.Tag = "2";
+            this.tbUpgrade.Text = "软件升级";
+            this.tbUpgrade.Click += new System.EventHandler(this.MIUpgrade_Click);
+            this.tbUpgrade.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
+            this.tbUpgrade.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(tabPage2);
             this.tabControl1.Controls.Add(tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(tabPage1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -1600,14 +1614,14 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.tbLog);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(640, 664);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "插件日志";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Controls.Add(this.tbLog);
+            tabPage1.Location = new System.Drawing.Point(4, 29);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            tabPage1.Size = new System.Drawing.Size(640, 660);
+            tabPage1.TabIndex = 3;
+            tabPage1.Text = "日志";
+            tabPage1.UseVisualStyleBackColor = true;
             // 
             // tbLog
             // 
@@ -1619,7 +1633,7 @@
             this.tbLog.Name = "tbLog";
             this.tbLog.ReadOnly = true;
             this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbLog.Size = new System.Drawing.Size(634, 658);
+            this.tbLog.Size = new System.Drawing.Size(634, 654);
             this.tbLog.TabIndex = 0;
             // 
             // statusStrip
@@ -1770,16 +1784,6 @@
             // 
             this.toolTip.ShowAlways = true;
             // 
-            // tbUpgrade
-            // 
-            this.tbUpgrade.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbUpgrade.Image = global::PEHexExplorer.Properties.Resources.upgrade;
-            this.tbUpgrade.ImageTransparentColor = System.Drawing.Color.Transparent;
-            this.tbUpgrade.Name = "tbUpgrade";
-            this.tbUpgrade.Size = new System.Drawing.Size(29, 24);
-            this.tbUpgrade.Text = "软件升级";
-            this.tbUpgrade.Click += new System.EventHandler(this.MIUpgrade_Click);
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1823,8 +1827,8 @@
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -1925,7 +1929,6 @@
         private System.Windows.Forms.ToolStripButton tbAddr;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripComboBox tscbEncoding;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TextBox tbLog;
         private System.Windows.Forms.ToolStripButton tbSponsor;
         private System.Windows.Forms.ToolStripMenuItem MIUpgrade;

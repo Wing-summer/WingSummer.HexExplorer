@@ -185,13 +185,14 @@ namespace PEHexExplorer
                     MISave_Click(sender, e);
                     break;
                 case MessageType.Export:
-
+                    var exp = e.Content as string;
+                    ExportFile(exp); 
                     break;
                 case MessageType.HostQuit:
                     MIExit_Click(sender, e);
                     break;
                 case MessageType.CloseFile:
-
+                    MIClose_Click(sender, e);
                     break;
                 case MessageType.Copy:
                     MICopy_Click(sender, e);
@@ -236,7 +237,7 @@ namespace PEHexExplorer
 
                     break;
                 case MessageType.ShowPEInfo:
-
+                    
                     break;
                 case MessageType.HidePEInfo:
 
@@ -251,7 +252,7 @@ namespace PEHexExplorer
 
                     break;
                 case MessageType.ShowColInfo:
-
+                    
                     break;
                 default:
                     break;
@@ -501,15 +502,20 @@ namespace PEHexExplorer
 
         private void MIExport_Click(object sender, EventArgs e)
         {
-            PluginSupport(MessageType.Export, new Action(() =>
+            sD.Filter = $"{EditFileExt}文件|*.{EditFileExt}";
+            if (sD.ShowDialog() == DialogResult.OK)
             {
-                sD.Filter = $"{EditFileExt}文件|*.{EditFileExt}";
-                if (sD.ShowDialog() == DialogResult.OK)
-                {
-                    pageManager.CurrentPage.SaveFileAs(sD.FileName, true);
-                    sD.FileName = string.Empty;
-                }
-            }));
+                ExportFile(sD.FileName);
+                sD.FileName = string.Empty;
+            }
+        }
+
+        private void ExportFile(string filename)
+        {
+            if (filename == null)
+                return;
+
+            PluginSupport(MessageType.Export, new Action(() => pageManager.CurrentPage.SaveFileAs(filename, true)));
         }
 
         private void MISaveAs_Click(object sender, EventArgs e)

@@ -216,7 +216,8 @@ namespace PEHexExplorer
 
         public void CloseCurrentPage(bool force = false)
         {
-            ClosePage(_tabControl.SelectedTab as EditPage, force);
+            if (_tabControl.SelectedTab is EditPage page)
+                ClosePage(page, force);
         }
 
         public void CloseAllPage(bool force = false, EditPage[] exclude = null)
