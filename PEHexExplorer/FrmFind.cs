@@ -10,11 +10,28 @@ namespace PEHexExplorer
         {
             InitializeComponent();
             hexFind.CreateBuffer();
+            UpDateUI = new Action(() =>
+              {
+                  if (lblFinding.Text.Length == 13)
+                      lblFinding.Text = "";
+
+                  lblFinding.Text += ".";
+
+                  //===========================
+
+                  long pos = HexBox.CurrentFindingPosition;
+                  long length = HexBox.ByteProvider.Length;
+                  double percent = pos / (double)length * 100;
+
+                  string text = percent.ToString("0.00") + " %";
+                  lblPercent.Text = text;
+              });
         }
 
-        private FindOptions _findOptions;
+        private FindOptions _findOptions = new FindOptions();
         private bool _finding;
         private static FrmFind frmFind = null;
+        private readonly Action UpDateUI;
 
         public HexBox HexBox
         {
@@ -115,7 +132,6 @@ namespace PEHexExplorer
             }
             else // something was found
             {
-                Close();
 
                 Application.DoEvents();
 
@@ -126,8 +142,7 @@ namespace PEHexExplorer
 
         private void UpdateUIToNormalState()
         {
-            timer.Stop();
-            timerPercent.Stop();
+            UpDateUI.Invoke();
             _finding = false;
             txtFind.Enabled = chkMatchCase.Enabled = rbHex.Enabled = rbString.Enabled
                 = hexFind.Enabled = btnOK.Enabled = true;
@@ -136,22 +151,27 @@ namespace PEHexExplorer
         private void UpdateUIToFindingState()
         {
             _finding = true;
-            timer.Start();
-            timerPercent.Start();
+            UpDateUI.Invoke();
             txtFind.Enabled = chkMatchCase.Enabled = rbHex.Enabled = rbString.Enabled
                 = hexFind.Enabled = btnOK.Enabled = false;
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
+            if (rbString.Checked)
+            {
+                _findOptions.Type = FindType.Text;
+                _findOptions.Text = txtFind.Text;
+                _findOptions.MatchCase = chkMatchCase.Checked;
+            }
+            else
+            {
+                _findOptions.Type = FindType.Hex;
+                var provider = hexFind.ByteProvider as DynamicByteProvider;
+                _findOptions.Hex = provider.Bytes.ToArray();
 
-            var provider = hexFind.ByteProvider as DynamicByteProvider;
-            _findOptions.Hex = provider.Bytes.ToArray();
-            _findOptions.Text = txtFind.Text;
-            _findOptions.Type = rbHex.Checked ? FindType.Hex : FindType.Text;
-            _findOptions.MatchCase = chkMatchCase.Checked;
+            }
             _findOptions.IsValid = true;
-
             FindNext();
         }
 
@@ -165,21 +185,7 @@ namespace PEHexExplorer
 
         private void TimerPercent_Tick(object sender, EventArgs e)
         {
-            long pos = HexBox.CurrentFindingPosition;
-            long length = HexBox.ByteProvider.Length;
-            double percent = pos / (double)length * 100;
-
-            string text = percent.ToString("0.00") + " %";
-            lblPercent.Text = text;
-
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            if (lblFinding.Text.Length == 13)
-                lblFinding.Text = "";
-
-            lblFinding.Text += ".";
+         
         }
 
         private void TxtString_TextChanged(object sender, EventArgs e)

@@ -16,8 +16,6 @@ namespace PEHexExplorer
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.CheckBox chkMatchCase;
-        private System.Windows.Forms.Timer timerPercent;
-        private System.Windows.Forms.Timer timer;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -40,7 +38,6 @@ namespace PEHexExplorer
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmFind));
             this.txtFind = new System.Windows.Forms.TextBox();
             this.rbString = new System.Windows.Forms.RadioButton();
@@ -48,8 +45,6 @@ namespace PEHexExplorer
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.chkMatchCase = new System.Windows.Forms.CheckBox();
-            this.timerPercent = new System.Windows.Forms.Timer(this.components);
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.hexFind = new Be.Windows.Forms.HexBox();
             this.lblPercent = new System.Windows.Forms.Label();
             this.lblFinding = new System.Windows.Forms.Label();
@@ -118,15 +113,6 @@ namespace PEHexExplorer
             this.chkMatchCase.Text = "匹配大小写";
             this.chkMatchCase.UseVisualStyleBackColor = true;
             // 
-            // timerPercent
-            // 
-            this.timerPercent.Tick += new System.EventHandler(this.TimerPercent_Tick);
-            // 
-            // timer
-            // 
-            this.timer.Interval = 50;
-            this.timer.Tick += new System.EventHandler(this.Timer_Tick);
-            // 
             // hexFind
             // 
             this.hexFind.BaseAddr = ((long)(0));
@@ -150,6 +136,8 @@ namespace PEHexExplorer
             this.hexFind.Name = "hexFind";
             this.hexFind.Scaling = 1F;
             this.hexFind.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
+            this.hexFind.ShowBookMark = false;
+            this.hexFind.ShowBookMarkMain = false;
             this.hexFind.ShowColumnInfoBackColor = true;
             this.hexFind.ShowLineInfoBackColor = true;
             this.hexFind.Size = new System.Drawing.Size(504, 159);
