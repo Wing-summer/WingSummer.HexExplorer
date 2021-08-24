@@ -1,8 +1,8 @@
-<h1 align="center"> WingSummer.PEHexExplorer</h1>
+<h1 align="center"> WingSummer.WingCloudHexExplorer</h1>
 
 <p align="center">
 <img alt="PEHexExplorer" src="pics/icon.png">
-<p align="center">羽云PE浏览器</p>
+<p align="center">羽云十六进制浏览器</p>
 </p>
 
 <p align="center">
@@ -46,7 +46,7 @@
 
 1. Be.Windows.Forms.HexBox ：本组件由我改良的十六进制编辑组件Be.Windows.Forms.HexBox进一步增进使用，增加支持水平滚动条和一些其他接口（例如填充支持撤销恢复更改的数据接口）和代码整理，详情请看代码，现组件遵循本仓库的协议。
 2. PEProcesser ：解析PE结构的重要组件，由本人编写，由于本人知识限制，.Net 平台的PE结构可能支持不完善，普通PE文件有些查询接口未编写封装，欢迎 issue 或者 pull request，本组件遵循本仓库协议。
-3. PEHexExplorer ：本软件的主程序，提供GUI交互，遵循本仓库协议。
+3. WingCloudHexExplorer ：本软件的主程序，提供GUI交互，遵循本仓库协议。
 
 ---
 
@@ -59,7 +59,7 @@
 
 ---
 
-<h2 align="center">🚀对 Be.Windows.Forms.HexBox 组件我增进了什么🚀</h2>
+<h2 align="center">🚀Be.Windows.Forms.HexBox 我增进了什么🚀</h2>
 
 1. 增加撤销和恢复更改
 2. 整理代码，分块处理
