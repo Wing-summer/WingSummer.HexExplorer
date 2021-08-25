@@ -75,7 +75,7 @@ namespace HexExplorer
         }
 
         public static readonly Binding LogInfo = new Binding("Text", LoggingLib.Instance, "LogInfo");
-
+        public static readonly Binding UseShell = new Binding("Checked", FrmSetting.UseShell, null , true, DataSourceUpdateMode.OnPropertyChanged);
 
     }
 }

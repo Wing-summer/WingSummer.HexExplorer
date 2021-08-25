@@ -2,7 +2,9 @@
 using System.ComponentModel;
 using Be.Windows.Forms;
 using System.Drawing;
+using Microsoft.Win32;
 using System.Collections.Generic;
+using System;
 
 namespace HexExplorer
 {
@@ -10,8 +12,11 @@ namespace HexExplorer
     {
 
         private static FrmSetting frmSetting=null;
+        public static bool UseShell = false;
         private readonly List<WSPlugin.PluginInfo> pluginInfos;
         private readonly WSPlugin plugin = WSPlugin.Instance;
+        private static string app= Application.ExecutablePath;
+        private string appp = $"\"{app}\" \"%1\"";
 
         public static FrmSetting Instance
         {
@@ -69,6 +74,13 @@ namespace HexExplorer
             btnStringLine.DataBindings.Add(BindingEnum.Setting.HexStringLinePen);
             btnStringLine.DataBindings.Add(BindingEnum.Setting.HexStringLinePenFore);
 
+            cbShellRight.DataBindings.Add(BindingEnum.UseShell);
+
+            if (AdminLib.Instance.IsAdmin)
+            {
+                cbShellRight.Enabled = true;
+            }
+
             MUserProfile mUser = UserSetting.UserProfile;
             var dplugin = mUser.DisableGuid;
             if (mUser.EnablePlugin)
@@ -84,7 +96,7 @@ namespace HexExplorer
 
         }
 
-        private void FrmSetting_VisibleChanged(object sender, System.EventArgs e)
+        private void FrmSetting_VisibleChanged(object sender, EventArgs e)
         {
             if (Visible)
             {
@@ -100,7 +112,7 @@ namespace HexExplorer
             }
         }
 
-        private void BtnSelectColor_Click(object sender, System.EventArgs e)
+        private void BtnSelectColor_Click(object sender, EventArgs e)
         {
             if (cD.ShowDialog() == DialogResult.OK)
             {
@@ -113,7 +125,7 @@ namespace HexExplorer
             }
         }
 
-        private void BtnPenFEdit_Click(object sender, System.EventArgs e)
+        private void BtnPenFEdit_Click(object sender, EventArgs e)
         {
             using (FrmPenFEdit frmPenF = FrmPenFEdit.Instance)
             {
@@ -123,7 +135,7 @@ namespace HexExplorer
             }
         }
 
-        private void ClbPlugin_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void ClbPlugin_SelectedIndexChanged(object sender, EventArgs e)
         {
             var sel = clbPlugin.SelectedIndex;
             if (sel >= 0)
@@ -132,5 +144,60 @@ namespace HexExplorer
             }
         }
 
+        private void FrmSetting_Load(object sender, EventArgs e)
+        {
+            RegistryKey key = Registry.ClassesRoot.OpenSubKey(@"*\shell");
+            if ((key = key.OpenSubKey("WCHexExplorer")) != null)
+            {
+                if (!key.GetValue("Icon", null).Equals(app))
+                    goto endl;
+                if ((key = key.OpenSubKey("command")) != null)
+                {
+                    if (key.GetValue("").Equals(appp))
+                    {
+                        UseShell = true;
+                    }
+                    else
+                    {
+                        goto endl;
+                    }
+                }
+                else
+                {
+                    goto endl;
+                }
+                return;
+            }
+        endl:
+            UseShell = false;
+        }
+
+        private void CbShellRight_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbShellRight.Checked)
+            {
+                var app = Application.ExecutablePath;
+                using (var key = Registry.ClassesRoot.OpenSubKey(@"*\shell", true))
+                {
+                    using (var key0 = key.CreateSubKey("WCHexExplorer"))
+                    {
+                        key0.SetValue("", "用羽云十六进制浏览器打开");
+                        key0.SetValue("Icon", app);
+                        using (var key1 = key0.CreateSubKey("command"))
+                        {
+                            key1.SetValue("", appp);
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                using (var key = Registry.ClassesRoot.OpenSubKey(@"*\shell", true))
+                {
+                    key.DeleteSubKeyTree("WCHexExplorer");
+                }
+            }
+        }
     }
 }

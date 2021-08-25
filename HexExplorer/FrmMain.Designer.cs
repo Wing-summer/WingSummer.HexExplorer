@@ -1801,6 +1801,7 @@
             this.Text = "羽云十六进制浏览器";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
+            this.Load += new System.EventHandler(this.FrmMain_Load);
             MainMenu.ResumeLayout(false);
             MainMenu.PerformLayout();
             this.hexMenuStrip.ResumeLayout(false);

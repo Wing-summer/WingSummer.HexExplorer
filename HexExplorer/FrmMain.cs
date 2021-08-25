@@ -14,6 +14,7 @@ namespace HexExplorer
     public partial class FrmMain : FormBase
     {
         private readonly EditorPageManager pageManager;
+        private string[] Args;
 
         private readonly string EditFileExt = string.Empty;
 
@@ -59,10 +60,7 @@ namespace HexExplorer
             pageManager.EditorPageClosing += PageManager_EditorPageClosing;
             SingleInstanceHelper.StartUpNextInstance += SingleInstanceHelper_StartUpNextInstance;
 
-            if (args != null && args.Length > 0)
-            {
-                CreateOrOpen(args[0].Trim());
-            }
+            Args = args;
 
             constInfo = new ConstInfo();
             pgConst.SelectedObject = constInfo;
@@ -1095,6 +1093,21 @@ namespace HexExplorer
                 }
             }
         }
-       
+
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+            if (Args != null && Args.Length > 0)
+            {
+                foreach (var item in Args)
+                {
+                    var filename = item.Trim();
+
+                    if (File.Exists(filename))
+                    {
+                        CreateOrOpen(filename);
+                    }
+                }
+            }
+        }
     }
 }

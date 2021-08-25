@@ -38,6 +38,7 @@ namespace HexExplorer
             System.Windows.Forms.TabPage tabPE;
             System.Windows.Forms.TabPage tabBookMark;
             System.Windows.Forms.TabPage tabPlugin;
+            System.Windows.Forms.TabPage tabOther;
             this.label1 = new System.Windows.Forms.Label();
             this.btnFont = new System.Windows.Forms.Button();
             this.cbEncoding = new System.Windows.Forms.ComboBox();
@@ -72,6 +73,7 @@ namespace HexExplorer
             this.pgPlugin = new System.Windows.Forms.PropertyGrid();
             this.clbPlugin = new System.Windows.Forms.ListBox();
             this.cbEnablePlugin = new System.Windows.Forms.CheckBox();
+            this.cbShellRight = new System.Windows.Forms.CheckBox();
             this.tabSetting = new System.Windows.Forms.TabControl();
             this.cD = new System.Windows.Forms.ColorDialog();
             this.fD = new System.Windows.Forms.FontDialog();
@@ -84,6 +86,7 @@ namespace HexExplorer
             tabPE = new System.Windows.Forms.TabPage();
             tabBookMark = new System.Windows.Forms.TabPage();
             tabPlugin = new System.Windows.Forms.TabPage();
+            tabOther = new System.Windows.Forms.TabPage();
             tabGeneral.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -91,6 +94,7 @@ namespace HexExplorer
             tabPE.SuspendLayout();
             tabBookMark.SuspendLayout();
             tabPlugin.SuspendLayout();
+            tabOther.SuspendLayout();
             this.tabSetting.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -651,12 +655,37 @@ namespace HexExplorer
             this.cbEnablePlugin.Text = "启用插件支持 ⏱";
             this.cbEnablePlugin.UseVisualStyleBackColor = true;
             // 
+            // tabOther
+            // 
+            tabOther.Controls.Add(this.cbShellRight);
+            tabOther.Location = new System.Drawing.Point(4, 25);
+            tabOther.Name = "tabOther";
+            tabOther.Padding = new System.Windows.Forms.Padding(3);
+            tabOther.Size = new System.Drawing.Size(612, 339);
+            tabOther.TabIndex = 4;
+            tabOther.Text = "杂项";
+            tabOther.UseVisualStyleBackColor = true;
+            // 
+            // cbShellRight
+            // 
+            this.cbShellRight.AutoSize = true;
+            this.cbShellRight.Enabled = false;
+            this.cbShellRight.Location = new System.Drawing.Point(35, 34);
+            this.cbShellRight.Name = "cbShellRight";
+            this.cbShellRight.Size = new System.Drawing.Size(224, 19);
+            this.cbShellRight.TabIndex = 0;
+            this.cbShellRight.Text = "将所有文件类型添加右键菜单";
+            this.toolTip.SetToolTip(this.cbShellRight, "需要管理员权限");
+            this.cbShellRight.UseVisualStyleBackColor = true;
+            this.cbShellRight.CheckedChanged += new System.EventHandler(this.CbShellRight_CheckedChanged);
+            // 
             // tabSetting
             // 
             this.tabSetting.Controls.Add(tabGeneral);
             this.tabSetting.Controls.Add(tabPE);
             this.tabSetting.Controls.Add(tabBookMark);
             this.tabSetting.Controls.Add(tabPlugin);
+            this.tabSetting.Controls.Add(tabOther);
             this.tabSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabSetting.Location = new System.Drawing.Point(0, 0);
             this.tabSetting.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -684,6 +713,7 @@ namespace HexExplorer
             this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "FrmSetting";
             this.Text = "设置";
+            this.Load += new System.EventHandler(this.FrmSetting_Load);
             this.VisibleChanged += new System.EventHandler(this.FrmSetting_VisibleChanged);
             tabGeneral.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
@@ -697,6 +727,8 @@ namespace HexExplorer
             tabBookMark.PerformLayout();
             tabPlugin.ResumeLayout(false);
             tabPlugin.PerformLayout();
+            tabOther.ResumeLayout(false);
+            tabOther.PerformLayout();
             this.tabSetting.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -742,5 +774,6 @@ namespace HexExplorer
         private System.Windows.Forms.CheckedListBox clbBookMark;
         private System.Windows.Forms.CheckBox cbEnablePE;
         private System.Windows.Forms.CheckBox cbAdmin;
+        private System.Windows.Forms.CheckBox cbShellRight;
     }
 }
