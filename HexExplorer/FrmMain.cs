@@ -47,11 +47,11 @@ namespace HexExplorer
                 MIAdmin.Click -= MIAdmin_Click;
                 ts13.Dispose();
                 MIAdmin.Dispose();
-                MenuItemFile.Image = SystemIcons.Shield.ToBitmap();
+                MenuItemFile.Image = Program.AdminIcon;
             }
             else
             {
-                MIAdmin.Image = SystemIcons.Shield.ToBitmap();
+                MIAdmin.Image = Program.AdminIcon;
             }
 
             pageManager = new EditorPageManager(tabEditArea, hexMenuStrip);
@@ -1109,5 +1109,23 @@ namespace HexExplorer
                 }
             }
         }
+
+        private void ToolStrip_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Link;
+        }
+
+        private void ToolStrip_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var filenames = e.Data.GetData(DataFormats.FileDrop) as string[];
+                foreach (var item in filenames)
+                {
+                    CreateOrOpen(item);
+                }
+            }
+        }
+
     }
 }

@@ -78,7 +78,11 @@ namespace HexExplorer
 
             if (AdminLib.Instance.IsAdmin)
             {
-                cbShellRight.Enabled = true;
+                gpNeedAdmin.Enabled = true;
+            }
+            else
+            {
+                gpNeedAdmin.BackgroundImage = Program.AdminIconP;
             }
 
             MUserProfile mUser = UserSetting.UserProfile;

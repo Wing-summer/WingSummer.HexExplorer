@@ -28,10 +28,10 @@ namespace HexExplorer
         private FrmAddrConvert()
         {
             InitializeComponent();
-            ntBase.Maximum = Program.Int64Max;
-            ntFOA.Maximum = Program.Int64Max;
-            ntRVA.Maximum = Program.Int64Max;
-            ntVA.Maximum = Program.Int64Max;
+            ntBase.Maximum = decimal.MaxValue;
+            ntFOA.Maximum = decimal.MaxValue;
+            ntRVA.Maximum = decimal.MaxValue;
+            ntVA.Maximum = decimal.MaxValue;
         }
 
         private void NtOffset_ValueChanged(object sender, EventArgs e)

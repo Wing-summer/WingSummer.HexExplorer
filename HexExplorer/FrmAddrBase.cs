@@ -30,7 +30,7 @@ namespace HexExplorer
         private FrmAddrBase()
         {
             InitializeComponent();
-            nAddr.Maximum = Program.Int64Max;
+            nAddr.Maximum = decimal.MaxValue;
         }
 
         private void BtnOK_Click(object sender, EventArgs e)

@@ -31,8 +31,8 @@ namespace HexExplorer
         private FrmGoto()
         {
             InitializeComponent();
-            ntOffset.Maximum = Program.Int64Max;
-            ntRow.Maximum = Program.Int64Max;
+            ntOffset.Maximum = decimal.MaxValue;
+            ntRow.Maximum = decimal.MaxValue;
         }
 
         private void RbGotoGroup_CheckedChanged(object sender, EventArgs e)

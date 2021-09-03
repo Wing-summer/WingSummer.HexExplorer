@@ -73,6 +73,7 @@ namespace HexExplorer
             this.pgPlugin = new System.Windows.Forms.PropertyGrid();
             this.clbPlugin = new System.Windows.Forms.ListBox();
             this.cbEnablePlugin = new System.Windows.Forms.CheckBox();
+            this.gpNeedAdmin = new System.Windows.Forms.GroupBox();
             this.cbShellRight = new System.Windows.Forms.CheckBox();
             this.tabSetting = new System.Windows.Forms.TabControl();
             this.cD = new System.Windows.Forms.ColorDialog();
@@ -95,6 +96,7 @@ namespace HexExplorer
             tabBookMark.SuspendLayout();
             tabPlugin.SuspendLayout();
             tabOther.SuspendLayout();
+            this.gpNeedAdmin.SuspendLayout();
             this.tabSetting.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -657,7 +659,7 @@ namespace HexExplorer
             // 
             // tabOther
             // 
-            tabOther.Controls.Add(this.cbShellRight);
+            tabOther.Controls.Add(this.gpNeedAdmin);
             tabOther.Location = new System.Drawing.Point(4, 25);
             tabOther.Name = "tabOther";
             tabOther.Padding = new System.Windows.Forms.Padding(3);
@@ -666,11 +668,21 @@ namespace HexExplorer
             tabOther.Text = "杂项";
             tabOther.UseVisualStyleBackColor = true;
             // 
+            // gpNeedAdmin
+            // 
+            this.gpNeedAdmin.Controls.Add(this.cbShellRight);
+            this.gpNeedAdmin.Enabled = false;
+            this.gpNeedAdmin.Location = new System.Drawing.Point(21, 17);
+            this.gpNeedAdmin.Name = "gpNeedAdmin";
+            this.gpNeedAdmin.Size = new System.Drawing.Size(570, 119);
+            this.gpNeedAdmin.TabIndex = 1;
+            this.gpNeedAdmin.TabStop = false;
+            this.gpNeedAdmin.Text = "以下选项需要管理员权限继续";
+            // 
             // cbShellRight
             // 
             this.cbShellRight.AutoSize = true;
-            this.cbShellRight.Enabled = false;
-            this.cbShellRight.Location = new System.Drawing.Point(35, 34);
+            this.cbShellRight.Location = new System.Drawing.Point(19, 33);
             this.cbShellRight.Name = "cbShellRight";
             this.cbShellRight.Size = new System.Drawing.Size(224, 19);
             this.cbShellRight.TabIndex = 0;
@@ -728,7 +740,8 @@ namespace HexExplorer
             tabPlugin.ResumeLayout(false);
             tabPlugin.PerformLayout();
             tabOther.ResumeLayout(false);
-            tabOther.PerformLayout();
+            this.gpNeedAdmin.ResumeLayout(false);
+            this.gpNeedAdmin.PerformLayout();
             this.tabSetting.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -775,5 +788,6 @@ namespace HexExplorer
         private System.Windows.Forms.CheckBox cbEnablePE;
         private System.Windows.Forms.CheckBox cbAdmin;
         private System.Windows.Forms.CheckBox cbShellRight;
+        private System.Windows.Forms.GroupBox gpNeedAdmin;
     }
 }
