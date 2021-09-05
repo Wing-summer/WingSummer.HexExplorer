@@ -14,7 +14,7 @@ namespace HexExplorer
     public partial class FrmMain : FormBase
     {
         private readonly EditorPageManager pageManager;
-        private string[] Args;
+        private readonly string[] Args;
 
         private readonly string EditFileExt = string.Empty;
 
@@ -29,8 +29,10 @@ namespace HexExplorer
         private readonly ConstInfo constInfo;
         private readonly char[] InvalidFilenameChars = Path.GetInvalidFileNameChars();
 
-        private readonly Lazy<List<HexBox.HighlightedRegion>> BookMarkregions = new Lazy<List<HexBox.HighlightedRegion>>();
         private readonly WSPlugin pluginManager;
+        private static readonly MUserProfile mUser = UserSetting.UserProfile;
+        private readonly List<BookMarkProperty> bookMarks = mUser.MarkProperties;
+        private Keys keydown = Keys.None;
 
         public FrmMain(string[] args = null)
         {
@@ -67,6 +69,7 @@ namespace HexExplorer
 
             if (UserSetting.UserProfile.EnablePlugin)
             {
+                MenuPlugin.Enabled = true;
                 pluginManager = WSPlugin.Instance;
                 pluginManager.ToHostMessagePipe += PluginManager_ToHostMessagePipe;
                 WSPlugin.PluginSupportLib.pluginManager = pluginManager;
@@ -386,6 +389,16 @@ namespace HexExplorer
         }
 
         #region 窗体事件与消息
+
+        private void FrmMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            keydown = e.Modifiers;
+        }
+
+        private void FrmMain_KeyUp(object sender, KeyEventArgs e)
+        {
+            keydown = Keys.None;
+        }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -967,18 +980,45 @@ namespace HexExplorer
             }
         }
 
+        private void BookMark(Color color)
+        {
+            var hexbox = pageManager.CurrentHexBox;
+            var region = hexbox.GetHighligedRegion(hexbox.SelectionStart);           
+
+            if (region == null)
+            {
+                var hr = new HexBox.HighlightedRegion
+                {
+                    Color = color,
+                    Length = hexbox.SelectionLength == 0 ? 1 : hexbox.SelectionLength,
+                    Start = hexbox.SelectionStart
+                };
+
+                hexbox.AddHighligedRegion(hr);
+            }
+            else
+            {
+                if (hexbox.SelectionLength > 0)
+                {
+                    if (MessageBox.Show("如果要删除区块，请不要添加选区。如果要删除选区，请点击是，将根据状态栏的位置作为判断依据。",
+                        "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+                hexbox.RemoveHighlightedRegion(region);
+            }
+        }
+
         private void MIBookMark_Click(object sender, EventArgs e)
         {
-            int res = BookMarkregions.Value.FindIndex(k => k.IsByteSelected(pageManager.CurrentHexBox.SelectionStart));
-            if (!pageManager.CurrentHexBox.RemoveHighlightedRegionAt(res))
-            {
-                pageManager.CurrentHexBox.AddHighligedRegion(new HexBox.HighlightedRegion
-                {
-                    Color = Color.AliceBlue,
-                    Length = pageManager.CurrentHexBox.SelectionLength == 0 ? 1 : pageManager.CurrentHexBox.SelectionLength,
-                    Start = pageManager.CurrentHexBox.SelectionStart
-                });
-            }
+            BookMark(mUser.BookMarkDefaultColor);
+        }
+
+        private void TbBookMark_MouseDown(object sender, MouseEventArgs e)
+        {
+            var bookmark = bookMarks.Find(k => k.KeyDown == keydown && k.MouseButton == e.Button);
+            BookMark(bookmark != null ? bookmark.Color : mUser.BookMarkDefaultColor);
         }
 
         private void MIAboutThis_Click(object sender, EventArgs e)

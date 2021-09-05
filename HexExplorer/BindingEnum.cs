@@ -7,8 +7,6 @@ namespace HexExplorer
 
         public static class Setting
         {
-            public static readonly Binding ProgramFont
-                = new Binding("Font", UserSetting.UserProfile, "ProgramFont", true, DataSourceUpdateMode.OnPropertyChanged);
             public static readonly Binding ProgramFontName
                 = new Binding("Text", UserSetting.UserProfile.ProgramFont, "Name", true, DataSourceUpdateMode.OnPropertyChanged);
             public static readonly Binding StringViewEncoding
@@ -72,10 +70,12 @@ namespace HexExplorer
             public static readonly Binding HexStringLinePenFore
                 = new Binding("ForeColor", UserSetting.UserProfile.HexStringLinePen, "Color", true, DataSourceUpdateMode.OnPropertyChanged);
 
+            public static readonly Binding BookMarkDefaultColor 
+                = new Binding("ForeColor", UserSetting.UserProfile, "BookMarkDefaultColor", true, DataSourceUpdateMode.OnPropertyChanged);
+
         }
 
         public static readonly Binding LogInfo = new Binding("Text", LoggingLib.Instance, "LogInfo");
         public static readonly Binding UseShell = new Binding("Checked", FrmSetting.UseShell, null , true, DataSourceUpdateMode.OnPropertyChanged);
-
     }
 }

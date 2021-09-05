@@ -22,5 +22,14 @@ namespace HexExplorer.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI Emoji, 7pt")]
+        public global::System.Drawing.Font EmojiFont {
+            get {
+                return ((global::System.Drawing.Font)(this["EmojiFont"]));
+            }
+        }
     }
 }

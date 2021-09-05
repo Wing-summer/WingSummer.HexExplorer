@@ -18,7 +18,7 @@ namespace HexExplorer
 
             if (LicenseManager.UsageMode != LicenseUsageMode.Designtime)
             {
-                Font = UserSetting.UserProfile.ProgramFont;
+                DataBindings.Add(new Binding("Font", UserSetting.UserProfile, "ProgramFont", true, DataSourceUpdateMode.OnPropertyChanged));
             }
 
         }

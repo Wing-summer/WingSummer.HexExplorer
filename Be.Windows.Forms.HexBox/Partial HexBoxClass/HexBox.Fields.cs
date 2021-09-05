@@ -243,6 +243,20 @@ namespace Be.Windows.Forms
             return true;
         }
 
+
+        /// <summary>
+        /// 获取在指定字节位置的高亮区块
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="IsMain"></param>
+        /// <returns></returns>
+        public HighlightedRegion GetHighligedRegion(long index, bool IsMain = true)
+        {
+            List<HighlightedRegion> highlightedRegions = IsMain ? HighligedRegions : HighlightedRegions;
+
+            return highlightedRegions.Find(k => k.Start <= index && k.Start + k.Length >= index);
+        }
+
         /// <summary>
         /// 清空高亮区段
         /// </summary>

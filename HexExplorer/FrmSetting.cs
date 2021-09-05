@@ -5,6 +5,7 @@ using System.Drawing;
 using Microsoft.Win32;
 using System.Collections.Generic;
 using System;
+using System.Text;
 
 namespace HexExplorer
 {
@@ -14,9 +15,10 @@ namespace HexExplorer
         private static FrmSetting frmSetting=null;
         public static bool UseShell = false;
         private readonly List<WSPlugin.PluginInfo> pluginInfos;
-        private readonly WSPlugin plugin = WSPlugin.Instance;
-        private static string app= Application.ExecutablePath;
-        private string appp = $"\"{app}\" \"%1\"";
+        private readonly WSPlugin plugin ;
+        private static readonly string app= Application.ExecutablePath;
+        private readonly string appp = $"\"{app}\" \"%1\"";
+        readonly MUserProfile mUser = UserSetting.UserProfile;
 
         public static FrmSetting Instance
         {
@@ -38,7 +40,6 @@ namespace HexExplorer
             InitializeComponent();
 
             //创建绑定，少些重复性代码
-            DataBindings.Add(BindingEnum.Setting.ProgramFont);
             btnFont.DataBindings.Add(BindingEnum.Setting.ProgramFontName);
             cbEncoding.DataBindings.Add(BindingEnum.Setting.StringViewEncoding);
             ntScaling.DataBindings.Add(BindingEnum.Setting.ScalingPercent);
@@ -73,6 +74,7 @@ namespace HexExplorer
             btnGroupLine.DataBindings.Add(BindingEnum.Setting.GroupLinePenFore);
             btnStringLine.DataBindings.Add(BindingEnum.Setting.HexStringLinePen);
             btnStringLine.DataBindings.Add(BindingEnum.Setting.HexStringLinePenFore);
+            btnBMDColor.DataBindings.Add(BindingEnum.Setting.BookMarkDefaultColor);
 
             cbShellRight.DataBindings.Add(BindingEnum.UseShell);
 
@@ -85,10 +87,10 @@ namespace HexExplorer
                 gpNeedAdmin.BackgroundImage = Program.AdminIconP;
             }
 
-            MUserProfile mUser = UserSetting.UserProfile;
             var dplugin = mUser.DisableGuid;
             if (mUser.EnablePlugin)
             {
+                plugin = WSPlugin.Instance;
                 pluginInfos = new List<WSPlugin.PluginInfo>();
                 foreach (var item in plugin.plugins.Value)
                 {
@@ -202,6 +204,15 @@ namespace HexExplorer
                     key.DeleteSubKeyTree("WCHexExplorer");
                 }
             }
+        }
+
+        private void BtnFont_Click(object sender, EventArgs e)
+        {
+            if (fD.ShowDialog()== DialogResult.OK)
+            {
+                mUser.ProgramFont = fD.Font;
+            }
+         
         }
     }
 }

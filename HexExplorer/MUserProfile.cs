@@ -35,6 +35,7 @@ namespace HexExplorer
         public static Color DefaultIMAGE_Debug_DIRECTORY_Color = Color.FromArgb(255, 197, 61, 76);
         public static Color DefaultIMAGE_dotNetDIRECTORY_Color = Color.FromArgb(255, 66, 202, 166);
         public static Color DefaultImage_OtherColor = Color.FromArgb(255, 247, 247, 140);
+        public static Color DefaultBookMarkDefaultColor = Color.FromArgb(100, 255, 0, 195);
 
         public static PenF DefaultGroupLinePen = new PenF()
         {
@@ -101,6 +102,7 @@ namespace HexExplorer
         private bool enableAdvBookMark;
         private List<BookMarkProperty> markProperties;
         private bool adminStart;
+        private Color bookMarkDefaultColor;
 
         #endregion
 
@@ -124,6 +126,7 @@ namespace HexExplorer
             HexStringLinePen = DefaultHexStringLinePen;
             LineInfoBackColor = DefaultLineInfoBackColor;
             ColInfoBackColor = DefaultColInfoBackColor;
+            BookMarkDefaultColor = DefaultBookMarkDefaultColor;
             IMAGE_DOS_HEADER_Color = DefaultIMAGE_DOS_HEADER_Color;
             IMAGE_NT_HEADERS_Color = DefaultIMAGE_NT_HEADERS_Color;
             IMAGE_FILE_HEADER_Color = DefaultIMAGE_FILE_HEADER_Color;
@@ -149,6 +152,15 @@ namespace HexExplorer
         }
 
         #region 常规
+
+        public Color BookMarkDefaultColor
+        {
+            get => bookMarkDefaultColor; set
+            {
+                bookMarkDefaultColor = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         public Font ProgramFont
         {

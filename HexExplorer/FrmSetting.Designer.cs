@@ -54,6 +54,7 @@ namespace HexExplorer
             this.cbEnableString = new System.Windows.Forms.CheckBox();
             this.cbLineInfo = new System.Windows.Forms.CheckBox();
             this.btnSelTextColor = new System.Windows.Forms.Button();
+            this.btnBMDColor = new System.Windows.Forms.Button();
             this.btnSelBackColor = new System.Windows.Forms.Button();
             this.ntScaling = new System.Windows.Forms.NumericUpDown();
             this.cbEnablePE = new System.Windows.Forms.CheckBox();
@@ -79,6 +80,10 @@ namespace HexExplorer
             this.cD = new System.Windows.Forms.ColorDialog();
             this.fD = new System.Windows.Forms.FontDialog();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.menustrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.添加ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.删除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             tabGeneral = new System.Windows.Forms.TabPage();
             groupBox2 = new System.Windows.Forms.GroupBox();
             groupBox1 = new System.Windows.Forms.GroupBox();
@@ -98,6 +103,7 @@ namespace HexExplorer
             tabOther.SuspendLayout();
             this.gpNeedAdmin.SuspendLayout();
             this.tabSetting.SuspendLayout();
+            this.menustrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabGeneral
@@ -147,6 +153,7 @@ namespace HexExplorer
             this.btnFont.TabIndex = 0;
             this.btnFont.Text = "微软雅黑";
             this.btnFont.UseVisualStyleBackColor = true;
+            this.btnFont.Click += new System.EventHandler(this.BtnFont_Click);
             // 
             // cbEncoding
             // 
@@ -195,6 +202,7 @@ namespace HexExplorer
             groupBox1.Controls.Add(this.cbEnableString);
             groupBox1.Controls.Add(this.cbLineInfo);
             groupBox1.Controls.Add(this.btnSelTextColor);
+            groupBox1.Controls.Add(this.btnBMDColor);
             groupBox1.Controls.Add(this.btnSelBackColor);
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(this.ntScaling);
@@ -210,6 +218,7 @@ namespace HexExplorer
             // 
             // btnStringLine
             // 
+            this.btnStringLine.Font = global::HexExplorer.Properties.Settings.Default.EmojiFont;
             this.btnStringLine.Location = new System.Drawing.Point(319, 122);
             this.btnStringLine.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnStringLine.Name = "btnStringLine";
@@ -222,6 +231,7 @@ namespace HexExplorer
             // 
             // btnGroupLine
             // 
+            this.btnGroupLine.Font = global::HexExplorer.Properties.Settings.Default.EmojiFont;
             this.btnGroupLine.Location = new System.Drawing.Point(319, 93);
             this.btnGroupLine.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGroupLine.Name = "btnGroupLine";
@@ -236,13 +246,14 @@ namespace HexExplorer
             // 
             this.btnColInfo.BackColor = System.Drawing.Color.Black;
             this.btnColInfo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnColInfo.Font = global::HexExplorer.Properties.Settings.Default.EmojiFont;
             this.btnColInfo.ForeColor = System.Drawing.Color.White;
             this.btnColInfo.Location = new System.Drawing.Point(319, 63);
             this.btnColInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnColInfo.Name = "btnColInfo";
             this.btnColInfo.Size = new System.Drawing.Size(43, 25);
             this.btnColInfo.TabIndex = 0;
-            this.btnColInfo.Text = "☻";
+            this.btnColInfo.Text = "😀";
             this.toolTip.SetToolTip(this.btnColInfo, "更改颜色");
             this.btnColInfo.UseVisualStyleBackColor = false;
             this.btnColInfo.Click += new System.EventHandler(this.BtnSelectColor_Click);
@@ -251,13 +262,14 @@ namespace HexExplorer
             // 
             this.btnLineInfo.BackColor = System.Drawing.Color.Black;
             this.btnLineInfo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnLineInfo.Font = global::HexExplorer.Properties.Settings.Default.EmojiFont;
             this.btnLineInfo.ForeColor = System.Drawing.Color.White;
             this.btnLineInfo.Location = new System.Drawing.Point(319, 34);
             this.btnLineInfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLineInfo.Name = "btnLineInfo";
             this.btnLineInfo.Size = new System.Drawing.Size(43, 25);
             this.btnLineInfo.TabIndex = 0;
-            this.btnLineInfo.Text = "☻";
+            this.btnLineInfo.Text = "😀";
             this.toolTip.SetToolTip(this.btnLineInfo, "更改颜色");
             this.btnLineInfo.UseVisualStyleBackColor = false;
             this.btnLineInfo.Click += new System.EventHandler(this.BtnSelectColor_Click);
@@ -340,6 +352,20 @@ namespace HexExplorer
             this.btnSelTextColor.Text = "选中颜色";
             this.btnSelTextColor.UseVisualStyleBackColor = false;
             this.btnSelTextColor.Click += new System.EventHandler(this.BtnSelectColor_Click);
+            // 
+            // btnBMDColor
+            // 
+            this.btnBMDColor.BackColor = System.Drawing.Color.Black;
+            this.btnBMDColor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnBMDColor.ForeColor = System.Drawing.Color.White;
+            this.btnBMDColor.Location = new System.Drawing.Point(385, 34);
+            this.btnBMDColor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnBMDColor.Name = "btnBMDColor";
+            this.btnBMDColor.Size = new System.Drawing.Size(172, 28);
+            this.btnBMDColor.TabIndex = 0;
+            this.btnBMDColor.Text = "默认书签底色";
+            this.btnBMDColor.UseVisualStyleBackColor = false;
+            this.btnBMDColor.Click += new System.EventHandler(this.BtnSelectColor_Click);
             // 
             // btnSelBackColor
             // 
@@ -635,6 +661,7 @@ namespace HexExplorer
             // 
             // clbPlugin
             // 
+            this.clbPlugin.ContextMenuStrip = this.menustrip;
             this.clbPlugin.FormattingEnabled = true;
             this.clbPlugin.ItemHeight = 15;
             this.clbPlugin.Location = new System.Drawing.Point(20, 55);
@@ -716,6 +743,34 @@ namespace HexExplorer
             this.fD.ScriptsOnly = true;
             this.fD.ShowEffects = false;
             // 
+            // menustrip
+            // 
+            this.menustrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menustrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.添加ToolStripMenuItem,
+            this.删除ToolStripMenuItem,
+            this.清空ToolStripMenuItem});
+            this.menustrip.Name = "menustrip";
+            this.menustrip.Size = new System.Drawing.Size(109, 76);
+            // 
+            // 添加ToolStripMenuItem
+            // 
+            this.添加ToolStripMenuItem.Name = "添加ToolStripMenuItem";
+            this.添加ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
+            this.添加ToolStripMenuItem.Text = "添加";
+            // 
+            // 删除ToolStripMenuItem
+            // 
+            this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
+            this.删除ToolStripMenuItem.Text = "删除";
+            // 
+            // 清空ToolStripMenuItem
+            // 
+            this.清空ToolStripMenuItem.Name = "清空ToolStripMenuItem";
+            this.清空ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
+            this.清空ToolStripMenuItem.Text = "清空";
+            // 
             // FrmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -743,6 +798,7 @@ namespace HexExplorer
             this.gpNeedAdmin.ResumeLayout(false);
             this.gpNeedAdmin.PerformLayout();
             this.tabSetting.ResumeLayout(false);
+            this.menustrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -789,5 +845,10 @@ namespace HexExplorer
         private System.Windows.Forms.CheckBox cbAdmin;
         private System.Windows.Forms.CheckBox cbShellRight;
         private System.Windows.Forms.GroupBox gpNeedAdmin;
+        private System.Windows.Forms.Button btnBMDColor;
+        private System.Windows.Forms.ContextMenuStrip menustrip;
+        private System.Windows.Forms.ToolStripMenuItem 添加ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 删除ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 清空ToolStripMenuItem;
     }
 }

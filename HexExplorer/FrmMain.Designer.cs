@@ -724,6 +724,7 @@
             // 
             // MenuPlugin
             // 
+            this.MenuPlugin.Enabled = false;
             this.MenuPlugin.Image = global::HexExplorer.Properties.Resources.plugin;
             this.MenuPlugin.Name = "MenuPlugin";
             this.MenuPlugin.Size = new System.Drawing.Size(92, 24);
@@ -1512,7 +1513,7 @@
             this.tbBookMark.Size = new System.Drawing.Size(29, 24);
             this.tbBookMark.Tag = "2";
             this.tbBookMark.Text = "书签";
-            this.tbBookMark.Click += new System.EventHandler(this.MIBookMark_Click);
+            this.tbBookMark.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TbBookMark_MouseDown);
             this.tbBookMark.MouseLeave += new System.EventHandler(this.HideToolTipGroup_MouseLeave);
             this.tbBookMark.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ShowToolTipGroup_MouseMove);
             // 
@@ -1798,6 +1799,7 @@
             this.Controls.Add(MainMenu);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MainMenuStrip = MainMenu;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FrmMain";
@@ -1805,6 +1807,8 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Load += new System.EventHandler(this.FrmMain_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmMain_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmMain_KeyUp);
             MainMenu.ResumeLayout(false);
             MainMenu.PerformLayout();
             this.hexMenuStrip.ResumeLayout(false);
